@@ -26,7 +26,7 @@ It is not required to match directories and packages: source files can be placed
 
 package需不要匹配目錄與package：在檔案系統中來源檔案可以隨意的放置
 
-See [Packages](packages.html).
+See [Packages](packages.md).
 
 ## Defining functions
 
