@@ -7,13 +7,9 @@ title: "Basic Syntax"
 
 # Basic Syntax(基本語法)
 
-
-
 ## Defining packages(定義packge)
 
 **packge：在Java或Kotlin做檔案結構的分類或是打包**
-
-
 
 Package specification should be at the top of the source file:
 
@@ -32,13 +28,7 @@ package需不要匹配目錄與package：在檔案系統中來源檔案可以隨
 
 See [Packages](packages.md).
 
-
-
 ## Defining functions(定義函數)
-
-
-
-
 
 Function having two `Int` parameters with `Int` return type:
 
@@ -57,10 +47,6 @@ fun main(args: Array<String>) {
 }
 ```
 
-
-
-
-
 Function with an expression body and inferred return type:
 
 使用表達式(lambda)內文的函數或推斷回傳類型:
@@ -74,10 +60,6 @@ fun main(args: Array<String>) {
     println("sum of 19 and 23 is ${sum(19, 23)}")//ans:sum of 19 and 23 is 42
 }
 ```
-
-
-
-
 Function returning no meaningful value:
 
 函數回傳無意義的值(Unit):
@@ -93,10 +75,6 @@ fun main(args: Array<String>) {
     printSum(-1, 8)//ans:sum of -1 and 8 is 7
 }
 ```
-
-
-
-
 `Unit` return type can be omitted:
 
 `Unit`回傳類型可以被省略(與上面比較Unit被省略):
