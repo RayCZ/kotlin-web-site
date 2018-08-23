@@ -28,12 +28,13 @@ So, in the example above, the full name of `baz()` is `foo.bar.baz`, and the ful
 
 If the package is not specified, the contents of such a file belong to "default" package that has no name.
 
-如果package沒有被指定，這樣的檔案內容屬於 `default` packag沒有名稱
+如果package沒有被指定，這樣的檔案內容屬於 `default` package沒有名稱
 
 ## Default Imports
 
 A number of packages are imported into every Kotlin file by default:
-多個package由預設被匯入到每個kotlin檔案t:
+
+多個package由預設被匯入到每個Kotlin檔案:
 
 - [kotlin.*](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/index.html)
 - [kotlin.annotation.*](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.annotation/index.html)
@@ -45,7 +46,9 @@ A number of packages are imported into every Kotlin file by default:
 - [kotlin.text.*](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/index.html)
 
 Additional packages are imported depending on the target platform:
-額外的packages被匯入所依賴的目標平台:
+
+額外的package被匯入所依賴的目標平台:
+
 - JVM:
   - java.lang.*
   - [kotlin.jvm.*](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/index.html)
