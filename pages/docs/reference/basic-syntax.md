@@ -38,6 +38,8 @@ See [Packages](packages.md).
 
 
 
+
+
 Function having two `Int` parameters with `Int` return type:
 
 以下函數有兩個`Int`參數與`Int`回傳類型
@@ -57,6 +59,8 @@ fun main(args: Array<String>) {
 
 
 
+
+
 Function with an expression body and inferred return type:
 
 使用表達式(lambda)內文的函數或推斷回傳類型:
@@ -70,6 +74,8 @@ fun main(args: Array<String>) {
     println("sum of 19 and 23 is ${sum(19, 23)}")//ans:sum of 19 and 23 is 42
 }
 ```
+
+
 
 
 Function returning no meaningful value:
@@ -87,6 +93,8 @@ fun main(args: Array<String>) {
     printSum(-1, 8)//ans:sum of -1 and 8 is 7
 }
 ```
+
+
 
 
 `Unit` return type can be omitted:
