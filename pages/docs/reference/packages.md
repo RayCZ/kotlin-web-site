@@ -9,7 +9,7 @@ title: "Packages and Imports"
 
 A source file may start with a package declaration:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+一個來源檔案可以開頭使用一個package宣告:
 ``` kotlin
 package foo.bar
 
@@ -18,25 +18,30 @@ class Goo { ... }
 
 // ...
 ```
-</div>
-
 All the contents (such as classes and functions) of the source file are contained by the package declared.
+
+所有來源檔案的內容(例如類別或是函數)被包含在package宣告下
+
 So, in the example above, the full name of `baz()` is `foo.bar.baz`, and the full name of `Goo` is `foo.bar.Goo`. 
- 
+
+所以,在上面的例子, `baz()`全名是`foo.bar.baz`, 和`Goo`的全名是`foo.bar.Goo`
+
 If the package is not specified, the contents of such a file belong to "default" package that has no name.
+
+如果package沒有被指定，這樣的檔案內容屬於 `default` packag沒有名稱
 
 ## Default Imports
 
 A number of packages are imported into every Kotlin file by default:
 
-- [kotlin.*](/api/latest/jvm/stdlib/kotlin/index.html)
-- [kotlin.annotation.*](/api/latest/jvm/stdlib/kotlin.annotation/index.html)
-- [kotlin.collections.*](/api/latest/jvm/stdlib/kotlin.collections/index.html)
-- [kotlin.comparisons.*](/api/latest/jvm/stdlib/kotlin.comparisons/index.html)  (since 1.1)
-- [kotlin.io.*](/api/latest/jvm/stdlib/kotlin.io/index.html)
-- [kotlin.ranges.*](/api/latest/jvm/stdlib/kotlin.ranges/index.html)
-- [kotlin.sequences.*](/api/latest/jvm/stdlib/kotlin.sequences/index.html)
-- [kotlin.text.*](/api/latest/jvm/stdlib/kotlin.text/index.html)
+- [kotlin.*](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/index.html)
+- [kotlin.annotation.*](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.annotation/index.html)
+- [kotlin.collections.*](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/index.html)
+- [kotlin.comparisons.*](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.comparisons/index.html)  (since 1.1)
+- [kotlin.io.*](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.io/index.html)
+- [kotlin.ranges.*](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.ranges/index.html)
+- [kotlin.sequences.*](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.sequences/index.html)
+- [kotlin.text.*](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/index.html)
 
 Additional packages are imported depending on the target platform:
 
