@@ -9,13 +9,12 @@ title: "Basic Syntax"
 
 ## Defining packages(定義packge)
 
-packge：在Java或Kotlin做檔案結構的分類或是打包
+**packge：在Java或Kotlin做檔案結構的分類或是打包**
 
 Package specification should be at the top of the source file:
 
 Package規範應該在來源檔案的最上面
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
 ``` kotlin
 package my.demo
 
@@ -23,8 +22,6 @@ import java.util.*
 
 // ...
 ```
-</div>
-
 It is not required to match directories and packages: source files can be placed arbitrarily in the file system.
 
 package需不要匹配目錄與package：在檔案系統中來源檔案可以隨意的放置
