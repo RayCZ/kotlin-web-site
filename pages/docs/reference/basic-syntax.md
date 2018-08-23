@@ -5,9 +5,9 @@ category: "Basics"
 title: "Basic Syntax"
 ---
 
-# Basic Syntax(基本語法)
+# Basic Syntax
 
-## Defining packages(定義packge)
+## Defining packages
 
 **packge：在Java或Kotlin做檔案結構的分類或是打包**
 
@@ -28,7 +28,7 @@ package需不要匹配目錄與package：在檔案系統中來源檔案可以隨
 
 See [Packages](packages.md).
 
-## Defining functions(定義函數)
+## Defining functions
 
 Function having two `Int` parameters with `Int` return type:
 
