@@ -33,6 +33,7 @@ If the package is not specified, the contents of such a file belong to "default"
 ## Default Imports
 
 A number of packages are imported into every Kotlin file by default:
+多個package由預設被匯入到每個kotlin檔案t:
 
 - [kotlin.*](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/index.html)
 - [kotlin.annotation.*](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.annotation/index.html)
@@ -44,43 +45,42 @@ A number of packages are imported into every Kotlin file by default:
 - [kotlin.text.*](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/index.html)
 
 Additional packages are imported depending on the target platform:
-
+額外的packages被匯入所依賴的目標平台:
 - JVM:
   - java.lang.*
-  - [kotlin.jvm.*](/api/latest/jvm/stdlib/kotlin.jvm/index.html)
+  - [kotlin.jvm.*](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/index.html)
 
 - JS:    
-  - [kotlin.js.*](/api/latest/jvm/stdlib/kotlin.js/index.html)
+  - [kotlin.js.*](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.js/index.html)
 
 ## Imports
 
 Apart from the default imports, each file may contain its own import directives.
-Syntax for imports is described in the [grammar](grammar.html#import).
+Syntax for imports is described in the [grammar](grammar.md#import).
+除了預設匯入，每個檔案可能包含自己直接的import
+imports語言描述在 [grammar](grammar.md#import).
 
 We can import either a single name, e.g.
-
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+我們可以匯入不只單一名稱,即是
 ``` kotlin
 import foo.Bar // Bar is now accessible without qualification
 ```
-</div>
 
 or all the accessible contents of a scope (package, class, object etc):
-
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+就是範圍內所有可以存取的內容(package,class,object等等):
 ``` kotlin
 import foo.* // everything in 'foo' becomes accessible
 ```
-</div>
 
 If there is a name clash, we can disambiguate by using *as*{: .keyword } keyword to locally rename the clashing entity:
+如果有名稱衝突，我們可以透過使用 *as*{: .keyword }關鍵字重新命名消除區域衝突的實體
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+
 ``` kotlin
 import foo.Bar // Bar is accessible
 import bar.Bar as bBar // bBar stands for 'bar.Bar'
 ```
-</div>
+
 
 The `import` keyword is not restricted to importing classes; you can also use it to import other declarations:
 
