@@ -7,9 +7,13 @@ title: "Basic Syntax"
 
 # Basic Syntax(基本語法)
 
+
+
 ## Defining packages(定義packge)
 
 **packge：在Java或Kotlin做檔案結構的分類或是打包**
+
+
 
 Package specification should be at the top of the source file:
 
@@ -28,11 +32,15 @@ package需不要匹配目錄與package：在檔案系統中來源檔案可以隨
 
 See [Packages](packages.md).
 
-## Defining functions
+
+
+## Defining functions(定義函數)
+
+
 
 Function having two `Int` parameters with `Int` return type:
 
-<div class="sample" markdown="1" theme="idea">
+以下函數有兩個`Int`參數與`Int`回傳類型
 
 ``` kotlin
 //sampleStart
@@ -43,14 +51,15 @@ fun sum(a: Int, b: Int): Int {
 
 fun main(args: Array<String>) {
     print("sum of 3 and 5 is ")
-    println(sum(3, 5))
+    println(sum(3, 5))//ans:sum of 3 and 5 is 8
 }
 ```
-</div>
+
+
 
 Function with an expression body and inferred return type:
 
-<div class="sample" markdown="1" theme="idea">
+使用表達式(lambda)內文的函數或推斷回傳類型:
 
 ``` kotlin
 //sampleStart
@@ -58,14 +67,14 @@ fun sum(a: Int, b: Int) = a + b
 //sampleEnd
 
 fun main(args: Array<String>) {
-    println("sum of 19 and 23 is ${sum(19, 23)}")
+    println("sum of 19 and 23 is ${sum(19, 23)}")//ans:sum of 19 and 23 is 42
 }
 ```
-</div>
+
 
 Function returning no meaningful value:
 
-<div class="sample" markdown="1" theme="idea">
+函數回傳無意義的值(Unit):
 
 ``` kotlin
 //sampleStart
@@ -75,14 +84,14 @@ fun printSum(a: Int, b: Int): Unit {
 //sampleEnd
 
 fun main(args: Array<String>) {
-    printSum(-1, 8)
+    printSum(-1, 8)//ans:sum of -1 and 8 is 7
 }
 ```
-</div>
+
 
 `Unit` return type can be omitted:
 
-<div class="sample" markdown="1" theme="idea">
+`Unit`回傳類型可以被省略(與上面比較Unit被省略):
 
 ``` kotlin
 //sampleStart
@@ -95,9 +104,7 @@ fun main(args: Array<String>) {
     printSum(-1, 8)
 }
 ```
-</div>
-
-See [Functions](functions.html).
+See [Functions](functions.md).
 
 ## Defining variables
 
