@@ -9,7 +9,7 @@ title: "Basic Syntax"
 
 ## Defining packages
 
-**Packge：在Java或Kotlin做檔案結構的分類或是打包**
+**Package：在 Java 或 Kotlin 做檔案結構的分類或是打包**
 
 Package specification should be at the top of the source file:
 
@@ -28,7 +28,7 @@ package需不要匹配目錄與package：在檔案系統中來源檔案可以隨
 
 See [Packages](packages.md).
 
-## Defining functions
+## Defining functions(定義函數)
 
 Function having two `Int` parameters with `Int` return type:
 
@@ -98,7 +98,7 @@ fun main(args: Array<String>) {
 ```
 See [Functions](functions.md).
 
-## Defining variables
+## Defining variables(定義變數)
 
 Assign-once (read-only) local variable:
 
@@ -157,11 +157,11 @@ fun main(args: Array<String>) {
 See also [Properties And Fields](properties.md).
 
 
-## Comments
+## Comments(註解)
 
 Just like Java and JavaScript, Kotlin supports end-of-line and block comments.
 
-就像Java或JavaScript，Kotlin支援行尾和區塊註解
+就像 Java 或 JavaScript， Kotlin 支援行尾和區塊註解
 
 ``` kotlin
 // This is an end-of-line comment
@@ -172,15 +172,15 @@ Just like Java and JavaScript, Kotlin supports end-of-line and block comments.
 
 Unlike Java, block comments in Kotlin can be nested.
 
-不像Java，在Kotlin區塊註解可以被內嵌
+不像 Java，在 Kotlin 區塊註解可以被內嵌
 
 See [Documenting Kotlin Code](kotlin-doc.md) for information on the documentation comment syntax.
 
 有關文件註解語法，請看 [Documenting Kotlin Code](kotlin-doc.md) 
 
-## Using string templates
+## Using string templates(字串模版)
 
-**String templates：字串模版，利用 `$` 或 `${}` 符號在字串內 `""` 使用變數或程式區塊**
+**String templates：利用 `$` 或 `${}` 符號在字串內 `""` 使用變數或程式區塊**
 
 ``` kotlin
 fun main(args: Array<String>) {
@@ -198,7 +198,7 @@ fun main(args: Array<String>) {
 ```
 See [String templates](basic-types.html#string-templates).
 
-## Using conditional expressions
+## Using conditional expressions(條件表達式)
 
 
 **Conditional expressions：條件表達式，if、else**
@@ -233,24 +233,24 @@ fun main(args: Array<String>) {
 ```
 See [*if*-expressions](control-flow.md#if-expression).
 
-## Using nullable values and checking for *null*{: .keyword }
+## Using nullable values and checking for `null`(使用可空的變數和null檢查)
 
-A reference must be explicitly marked as nullable when *null*{: .keyword } value is possible.
+A reference must be explicitly marked as nullable when `null` value is possible.
 
-Return *null*{: .keyword } if `str` does not hold an integer:
+當可能為 `null` 值時，一個參照必須明確標記為可空的
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+Return `null` if `str` does not hold an integer:
+
+如果 `str` 不為整數回傳 `null`(Int?)：
+
 ``` kotlin
 fun parseInt(str: String): Int? {
     // ...
 }
 ```
-</div>
-
 Use a function returning nullable value:
 
-
-<div class="sample" markdown="1" theme="idea">
+使用函數回傳可空的值：
 
 ``` kotlin
 fun parseInt(str: String): Int? {
@@ -275,17 +275,12 @@ fun printProduct(arg1: String, arg2: String) {
 
 
 fun main(args: Array<String>) {
-    printProduct("6", "7")
-    printProduct("a", "7")
-    printProduct("a", "b")
+    printProduct("6", "7")//ans:42
+    printProduct("a", "7")//ans:either 'a' or '7' is not a number
+    printProduct("a", "b")//ans:either 'a' or 'b' is not a number
 }
 ```
-</div>
-
 or
-
-
-<div class="sample" markdown="1" theme="idea">
 
 ``` kotlin
 fun parseInt(str: String): Int? {
@@ -313,22 +308,22 @@ fun printProduct(arg1: String, arg2: String) {
 }
 
 fun main(args: Array<String>) {
-    printProduct("6", "7")
-    printProduct("a", "7")
-    printProduct("99", "b")
+    printProduct("6", "7")//ans:42
+    printProduct("a", "7")//ans:Wrong number format in arg1: 'a'
+    printProduct("99", "b")//ans:Wrong number format in arg2: 'b'
 }
 ```
-</div>
+See [Null-safety](null-safety.md).
 
-See [Null-safety](null-safety.html).
+## Using type checks and automatic casts(使用類型檢查與自動強轉)
 
-## Using type checks and automatic casts
-
-The *is*{: .keyword } operator checks if an expression is an instance of a type.
+The `is` operator checks if an expression is an instance of a type.
 If an immutable local variable or property is checked for a specific type, there's no need to cast it explicitly:
 
+`is` 運算符檢查是否為類型的實例，如果一個不可變的區域變數或屬或被檢查為特定類型，沒有明確強轉的必要：
 
-<div class="sample" markdown="1" theme="idea">
+
+**以下例子：```if (obj is String)``` 已經先檢查過自動強轉，所以在 ```{ return obj.length }``` 區塊內不再使用強轉 `as`**
 
 ``` kotlin
 //sampleStart
@@ -353,11 +348,7 @@ fun main(args: Array<String>) {
     printLength(listOf(Any()))
 }
 ```
-</div>
-
 or
-
-<div class="sample" markdown="1" theme="idea">
 
 ``` kotlin
 //sampleStart
@@ -379,11 +370,11 @@ fun main(args: Array<String>) {
     printLength(listOf(Any()))
 }
 ```
-</div>
-
 or even
 
-<div class="sample" markdown="1" theme="idea">
+甚至
+
+**```if (obj is String && obj.length > 0)``` 在判斷式的右手邊  ```obj.length > 0``` 自動轉為 String 不用強轉 `as`**
 
 ``` kotlin
 //sampleStart
@@ -407,9 +398,7 @@ fun main(args: Array<String>) {
     printLength(1000)
 }
 ```
-</div>
-
-See [Classes](classes.html) and [Type casts](typecasts.html).
+See [Classes](classes.md) and [Type casts](typecasts.md).
 
 ## Using a `for` loop
 
