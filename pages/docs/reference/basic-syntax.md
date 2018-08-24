@@ -241,7 +241,7 @@ A reference must be explicitly marked as nullable when `null` value is possible.
 
 Return `null` if `str` does not hold an integer:
 
-如果 `str` 不為整數回傳 `null`(Int?)：
+如果 `str` 不為整數回傳 `null` (Int?)：
 
 ``` kotlin
 fun parseInt(str: String): Int? {
@@ -343,9 +343,9 @@ fun main(args: Array<String>) {
     fun printLength(obj: Any) {
         println("'$obj' string length is ${getStringLength(obj) ?: "... err, not a string"} ")
     }
-    printLength("Incomprehensibilities")
-    printLength(1000)
-    printLength(listOf(Any()))
+    printLength("Incomprehensibilities")//ans:'Incomprehensibilities' string length is 21 
+    printLength(1000)//ans:'1000' string length is ... err, not a string 
+    printLength(listOf(Any()))//ans:'[java.lang.Object@3af49f1c]' string length is ... err, not a string 
 }
 ```
 or
@@ -365,9 +365,9 @@ fun main(args: Array<String>) {
     fun printLength(obj: Any) {
         println("'$obj' string length is ${getStringLength(obj) ?: "... err, not a string"} ")
     }
-    printLength("Incomprehensibilities")
-    printLength(1000)
-    printLength(listOf(Any()))
+    printLength("Incomprehensibilities")//ans:'Incomprehensibilities' string length is 21 
+    printLength(1000)//ans:'1000' string length is ... err, not a string 
+    printLength(listOf(Any()))//ans:'[java.lang.Object@3af49f1c]' string length is ... err, not a string 
 }
 ```
 or even
@@ -393,16 +393,14 @@ fun main(args: Array<String>) {
     fun printLength(obj: Any) {
         println("'$obj' string length is ${getStringLength(obj) ?: "... err, is empty or not a string at all"} ")
     }
-    printLength("Incomprehensibilities")
-    printLength("")
-    printLength(1000)
+    printLength("Incomprehensibilities")//ans:'Incomprehensibilities' string length is 21 
+    printLength("")//ans:'' string length is ... err, is empty or not a string at all 
+    printLength(1000)//ans:'1000' string length is ... err, is empty or not a string at all 
 }
 ```
 See [Classes](classes.md) and [Type casts](typecasts.md).
 
-## Using a `for` loop
-
-<div class="sample" markdown="1" theme="idea">
+## Using a `for` loop(使用 `for` 循環)
 
 ``` kotlin
 fun main(args: Array<String>) {
@@ -413,12 +411,15 @@ fun main(args: Array<String>) {
     }
 //sampleEnd
 }
-```
-</div>
 
+//ans:
+//apple
+//banana
+//kiwifruit
+```
 or
 
-<div class="sample" markdown="1" theme="idea">
+或
 
 ``` kotlin
 fun main(args: Array<String>) {
@@ -429,15 +430,16 @@ fun main(args: Array<String>) {
     }
 //sampleEnd
 }
+
+//ans:
+//item at 0 is apple
+//item at 1 is banana
+//item at 2 is kiwifruit
 ```
-</div>
 
+See [for loop](control-flow.md#for-loops).
 
-See [for loop](control-flow.html#for-loops).
-
-## Using a `while` loop
-
-<div class="sample" markdown="1" theme="idea">
+## Using a `while` loop(使用 `while` 循環)
 
 ``` kotlin
 fun main(args: Array<String>) {
@@ -450,15 +452,16 @@ fun main(args: Array<String>) {
     }
 //sampleEnd
 }
+
+//ans:
+//item at 0 is apple
+//item at 1 is banana
+//item at 2 is kiwifruit
 ```
-</div>
 
+See [while loop](control-flow.md#while-loops).
 
-See [while loop](control-flow.html#while-loops).
-
-## Using `when` expression
-
-<div class="sample" markdown="1" theme="idea">
+## Using `when` expression(使用 `when` 表達式)
 
 ``` kotlin
 //sampleStart
@@ -479,17 +482,22 @@ fun main(args: Array<String>) {
     println(describe(2))
     println(describe("other"))
 }
+
+//ans:
+//One
+//Greeting
+//Long
+//Not a string
+//Unknown
 ```
-</div>
 
+See [when expression](control-flow.md#when-expression).
 
-See [when expression](control-flow.html#when-expression).
+## Using ranges(使用範圍)
 
-## Using ranges
+Check if a number is within a range using `in` operator:
 
-Check if a number is within a range using *in*{: .keyword } operator:
-
-<div class="sample" markdown="1" theme="idea">
+使用 `in` 運算符檢查一個數值是否在範圍內：
 
 ``` kotlin
 fun main(args: Array<String>) {
@@ -501,13 +509,13 @@ fun main(args: Array<String>) {
     }
 //sampleEnd
 }
+//ans:fits in range
 ```
-</div>
-
+----
 
 Check if a number is out of range:
 
-<div class="sample" markdown="1" theme="idea">
+檢查一個數值是否超出範圍：
 
 ``` kotlin
 fun main(args: Array<String>) {
@@ -522,13 +530,16 @@ fun main(args: Array<String>) {
     }
 //sampleEnd
 }
-```
-</div>
 
+//ans:
+//-1 is out of range
+//list size is out of valid list indices range too
+```
+----
 
 Iterating over a range:
 
-<div class="sample" markdown="1" theme="idea">
+遍歷(走訪、循環)一個範圍
 
 ``` kotlin
 fun main(args: Array<String>) {
@@ -538,35 +549,35 @@ fun main(args: Array<String>) {
     }
 //sampleEnd
 }
+
+//ans:12345
 ```
-</div>
+----
 
 or over a progression:
 
-<div class="sample" markdown="1" theme="idea">
+或超出進展(步數)
 
 ``` kotlin
 fun main(args: Array<String>) {
 //sampleStart
     for (x in 1..10 step 2) {
-        print(x)
+        print(x)//ans:13579
     }
     println()
     for (x in 9 downTo 0 step 3) {
-        print(x)
+        print(x)//ans:9630
     }
 //sampleEnd
 }
 ```
-</div>
-
 See [Ranges](ranges.html).
 
-## Using collections
+## Using collections(使用集合)
 
 Iterating over a collection:
 
-<div class="sample" markdown="1" theme="idea">
+遍歷(走訪、循環)集合：
 
 ``` kotlin
 fun main(args: Array<String>) {
@@ -577,13 +588,17 @@ fun main(args: Array<String>) {
     }
 //sampleEnd
 }
+
+//ans:
+//apple
+//banana
+//kiwifruit
 ```
-</div>
+----
 
+Checking if a collection contains an object using `in` operator:
 
-Checking if a collection contains an object using *in*{: .keyword } operator:
-
-<div class="sample" markdown="1" theme="idea">
+使用 `in` 運算符檢查集合是否包含物件
 
 ``` kotlin
 fun main(args: Array<String>) {
@@ -595,34 +610,35 @@ fun main(args: Array<String>) {
     }
 //sampleEnd
 }
-```
-</div>
 
+//ans:apple is fine too
+```
+---
 
 Using lambda expressions to filter and map collections:
 
 
-<div class="sample" markdown="1" theme="idea" auto-indent="false" indent="2">
+使用表達式過濾和映射集合：
 
 ``` kotlin
 fun main(args: Array<String>) {
 //sampleStart
   val fruits = listOf("banana", "avocado", "apple", "kiwifruit")
   fruits
-      .filter { it.startsWith("a") }
-      .sortedBy { it }
-      .map { it.toUpperCase() }
+      .filter { it.startsWith("a") }//avocado,apple
+      .sortedBy { it }//apple,avocado
+      .map { it.toUpperCase() }//APPLE,AVOCADO
       .forEach { println(it) }
 //sampleEnd
 }
+
+//ans:
+//APPLE
+//AVOCADO
 ```
-</div>
+See [Higher-order functions and Lambdas](lambdas.md).
 
-See [Higher-order functions and Lambdas](lambdas.html).
-
-## Creating basic classes and their instances:
-
-<div class="sample" markdown="1" theme="idea">
+## Creating basic classes and their instances:(建立基本類別和它的實例)
 
 ``` kotlin
 fun main(args: Array<String>) {
@@ -662,6 +678,4 @@ class Triangle(
     }
 }
 ```
-</div>
-
-See [classes](classes.html) and [objects and instances](object-declarations.html).
+See [classes](classes.md) and [objects and instances](object-declarations.md).
