@@ -47,6 +47,8 @@ fun main(args: Array<String>) {
 }
 ```
 
+----
+
 Function with an expression body and inferred return type:
 
 使用表達式(lambda)內文的函數或推斷回傳類型:
@@ -60,6 +62,8 @@ fun main(args: Array<String>) {
     println("sum of 19 and 23 is ${sum(19, 23)}")//ans:sum of 19 and 23 is 42
 }
 ```
+----
+
 Function returning no meaningful value:
 
 函數回傳無意義的值(Unit):
@@ -75,6 +79,8 @@ fun main(args: Array<String>) {
     printSum(-1, 8)//ans:sum of -1 and 8 is 7
 }
 ```
+----
+
 `Unit` return type can be omitted:
 
 `Unit`回傳類型可以被省略(與上面比較Unit被省略):
@@ -96,7 +102,7 @@ See [Functions](functions.md).
 
 Assign-once (read-only) local variable:
 
-<div class="sample" markdown="1" theme="idea">
+分配一次性(唯讀)區域變數(val):
 
 ``` kotlin
 fun main(args: Array<String>) {
@@ -109,11 +115,12 @@ fun main(args: Array<String>) {
     println("a = $a, b = $b, c = $c")
 }
 ```
-</div>
+
+---
 
 Mutable variable:
 
-<div class="sample" markdown="1" theme="idea">
+可變的變數(var):
 
 ``` kotlin
 fun main(args: Array<String>) {
@@ -124,11 +131,12 @@ fun main(args: Array<String>) {
     println("x = $x")
 }
 ```
-</div>
+---
 
 Top-level variables:
 
-<div class="sample" markdown="1" theme="idea">
+最高層級的變數(不在類別或是函數內):
+
 ``` kotlin
 //sampleStart
 val PI = 3.14
@@ -146,14 +154,14 @@ fun main(args: Array<String>) {
     println("x = $x; PI = $PI")
 }
 ```
-</div>
-
-See also [Properties And Fields](properties.html).
+See also [Properties And Fields](properties.md).
 
 
 ## Comments
 
 Just like Java and JavaScript, Kotlin supports end-of-line and block comments.
+
+就像Java或JavaScript, Kotlin支援行尾和區塊註解
 
 ``` kotlin
 // This is an end-of-line comment
