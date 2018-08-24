@@ -9,11 +9,11 @@ title: "Basic Syntax"
 
 ## Defining packages
 
-**packge：在Java或Kotlin做檔案結構的分類或是打包**
+**Packge：在Java或Kotlin做檔案結構的分類或是打包**
 
 Package specification should be at the top of the source file:
 
-Package規範應該在來源檔案的最上面
+Package規範應該在來源檔案的最上面：
 
 ``` kotlin
 package my.demo
@@ -32,7 +32,7 @@ See [Packages](packages.md).
 
 Function having two `Int` parameters with `Int` return type:
 
-以下函數有兩個`Int`參數與`Int`回傳類型
+以下函數有兩個 `Int` 參數與 `Int` 回傳類型：
 
 ``` kotlin
 //sampleStart
@@ -51,7 +51,7 @@ fun main(args: Array<String>) {
 
 Function with an expression body and inferred return type:
 
-使用表達式(lambda)內文的函數或推斷回傳類型:
+使用表達式(Lambda)內文的函數或推斷回傳類型：
 
 ``` kotlin
 //sampleStart
@@ -66,7 +66,7 @@ fun main(args: Array<String>) {
 
 Function returning no meaningful value:
 
-函數回傳無意義的值(Unit):
+函數回傳無意義的值(Unit)：
 
 ``` kotlin
 //sampleStart
@@ -83,7 +83,7 @@ fun main(args: Array<String>) {
 
 `Unit` return type can be omitted:
 
-`Unit`回傳類型可以被省略(與上面比較Unit被省略):
+`Unit`回傳類型可以被省略(與上面比較Unit被省略)：
 
 ``` kotlin
 //sampleStart
@@ -93,7 +93,7 @@ fun printSum(a: Int, b: Int) {
 //sampleEnd
 
 fun main(args: Array<String>) {
-    printSum(-1, 8)
+    printSum(-1, 8)//ans:sum of -1 and 8 is 7
 }
 ```
 See [Functions](functions.md).
@@ -102,7 +102,7 @@ See [Functions](functions.md).
 
 Assign-once (read-only) local variable:
 
-分配一次性(唯讀)區域變數(val):
+分配一次性(唯讀)區域變數(val)：
 
 ``` kotlin
 fun main(args: Array<String>) {
@@ -112,7 +112,7 @@ fun main(args: Array<String>) {
     val c: Int  // Type required when no initializer is provided
     c = 3       // deferred assignment
 //sampleEnd
-    println("a = $a, b = $b, c = $c")
+    println("a = $a, b = $b, c = $c")//ans:a = 1, b = 2, c = 3
 }
 ```
 
@@ -120,7 +120,7 @@ fun main(args: Array<String>) {
 
 Mutable variable:
 
-可變的變數(var):
+可變的變數(var)：
 
 ``` kotlin
 fun main(args: Array<String>) {
@@ -128,14 +128,14 @@ fun main(args: Array<String>) {
     var x = 5 // `Int` type is inferred
     x += 1
 //sampleEnd
-    println("x = $x")
+    println("x = $x")//ans:x = 6
 }
 ```
 ---
 
 Top-level variables:
 
-最高層級的變數(不在類別或是函數內):
+最高層級的變數(不在類別或是函數內)：
 
 ``` kotlin
 //sampleStart
@@ -148,10 +148,10 @@ fun incrementX() {
 //sampleEnd
 
 fun main(args: Array<String>) {
-    println("x = $x; PI = $PI")
+    println("x = $x; PI = $PI")//ans:x = 0; PI = 3.14
     incrementX()
-    println("incrementX()")
-    println("x = $x; PI = $PI")
+    println("incrementX()")//ans:incrementX()
+    println("x = $x; PI = $PI")//ans:x = 1; PI = 3.14
 }
 ```
 See also [Properties And Fields](properties.md).
@@ -161,7 +161,7 @@ See also [Properties And Fields](properties.md).
 
 Just like Java and JavaScript, Kotlin supports end-of-line and block comments.
 
-就像Java或JavaScript, Kotlin支援行尾和區塊註解
+就像Java或JavaScript，Kotlin支援行尾和區塊註解
 
 ``` kotlin
 // This is an end-of-line comment
@@ -172,11 +172,15 @@ Just like Java and JavaScript, Kotlin supports end-of-line and block comments.
 
 Unlike Java, block comments in Kotlin can be nested.
 
-See [Documenting Kotlin Code](kotlin-doc.html) for information on the documentation comment syntax.
+不像Java，在Kotlin區塊註解可以被內嵌
+
+See [Documenting Kotlin Code](kotlin-doc.md) for information on the documentation comment syntax.
+
+有關文件註解語法，請看 [Documenting Kotlin Code](kotlin-doc.md) 
 
 ## Using string templates
 
-<div class="sample" markdown="1" theme="idea">
+**String templates：字串模版，利用 `$` 或 `${}` 符號在字串內 `""` 使用變數或程式區塊**
 
 ``` kotlin
 fun main(args: Array<String>) {
@@ -189,17 +193,15 @@ fun main(args: Array<String>) {
     // arbitrary expression in template:
     val s2 = "${s1.replace("is", "was")}, but now is $a"
 //sampleEnd
-    println(s2)
+    println(s2)//ans:a was 1, but now is 2
 }
 ```
-</div>
-
 See [String templates](basic-types.html#string-templates).
 
 ## Using conditional expressions
 
 
-<div class="sample" markdown="1" theme="idea">
+**Conditional expressions：條件表達式，if、else**
 
 ``` kotlin
 //sampleStart
@@ -213,15 +215,12 @@ fun maxOf(a: Int, b: Int): Int {
 //sampleEnd
 
 fun main(args: Array<String>) {
-    println("max of 0 and 42 is ${maxOf(0, 42)}")
+    println("max of 0 and 42 is ${maxOf(0, 42)}")//ans:max of 0 and 42 is 42
 }
 ```
-</div>
+Using `if` as an expression:
 
-
-Using *if*{: .keyword } as an expression:
-
-<div class="sample" markdown="1" theme="idea">
+使用 `if` 為一個單行表達式(Lambda)，差別在於方法可以用 `=` 指定表達式
 
 ``` kotlin
 //sampleStart
@@ -229,12 +228,10 @@ fun maxOf(a: Int, b: Int) = if (a > b) a else b
 //sampleEnd
 
 fun main(args: Array<String>) {
-    println("max of 0 and 42 is ${maxOf(0, 42)}")
+    println("max of 0 and 42 is ${maxOf(0, 42)}")//ans:max of 0 and 42 is 42
 }
 ```
-</div>
-
-See [*if*{: .keyword }-expressions](control-flow.html#if-expression).
+See [*if*-expressions](control-flow.md#if-expression).
 
 ## Using nullable values and checking for *null*{: .keyword }
 
