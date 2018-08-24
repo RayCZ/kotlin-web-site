@@ -79,9 +79,9 @@ or all the accessible contents of a scope (package, class, object etc):
 import foo.* // everything in 'foo' becomes accessible
 ```
 
-If there is a name clash, we can disambiguate by using *as* keyword to locally rename the clashing entity:
+If there is a name clash, we can disambiguate by using `as` keyword to locally rename the clashing entity:
 
-如果有名稱衝突，我們可以透過使用 *as* 關鍵字區域性重新命名消除衝突的實體
+如果有名稱衝突，我們可以透過使用 `as` 關鍵字區域性重新命名消除衝突的實體
 
 
 ``` kotlin
@@ -107,6 +107,6 @@ Unlike Java, Kotlin does not have a separate ["import static"](https://docs.orac
 
 ## Visibility of Top-level Declarations(最高層級宣告的能見度、可見性)
 
-If a top-level declaration is marked *private*{: .keyword }, it is private to the file it's declared in (see [Visibility Modifiers](visibility-modifiers.md)).
+If a top-level declaration is marked `private`, it is private to the file it's declared in (see [Visibility Modifiers](visibility-modifiers.md)).
 
-如果最高層級宣告被標記為 *private*，它對於宣告它的檔案是私有的
+如果最高層級宣告被標記為 `private`，它對於宣告它的檔案是私有的
