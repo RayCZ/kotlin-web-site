@@ -24,7 +24,7 @@ All the contents (such as classes and functions) of the source file are containe
 
 So, in the example above, the full name of `baz()` is `foo.bar.baz`, and the full name of `Goo` is `foo.bar.Goo`. 
 
-所以,在上面的例子，`baz()`全名是`foo.bar.baz`，和`Goo`的全名是`foo.bar.Goo`
+所以,在上面的例子， `baz()` 全名是 `foo.bar.baz` ，和 `Goo` 的全名是 `foo.bar.Goo`
 
 If the package is not specified, the contents of such a file belong to "default" package that has no name.
 
@@ -91,7 +91,7 @@ import bar.Bar as bBar // bBar stands for 'bar.Bar'
 
 The `import` keyword is not restricted to importing classes; you can also use it to import other declarations:
 
-`import`關鍵字不限制匯入的類別；你也可以使用它匯入其他的宣告：
+`import` 關鍵字不限制匯入的類別；你也可以使用它匯入其他的宣告：
 
 **top-level：代表檔案中可以直接宣告函數或屬性，不像Java只能在類別內才能宣告**
 
@@ -109,4 +109,4 @@ Unlike Java, Kotlin does not have a separate ["import static"](https://docs.orac
 
 If a top-level declaration is marked *private*{: .keyword }, it is private to the file it's declared in (see [Visibility Modifiers](visibility-modifiers.md)).
 
-如果最高層級宣告被標記為 *private* ,它對於宣告它的檔案是私有的
+如果最高層級宣告被標記為 *private*，它對於宣告它的檔案是私有的
