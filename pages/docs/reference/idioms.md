@@ -41,6 +41,8 @@ fun foo(a: Int = 0, b: String = "") { ... }
 
 ### Filtering a list (過濾列表)
 
+**Lambda表達式{}可以依自己需求要不要加參數**
+
 ``` kotlin
 val positives = list.filter { x -> x > 0 }
 ```
@@ -55,12 +57,16 @@ val positives = list.filter { it > 0 }
 
 ### String Interpolation (字串插值)
 
+**別名：String Templates**
+
 ``` kotlin
 println("Name $name")
 ```
 ---
 
 ### Instance Checks (實例檢查)
+
+**實例檢查用 `is`**
 
 ``` kotlin
 when (x) {
@@ -83,6 +89,8 @@ for ((k, v) in map) {
 ---
 
 ### Using ranges (使用範圍)
+
+**注意：util不包括最後一個**
 
 ``` kotlin
 for (i in 1..100) { ... }  // closed range: includes 100
@@ -117,6 +125,8 @@ map["key"] = value
 
 ### Lazy property (惰性/執行時才產生的屬性 `by lazy`)
 
+**lazy：一定要宣告 `val`，當程式有調用屬性時才建構**
+
 ``` kotlin
 val p: String by lazy {
     // compute the string
@@ -134,6 +144,8 @@ fun String.spaceToCamelCase() { ... }
 ---
 
 ### Creating a singleton (建立單例模式 `object`)
+
+**object：與類別用法相同，差別多做了單例模式**
 
 ``` kotlin
 object Resource {
@@ -299,7 +311,7 @@ with(myTurtle) { //draw a 100 pix square
 ```
 ---
 
-### Java 7's try with resources (嘗試使用java 7的資源)
+### Java 7's try with resources (嘗試使用 java 7的資源)
 
 ``` kotlin
 val stream = Files.newInputStream(Paths.get("/some/file.txt"))
