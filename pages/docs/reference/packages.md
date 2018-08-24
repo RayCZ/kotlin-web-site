@@ -59,9 +59,9 @@ Additional packages are imported depending on the target platform:
 ## Imports
 
 Apart from the default imports, each file may contain its own import directives.
-Syntax for imports is described in the [grammar](grammar.md#import).
+Syntax for imports is described in the [grammar](https://kotlinlang.org/docs/reference/grammar.html#import).
 
-除了預設匯入，每個檔案可能包含自己直接的import，imports語言描述在 [grammar](grammar.md#import).
+除了預設匯入，每個檔案可能包含自己直接的import，imports語言描述在 [grammar](https://kotlinlang.org/docs/reference/grammar.html#import).
 
 We can import either a single name, e.g.
 
@@ -98,7 +98,7 @@ The `import` keyword is not restricted to importing classes; you can also use it
 **object：Kotlin特有的關鍵字與宣告類別用法一樣，但系統會多處理為單例模式**
 
   * top-level functions and properties;(最高層級的函數與屬性)
-  * functions and properties declared in [object declarations](object-declarations.html#object-declarations);(函數與屬性的宣告在object宣告內)
+  * functions and properties declared in [object declarations](object-declarations.md#object-declarations);(函數與屬性的宣告在object宣告內)
   * [enum constants](enum-classes.md).(列舉常數)
 
 Unlike Java, Kotlin does not have a separate ["import static"](https://docs.oracle.com/javase/8/docs/technotes/guides/language/static-import.html) syntax; all of these declarations are imported using the regular `import` keyword.
