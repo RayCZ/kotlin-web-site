@@ -90,7 +90,7 @@ for ((k, v) in map) {
 
 ### Using ranges (使用範圍)
 
-**注意：util不包括最後一個**
+**注意：until不包括最後一個**
 
 ``` kotlin
 for (i in 1..100) { ... }  // closed range: includes 100
