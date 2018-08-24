@@ -105,7 +105,7 @@ Unlike Java, Kotlin does not have a separate ["import static"](https://docs.orac
 
 不像Java，Kotlin 不會有單獨 ["import static"](https://docs.oracle.com/javase/8/docs/technotes/guides/language/static-import.html)語法；所有這些宣告都使用常規的import關鍵字
 
-## Visibility of Top-level Declarations(最高層級宣告的能見度、可見性)
+## Visibility of Top-level Declarations (最高層級宣告的能見度、可見性)
 
 If a top-level declaration is marked `private`, it is private to the file it's declared in (see [Visibility Modifiers](visibility-modifiers.md)).
 
