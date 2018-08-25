@@ -9,7 +9,7 @@ title: Coding Conventions
 
 This page contains the current coding style for the Kotlin language.
 
-這頁包含目前Kotlin語言的編碼風格
+這頁包含目前 Kotlin 語言的編碼風格
 
 * [Source code organization](#source-code-organization)
 * [Naming rules](#naming-rules)
@@ -25,7 +25,7 @@ To configure the IntelliJ formatter according to this style guide, please instal
 1.2.20 or newer, go to Settings | Editor | Code Style | Kotlin, click on "Set from..." link in the upper
 right corner, and select "Predefined style / Kotlin style guide" from the menu.
 
-根據這份風格指南配置IntelliJ格式化，請安裝Kotlin外掛版本 1.2.20 或更新，到 Settings | Editor | Code Style | Kotlin, click on "Set from..." 右上角的連結，並且選單中選擇 "Predefined style / Kotlin style guide" 
+根據這份風格指南配置 IntelliJ 格式化，請安裝 Kotlin 外掛版本 1.2.20 或更新，到 Settings | Editor | Code Style | Kotlin, click on "Set from..." 右上角的連結，並且選單中選擇 "Predefined style / Kotlin style guide" 
 
 To verify that your code is formatted according to the style guide, go to the inspection settings and enable
 the "Kotlin | Style issues | File is not formatted according to project settings" inspection. Additional
@@ -38,34 +38,38 @@ inspections that verify other issues described in the style guide (such as namin
 ### Directory structure (目錄結構)
 
 In mixed-language projects, Kotlin source files should reside in the same source root as the Java source files,
-and follow the same directory structure (each file should be stored in the directory corresponding to each package
-statement).
+and follow the same directory structure (each file should be stored in the directory corresponding to each package statement).
+
+在混合語言專案中，Kotlin 來源檔案與 Java 來源檔案應該位於相同起始(根)來源，並遵循相同目錄結構 (每個檔案應該儲存在對應每個 package 描述的目錄)
 
 In pure Kotlin projects, the recommended directory structure is to follow the package structure with
-the common root package omitted (e.g. if all the code in the project is in the "org.example.kotlin" package and its
-subpackages, files with the "org.example.kotlin" package should be placed directly under the source root, and
-files in "org.example.kotlin.foo.bar" should be in the "foo/bar" subdirectory of the source root).
+the common root package omitted
 
-### Source file names
+在單一(純) Kotlin 專案中，推薦目錄結構是遵循 package 結構，使用上通用的起始(根) package 被省略
 
-If a Kotlin file contains a single class (potentially with related top-level declarations), its name should be the same
-as the name of the class, with the .kt extension appended. If a file contains multiple classes, or only top-level declarations,
-choose a name describing what the file contains, and name the file accordingly. Use camel humps with an uppercase first letter
-(e.g. `ProcessDeclarations.kt`).
+(e.g. if all the code in the project is in the "org.example.kotlin" package and its subpackages, files with the "org.example.kotlin" package should be placed directly under the source root, and files in "org.example.kotlin.foo.bar" should be in the "foo/bar" subdirectory of the source root).
 
-The name of the file should describe what the code in the file does. Therefore, you should avoid using meaningless
-words such as "Util" in file names.
+(例如：如果在專案中所有的代碼在 "org.example.kotlin" package 和它的子 packages，檔案內宣告 package  "org.example.kotlin" 應該直接放置在起始(根)來源下，並在 "org.example.kotlin.foo.bar"下的檔案應該在起始來源的子目錄 "foo/bar")
 
-### Source file organization
+### Source file names (來源檔案命名)
 
-Placing multiple declarations (classes, top-level functions or properties) in the same Kotlin source file is encouraged
-as long as these declarations are closely related to each other semantically and the file size remains reasonable
-(not exceeding a few hundred lines).
+If a Kotlin file contains a single class (potentially with related top-level declarations), its name should be the same as the name of the class, with the .kt extension appended.
 
-In particular, when defining extension functions for a class which are relevant for all clients of this class,
-put them in the same file where the class itself is defined. When defining extension functions that make sense 
-only for a specific client, put them next to the code of that client. Do not create files just to hold 
-"all extensions of Foo".
+如果 Kotlin 檔案內包含單個類別 (可能使用有關 top-level 宣告)，檔案的名稱應該與類別名稱相同，檔名附加 .kt 擴展
+
+ If a file contains multiple classes, or only top-level declarations, choose a name describing what the file contains, and name the file accordingly. Use camel humps with an uppercase first letter (e.g. `ProcessDeclarations.kt`).
+
+如果檔案包含多個類別，或只是 top-level 宣告，選擇檔案內包含的名稱描述，並相應地命名該檔案，使用駝峰式與開頭大寫(例如 `ProcessDeclarations.kt`)
+
+The name of the file should describe what the code in the file does. Therefore, you should avoid using meaningless words such as "Util" in file names.
+
+檔案名稱描述檔案內代碼做的事，因此，你應該避免使用無意義的單字在檔案名稱，例如 "Util"
+
+### Source file organization (來源檔案組織)
+
+Placing multiple declarations (classes, top-level functions or properties) in the same Kotlin source file is encouraged as long as these declarations are closely related to each other semantically and the file size remains reasonable (not exceeding a few hundred lines).
+
+In particular, when defining extension functions for a class which are relevant for all clients of this class, put them in the same file where the class itself is defined. When defining extension functions that make sense only for a specific client, put them next to the code of that client. Do not create files just to hold "all extensions of Foo".
 
 ### Class layout
 
