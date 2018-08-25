@@ -5,9 +5,11 @@ category: Basics
 title: Coding Conventions
 ---
 
-# Coding Conventions
+# Coding Conventions (編碼慣例)
 
 This page contains the current coding style for the Kotlin language.
+
+這頁包含目前Kotlin語言的編碼風格
 
 * [Source code organization](#source-code-organization)
 * [Naming rules](#naming-rules)
@@ -17,19 +19,23 @@ This page contains the current coding style for the Kotlin language.
 * [Idiomatic use of language features](#idiomatic-use-of-language-features)
 * [Coding conventions for libraries](#coding-conventions-for-libraries)
 
-### Applying the style guide
+### Applying the style guide (應用風格指南)
 
 To configure the IntelliJ formatter according to this style guide, please install Kotlin plugin version
 1.2.20 or newer, go to Settings | Editor | Code Style | Kotlin, click on "Set from..." link in the upper
 right corner, and select "Predefined style / Kotlin style guide" from the menu.
 
+根據這份風格指南配置IntelliJ格式化，請安裝Kotlin外掛版本 1.2.20 或更新，到 Settings | Editor | Code Style | Kotlin, click on "Set from..." 右上角的連結，並且選單中選擇 "Predefined style / Kotlin style guide" 
+
 To verify that your code is formatted according to the style guide, go to the inspection settings and enable
 the "Kotlin | Style issues | File is not formatted according to project settings" inspection. Additional
 inspections that verify other issues described in the style guide (such as naming conventions) are enabled by default.
 
-## Source code organization
+根據這份風格指南檢驗你的代碼，去啟用 "Settings | Editor | inspections | Kotlin | Style issues | File is not formatted according to project settings" 檢查，預設情況下，在風格指南額外檢查描述校驗其他問題(例如命名慣例)
 
-### Directory structure
+## Source code organization (來源代碼組織)
+
+### Directory structure (目錄結構)
 
 In mixed-language projects, Kotlin source files should reside in the same source root as the Java source files,
 and follow the same directory structure (each file should be stored in the directory corresponding to each package
@@ -106,7 +112,7 @@ object EmptyDeclarationProcessor : DeclarationProcessor() { ... }
 </div>
 
 ### Function names
- 
+
 Names of functions, properties and local variables start with a lower case letter and use camel humps and no underscores:
 
 <div class="sample" markdown="1" theme="idea" data-highlight-only>
@@ -171,10 +177,10 @@ Names of properties holding references to singleton objects can use the same nam
 val PersonComparator: Comparator<Person> = ...
 ```
 </div>
- 
+
 For enum constants, it's OK to use either uppercase underscore-separated names
 (`enum class Color { RED, GREEN }`) or regular camel-humps names starting with an uppercase letter, depending on the usage.
-   
+
 #### Names for backing properties
 
 If a class has two properties which are conceptually the same but one is part of a public API and another is an implementation
@@ -272,9 +278,9 @@ Put a space before `:` in the following cases:
   * when it's used to separate a type and a supertype;
   * when delegating to a superclass constructor or a different constructor of the same class;
   * after the `object` keyword.
-    
+
 Don't put a space before `:` when it separates a declaration and its type.
- 
+
 Always put a space after `:`.
 
 <div class="sample" markdown="1" theme="idea" data-highlight-only>
@@ -1021,7 +1027,7 @@ class Baz {
 }
 ```
 </div>
-    
+​    
   * What should the result of the call be? If the result needs to be the context object, use `apply` or `also`.
     If you need to return a value from the block, use `with`, `let` or `run`
 
@@ -1042,7 +1048,7 @@ class Baz {
         loadBar()
     }
 }
-```    
+```
 </div>
   * Is the context object nullable, or is it evaluated as a result of a call chain? If it is, use `apply`, `let` or `run`.
     Otherwise, use `with` or `also`.
