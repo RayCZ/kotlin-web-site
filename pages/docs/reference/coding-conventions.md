@@ -253,14 +253,16 @@ capitalize only the first letter if it is longer (`XmlFormatter`, `HttpInputStre
 
 In most cases, Kotlin follows the Java coding conventions.
 
-大部份的例子，Kotlin 遵循 Java 編碼慣例
+大部份情況下，Kotlin 遵循 Java 編碼慣例
 
 Use 4 spaces for indentation. Do not use tabs.
 
-For curly braces, put the opening brace in the end of the line where the construct begins, and the closing brace
-on a separate line aligned vertically with the opening construct.
+使用四個空格為縮排，不使用 tabs
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+For curly braces, put the opening brace in the end of the line where the construct begins, and the closing brace on a separate line aligned vertically with the opening construct.
+
+對於大括號 `{}`, 在行尾放開頭大括號 `{` 表示建構開始，並在單獨一行關閉大括號 `}` 垂直對齊開頭建構
+
 ``` kotlin
 if (elements != null) {
     for (element in elements) {
@@ -268,22 +270,30 @@ if (elements != null) {
     }
 }
 ```
-</div>
+(Note: In Kotlin, semicolons are optional, and therefore line breaks are significant. The language design assumes Java-style braces, and you may encounter surprising behavior if you try to use a different formatting style.)
 
-(Note: In Kotlin, semicolons are optional, and therefore line breaks are significant. The language design assumes 
-Java-style braces, and you may encounter surprising behavior if you try to use a different formatting style.)
+(注意：在Kotlin，分號 `;` 是可選的(可有可無)，因此換行是重要的，語言設計假設為 Java 風格的括號，如果你嘗試使用不同編排格式，你可能會遇到令人驚訝的問題)
 
-### Horizontal whitespace
+---
+
+### Horizontal whitespace (水平空格)
 
 Put spaces around binary operators (`a + b`). Exception: don't put spaces around the "range to" operator (`0..i`).
 
+在二元運算符的之間 (`a + b`) 放置空格 ，例外：不要在 "range to" 運算符 (`0..i`) 之間放空格
+
 Do not put spaces around unary operators (`a++`)
+
+不要在一個運算符 (`a++`) 之間放空格
 
 Put spaces between control flow keywords (`if`, `when`, `for` and `while`) and the corresponding opening parenthesis.
 
+在控制關鍵字 (`if`, `when`, `for` and `while`) 和相應的左括號 `(` 之間放空格，例如：if (....)、while (....)
+
 Do not put a space before an opening parenthesis in a primary constructor declaration, method declaration or method call.
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+不要在主建構元宣告、方法宣告、方法調用的左括號之前放空格，例如：class A()、fun foo(x: Int )、call()
+
 ```kotlin
 class A(val x: Int)
 
@@ -293,36 +303,54 @@ fun bar() {
     foo(1)
 }
 ```
-</div>
-
 Never put a space after `(`, `[`, or before `]`, `)`.
+
+禁止在 `(` , `[` 之後，或是 `]` ,  `)` 之前放空格
 
 Never put a space around `.` or `?.`: `foo.bar().filter { it > 2 }.joinToString()`, `foo?.bar()`
 
+禁言在 `.` 或 `?.` 之間放空格：`foo.bar().filter { it > 2 }.joinToString()`, `foo?.bar()`
+
 Put a space after `//`: `// This is a comment`
+
+在 `//` 之後放空格：`// This is a comment`
 
 Do not put spaces around angle brackets used to specify type parameters: `class Map<K, V> { ... }`
 
+不要在尖括號 `<` `>` 用於指定類型參數之間放置空格：`class Map<K, V> { ... }`
+
 Do not put spaces around `::`: `Foo::class`, `String::length`
+
+不要在 `::` 之間放空格： `Foo::class`, `String::length`
 
 Do not put a space before `?` used to mark a nullable type: `String?`
 
-As a general rule, avoid horizontal alignment of any kind. Renaming an identifier to a name with a different length
-should not affect the formatting of either the declaration or any of the usages.
+不要在 `?` 用於標記可空類型之間放空格： `String?`
 
-### Colon
+As a general rule, avoid horizontal alignment of any kind. Renaming an identifier to a name with a different length should not affect the formatting of either the declaration or any of the usages.
+
+作為一般規則，避免任何類型的水平對齊，識別符重新命名不同長度的名稱不應該影響宣告或任何用法的編排格式
+
+---
+
+### Colon (冒號 `:`)
 
 Put a space before `:` in the following cases:
 
-  * when it's used to separate a type and a supertype;
-  * when delegating to a superclass constructor or a different constructor of the same class;
-  * after the `object` keyword.
+在 `:` 前放空格，在以下例子：
+
+  * when it's used to separate a type and a supertype; (當它用於分隔一個類型與一個超(父)類型)
+  * when delegating to a superclass constructor or a different constructor of the same class; (當調用超(父)類別建構元或一個相同類別不同建構元)
+  * after the `object` keyword. (`object` 關鍵字之後)
 
 Don't put a space before `:` when it separates a declaration and its type.
 
+當冒號用於分隔一個宣告並為它的類型時，不要在 `:` 之前放空格
+
 Always put a space after `:`.
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+一直(總是)在 `:` 之後放空格
+
 ``` kotlin
 abstract class Foo<out T : Any> : IFoo {
     abstract fun foo(a: Int): T
@@ -334,7 +362,7 @@ class FooImpl : Foo() {
     val x = object : IFoo { ... } 
 } 
 ```
-</div>
+---
 
 ### Class header formatting
 
