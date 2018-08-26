@@ -309,7 +309,7 @@ Never put a space after `(`, `[`, or before `]`, `)`.
 
 Never put a space around `.` or `?.`: `foo.bar().filter { it > 2 }.joinToString()`, `foo?.bar()`
 
-禁言在 `.` 或 `?.` 之間放空格：`foo.bar().filter { it > 2 }.joinToString()`, `foo?.bar()`
+禁止在 `.` 或 `?.` 之間放空格：`foo.bar().filter { it > 2 }.joinToString()`, `foo?.bar()`
 
 Put a space after `//`: `// This is a comment`
 
