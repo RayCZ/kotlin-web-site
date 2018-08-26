@@ -118,38 +118,41 @@ Always put overloads next to each other in a class.
 
 在類別中放置多載彼此相鄰於代碼中的上下順序
 
-## Naming rules
+## Naming rules (命名規則)
 
 Kotlin follows the Java naming conventions. In particular:
 
-Names of packages are always lower case and do not use underscores (`org.example.myproject`). Using multi-word
-names is generally discouraged, but if you do need to use multiple words, you can either simply concatenate them together
-or use camel humps (`org.example.myProject`).
+Kotlin 遵循 Java 命名規例，特別地：
+
+Names of packages are always lower case and do not use underscores (`org.example.myproject`). Using multi-word names is generally discouraged, but if you do need to use multiple words, you can either simply concatenate them together or use camel humps (`org.example.myProject`).
+
+package 命名總是小寫並且沒有使用底線 (`org.example.myproject`)，通常鼓勵使用多個單字命名，如果你需要使用多個單字，你不是用簡單串接就是使用駝峰式 (`org.example.myProject`)
 
 Names of classes and objects start with an upper case letter and use camel humps:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+類別與物件名稱開頭為大寫字母並使用駝峰式：
+
 ``` kotlin
 open class DeclarationProcessor { ... }
 
 object EmptyDeclarationProcessor : DeclarationProcessor() { ... }
 ```
-</div>
+---
 
-### Function names
+### Function names (函數命名)
 
 Names of functions, properties and local variables start with a lower case letter and use camel humps and no underscores:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+函數命名，屬性或區域變數開頭為小寫字母並使用駝峰式、無底線
+
 ``` kotlin
 fun processDeclarations() { ... }
 var declarationCount = ...
 ```
-</div>
-
 Exception: factory functions used to create instances of classes can have the same name as the class being created:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+例外：用於創建實例的「工廠模式」函數可以與正在創建類別相同的名稱
+
 ``` kotlin
 abstract class Foo { ... }
 
@@ -157,15 +160,17 @@ class FooImpl : Foo { ... }
 
 fun Foo(): Foo { return FooImpl(...) }
 ```
-</div>
+---
 
-#### Names for test methods
+#### Names for test methods (測式方法的命名)
 
 In tests (and only in tests), it's acceptable to use method names with spaces enclosed in backticks.
-(Note that such method names are currently not supported by the Android runtime.) Underscores in method names are
-also allowed in test code.
+(Note that such method names are currently not supported by the Android runtime.) Underscores in method names are also allowed in test code.
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+在測試中(並只在測試中)，可以接受在反引號 \`\`中使用空格的方法名稱
+
+(注意：這樣命名的方法名稱目前不支援Android運行時期)在測試代碼中允許方法名稱使用底線
+
 ``` kotlin
 class MyTestCase {
      @Test fun `ensure everything works`() { ... }
@@ -173,14 +178,13 @@ class MyTestCase {
      @Test fun ensureEverythingWorks_onAndroid() { ... }
 }
 ```
-</div>
+---
 
-### Property names
+### Property names (屬性命名)
 
-Names of constants (properties marked with `const`, or top-level or object `val` properties with no custom `get` function
-that hold deeply immutable data) should use uppercase underscore-separated names:
+Names of constants (properties marked with `const`, or top-level or object `val` properties with no custom `get` function that hold deeply immutable data) should use uppercase underscore-separated names:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+內容命
 ``` kotlin
 const val MAX_COUNT = 8
 val USER_NAME_FIELD = "UserName"
