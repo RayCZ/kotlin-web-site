@@ -126,7 +126,7 @@ Kotlin 遵循 Java 命名規例，特別地：
 
 Names of packages are always lower case and do not use underscores (`org.example.myproject`). Using multi-word names is generally discouraged, but if you do need to use multiple words, you can either simply concatenate them together or use camel humps (`org.example.myProject`).
 
-package 命名總是小寫並且沒有使用底線 (`org.example.myproject`)，通常鼓勵使用多個單字命名，如果你需要使用多個單字，你不是用簡單串接就是使用駝峰式 (`org.example.myProject`)
+Package 命名總是小寫並且沒有使用底線 (`org.example.myproject`)，通常鼓勵使用多個單字命名，如果你需要使用多個單字，你不是用簡單串接就是使用駝峰式 (`org.example.myProject`)
 
 Names of classes and objects start with an upper case letter and use camel humps:
 
@@ -184,38 +184,37 @@ class MyTestCase {
 
 Names of constants (properties marked with `const`, or top-level or object `val` properties with no custom `get` function that hold deeply immutable data) should use uppercase underscore-separated names:
 
-內容命
+常數命名 (屬性標記為 `const` ， 最高層級或物件有 val屬性沒有自定義持有深度不可變資料的 get 函數) 應該大寫字母加底線分隔命名：
 ``` kotlin
 const val MAX_COUNT = 8
 val USER_NAME_FIELD = "UserName"
 ```
-</div>
-
 Names of top-level or object properties which hold objects with behavior or mutable data should use regular camel-hump names:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+最高層級或物件屬性命名持有物件使用行為或可變資料應該使用常規駝峰式命名：
 ``` kotlin
 val mutableCollection: MutableSet<String> = HashSet()
 ```
-</div>
-
 Names of properties holding references to singleton objects can use the same naming style as `object` declarations:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+屬性命名持有單例物件參照可以使用相同命名風格 `object` 宣告：
+
 ``` kotlin
 val PersonComparator: Comparator<Person> = ...
 ```
-</div>
-
 For enum constants, it's OK to use either uppercase underscore-separated names
 (`enum class Color { RED, GREEN }`) or regular camel-humps names starting with an uppercase letter, depending on the usage.
 
-#### Names for backing properties
+對於 enum 常數，使用大寫底線分隔命名或常規鴕峰式命名開頭大寫字母，取決於用法
 
-If a class has two properties which are conceptually the same but one is part of a public API and another is an implementation
-detail, use an underscore as the prefix for the name of the private property:
+---
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+#### Names for backing properties (背景屬性命名)
+
+If a class has two properties which are conceptually the same but one is part of a public API and another is an implementation detail, use an underscore as the prefix for the name of the private property:
+
+如果類別有兩個屬性在概念上相同，但一個為對外公開API的一部份，並且另一個為實作細節，使用底線為前綴(開頭)為私有屬性的命名
+
 ``` kotlin
 class C {
     private val _elementList = mutableListOf<Element>()
@@ -224,26 +223,37 @@ class C {
          get() = _elementList
 }
 ```
-</div>
+---
 
-### Choosing good names
+### Choosing good names (選擇好的命名)
 
 The name of a class is usually a noun or a noun phrase explaining what the class _is_: `List`, `PersonReader`.
 
-The name of a method is usually a verb or a verb phrase saying what the method _does_: `close`, `readPersons`.
-The name should also suggest if the method is mutating the object or returning a new one. For instance `sort` is
-sorting a collection in place, while `sorted` is returning a sorted copy of the collection.
+類別名稱通常為名詞或名詞短語解釋類別是：`List` , `PersonReader`
 
-The names should make it clear what the purpose of the entity is, so it's best to avoid using meaningless words
-(`Manager`, `Wrapper` etc.) in names.
+The name of a method is usually a verb or a verb phrase saying what the method _does_: `close`, `readPersons`.
+
+方法名稱通常為動詞或動詞短語說明方法做的事：`close` , `readPersons`
+
+The name should also suggest if the method is mutating the object or returning a new one. For instance `sort` is sorting a collection in place, while `sorted` is returning a sorted copy of the collection.
+
+命名也表名方法是目前正在改變的物件或回傳新的物件，比如 `sort` 是排序執行中讓集合到位，而 `sorted` 回傳已排序集合的副本
+
+The names should make it clear what the purpose of the entity is, so it's best to avoid using meaningless words (`Manager`, `Wrapper` etc.) in names.
+
+命名應該清楚說明實體存在的目的是什麼，所以在命名時它最好避免無意義的單字 (`Manager`, `Wrapper` 等等)
 
 When using an acronym as part of a declaration name, capitalize it if it consists of two letters (`IOStream`);
 capitalize only the first letter if it is longer (`XmlFormatter`, `HttpInputStream`).
 
+當使用縮寫為宣告命名的一部份時，如果它由兩個字母組成 (`IOStream`) 將縮寫為大寫字母 (`IO`)；如果它是較長的單字 (`XmlFormatter`) 將縮寫的首字為大寫字母 (`Xml`、`Formatter`)
 
-## Formatting
+
+## Formatting (編排格式)
 
 In most cases, Kotlin follows the Java coding conventions.
+
+大部份的例子，Kotlin 遵循 Java 編碼慣例
 
 Use 4 spaces for indentation. Do not use tabs.
 
