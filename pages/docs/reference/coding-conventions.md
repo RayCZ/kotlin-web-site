@@ -51,6 +51,8 @@ the common root package omitted
 
 (例如：如果在專案中所有的代碼在 "org.example.kotlin" package 和它的子 packages，檔案內宣告 package  "org.example.kotlin" 應該直接放置在起始(根)來源下，並在 "org.example.kotlin.foo.bar"下的檔案應該在起始來源的子目錄 "foo/bar")
 
+---
+
 ### Source file names (來源檔案命名)
 
 If a Kotlin file contains a single class (potentially with related top-level declarations), its name should be the same as the name of the class, with the .kt extension appended.
@@ -65,37 +67,56 @@ The name of the file should describe what the code in the file does. Therefore, 
 
 檔案名稱描述檔案內代碼做的事，因此，你應該避免使用無意義的單字在檔案名稱，例如 "Util"
 
+---
+
 ### Source file organization (來源檔案組織)
 
 Placing multiple declarations (classes, top-level functions or properties) in the same Kotlin source file is encouraged as long as these declarations are closely related to each other semantically and the file size remains reasonable (not exceeding a few hundred lines).
 
+在相同 Kotlin 來源檔案放置多個宣告 (classes , top-level functions or properties ) 是被鼓勵支持的，只要這些宣告彼此緊密相關的語義並且檔案大小保持合理 (不超過幾百行)
+
 In particular, when defining extension functions for a class which are relevant for all clients of this class, put them in the same file where the class itself is defined. When defining extension functions that make sense only for a specific client, put them next to the code of that client. Do not create files just to hold "all extensions of Foo".
 
-### Class layout
+特別地，為所有客戶端相關的類別定義擴展函數，放置它們在相同檔案內並定義類別本身，當只為特別客戶端定義有意義的擴展函數時，放它們在客戶端代碼的旁邊，不要建立檔案只為了保存 "Foo所有擴展"
+
+---
+
+### Class layout (類別怖局、安排)
 
 Generally, the contents of a class is sorted in the following order:
 
-- Property declarations and initializer blocks
-- Secondary constructors
-- Method declarations
-- Companion object
+通常，類別的內容按以下的順序做排序
 
-Do not sort the method declarations alphabetically or by visibility, and do not separate regular methods
-from extension methods. Instead, put related stuff together, so that someone reading the class from top to bottom would
-be able to follow the logic of what's happening. Choose an order (either higher-level stuff first, or vice versa)
-and stick to it.
+- Property declarations and initializer blocks (屬性宣告和初始化區塊)
+- Secondary constructors (第二建構元)
+- Method declarations (方法宣告)
+- Companion object (夥伴物件：類型於 Java 的靜態類)
 
-Put nested classes next to the code that uses those classes. If the classes are intended to be used externally and aren't
-referenced inside the class, put them in the end, after the companion object.
+Do not sort the method declarations alphabetically or by visibility, and do not separate regular methods from extension methods. Instead, put related stuff together, so that someone reading the class from top to bottom would be able to follow the logic of what's happening. Choose an order (either higher-level stuff first, or vice versa) and stick to it.
 
-### Interface implementation layout
+不會依字母或可見性排序方法的宣告，也不會分開從擴展方法中的常規方法，相反，放置相關的資料在一起，以便某人從上而下的閱讀類別，能循著正在發生事情的邏輯，選擇一個排序 (首要的高階資料，反之亦然) 和堅持下去
 
-When implementing an interface, keep the implementing members in the same order as members of the interface (if necessary,
-interspersed with additional private methods used for the implementation)
+Put nested classes next to the code that uses those classes. If the classes are intended to be used externally and aren't referenced inside the class, put them in the end, after the companion object.
 
-### Overload layout
+放內嵌類別到使用那些類別代碼的旁邊，如果類別有意的使用在外部類別並不會在類別內引用它，放它們在尾端，夥伴物件之後
+
+---
+
+### Interface implementation layout (介面實作怖局、安排)
+
+When implementing an interface, keep the implementing members in the same order as members of the interface (if necessary,interspersed with additional private methods used for the implementation)
+
+當在實作介面時，保持實作成員(屬性、方法)與介面成員(屬性、方法)相同的順序 (如果有必要，穿插著額外私有方法用於實作)
+
+---
+
+### Overload layout (多載怖局、安排)
+
+**Overload：多載、超載、負載，在相同類別中，定義「名稱相同」，但「參數個數不同」或是「參數類型不同」的函數方法**
 
 Always put overloads next to each other in a class.
+
+在類別中放置多載彼此相鄰於代碼中的上下順序
 
 ## Naming rules
 
