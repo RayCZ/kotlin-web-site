@@ -364,21 +364,19 @@ class FooImpl : Foo() {
 ```
 ---
 
-### Class header formatting
+### Class header formatting (類別標頭編排格式)
 
 Classes with a few primary constructor parameters can be written in a single line:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+類別的主要建構元參數可以被寫在一行：
+
 ```kotlin
 class Person(id: Int, name: String)
 ```
-</div>
+Classes with longer headers should be formatted so that each primary constructor parameter is in a separate line with indentation.Also, the closing parenthesis should be on a new line. If we use inheritance, then the superclass constructor call or list of implemented interfaces should be located on the same line as the parenthesis:
 
-Classes with longer headers should be formatted so that each primary constructor parameter is in a separate line with indentation.
-Also, the closing parenthesis should be on a new line. If we use inheritance, then the superclass constructor call or list of implemented interfaces
-should be located on the same line as the parenthesis:
+類別有較長的標頭應該被編排，以便每個主建構元參數使用縮排在單獨一行，此外，左括號 `)` 應該在新的一行，如果使用繼承，然後超(父)類別建構元調用或介面實作的列表(清單)應該位於括號同行：
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
 ```kotlin
 class Person(
     id: Int,
@@ -386,11 +384,10 @@ class Person(
     surname: String
 ) : Human(id, name) { ... }
 ```
-</div>
-
 For multiple interfaces, the superclass constructor call should be located first and then each interface should be located in a different line:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only auto-indent="false">
+對於多個介面，超(父)類別建構元調用應該位於第一個並且接續每個介面應該位於不同行：
+
 ```kotlin
 class Person(
     id: Int,
@@ -399,11 +396,10 @@ class Person(
 ) : Human(id, name),
     KotlinMaker { ... }
 ```
-</div>
-
 For classes with a long supertype list, put a line break after the colon and align all supertype names vertically:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only auto-indent="false">
+對於類別有較長的超(父)類清單，在冒號後斷行並垂直對齊所有超(父)類型名稱：
+
 ```kotlin
 class MyFavouriteVeryLongClassHolder :
     MyLongHolder<MyFavouriteVeryLongClass>(),
@@ -413,33 +409,35 @@ class MyFavouriteVeryLongClassHolder :
     fun foo() { ... }
 }
 ```
-</div>
-
 To clearly separate the class header and body when the class header is long, either put a blank line
 following the class header (as in the example above), or put the opening curly brace on a separate line:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only auto-indent="false">
+當類別標頭太長時，清楚的分隔類別標頭與內文，在類別標頭後放置空白行 (如上所示)，或是放左大括號 `{` 在單行：
 ```kotlin
 class MyFavouriteVeryLongClassHolder :
     MyLongHolder<MyFavouriteVeryLongClass>(),
     SomeOtherInterface,
-    AndAnotherOne {
-
+    AndAnotherOne 
+    {
     fun foo() { ... }
 }
 ```
-</div>
+
 
 Use regular indent (4 spaces) for constructor parameters.
 
-> Rationale: This ensures that properties declared in the primary constructor have the same indentation as properties
-> declared in the body of a class.
+使用常規縮排 ( 4空格)  作為建構元參數
 
-### Modifiers
+> Rationale: This ensures that properties declared in the primary constructor have the same indentation as properties declared in the body of a class.
+
+> 理由：這在確保在主建構元宣告屬性與類別本文宣告屬性有相同縮排
+
+### Modifiers (修飾符)
 
 If a declaration has multiple modifiers, always put them in the following order:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+如果宣告多個修飾符，依以下順序(上到下)放置它們：
+
 ``` kotlin
 public / protected / private / internal
 expect / actual
@@ -458,65 +456,61 @@ infix
 operator
 data
 ```
-</div>
-
 Place all annotations before modifiers:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+在修飾符前放置所有註釋：
+
 ``` kotlin
 @Named("Foo")
 private val foo: Foo
 ```
-</div>
-
 Unless you're working on a library, omit redundant modifiers (e.g. `public`).
 
-### Annotation formatting
+除非你從事於函式庫的應用，省略冗餘的修飾符 (例如 `public`)
+
+### Annotation formatting (註釋編排格式)
 
 Annotations are typically placed on separate lines, before the declaration to which they are attached, and with the same indentation:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+典型的註釋放置在單行，在宣告之前附加它們，並使用相同縮排：
+
 ``` kotlin
 @Target(AnnotationTarget.PROPERTY)
 annotation class JsonExclude
 ```
-</div>
-
 Annotations without arguments may be placed on the same line:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+註釋沒有參數可以放置在同行：
+
 ``` kotlin
 @JsonExclude @JvmField
 var x: String
 ```
-</div>
-
 A single annotation without arguments may be placed on the same line as the corresponding declaration:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+單個註釋沒有參數可與對應的宣告同行：
 ``` kotlin
 @Test fun foo() { ... }
 ```
-</div>
-
-### File annotations
+### File annotations (檔案註釋)
 
 File annotations are placed after the file comment (if any), before the `package` statement, and are separated from `package` with a blank line (to emphasize the fact that they target the file and not the package).
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+檔案註釋放置在檔案註解 `/**...*/` 之後，在 `package` 敘述之前，使用空白行從 `package` 分隔
+
 ``` kotlin
 /** License, copyright and whatever */
 @file:JvmName("FooBar")
 
 package foo.bar
 ```
-</div>
-
-### Function formatting
+### Function formatting (函數編排格式)
 
 If the function signature doesn't fit on a single line, use the following syntax:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+**Function signature：函數簽名，包括函數的名稱、參數順序、參數類型、泛型欄位等資訊總稱**
+
+如果函數簽名不適合單行，使用以下句法：
 ``` kotlin
 fun longMethodName(
     argument: ArgumentType = defaultValue,
@@ -525,15 +519,17 @@ fun longMethodName(
     // body
 }
 ```
-</div>
-
 Use regular indent (4 spaces) for function parameters.
+
+使用常規縮排 (4空格) 作為函數參數
 
 > Rationale: Consistency with constructor parameters
 
+> 理由：與建構元的一致性
+
 Prefer using an expression body for functions with the body consisting of a single expression.
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+偏好使用Lambda表達式當內文，函數的內文由單行表達式組合
 ``` kotlin
 fun foo(): Int {     // bad
     return 1 
@@ -541,49 +537,39 @@ fun foo(): Int {     // bad
 
 fun foo() = 1        // good
 ```
-</div>
+### Expression body formatting (表達式內文編排格式)
 
-### Expression body formatting
+If the function has an expression body that doesn't fit in the same line as the declaration, put the `=` sign on the first line.Indent the expression body by 4 spaces.
 
-If the function has an expression body that doesn't fit in the same line as the declaration, put the `=` sign on the first line.
-Indent the expression body by 4 spaces.
+如果函數有表達式內文不適合與宣告同行，放 `=` 符號在第一行，縮排表達式內文為4空格
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only auto-indent="false">
 ``` kotlin
 fun f(x: String) =
     x.length
 ```
-</div>
-
-### Property formatting
+### Property formatting (屬性編排格式)
 
 For very simple read-only properties, consider one-line formatting:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only >
+對於非常簡單唯讀屬性，考慮單行格式：
 ```kotlin
 val isEmpty: Boolean get() = size == 0
 ```
-</div>
-
 For more complex properties, always put `get` and `set` keywords on separate lines:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only auto-indent="false">
+對於更多複雜屬性，總是放 `get` 和 `put` 關鍵字在單獨一行
 ```kotlin
 val foo: String
     get() { ... }
 ```
-</div>
-
 For properties with an initializer, if the initializer is long, add a line break after the equals sign
 and indent the initializer by four spaces:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only auto-indent="false">
+對於使用初始化屬性，如果初始化太長，等於符號 `=` 換行並且縮排初始化為4空格
 ```kotlin
 private val defaultCharset: Charset? =
     EncodingRegistry.getInstance().getDefaultCharsetForPropertiesFiles(file)
 ```
-</div>
-
 ### Formatting control flow statements
 
 If the condition of an `if` or `when` statement is multiline, always use curly braces around the body of the statement.
