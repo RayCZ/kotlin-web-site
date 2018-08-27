@@ -570,13 +570,12 @@ and indent the initializer by four spaces:
 private val defaultCharset: Charset? =
     EncodingRegistry.getInstance().getDefaultCharsetForPropertiesFiles(file)
 ```
-### Formatting control flow statements
+### Formatting control flow statements (控制流程敘述編排格式)
 
-If the condition of an `if` or `when` statement is multiline, always use curly braces around the body of the statement.
-Indent each subsequent line of the condition by 4 spaces relative to statement begin. 
-Put the closing parentheses of the condition together with the opening curly brace on a separate line:
+If the condition of an `if` or `when` statement is multiline, always use curly braces around the body of the statement.Indent each subsequent line of the condition by 4 spaces relative to statement begin. Put the closing parentheses of the condition together with the opening curly brace on a separate line:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only auto-indent="false">
+如果 `if` 或 `when` 敘述的條件是多行，使用括號 `()` 環繞敘述內文，透過4個空格相對放置敘述開始條件，縮排後續每行條件，放條件結尾的右括號 `)` 與開頭敘述左括號 `{` 在單獨一行：
+
 ``` kotlin
 if (!component.isSyncing &&
     !hasAnyKotlinRuntimeInScope(module)
@@ -584,14 +583,14 @@ if (!component.isSyncing &&
     return createKotlinNotConfiguredPanel(module)
 }
 ```
-</div>
-
 > Rationale: Tidy alignment and clear separation of condition and statement body
 
-Put the `else`, `catch`, `finally` keywords, as well as the `while` keyword of a do/while loop, on the same line as the 
-preceding curly brace:
+> 理由：整潔對齊並清楚分隔條件和敘述內文
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+Put the `else`, `catch`, `finally` keywords, as well as the `while` keyword of a do/while loop, on the same line as the preceding curly brace:
+
+放置 `else` ,  `catch` , `finally` 關鍵字，以及 do/while 循環的 `while` 關鍵字，與結尾大括號 `}` 同行
+
 ``` kotlin
 if (condition) {
     // body
@@ -601,15 +600,20 @@ if (condition) {
 
 try {
     // body
+} catch (e: SomeException) {
+    // handle
 } finally {
     // cleanup
 }
-```
-</div>
 
+do  {
+  // body
+} while (condition)
+```
 In a `when` statement, if a branch is more than a single line, consider separating it from adjacent case blocks with a blank line:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+在 `when` 敘述，如果分支敘述超過一行，考慮使用空白行從相鄰事件區塊分隔它：
+
 ``` kotlin
 private fun parsePropertyValue(propName: String, token: Token) {
     when (token) {
@@ -621,19 +625,16 @@ private fun parsePropertyValue(propName: String, token: Token) {
     }
 }
 ```
-</div>
-
 Put short branches on the same line as the condition, without braces.
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+與條件同行的短分支，沒有括號
+
 ``` kotlin
 when (foo) {
     true -> bar() // good
     false -> { baz() } // bad
 }
 ```
-</div>
-
 
 ### Method call formatting
 
