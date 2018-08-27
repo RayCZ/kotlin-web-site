@@ -112,7 +112,7 @@ When implementing an interface, keep the implementing members in the same order 
 
 ### Overload layout (多載怖局、安排)
 
-**Overload：多載、超載、負載，在相同類別中，定義「名稱相同」，但「參數個數不同」或是「參數類型不同」的函數方法**
+**Overload：多載、超載、負載，在相同類別或檔案中，定義「名稱相同」，但「參數個數不同」或是「參數類型不同」的函數方法**
 
 Always put overloads next to each other in a class.
 
@@ -541,7 +541,7 @@ fun foo() = 1        // good
 
 If the function has an expression body that doesn't fit in the same line as the declaration, put the `=` sign on the first line.Indent the expression body by 4 spaces.
 
-如果函數有表達式內文不適合與宣告同行，放 `=` 符號在第一行，縮排表達式內文為4空格
+如果函數有表達式內文不適合與宣告同行，放 `=` 符號在第一行，透過4空格縮排表達式內文
 
 ``` kotlin
 fun f(x: String) =
@@ -565,7 +565,7 @@ val foo: String
 For properties with an initializer, if the initializer is long, add a line break after the equals sign
 and indent the initializer by four spaces:
 
-對於使用初始化屬性，如果初始化太長，等於符號 `=` 換行並且縮排初始化為4空格
+對於使用初始化屬性，如果初始化太長，等於符號 `=` 換行並且透過4空格縮排初始化
 ```kotlin
 private val defaultCharset: Charset? =
     EncodingRegistry.getInstance().getDefaultCharsetForPropertiesFiles(file)
@@ -636,12 +636,13 @@ when (foo) {
 }
 ```
 
-### Method call formatting
+### Method call formatting (方法調用編排格式)
 
 In long argument lists, put a line break after the opening parenthesis. Indent arguments by 4 spaces. 
 Group multiple closely related arguments on the same line.
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+在太長參數列表，左括號 `(` 後換行，透過4個空格縮排參數，多個密切相關參數群組為一行
+
 ``` kotlin
 drawSquare(
     x = 10, y = 10,
@@ -649,39 +650,39 @@ drawSquare(
     fill = true
 )
 ```
-</div>
-
 Put spaces around the `=` sign separating the argument name and value.
 
-### Chained call wrapping
+在 `=` 符號後空格分隔參數名稱與值
+
+### Chained call wrapping (包裝鍊式調用)
 
 When wrapping chained calls, put the `.` character or the `?.` operator on the next line, with a single indent:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only auto-indent="false">
+當包裝鍊式調用時，放 `.` 字元或 `?.` 運算符在下一行的開頭，使用單行縮排(4空格)
+
 ``` kotlin
 val anchor = owner
     ?.firstChild!!
     .siblings(forward = true)
     .dropWhile { it is PsiComment || it is PsiWhiteSpace }
 ```
-</div>
-
 The first call in the chain usually should have a line break before it, but it's OK to omit it if the code makes more sense that way.
 
-### Lambda formatting
+在鏈式的第一個調用之前通常應該換行分隔物件，忽略它的代碼更有意義的方式是 ok 的
 
-In lambda expressions, spaces should be used around the curly braces, as well as around the arrow which separates the parameters
-from the body. If a call takes a single lambda, it should be passed outside of parentheses whenever possible.
+### Lambda formatting (Lambda編排格式)
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+In lambda expressions, spaces should be used around the curly braces, as well as around the arrow which separates the parameters from the body. If a call takes a single lambda, it should be passed outside of parentheses whenever possible.
+
+在 Lambda 表達式，應該在大括號 `{}` 之間空格，以及箭頭從內文分隔參數之間空格，如果一個調用帶有單個 Lambda `it`，它盡可能在括號外傳遞
+
 ``` kotlin
 list.filter { it > 10 }
 ```
-</div>
-
 If assigning a label for a lambda, do not put a space between the label and the opening curly brace:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+如果為 Lambda 分配一個標籤，在標記 `@` 與左大括號 `{ ` 之間不要放置空格
+
 ``` kotlin
 fun foo() {
     ints.forEach lit@{
@@ -689,21 +690,18 @@ fun foo() {
     }
 }
 ```
-</div>
-
 When declaring parameter names in a multiline lambda, put the names on the first line, followed by the arrow and the newline:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only auto-indent="false">
+當在多行 Lambda宣告參數命稱時，在第一行放置名稱，箭頭之後新的一行
 ``` kotlin
 appendCommaSeparated(properties) { prop ->
     val propertyValue = prop.get(obj)  // ...
 }
 ```
-</div>
-
 If the parameter list is too long to fit on a line, put the arrow on a separate line:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+如果參數列表太長適合新的一行，在單獨一行放箭頭 `->`
+
 ``` kotlin
 foo {
    context: Context,
@@ -712,35 +710,29 @@ foo {
    context.configureEnv(environment)
 }
 ```
-</div>
+## Documentation comments (文件註解)
 
-## Documentation comments
+For longer documentation comments, place the opening `/**` on a separate line and begin each subsequent line with an asterisk:
 
-For longer documentation comments, place the opening `/**` on a separate line and begin each subsequent line
-with an asterisk:
+對於太長文件註解，在單獨一行放開頭 `/**` 並使用星號 `*` 在後續每行的開頭
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
 ``` kotlin
 /**
  * This is a documentation comment
  * on multiple lines.
  */
 ```
-</div>
-
 Short comments can be placed on a single line:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+短註解可以放置單行
+
 ``` kotlin
 /** This is a short documentation comment. */
 ```
-</div>
+Generally, avoid using `@param` and `@return` tags. Instead, incorporate the description of parameters and return values directly into the documentation comment, and add links to parameters wherever they are mentioned. Use `@param` and `@return` only when a lengthy description is required which doesn't fit into the flow of the main text.
 
-Generally, avoid using `@param` and `@return` tags. Instead, incorporate the description of parameters and return values
-directly into the documentation comment, and add links to parameters wherever they are mentioned. Use `@param` and
-`@return` only when a lengthy description is required which doesn't fit into the flow of the main text.
+通常，避免使用 `@param` 和 `@return` 標籤，相反，將參數描述 `＠param ....` 與回傳值 `@return ...` 直接合併到文件註解，並且新增連結到參數無論他們有沒有注意到，只在需要冗長描述且不適合主要文字流程時才使用 `@param` 和 `return` 
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
 ``` kotlin
 // Avoid doing this:
 
@@ -758,53 +750,53 @@ fun abs(number: Int) = ...
  */
 fun abs(number: Int) = ...
 ```
-</div>
+## Avoiding redundant constructs (避免冗餘的建構元)
 
-## Avoiding redundant constructs
+In general, if a certain syntactic construction in Kotlin is optional and highlighted by the IDE as redundant, you should omit it in your code. Do not leave unnecessary syntactic elements in code just "for clarity".
 
-In general, if a certain syntactic construction in Kotlin is optional and highlighted by the IDE
-as redundant, you should omit it in your code. Do not leave unnecessary syntactic elements in code
-just "for clarity".
+一般來說，如果在 Kotlin 某種語意結構由 IDE 視為冗餘是可選(可有可無)和突顯，你應該在你的代碼省略它，不要在代碼中留下不必要的語意元素，就是 '為了清晰' 
 
-### Unit
+### Unit (單元)
+
+**Unit：類似於 Java 的 null**
 
 If a function returns Unit, the return type should be omitted:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+如果函數回傳 Unit，回傳類型應該被省略
+
 ``` kotlin
 fun foo() { // ": Unit" is omitted here
 
 }
 ```
-</div>
-
-### Semicolons
+### Semicolons (分號)
 
 Omit semicolons whenever possible.
 
-### String templates
+盡可能省略
+
+### String templates (字串模版)
 
 Don't use curly braces when inserting a simple variable into a string template. Use curly braces only for longer expressions.
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+當插入簡單變數到字串模版時不需要大括號，只有對於較長的表達式才使用大括號
+
 ``` kotlin
 println("$name has ${children.size} children")
 ```
-</div>
 
+## Idiomatic use of language features (慣用語言特徵)
 
-## Idiomatic use of language features
+### Immutability (不可變、不變性)
 
-### Immutability
+Prefer using immutable data to mutable. Always declare local variables and properties as `val` rather than `var` if they are not modified after initialization.
 
-Prefer using immutable data to mutable. Always declare local variables and properties as `val` rather than `var` if
-they are not modified after initialization.
+優先使用不可變的資料到可變的，如果在初始化後不去修改區域變數和屬性，總是宣告為 `val` 而不是 `var` 
 
-Always use immutable collection interfaces (`Collection`, `List`, `Set`, `Map`) to declare collections which are not
-mutated. When using factory functions to create collection instances, always use functions that return immutable
-collection types when possible:
+Always use immutable collection interfaces (`Collection`, `List`, `Set`, `Map`) to declare collections which are not mutated. When using factory functions to create collection instances, always use functions that return immutable collection types when possible:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+總是使用不可變的集合介面(抽象介面) (`Collection`, `List`, `Set`, `Map`) 來宣告集合不可改變，而不是利用集合的衍生(子)類別為可變的集合類型，當使用工廠函數去建立集合實例，盡可能回傳不可變集合類型(抽象、介面)而不是具體類型：
+
 ``` kotlin
 // Bad: use of mutable collection type for value which will not be mutated
 fun validateValue(actualValue: String, allowedValues: HashSet<String>) { ... }
@@ -818,13 +810,17 @@ val allowedValues = arrayListOf("a", "b", "c")
 // Good: listOf() returns List<T>
 val allowedValues = listOf("a", "b", "c")
 ```
-</div>
+簡單說，使用抽象不使用具體
 
-### Default parameter values
+---
+
+### Default parameter values (預設參數值)
+
+**Overload：多載、超載、負載，在相同類別或檔案中，定義「名稱相同」，但「參數個數不同」或是「參數類型不同」的函數方法**
 
 Prefer declaring functions with default parameter values to declaring overloaded functions.
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+優先宣告函數使用預設值去宣告多載函數
 ``` kotlin
 // Bad
 fun foo() = foo("a")
@@ -833,49 +829,54 @@ fun foo(a: String) { ... }
 // Good
 fun foo(a: String = "a") { ... }
 ```
-</div>
+---
 
-### Type aliases
+### Type aliases (類型別名)
 
-If you have a functional type or a type with type parameters which is used multiple times in a codebase, prefer defining
-a type alias for it:
+If you have a functional type or a type with type parameters which is used multiple times in a codebase, prefer defining a type alias for it:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+如果你有函數類型或使用類型參數的類型在代碼庫中多次使用，優先定義類型別名給它
 ```kotlin
 typealias MouseClickHandler = (Any, MouseEvent) -> Unit
 typealias PersonIndex = Map<String, Person>
 ```
-</div>
+---
 
-### Lambda parameters
+### Lambda parameters (Lambda 參數)
 
-In lambdas which are short and not nested, it's recommended to use the `it` convention instead of declaring the parameter
-explicitly. In nested lambdas with parameters, parameters should be always declared explicitly.
+In lambdas which are short and not nested, it's recommended to use the `it` convention instead of declaring the parameter explicitly. In nested lambdas with parameters, parameters should be always declared explicitly.
 
+在 Lambda 是短而不內嵌的(調用的callback)，建議使用 `it` 慣語而不是明顯的宣告參數，使用參數在內嵌 Lambda，參數應該明顯已被宣告
 
-### Returns in a lambda
+---
 
-Avoid using multiple labeled returns in a lambda. Consider restructuring the lambda so that it will have a single exit point.
-If that's not possible or not clear enough, consider converting the lambda into an anonymous function.
+### Returns in a lambda (在 Lambda 回傳)
+
+Avoid using multiple labeled returns in a lambda. Consider restructuring the lambda so that it will have a single exit point.If that's not possible or not clear enough, consider converting the lambda into an anonymous function.
+
+在 Lambda避免使用多個 return 標記，考慮重構 Lambda 以便它有單個出口點，如果這不可能或不夠清楚，考慮轉換 Lambda 到匿名函數
 
 Do not use a labeled return for the last statement in a lambda.
 
-### Named arguments
+不要在 Lambda 最後一行敘述使用 return，Kotlin 自動會回傳最後一行
 
-Use the named argument syntax when a method takes multiple parameters of the same primitive type, or for parameters of `Boolean` type,
-unless the meaning of all parameters is absolutely clear from context.
+---
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+### Named arguments (命名參數)
+
+Use the named argument syntax when a method takes multiple parameters of the same primitive type, or for parameters of `Boolean` type,unless the meaning of all parameters is absolutely clear from context.
+
+當方法帶有多個相同原生類型的參數或 `Boolean` 類型的參數使用命名參數語法，除非所有參數的意義從環境中絕對清楚的
 ``` kotlin
 drawSquare(x = 10, y = 10, width = 100, height = 100, fill = true)
 ```
-</div>
+---
 
-### Using conditional statements
+### Using conditional statements (使用條件敘述)
 
 Prefer using the expression form of `try`, `if` and `when`. Examples:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+優先使用 `try` , `if` 和 `when` 表達式形式，例如：
 ``` kotlin
 return if (x) foo() else bar()
 
@@ -884,11 +885,10 @@ return when(x) {
     else -> "nonzero"
 }
 ```
-</div>
-
 The above is preferable to:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only auto-indent="false">
+以上優於：
+
 ``` kotlin
 if (x)
     return foo()
@@ -900,24 +900,26 @@ when(x) {
     else -> return "nonzero"
 }    
 ```
-</div>
+---
 
-### `if` versus `when`
+### `if` versus `when` ( `if` 與 `when` 相對差別)
 
 Prefer using `if` for binary conditions instead of `when`. Instead of
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+二元條件優先使用 `if` 而不是 `when`，而不是以下列子：
 ``` kotlin
 when (x) {
     null -> ...
     else -> ...
 }
 ```
-</div>
-
 use `if (x == null) ... else ...`
 
 Prefer using `when` if there are three or more options.
+
+如果有三個或更多選項，優先使用 `when`
+
+---
 
 ### Using nullable `Boolean` values in conditions
 
