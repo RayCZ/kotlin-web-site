@@ -41,7 +41,7 @@ fun foo(a: Int = 0, b: String = "") { ... }
 
 ### Filtering a list (過濾列表)
 
-**Lambda表達式{}可以依自己需求要不要加參數**
+**Lambda表達式 `{}` 可以依自己需求要不要加參數**
 
 ``` kotlin
 val positives = list.filter { x -> x > 0 }

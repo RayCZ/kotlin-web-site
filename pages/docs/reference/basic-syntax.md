@@ -13,7 +13,7 @@ title: "Basic Syntax"
 
 Package specification should be at the top of the source file:
 
-Package規範應該在來源檔案的最上面：
+Package 規範應該在來源檔案的最上面：
 
 ``` kotlin
 package my.demo
@@ -24,7 +24,7 @@ import java.util.*
 ```
 It is not required to match directories and packages: source files can be placed arbitrarily in the file system.
 
-package需不要匹配目錄與package：在檔案系統中來源檔案可以隨意的放置
+package 需不要匹配目錄與 package ：在檔案系統中來源檔案可以隨意的放置
 
 See [Packages](packages.md).
 
@@ -51,7 +51,7 @@ fun main(args: Array<String>) {
 
 Function with an expression body and inferred return type:
 
-使用表達式(Lambda)內文的函數或推斷回傳類型：
+使用表達式 (Lambda) 內文的函數或推斷回傳類型：
 
 ``` kotlin
 //sampleStart
@@ -66,7 +66,7 @@ fun main(args: Array<String>) {
 
 Function returning no meaningful value:
 
-函數回傳無意義的值(Unit)：
+函數回傳無意義的值 (Unit) ：
 
 ``` kotlin
 //sampleStart
@@ -83,7 +83,7 @@ fun main(args: Array<String>) {
 
 `Unit` return type can be omitted:
 
-`Unit`回傳類型可以被省略(與上面比較Unit被省略)：
+`Unit` 回傳類型可以被省略 (與上面比較Unit被省略) ：
 
 ``` kotlin
 //sampleStart
@@ -102,7 +102,7 @@ See [Functions](functions.md).
 
 Assign-once (read-only) local variable:
 
-分配一次性(唯讀)區域變數(val)：
+分配一次性 (唯讀) 區域變數 (val) ：
 
 ``` kotlin
 fun main(args: Array<String>) {
@@ -120,7 +120,7 @@ fun main(args: Array<String>) {
 
 Mutable variable:
 
-可變的變數(var)：
+可變的變數 (var) ：
 
 ``` kotlin
 fun main(args: Array<String>) {
@@ -135,7 +135,7 @@ fun main(args: Array<String>) {
 
 Top-level variables:
 
-最高層級的變數(不在類別或是函數內)：
+最高層級的變數 (不在類別或是函數內) ：
 
 ``` kotlin
 //sampleStart
@@ -220,7 +220,7 @@ fun main(args: Array<String>) {
 ```
 Using `if` as an expression:
 
-使用 `if` 為一個單行表達式(Lambda)，差別在於方法可以用 `=` 指定表達式
+使用 `if` 為一個單行表達式 (Lambda) ，差別在於方法可以用 `=` 指定表達式
 
 ``` kotlin
 //sampleStart
