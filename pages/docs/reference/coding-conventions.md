@@ -1071,15 +1071,15 @@ fun main(args: Array<String>) {
 
 ### Using scope functions apply/with/run/also/let (使用範圍函數 apply/with/run/also/let)
 
-**content of given object ：已給予物件的環境，在程式中 `{.....}` 表達式**
+**詳細來源代碼參考 [Standard.kt](https://github.com/JetBrains/kotlin/blob/master/libraries/stdlib/src/kotlin/util/Standard.kt)**
 
 Kotlin provides a variety of functions to execute a block of code in the context of a given object. To choose the correct function, consider the following:
 
-Kotlin 提供各種函數去執行給予物件環境的代碼區塊，去選擇正確函數，請考慮以下：
+Kotlin 提供各種函數 (apply/with/run/also/let) 去執行給予物件內容的代碼區塊，去選擇正確函數，請考慮以下：
 
   * Are you calling methods on multiple objects in the block, or passing the instance of the context object as an argument? If you are, use one of the functions that allows you to access the context object as `it`,
     not `this` (`also` or `let`). Use `also` if the receiver is not used at all in the block.
-  * 你在代碼區塊裡面多個物件調用方法，或傳遞環境物件的實例當作參數？如果是，允許你存取環境物件為 `it` 參數之一，不是 `this` (`also` 或 `let`)，如果在區塊中接收器根本沒有使用，請使用 `also` 
+  * 你在代碼區塊裡面多個物件調用方法，或傳遞內容物件的實例當作參數？如果是，允許你存取內容物件為 `it` 參數之一，不是 `this` (`also` 或 `let` 兩個函數都帶有參數 `it` 代表調用的物件)，如果在區塊中接收器根本沒有使用，請使用 `also` 
 
 ``` kotlin
 // Context object is 'it'
@@ -1106,12 +1106,12 @@ class Baz {
     }
 }
 ```
-
-​    
   * What should the result of the call be? If the result needs to be the context object, use `apply` or `also`.
     If you need to return a value from the block, use `with`, `let` or `run`
+  * 這個調用的回傳結果是什麼？
+    如果回傳的結果需要變為內容物件，使用 `apply` 或 `also` (函數外 `{}.xxxx()`可以接續對這個物件的操作)。
+    如果你需要從代碼區塊回傳值，使用 `with`、`let`、`run` (可以依代碼區塊的最後一行物件類型當回傳值)。
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
 ``` kotlin
 // Return value is context object
 class Baz {
@@ -1129,11 +1129,11 @@ class Baz {
     }
 }
 ```
-</div>
-  * Is the context object nullable, or is it evaluated as a result of a call chain? If it is, use `apply`, `let` or `run`.
-    Otherwise, use `with` or `also`.
+  * Is the context object nullable, or is it evaluated as a result of a call chain? If it is, use `apply`, `let` or `run`. Otherwise, use `with` or `also`.
+  * 內容物件是否為可空的，或是作為調用鍊的結果建行評估？
+    如果是，使用 `apply`、`let`、`run`。
+    否則，使用 `with`、`also`。
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
 ``` kotlin
 // Context object is nullable
 person.email?.let { sendEmail(it) }
@@ -1143,15 +1143,18 @@ with(person) {
     println("First name: $firstName, last name: $lastName")
 }
 ```
-</div>
+---
 
 
-## Coding conventions for libraries
+## Coding conventions for libraries (函式庫的編碼慣例)
 
 When writing libraries, it's recommended to follow an additional set of rules to ensure API stability:
 
+當在寫函式庫代碼，推薦遵循以下額外規則組來確保 API 穩定性：
+
  * Always explicitly specify member visibility (to avoid accidentally exposing declarations as public API)
- * Always explicitly specify function return types and property types (to avoid accidentally changing the return type
-   when the implementation changes)
- * Provide KDoc comments for all public members, with the exception of overrides that do not require any new documentation
-   (to support generating documentation for the library)
+ * 總是明確指定成員的可見性 (為了避免，意外揭露宣告為公開 API)
+ * Always explicitly specify function return types and property types (to avoid accidentally changing the return type when the implementation changes)
+ * 總是明確指定函數回傳類型和屬性回傳類型 (為了避免當實作改變時，意外改變回傳類型)
+ * Provide KDoc comments for all public members, with the exception of overrides that do not require any new documentation (to support generating documentation for the library)
+ * 為所有公開成員提供 KDoc 註解，除了不需要任何文件覆寫之外 (支持產生函式庫文件)
