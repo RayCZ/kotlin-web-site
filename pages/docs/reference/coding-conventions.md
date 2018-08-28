@@ -49,7 +49,7 @@ the common root package omitted
 
 (e.g. if all the code in the project is in the "org.example.kotlin" package and its subpackages, files with the "org.example.kotlin" package should be placed directly under the source root, and files in "org.example.kotlin.foo.bar" should be in the "foo/bar" subdirectory of the source root).
 
-(例如：如果在專案中所有的代碼在 "org.example.kotlin" package 和它的子 packages，檔案內宣告 package  "org.example.kotlin" 應該直接放置在起始(根)來源下，並在 "org.example.kotlin.foo.bar"下的檔案應該在起始來源的子目錄 "foo/bar")
+(例如：如果在專案中所有的代碼在 "org.example.kotlin" package 和它的子 packages，檔案內宣告 package "org.example.kotlin" 應該直接放置在起始(根)來源下，並在 "org.example.kotlin.foo.bar"下的檔案應該在起始來源的子目錄 "foo/bar")
 
 ---
 
@@ -305,7 +305,7 @@ fun bar() {
 ```
 Never put a space after `(`, `[`, or before `]`, `)`.
 
-禁止在 `(` , `[` 之後，或是 `]` ,  `)` 之前放空格
+禁止在 `(` , `[` 之後，或是 `]` , `)` 之前放空格
 
 Never put a space around `.` or `?.`: `foo.bar().filter { it > 2 }.joinToString()`, `foo?.bar()`
 
@@ -426,7 +426,7 @@ class MyFavouriteVeryLongClassHolder :
 
 Use regular indent (4 spaces) for constructor parameters.
 
-使用常規縮排 ( 4空格)  作為建構元參數
+使用常規縮排 (4空格) 作為建構元參數
 
 > Rationale: This ensures that properties declared in the primary constructor have the same indentation as properties declared in the body of a class.
 
@@ -589,7 +589,7 @@ if (!component.isSyncing &&
 
 Put the `else`, `catch`, `finally` keywords, as well as the `while` keyword of a do/while loop, on the same line as the preceding curly brace:
 
-放置 `else` ,  `catch` , `finally` 關鍵字，以及 do/while 循環的 `while` 關鍵字，與結尾大括號 `}` 同行
+放置 `else` , `catch` , `finally` 關鍵字，以及 do/while 循環的 `while` 關鍵字，與結尾大括號 `}` 同行
 
 ``` kotlin
 if (condition) {
