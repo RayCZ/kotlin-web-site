@@ -73,7 +73,7 @@ The name of the file should describe what the code in the file does. Therefore, 
 
 Placing multiple declarations (classes, top-level functions or properties) in the same Kotlin source file is encouraged as long as these declarations are closely related to each other semantically and the file size remains reasonable (not exceeding a few hundred lines).
 
-在相同 Kotlin 來源檔案放置多個宣告 (classes , top-level functions or properties ) 是被鼓勵支持的，只要這些宣告彼此緊密相關的語義並且檔案大小保持合理 (不超過幾百行)
+在相同 Kotlin 來源檔案放置多個宣告 (classes, top-level functions or properties ) 是被鼓勵支持的，只要這些宣告彼此緊密相關的語義並且檔案大小保持合理 (不超過幾百行)
 
 In particular, when defining extension functions for a class which are relevant for all clients of this class, put them in the same file where the class itself is defined. When defining extension functions that make sense only for a specific client, put them next to the code of that client. Do not create files just to hold "all extensions of Foo".
 
@@ -104,7 +104,7 @@ Put nested classes next to the code that uses those classes. If the classes are 
 
 ### Interface implementation layout (介面實作怖局、安排)
 
-When implementing an interface, keep the implementing members in the same order as members of the interface (if necessary,interspersed with additional private methods used for the implementation)
+When implementing an interface, keep the implementing members in the same order as members of the interface (if necessary, interspersed with additional private methods used for the implementation)
 
 當在實作介面時，保持實作成員(屬性、方法)與介面成員(屬性、方法)相同的順序 (如果有必要，穿插著額外私有方法用於實作)
 
@@ -791,11 +791,11 @@ println("$name has ${children.size} children")
 
 Prefer using immutable data to mutable. Always declare local variables and properties as `val` rather than `var` if they are not modified after initialization.
 
-優先使用不可變的資料到可變的，如果在初始化後不去修改區域變數和屬性，總是宣告為 `val` 而不是 `var` 
+優先使用不可變的資料進行可變的，如果在初始化後不去修改區域變數和屬性，總是宣告為 `val` 而不是 `var` 
 
 Always use immutable collection interfaces (`Collection`, `List`, `Set`, `Map`) to declare collections which are not mutated. When using factory functions to create collection instances, always use functions that return immutable collection types when possible:
 
-總是使用不可變的集合介面(抽象介面) (`Collection`, `List`, `Set`, `Map`) 來宣告集合不可改變，而不是利用集合的衍生(子)類別為可變的集合類型，當使用工廠函數去建立集合實例，盡可能回傳不可變集合類型(抽象、介面)而不是具體類型：
+總是使用不可變的集合介面(抽象介面) (`Collection`, `List`, `Set`, `Map`) 進行宣告集合不可改變，而不是利用集合的衍生(子)類別為可變的集合類型，當使用工廠函數進行建立集合實例，盡可能回傳不可變集合類型(抽象、介面)而不是具體類型：
 
 ``` kotlin
 // Bad: use of mutable collection type for value which will not be mutated
@@ -921,39 +921,52 @@ Prefer using `when` if there are three or more options.
 
 ---
 
-### Using nullable `Boolean` values in conditions
+### Using nullable `Boolean` values in conditions (在條件上使用可空的 `Boolean` 值)
 
 If you need to use a nullable `Boolean` in a conditional statement, use `if (value == true)` or `if (value == false)` checks.
 
-### Using loops
+如果在條件敘述上你需要使用可空的 `Boolean` ，使用`if (value == true)` 或 `if (value == false)` 檢查
 
-Prefer using higher-order functions (`filter`, `map` etc.) to loops. Exception: `forEach` (prefer using a regular `for` loop instead,
-unless the receiver of `forEach` is nullable or `forEach` is used as part of a longer call chain).
+---
 
-When making a choice between a complex expression using multiple higher-order functions and a loop, understand the cost
-of the operations being performed in each case and keep performance considerations in mind. 
+### Using loops (使用循環)
 
-### Loops on ranges
+Prefer using higher-order functions (`filter`, `map` etc.) to loops. Exception: `forEach` (prefer using a regular `for` loop instead, unless the receiver of `forEach` is nullable or `forEach` is used as part of a longer call chain).
+
+優先使用高階函數 (`filter` , `map` 等等) 到循環，例外：`forEach` (優先使用常規 `for` 循環取代，除非 `forEach`的接收器可以為可空的或 `forEach` 用為較長鍊式調用的一部份)
+
+When making a choice between a complex expression using multiple higher-order functions and a loop, understand the cost of the operations being performed in each case and keep performance considerations in mind. 
+
+在使用多個高階函數的複雜表達式和環循之間做選擇，瞭解每個情況下正在執行操作的花費(成本)和留心持續考慮效能
+
+---
+
+### Loops on ranges (循環範圍)
 
 Use the `until` function to loop over an open range:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+使用 `until` 函數去遍歷(走訪)開放的範圍
+
 ```kotlin
 for (i in 0..n - 1) { ... }  // bad
 for (i in 0 until n) { ... }  // good
 ```
-</div>
+---
 
-### Using strings
+### Using strings (使用字串)
 
 Prefer using string templates to string concatenation.
 
+優先使用使用字串模版進行字串連接
+
 Prefer to use multiline strings instead of embedding `\n` escape sequences into regular string literals.
 
-To maintain indentation in multiline strings, use `trimIndent` when the resulting string does not require any internal
-indentation, or `trimMargin` when internal indentation is required:
+優先使用多行字串而不是嵌入 `\n` 跳脫字元序列到常規字串文字中
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only auto-indent="false">
+To maintain indentation in multiline strings, use `trimIndent` when the resulting string does not require any internal indentation, or `trimMargin` when internal indentation is required:
+
+為了在多行字串維護縮排，在結果字串不需要任何內部縮排使用 `trimIndent` ，或當內部縮排被需要 `trimMargin`
+
 ``` kotlin
 assertEquals(
     """
@@ -967,42 +980,54 @@ val a = """if(a > 1) {
           |    return a
           |}""".trimMargin()
 ```
-</div>
+---
 
-### Functions vs Properties
+### Functions vs Properties (函數 vs 屬性)
 
-In some cases functions with no arguments might be interchangeable with read-only properties. 
-Although the semantics are similar, there are some stylistic conventions on when to prefer one to another.
+In some cases functions with no arguments might be interchangeable with read-only properties. Although the semantics are similar, there are some stylistic conventions on when to prefer one to another.
+
+在某些情況下，沒有參數的函數可以與唯讀屬性互換，儘管語義相似，有某些風格慣例優先屬性勝過函數
 
 Prefer a property over a function when the underlying algorithm:
 
-* does not throw
-* is cheap to calculate (or caсhed on the first run)
-* returns the same result over invocations if the object state hasn't changed
+當在底層演算法優先使用屬性勝過函數：
 
-### Using extension functions
+* does not throw 不會丟出異常
+* is cheap to calculate (or caсhed on the first run) 是便宜容易計算 (或 第一次運行保留快取)
+* returns the same result over invocations if the object state hasn't changed (如果在物件的狀態沒有被改變，回傳相同的結果)
 
-Use extension functions liberally. Every time you have a function that works primarily on an object, consider making it
-an extension function accepting that object as a receiver. To minimize API pollution, restrict the visibility of
-extension functions as much as it makes sense. As necessary, use local extension functions, member extension functions,
-or top-level extension functions with private visibility.
+---
 
-### Using infix functions
+### Using extension functions (使用擴展函數)
 
-Declare a function as infix only when it works on two objects which play a similar role. Good examples: `and`, `to`, `zip`.
-Bad example: `add`.
+Use extension functions liberally. Every time you have a function that works primarily on an object, consider making it an extension function accepting that object as a receiver. To minimize API pollution, restrict the visibility of extension functions as much as it makes sense. As necessary, use local extension functions, member extension functions, or top-level extension functions with private visibility.
+
+使用豐富的擴展函數，每當你有一個在物件上主要工作的函數，考慮使它變成擴展函數接受物件為接收器，為了最小化污染 API ，限制擴展函數的可見性使它有意義的，根據需要，使用私有可見性的區域擴展函數、擴展函數成員、最高層級擴展函數
+
+---
+
+### Using infix functions (使用中綴函數)
+
+Declare a function as infix only when it works on two objects which play a similar role. Good examples: `and`, `to`, `zip`. Bad example: `add`.
+
+只有函數在兩個物件扮演類似的角色，才宣告函數為中綴，好的例子：`and` , `to` , `zip`。壞的例子： `add`
 
 Don't declare a method as infix if it mutates the receiver object.
 
-### Factory functions
+如果它是可變的接收器物件，則不要宣告方法為中綴
 
-If you declare a factory function for a class, avoid giving it the same name as the class itself. Prefer using a distinct name
-making it clear why the behavior of the factory function is special. Only if there is really no special semantics,
-you can use the same name as the class.
+---
+
+### Factory functions (工廠函數)
+
+If you declare a factory function for a class, avoid giving it the same name as the class itself. Prefer using a distinct name making it clear why the behavior of the factory function is special. Only if there is really no special semantics, you can use the same name as the class.
+
+如果你為類別宣告工廠函數，避免給它與類別本身相同的名子，優先使用獨特名子使它明確知道為何工廠函數的行為是特殊的，只有在沒有特殊語義的情況下，你可以使用與類別相同的名子
 
 Example:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+例子：
+
 ``` kotlin
 class Point(val x: Double, val y: Double) {
     companion object {
@@ -1010,53 +1035,52 @@ class Point(val x: Double, val y: Double) {
     }
 }
 ```
-</div>
+If you have an object with multiple overloaded constructors that don't call different superclass constructors and can't be reduced to a single constructor with default argument values, prefer to replace the overloaded constructors with factory functions.
 
-If you have an object with multiple overloaded constructors that don't call different superclass constructors and
-can't be reduced to a single constructor with default argument values, prefer to replace the overloaded constructors with
-factory functions.
+如果你有一個物件有多個多載建構元，不能調用不同超(父)類別建構元並不可減少單個建構元的預設參數值，優先使用工廠函數代替多載建構元
 
-### Platform types
+---
+
+### Platform types (平台類型)
 
 A public function/method returning an expression of a platform type must declare its Kotlin type explicitly:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+一個公開函數/方法回傳平台類型表達式必須明確宣告它是 Kotlin 類型：
 ``` kotlin
 fun apiCall(): String = MyJavaApi.getProperty("name")
 ```
-</div>
-
 Any property (package-level or class-level) initialised with an expression of a platform type must declare its Kotlin type explicitly:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+任何屬性 (package-level 或 class-level) 使用平台類型表達式初始化必須明確宣告它是 Kotlin類型：
+
 ``` kotlin
 class Person {
     val name: String = MyJavaApi.getProperty("name")
 }
 ```
-</div>
-
 A local value initialised with an expression of a platform type may or may not have a type declaration:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+使用平台類型表達式的區域數值初始化可能有也可能沒有有類型宣告：
 ``` kotlin
 fun main(args: Array<String>) {
     val name = MyJavaApi.getProperty("name")
     println(name)
 }
 ```
-</div>
+---
 
-### Using scope functions apply/with/run/also/let
+### Using scope functions apply/with/run/also/let (使用範圍函數 apply/with/run/also/let)
 
-Kotlin provides a variety of functions to execute a block of code in the context of a given object. To choose the correct
-function, consider the following:
+**content of given object ：已給予物件的環境，在程式中 `{.....}` 表達式**
 
-  * Are you calling methods on multiple objects in the block, or passing the instance of the context object as an 
-    argument? If you are, use one of the functions that allows you to access the context object as `it`,
+Kotlin provides a variety of functions to execute a block of code in the context of a given object. To choose the correct function, consider the following:
+
+Kotlin 提供各種函數去執行給予物件環境的代碼區塊，去選擇正確函數，請考慮以下：
+
+  * Are you calling methods on multiple objects in the block, or passing the instance of the context object as an argument? If you are, use one of the functions that allows you to access the context object as `it`,
     not `this` (`also` or `let`). Use `also` if the receiver is not used at all in the block.
+  * 你在代碼區塊裡面多個物件調用方法，或傳遞環境物件的實例當作參數？如果是，允許你存取環境物件為 `it` 參數之一，不是 `this` (`also` 或 `let`)，如果在區塊中接收器根本沒有使用，請使用 `also` 
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
 ``` kotlin
 // Context object is 'it'
 class Baz {
@@ -1082,7 +1106,7 @@ class Baz {
     }
 }
 ```
-</div>
+
 ​    
   * What should the result of the call be? If the result needs to be the context object, use `apply` or `also`.
     If you need to return a value from the block, use `with`, `let` or `run`
