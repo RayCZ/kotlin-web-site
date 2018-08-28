@@ -1130,7 +1130,7 @@ class Baz {
 }
 ```
   * Is the context object nullable, or is it evaluated as a result of a call chain? If it is, use `apply`, `let` or `run`. Otherwise, use `with` or `also`.
-  * 內容物件是否為可空的，或是作為調用鍊的結果建行評估？
+  * 內容物件是否為可空的，或是作為調用鍊的結果進行評估？
     如果是，使用 `apply`、`let`、`run`。
     否則，使用 `with`、`also`。
 
@@ -1143,19 +1143,121 @@ with(person) {
     println("First name: $firstName, last name: $lastName")
 }
 ```
+---
+
 ###額外說明：
 
-考慮物件從代碼區塊回傳是否需要接續調用方法?
+`receiver` ： 為調用物件，例如：`"123".let{}` 代表 receiver = "123"
 
-代碼區塊回傳可以透過最後一行來轉型？
+`let`
 
-代碼區塊可以改變調用物件的值？
+```kotlin
+/**
+ * Calls the specified function [block] with `this` value as its argument and returns its result.
+ */
+@kotlin.internal.InlineOnly
+public inline fun <T, R> T.let(block: (T) -> R): R {
+    contract {
+        callsInPlace(block, InvocationKind.EXACTLY_ONCE)
+    }
+    return block(this)
+}
+```
 
-`let` (參數 `it` 、回傳本身但不可轉型) > `alst` (參數 `it`、回傳 `this`) > `apply` (`this`、回傳 `this`) > `run` (`this` 、回傳最後一行) > `with` (依參數變 `this`，回傳最後一行)
+* `{}` 內取得receiver： `it` 也可自定義
+* `{}` 內回傳：最後一行的物件 `-> R`
+* `let{}.` 之後回傳：最後一行的物件 `: R`
 
-`let` **讓**它的區塊做些事情，最後一行不能轉換類型回傳 (會變 `Unit` )，在區塊直接指定操作 `it`會影響調用的值 `"123".let{ it + "123"} //123123` 
+---
 
-`also` 讓物件在區塊中**也**做些事情，不管回傳，始終回傳調用的物件，`"123".let{ it = it + "123"} //123123` 需要將參數的值重新賦予	
+`also`
+
+```kotlin
+/**
+ * Calls the specified function [block] with `this` value as its argument and returns `this` value.
+ */
+@kotlin.internal.InlineOnly
+@SinceKotlin("1.1")
+public inline fun <T> T.also(block: (T) -> Unit): T {
+    contract {
+        callsInPlace(block, InvocationKind.EXACTLY_ONCE)
+    }
+    block(this)
+    return this
+}
+```
+
+* `{}` 內取得receiver： `it` 也可自定義
+* `{}` 內回傳： Unit `-> Unit`
+* `also{}.` 之後類型： 調用物件 (receiver) `: T`
+
+---
+
+`apply`
+
+```kotlin
+/**
+ * Calls the specified function [block] with `this` value as its receiver and returns `this` value.
+ */
+@kotlin.internal.InlineOnly
+public inline fun <T> T.apply(block: T.() -> Unit): T {
+    contract {
+        callsInPlace(block, InvocationKind.EXACTLY_ONCE)
+    }
+    block()
+    return this
+}
+```
+
+* `{}` 內取得receiver： `this` (因為是擴展函數 `T.()`)
+* `{}` 內回傳： Unit `-> Unit`
+* `apply{}.` 之後類型： 調用物件 (receiver) `: T`
+
+---
+
+`run`
+
+```kotlin
+/**
+ * Calls the specified function [block] with `this` value as its receiver and returns its result.
+ */
+@kotlin.internal.InlineOnly
+public inline fun <T, R> T.run(block: T.() -> R): R {
+    contract {
+        callsInPlace(block, InvocationKind.EXACTLY_ONCE)
+    }
+    return block()
+}
+```
+
+* `{}` 內取得receiver： `this` (因為是擴展函數 `T.()`)
+* `{}` 內回傳：最後一行的物件 `-> R`
+* `run{}.` 之後類型： 最後一行的物件 `: R`
+
+---
+
+`with`
+
+```kotlin
+/**
+ * Calls the specified function [block] with the given [receiver] as its receiver and returns its result.
+ */
+@kotlin.internal.InlineOnly
+public inline fun <T, R> with(receiver: T, block: T.() -> R): R {
+    contract {
+        callsInPlace(block, InvocationKind.EXACTLY_ONCE)
+    }
+    return receiver.block()
+}
+```
+
+**`with` 多了個參數決定回傳類型**
+
+* `{}` 內取得receiver： `this` (因為是擴展函數 `T.()`)
+* `{}` 內回傳：最後一行的物件 `-> R`
+* `run{}.` 之後類型： 最後一行的物件 `: R`
+
+**學習方式：依取得調用物件，`let`(it) > `also`(it) > `apply`(this) > `run`(this) > `with`(this) **
 
 ---
 
