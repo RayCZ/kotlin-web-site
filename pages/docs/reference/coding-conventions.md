@@ -288,7 +288,7 @@ Do not put spaces around unary operators (`a++`)
 
 Put spaces between control flow keywords (`if`, `when`, `for` and `while`) and the corresponding opening parenthesis.
 
-在控制關鍵字 (`if`, `when`, `for` and `while`) 和相應的左括號 `(` 之間放空格，例如：if (....)、while (....)
+在控制流程關鍵字 (`if`, `when`, `for` and `while`) 和相應的左括號 `(` 之間放空格，例如：if (....)、while (....)
 
 Do not put a space before an opening parenthesis in a primary constructor declaration, method declaration or method call.
 
