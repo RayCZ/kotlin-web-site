@@ -1164,7 +1164,7 @@ public inline fun <T, R> T.let(block: (T) -> R): R {
 }
 ```
 
-* `{}` 內取得receiver： `it` 也可自定義
+* `{}` 內取得 receiver： `it` 也可自定義
 * `{}` 內回傳：最後一行的物件 `-> R`
 * `let{}.` 之後回傳：最後一行的物件 `: R`
 
@@ -1187,7 +1187,7 @@ public inline fun <T> T.also(block: (T) -> Unit): T {
 }
 ```
 
-* `{}` 內取得receiver： `it` 也可自定義
+* `{}` 內取得 receiver： `it` 也可自定義
 * `{}` 內回傳： Unit `-> Unit`
 * `also{}.` 之後類型： 調用物件 (receiver) `: T`
 
@@ -1209,7 +1209,7 @@ public inline fun <T> T.apply(block: T.() -> Unit): T {
 }
 ```
 
-* `{}` 內取得receiver： `this` (因為是擴展函數 `T.()`)
+* `{}` 內取得 receiver： `this` (因為是擴展函數 `T.()`)
 * `{}` 內回傳： Unit `-> Unit`
 * `apply{}.` 之後類型： 調用物件 (receiver) `: T`
 
@@ -1230,7 +1230,7 @@ public inline fun <T, R> T.run(block: T.() -> R): R {
 }
 ```
 
-* `{}` 內取得receiver： `this` (因為是擴展函數 `T.()`)
+* `{}` 內取得 receiver： `this` (因為是擴展函數 `T.()`)
 * `{}` 內回傳：最後一行的物件 `-> R`
 * `run{}.` 之後類型： 最後一行的物件 `: R`
 
@@ -1253,7 +1253,7 @@ public inline fun <T, R> with(receiver: T, block: T.() -> R): R {
 
 **`with` 多了個參數決定回傳類型**
 
-* `{}` 內取得receiver： `this` (因為是擴展函數 `T.()`)
+* `{}` 內取得 receiver： `this` (因為是擴展函數 `T.()`)
 * `{}` 內回傳：最後一行的物件 `-> R`
 * `run{}.` 之後類型： 最後一行的物件 `: R`
 
