@@ -307,7 +307,7 @@ class Array<T> private constructor() {
 ```
 To create an array, we can use a library function `arrayOf()` and pass the item values to it, so that `arrayOf(1, 2, 3)` creates an array [1, 2, 3]. Alternatively, the `arrayOfNulls()` library function can be used to create an array of a given size filled with null elements.
 
-創建陣列，我們可以使用函式庫數函數 `arrayOf` 並且傳遞項目值給它，以便 `arrayOf(1, 2, 3,)`創建一個陣列 [ 1 , 2 , 3 ]，或者 `arrayOfNulls()` 函式庫函數可以用於創建使用 null 元素填滿已給大小的陣列
+創建陣列，我們可以使用函式庫數函數 `arrayOf` 並且傳遞項目值給它，以便 `arrayOf(1, 2, 3,)` 創建一個陣列 [ 1 , 2 , 3 ]，或者 `arrayOfNulls()` 函式庫函數可以用於創建使用 null 元素填滿已給大小的陣列
 
 Another option is to use the `Array` constructor that takes the array size and the function that can return the initial value of each array element given its index:
 
@@ -355,7 +355,7 @@ for (c in str) {
 ```
 You can concatenate strings using the `+` operator. This also works for concatenating strings with values of other types, as long as the first element in the expression is a string:
 
-你可以使用 `+` 運算符連接字串，這也可用於使用其他類型的數值連接，以及在表示法中第一個元素是一個字串
+你可以使用 `+` 運算符連接字串，這也可用於使用其他類型的數值連接，以及在表示法中第一個元素是一個字串 `val s = "abc" + 1`
 ``` kotlin
 fun main(args: Array<String>) {
 //sampleStart
@@ -423,7 +423,7 @@ println("i = $i") // prints "i = 10"
 ```
 or an arbitrary expression in curly braces:
 
-或在大括號中放一個隨意表達示 `${....}`：
+或在大括號中放一個隨意表示法 `${....}`：
 
 ``` kotlin
 fun main(args: Array<String>) {
