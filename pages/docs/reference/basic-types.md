@@ -305,13 +305,14 @@ class Array<T> private constructor() {
     // ...
 }
 ```
-To create an array, we can use a library function `arrayOf()` and pass the item values to it, so that `arrayOf(1, 2, 3)` creates an array [1, 2, 3].
-Alternatively, the `arrayOfNulls()` library function can be used to create an array of a given size filled with null elements.
+To create an array, we can use a library function `arrayOf()` and pass the item values to it, so that `arrayOf(1, 2, 3)` creates an array [1, 2, 3]. Alternatively, the `arrayOfNulls()` library function can be used to create an array of a given size filled with null elements.
 
-Another option is to use the `Array` constructor that takes the array size and the function that can return the initial value
-of each array element given its index:
+創建陣列，我們可以使用函式庫數函數 `arrayOf` 並且傳遞項目值給它，以便 `arrayOf(1, 2, 3,)`創建一個陣列 [ 1 , 2 , 3 ]，或者 `arrayOfNulls()` 函式庫函數可以用於創建使用 null 元素填滿已給大小的陣列
 
-<div class="sample" markdown="1" theme="idea">
+Another option is to use the `Array` constructor that takes the array size and the function that can return the initial value of each array element given its index:
+
+另外一種選擇使用 `Array` 建構元，並帶入 陣列大小 `5` 和函數 `{....}` ，函數給予它的索引參數 `{ i -> ...}` 可以回傳每個陣列元素的初始值
+
 ``` kotlin
 fun main(args: Array<String>) {
 //sampleStart
@@ -321,32 +322,27 @@ fun main(args: Array<String>) {
 //sampleEnd
 }
 ```
-</div>
-
 As we said above, the `[]` operation stands for calls to member functions `get()` and `set()`.
 
-Note: unlike Java, arrays in Kotlin are invariant. This means that Kotlin does not let us assign an `Array<String>`
-to an `Array<Any>`, which prevents a possible runtime failure (but you can use `Array<out Any>`, 
-see [Type Projections](generics.html#type-projections)).
+如上所述，`[]` 操作代表調用成員函數 `get()` 和 `set()`
 
-Kotlin also has specialized classes to represent arrays of primitive types without boxing overhead: `ByteArray`,
-`ShortArray`, `IntArray` and so on. These classes have no inheritance relation to the `Array` class, but they
-have the same set of methods and properties. Each of them also has a corresponding factory function:
+Note: unlike Java, arrays in Kotlin are invariant. This means that Kotlin does not let us assign an `Array<String>` to an `Array<Any>`, which prevents a possible runtime failure (but you can use `Array<out Any>`,  see [Type Projections](generics.html#type-projections)).
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+注意：不像 Java，在 Kotlin 陣列是不可變的，這意味著 Kotlin 不會讓我們分配一個 `Array<String>` 給 `Array<Any>` ，這可防止可能的運行時失敗 (但你可以使用 `Array<out Any>` ，詳細請看 [Type Projections](generics.md#type-projections))
+
+Kotlin also has specialized classes to represent arrays of primitive types without boxing overhead: `ByteArray`, `ShortArray`, `IntArray` and so on. These classes have no inheritance relation to the `Array` class, but they have the same set of methods and properties. Each of them also has a corresponding factory function:
+
+Kotlin 也有專門類別來表示原生類型的陣列並沒有自動裝箱的開銷： `ByteArray` , `ShortArray` , `IntArray` 等等，這些類別沒有與 `Array` 繼承關係，但你有相同方法和屬性集合，他們每個類型都有相應的工廠函數：
+
 ``` kotlin
 val x: IntArray = intArrayOf(1, 2, 3)
 x[0] = x[1] + x[2]
 ```
-</div>
+## Strings (字串)
 
-## Strings
+Strings are represented by the type `String`. Strings are immutable. Elements of a string are characters that can be accessed by the indexing operation: `s[i]`. A string can be iterated over with a *for*-loop:
 
-Strings are represented by the type `String`. Strings are immutable.
-Elements of a string are characters that can be accessed by the indexing operation: `s[i]`.
-A string can be iterated over with a *for*{: .keyword }-loop:
-
-<div class="sample" markdown="1" theme="idea">
+`String` 類型表示為字串，字串是不可變的，字串元素是字元可以透過索引操作存取： `s[i]` ，一個字串可以使用 `for-loop` 遍歷
 ``` kotlin
 fun main(args: Array<String>) {
 val str = "abcd"
@@ -357,12 +353,9 @@ for (c in str) {
 //sampleEnd
 }
 ```
-</div>
+You can concatenate strings using the `+` operator. This also works for concatenating strings with values of other types, as long as the first element in the expression is a string:
 
-You can concatenate strings using the `+` operator. This also works for concatenating strings with values of other types, as long
-as the first element in the expression is a string:
-
-<div class="sample" markdown="1" theme="idea">
+你可以使用 `+` 運算符連接字串，這也可用於使用其他類型的數值連接，以及在表示法中第一個元素是一個字串
 ``` kotlin
 fun main(args: Array<String>) {
 //sampleStart
@@ -371,36 +364,36 @@ println(s + "def")
 //sampleEnd
 }
 ```
-</div>
-
 Note that in most cases using [string templates](#string-templates) or raw strings is preferable to string concatenation.
 
-### String Literals
+注意：在大多情況下，使用字串模版或原始字串比字串連接更好
+
+---
+
+### String Literals (字串文字)
 
 Kotlin has two types of string literals: escaped strings that may have escaped characters in them and raw strings that can contain newlines and arbitrary text. An escaped string is very much like a Java string:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+Kotlin 有兩個字串文字類型：在字串中轉義 (跳脫) 字串可以有轉義 (跳脫) 字元並在原始字串可以包含換行和隨意文字，一個轉義 (跳脫) 字串非常像 Java 字串：
 ``` kotlin
 val s = "Hello, world!\n"
 ```
-</div>
-
 Escaping is done in the conventional way, with a backslash. See [Characters](#characters) above for the list of supported escape sequences.
+
+在常規方式做轉義 (跳脫) ，使用反斜線 `\` ，參閱支援轉義 (跳脫) 序列的列表 [Characters](#characters) 上述
 
 A raw string is delimited by a triple quote (`"""`), contains no escaping and can contain newlines and any other characters:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+原始字串透過三引號 (`"""`) 分隔，沒有包含轉義 (跳脫) 字元且可以包含換行和任何其他字串：
 ``` kotlin
 val text = """
     for (c in "foo")
         print(c)
 """
 ```
-</div>
-
 You can remove leading whitespace with [`trimMargin()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/trim-margin.html) function:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+你可以使用 [`trimMargin()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/trim-margin.html) 函數刪除前導空格：
 ``` kotlin
 val text = """
     |Tell me and I forget.
@@ -409,16 +402,17 @@ val text = """
     |(Benjamin Franklin)
     """.trimMargin()
 ```
-</div>
-
 By default `|` is used as margin prefix, but you can choose another character and pass it as a parameter, like `trimMargin(">")`.
 
-### String Templates
+透過預設 `|` 用為邊距前綴，但你可以選擇其他字元和傳遞它為參數，像 `trimMargin(">")`
 
-Strings may contain template expressions, i.e. pieces of code that are evaluated and whose results are concatenated into the string.
-A template expression starts with a dollar sign ($) and consists of either a simple name:
+---
 
-<div class="sample" markdown="1" theme="idea">
+### String Templates (字串模版)
+
+Strings may contain template expressions, i.e. pieces of code that are evaluated and whose results are concatenated into the string.A template expression starts with a dollar sign ($) and consists of either a simple name:
+
+字串可以包含模版表示法，即評估代碼的片段並將結果連接到字串 `"println("i = $i")"`，一個模版表示法開頭使用錢號 ($) 由一個簡單名稱組成：
 ``` kotlin
 fun main(args: Array<String>) {
 //sampleStart
@@ -427,11 +421,10 @@ println("i = $i") // prints "i = 10"
 //sampleEnd
 }
 ```
-</div>
-
 or an arbitrary expression in curly braces:
 
-<div class="sample" markdown="1" theme="idea">
+或在大括號中放一個隨意表達示 `${....}`：
+
 ``` kotlin
 fun main(args: Array<String>) {
 //sampleStart
@@ -440,15 +433,12 @@ println("$s.length is ${s.length}") // prints "abc.length is 3"
 //sampleEnd
 }
 ```
-</div>
+Templates are supported both inside raw strings and inside escaped strings.If you need to represent a literal `$` character in a raw string (which doesn't support backslash escaping), you can use the following syntax:
 
-Templates are supported both inside raw strings and inside escaped strings.
-If you need to represent a literal `$` character in a raw string (which doesn't support backslash escaping), you can use the following syntax:
+模版支援在原始字串入和轉義 (跳脫) 字串內，如果你需要表示一個文字 `$` 字元在原始文字 (這不支援版斜線跳脫) ，你可以使用以下句法：
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
 ``` kotlin
 val price = """
 ${'$'}9.99
 """
 ```
-</div>
