@@ -50,7 +50,7 @@ See the [grammar for *if*](https://kotlinlang.org/docs/reference/grammar.html#if
 
 請參閱 [grammar for *if*](https://kotlinlang.org/docs/reference/grammar.html#if)
 
-## When Expression
+## When Expression (When 表達式)
 
 *when* replaces the switch operator of C-like languages. In the simplest form it looks like this
 
