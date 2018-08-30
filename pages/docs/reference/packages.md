@@ -98,7 +98,7 @@ The `import` keyword is not restricted to importing classes; you can also use it
 **object： Kotlin 特有的關鍵字與宣告類別用法一樣，但系統會多處理為單例模式**
 
   * top-level functions and properties; (最高層級的函數與屬性)
-  * functions and properties declared in [object declarations](object-declarations.md#object-declarations); (函數與屬性的宣告在 object 內宣告)
+  * functions and properties declared in [object declarations](object-declarations.md#object-declarations*); (函數與屬性的宣告在 object 內宣告)
   * [enum constants](enum-classes.md). (列舉常數)
 
 Unlike Java, Kotlin does not have a separate ["import static"](https://docs.oracle.com/javase/8/docs/technotes/guides/language/static-import.html) syntax; all of these declarations are imported using the regular `import` keyword.
