@@ -5,9 +5,13 @@ category: "Syntax"
 title: "Control Flow: if, when, for, while"
 ---
 
-# Control Flow: if, when, for, while (流程控制： if, when, for, while)
+# Control Flow: if, when, for, while
 
-## If Expression (If 表達式)
+Control Flow: if, when, for, while ：流程控制： if, when, for, while
+
+## If Expression
+
+If Expression ：If 表達式
 
 In Kotlin, *if* is an expression, i.e. it returns a value.Therefore there is no ternary operator (condition ? then : else), because ordinary *if* works fine in this role.
 
@@ -50,7 +54,9 @@ See the [grammar for *if*](https://kotlinlang.org/docs/reference/grammar.html#if
 
 請參閱 [grammar for *if*](https://kotlinlang.org/docs/reference/grammar.html#if)
 
-## When Expression (When 表達式)
+## When Expression
+
+When Expression ：When 表達式
 
 *when* replaces the switch operator of C-like languages. In the simplest form it looks like this
 
@@ -133,8 +139,9 @@ See the [grammar for *when*](https://kotlinlang.org/docs/reference/grammar.html#
 
 請參閱 [grammar for *when*](https://kotlinlang.org/docs/reference/grammar.html#when)
 
+## For Loops
 
-## For Loops (For 循環)
+For Loops ：For 循環
 
 *for* loop iterates through anything that provides an iterator. This is equivalent to the `foreach` loop in languages like C#. The syntax is as follows:
 
@@ -215,7 +222,9 @@ See the [grammar for *for*](https://kotlinlang.org/docs/reference/grammar.html#f
 
 請參閱 [grammar for *for*](https://kotlinlang.org/docs/reference/grammar.html#for).
 
-## While Loops (While循環)
+## While Loops
+
+While Loops ：While 循環
 
 *while* and *do*..*while* work as usual
 
@@ -232,7 +241,9 @@ do {
 ```
 See the [grammar for *while*](https://kotlinlang.org/docs/reference/grammar.html#while).
 
-## Break and continue in loops (從循環中跳出或繼續下一個)
+## Break and continue in loops
+
+Break and continue in loops ：從循環中跳出或繼續下一個
 
 Kotlin supports traditional *break* and *continue* operators in loops. See [Returns and jumps](returns.md).
 

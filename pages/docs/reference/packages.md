@@ -30,7 +30,9 @@ If the package is not specified, the contents of such a file belong to "default"
 
 如果 package 沒有被指定，這樣的檔案內容屬於 `default` package 沒有名稱
 
-## Default Imports (預設匯入函式庫)
+## Default Imports
+
+Default Imports ：預設匯入函式庫
 
 A number of packages are imported into every Kotlin file by default:
 
@@ -56,7 +58,9 @@ Additional packages are imported depending on the target platform:
 - JS:    
   - [kotlin.js.*](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.js/index.html)
 
-## Imports (匯入)
+## Imports
+
+Imports ：匯入
 
 Apart from the default imports, each file may contain its own import directives.
 Syntax for imports is described in the [grammar](https://kotlinlang.org/docs/reference/grammar.html#import).
@@ -105,7 +109,9 @@ Unlike Java, Kotlin does not have a separate ["import static"](https://docs.orac
 
 不像 Java ， Kotlin 不會有單獨  ["import static"](https://docs.oracle.com/javase/8/docs/technotes/guides/language/static-import.html) 語法；所有這些宣告都使用常規的 import 關鍵字
 
-## Visibility of Top-level Declarations (最高層級宣告的能見度、可見性)
+## Visibility of Top-level Declarations
+
+Visibility of Top-level Declarations ：最高層級宣告的能見度、可見性
 
 If a top-level declaration is marked `private`, it is private to the file it's declared in (see [Visibility Modifiers](visibility-modifiers.md)).
 

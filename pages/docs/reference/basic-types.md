@@ -7,11 +7,15 @@ title: "Basic Types: Numbers, Strings, Arrays"
 
 # Basic Types
 
+Basic Types ：基本類型
+
 In Kotlin, everything is an object in the sense that we can call member functions and properties on any variable. Some of the types can have a special internal representation - for example, numbers, characters and booleans can be represented as primitive values at runtime - but to the user they look like ordinary classes. In this section we describe the basic types used in Kotlin: numbers, characters, booleans, arrays, and strings.
 
 在 Kotlin 中，在某種意義上每件事都是一個物件，我們可以在任何變數調用成員函數或屬性，某些類型可以有特別的內部表示 - 例如，數值、字元、布林在運行時可以被表示為原生數值 - 但對於使用者，他們看起來像普通類別，在這個章節我們介紹在 Kotlin 中的基本類型：數值、字元、布林、陣列、字串
 
-## Numbers (數值)
+## Numbers
+
+Numbers ：數值
 
 Kotlin handles numbers in a way close to Java, but not exactly the same. For example, there are no implicit widening conversions for numbers, and literals are slightly different in some cases.
 
@@ -36,7 +40,9 @@ Note that characters are not numbers in Kotlin.
 
 ---
 
-### Literal Constants (文字常數)
+### Literal Constants
+
+Literal Constants ：文字常數
 
 There are the following kinds of literal constants for integral values:
 
@@ -66,7 +72,9 @@ Kotlin 也支援浮點數的常規符號：
 
 ---
 
-### Underscores in numeric literals (since 1.1) (數值文字中的底線  [從 1.1 版支援 ] )
+### Underscores in numeric literals (since 1.1)
+
+Underscores in numeric literals (since 1.1) ：數值文字中的底線  (從 1.1 版支援)
 
 You can use underscores to make number constants more readable:
 
@@ -81,7 +89,9 @@ val bytes = 0b11010010_01101001_10010100_10010010
 ```
 ---
 
-### Representation (表示法)
+### Representation
+
+Representation ：表示法
 
 On the Java platform, numbers are physically stored as JVM primitive types, unless we need a nullable number reference (e.g. `Int?`) or generics are involved. In the latter cases numbers are boxed.
 
@@ -122,7 +132,9 @@ fun main(args: Array<String>) {
 ```
 ---
 
-### Explicit Conversions (明顯的轉換)
+### Explicit Conversions
+
+Explicit Conversions ：明顯的轉換
 
 Due to different representations, smaller types are not subtypes of bigger ones.
 If they were, we would have troubles of the following sort:
@@ -182,10 +194,12 @@ val l = 1L + 3 // Long + Int => Long
 ```
 ---
 
-### Operations (運算符)
+### Operations
+
+Operations ：運算符
 
 Kotlin supports the standard set of arithmetical operations over numbers, which are declared as members of appropriate classes (but the compiler optimizes the calls down to the corresponding instructions).
-See [Operator overloading](operator-overloading.html).
+See [Operator overloading](operator-overloading.md).
 
 Kotlin支援數字上的標準算術運算符組，它們被宣告為適當類別的成員 (但編譯器將優化調用對應的指令) 
 請參閱 [Operator overloading](operator-overloading.md).
@@ -211,7 +225,9 @@ Here is the complete list of bitwise operations (available for `Int` and `Long` 
 
 ---
 
-### Floating Point Numbers Comparison (浮點數比對)
+### Floating Point Numbers Comparison
+
+Floating Point Numbers Comparison ：浮點數比對
 
 The operations on floating point numbers discussed in this section are:
 
@@ -224,7 +240,7 @@ The operations on floating point numbers discussed in this section are:
 * Range instantiation and range checks: `a..b`, `x in a..b`, `x !in a..b`
   範圍實例和檢查範圍： `a..b` , `x in a..b` , `x !in a..b`
 
-When the operands `a` and `b` are statically known to be `Float` or `Double` or their nullable counterparts (the type is declared or inferred or is a result of a [smart cast](typecasts.html#smart-casts)), the operations on the numbers and the range that they form follow the IEEE 754 Standard for Floating-Point Arithmetic. 
+When the operands `a` and `b` are statically known to be `Float` or `Double` or their nullable counterparts (the type is declared or inferred or is a result of a [smart cast](typecasts.md#smart-casts)), the operations on the numbers and the range that they form follow the IEEE 754 Standard for Floating-Point Arithmetic. 
 
 當靜態已經知道運算符 `a` 和 `b` 是 `Float` 或 `Double` 或它們可空的對應物 (從宣告或推斷類型或是智能轉換的結果) ，在數值和範圍的運算符它們遵循浮點數算術的 IEEE 754 標準
 
@@ -239,7 +255,9 @@ However, to support generic use cases and provide total ordering, when the opera
 * `-0.0` is considered less than `0.0`
   `-0.0` 被認為比 `0.0` 少
 
-## Characters (字元)
+## Characters
+
+Characters ：字元
 
 Characters are represented by the type `Char`. They can not be treated directly as numbers
 
@@ -271,7 +289,9 @@ Like numbers, characters are boxed when a nullable reference is needed. Identity
 
 像數值一樣，當需要一個可空的參照自動裝箱字元，自動裝箱操作不會保留識別
 
-## Booleans (布林值)
+## Booleans
+
+Booleans ：布林值
 
 The type `Boolean` represents booleans, and has two values: *true* and *false*.
 
@@ -289,7 +309,9 @@ Built-in operations on booleans include
 * `&&` – lazy conjunction (懶惰的結合)
 * `!` - negation (否定)
 
-## Arrays (陣列)
+## Arrays
+
+Arrays ：陣列
 
 Arrays in Kotlin are represented by the `Array` class, that has `get` and `set` functions (that turn into `[]` by operator overloading conventions), and `size` property, along with a few other useful member functions:
 
@@ -326,7 +348,7 @@ As we said above, the `[]` operation stands for calls to member functions `get()
 
 如上所述，`[]` 操作代表調用成員函數 `get()` 和 `set()`
 
-Note: unlike Java, arrays in Kotlin are invariant. This means that Kotlin does not let us assign an `Array<String>` to an `Array<Any>`, which prevents a possible runtime failure (but you can use `Array<out Any>`,  see [Type Projections](generics.html#type-projections)).
+Note: unlike Java, arrays in Kotlin are invariant. This means that Kotlin does not let us assign an `Array<String>` to an `Array<Any>`, which prevents a possible runtime failure (but you can use `Array<out Any>`,  see [Type Projections](generics.md#type-projections)).
 
 注意：不像 Java，在 Kotlin 陣列是不可變的，這意味著 Kotlin 不會讓我們分配一個 `Array<String>` 給 `Array<Any>` ，這可防止可能的運行時失敗 (但你可以使用 `Array<out Any>` ，詳細請看 [Type Projections](generics.md#type-projections))
 
@@ -338,7 +360,9 @@ Kotlin 也有專門類別來表示原生類型的陣列並沒有自動裝箱的�
 val x: IntArray = intArrayOf(1, 2, 3)
 x[0] = x[1] + x[2]
 ```
-## Strings (字串)
+## Strings
+
+Strings ：字串
 
 Strings are represented by the type `String`. Strings are immutable. Elements of a string are characters that can be accessed by the indexing operation: `s[i]`. A string can be iterated over with a *for*-loop:
 
@@ -370,7 +394,9 @@ Note that in most cases using [string templates](#string-templates) or raw strin
 
 ---
 
-### String Literals (字串文字)
+### String Literals
+
+String Literals ：字串文字
 
 Kotlin has two types of string literals: escaped strings that may have escaped characters in them and raw strings that can contain newlines and arbitrary text. An escaped string is very much like a Java string:
 
@@ -408,7 +434,9 @@ By default `|` is used as margin prefix, but you can choose another character an
 
 ---
 
-### String Templates (字串模版)
+### String Templates
+
+String Templates ：字串模版
 
 Strings may contain template expressions, i.e. pieces of code that are evaluated and whose results are concatenated into the string.A template expression starts with a dollar sign ($) and consists of either a simple name:
 
