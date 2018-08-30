@@ -440,7 +440,7 @@ String Templates ：字串模版
 
 Strings may contain template expressions, i.e. pieces of code that are evaluated and whose results are concatenated into the string.A template expression starts with a dollar sign ($) and consists of either a simple name:
 
-字串可以包含模版表示法，即評估代碼的片段並將結果連接到字串 `"println("i = $i")"`，一個模版表示法開頭使用錢號 ($) 由一個簡單名稱組成：
+字串可以包含模版表示法，即執行代碼的片段並將結果連接到字串 `"println("i = $i")"`，一個模版表示法開頭使用錢號 ($) 由一個簡單名稱組成：
 ``` kotlin
 fun main(args: Array<String>) {
 //sampleStart
