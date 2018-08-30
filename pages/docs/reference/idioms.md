@@ -5,7 +5,7 @@ category: "Basics"
 title: "Idioms"
 ---
 
-# Idioms (慣用語法)
+# Idioms
 
 Idioms ：慣用語法
 
