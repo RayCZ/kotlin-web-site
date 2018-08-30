@@ -11,7 +11,7 @@ title: "Control Flow: if, when, for, while"
 
 In Kotlin, *if* is an expression, i.e. it returns a value.Therefore there is no ternary operator (condition ? then : else), because ordinary *if* works fine in this role.
 
-在 Kotlin 中， `if` 是一個表達式，即是它回傳一個值，因此沒有三元操作 (condition ? then : else) ，因為普通的 `if` 在這個角色中正常工作 
+在 Kotlin 中， `if` 是一個表達式，即是它回傳一個值，因此沒有三元操作 (condition ? then : else) ，因為普通的 `if` 在這個角色中正常工作  `val max = if (a > b) a else b`
 ``` kotlin
 // Traditional usage 
 var max = a 
@@ -70,19 +70,19 @@ when (x) {
 
  If it is used as an expression, the value of the satisfied branch becomes the value of the overall expression
 
-如果它用為表達式，滿足分支的值變成整個表達式的值 `when (x) {....} ` 
+如果它用為表達式，滿足分支條件的值變成整個表達式的回傳值 `when (x) {....} ` 
 
  If it is used as a statement, the values of individual branches are ignored. (Just like with *if*, each branch can be a block, and its value is the value of the last expression in the block.)
 
-如果它用作敘述，忽略各個分支的值 (就像使用 `if` ，每個分支可以為一個區塊邏輯，且它的值是在邏輯區塊最後一行表達式的值) `{ condition -> statement}`
+如果它用作敘述，忽略各個分支的值 (就像使用 `if` ，每個分支可以為一個邏輯區塊，且它的值是在邏輯區塊最後一行是表達式的值) `{ condition -> statement}`
 
 The *else* branch is evaluated if none of the other branch conditions are satisfied. If *when* is used as an expression, the *else* branch is mandatory, unless the compiler can prove that all possible cases are covered with branch conditions (as, for example, with [*enum* class](enum-classes.md) entries and [*sealed* class](sealed-classes.md) subtypes).
 
-如果未滿足其他分支條件執行 `else` 分支，如果 `when` 用為一個表達式， `else` 是強制需要的，除非編輯器能夠證明所有可能的情況都包含在分支條件 (例如：使用 [*enum* class](enum-classes.md) 項目和 [*sealed* class](sealed-classes.md) 子類型)
+如果未滿足其他分支條件則執行 `else` 分支，如果 `when` 用為一個表達式， `else` 是強制需要的，除非編輯器能夠證明所有可能的情況都包含在分支條件 (例如：使用 [*enum* class](enum-classes.md) 項目和 [*sealed* class](sealed-classes.md) 子類型)
 
 If many cases should be handled in the same way, the branch conditions may be combined with a comma:
 
-如果有相同方式下處理多個情況，使用逗號 `,` 組合分支條件 ` 0, 1 -> print("x == 0 or x == 1")`
+如果有相同方式下處理多個情況，使用逗號 `,` 組合分支條件 ` 0, 1 -> ...`
 ``` kotlin
 when (x) {
     0, 1 -> print("x == 0 or x == 1")
@@ -91,7 +91,7 @@ when (x) {
 ```
 We can use arbitrary expressions (not only constants) as branch conditions
 
-我可以使用隨意表達式 (不只常數) 為分支條件 `parseInt(s) -> print("s encodes x")`
+我可以使用隨意表達式 (不只常數) 為分支條件 `parseInt(s) -> print("s encodes x")` `else`
 
 ``` kotlin
 when (x) {
@@ -168,7 +168,7 @@ All of these three functions need to be marked as `operator`.
 
 To iterate over a range of numbers, use a [range expression](ranges.md):
 
-<div class="sample" markdown="1" theme="idea">
+遍歷數值範圍，使用 [range expression](ranges.md)
 ``` kotlin
 fun main(args: Array<String>) {
 //sampleStart
@@ -181,13 +181,13 @@ for (i in 6 downTo 0 step 2) {
 //sampleEnd
 }
 ```
-</div>
-
 A `for` loop over a range or an array is compiled to an index-based loop that does not create an iterator object.
+
+一個範圍或一個陣列的 `for` 循環被編譯為基於索引的循環，該循環不會創建 `iterator` 物件
 
 If you want to iterate through an array or a list with an index, you can do it this way:
 
-<div class="sample" markdown="1" theme="idea">
+如果你想要透過使用索引的陣列或列表遍歷 ` array.indices`，你可以這樣做：
 ``` kotlin
 fun main(args: Array<String>) {
 val array = arrayOf("a", "b", "c")
@@ -198,11 +198,9 @@ for (i in array.indices) {
 //sampleEnd
 }
 ```
-</div>
-
 Alternatively, you can use the `withIndex` library function:
 
-<div class="sample" markdown="1" theme="idea">
+或者，你可以使用 `withIndex` 函式庫函數 `array.withIndex()`：
 ``` kotlin
 fun main(args: Array<String>) {
 val array = arrayOf("a", "b", "c")
@@ -213,15 +211,16 @@ for ((index, value) in array.withIndex()) {
 //sampleEnd
 }
 ```
-</div>
+See the [grammar for *for*](https://kotlinlang.org/docs/reference/grammar.html#for).
 
-See the [grammar for *for*{: .keyword }](https://kotlinlang.org/docs/reference/grammar.html#for).
+請參閱 [grammar for *for*](https://kotlinlang.org/docs/reference/grammar.html#for).
 
-## While Loops
+## While Loops (While循環)
 
-*while*{: .keyword } and *do*{: .keyword }..*while*{: .keyword } work as usual
+*while* and *do*..*while* work as usual
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+`while` 和 `do...while` 經常被使用
+
 ``` kotlin
 while (x > 0) {
     x--
@@ -231,11 +230,11 @@ do {
     val y = retrieveData()
 } while (y != null) // y is visible here!
 ```
-</div>
+See the [grammar for *while*](https://kotlinlang.org/docs/reference/grammar.html#while).
 
-See the [grammar for *while*{: .keyword }](https://kotlinlang.org/docs/reference/grammar.html#while).
+## Break and continue in loops (從循環中跳出或繼續下一個)
 
-## Break and continue in loops
+Kotlin supports traditional *break* and *continue* operators in loops. See [Returns and jumps](returns.md).
 
-Kotlin supports traditional *break*{: .keyword } and *continue*{: .keyword } operators in loops. See [Returns and jumps](returns.html).
+Kotlin 在循環中支援傳統 `break` 和 `continue` 操作，請參閱 [Returns and jumps](returns.md)
 
