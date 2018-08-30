@@ -28,7 +28,7 @@ package 需不要匹配目錄與 package ：在檔案系統中來源檔案可以
 
 See [Packages](packages.md).
 
-## Defining functions <!--(定義函數)-->
+## Defining functions (定義函數)
 
 Function having two `Int` parameters with `Int` return type:
 
