@@ -28,7 +28,9 @@ package 需不要匹配目錄與 package ：在檔案系統中來源檔案可以
 
 See [Packages](packages.md).
 
-## Defining functions (定義函數)
+## Defining functions
+
+Defining functions ：定義函數
 
 Function having two `Int` parameters with `Int` return type:
 
@@ -98,7 +100,9 @@ fun main(args: Array<String>) {
 ```
 See [Functions](functions.md).
 
-## Defining variables (定義變數)
+## Defining variables
+
+Defining variables ：定義變數
 
 Assign-once (read-only) local variable:
 
@@ -157,7 +161,9 @@ fun main(args: Array<String>) {
 See also [Properties And Fields](properties.md).
 
 
-## Comments (註解)
+## Comments
+
+Comments ：註解
 
 Just like Java and JavaScript, Kotlin supports end-of-line and block comments.
 
@@ -178,9 +184,11 @@ See [Documenting Kotlin Code](kotlin-doc.md) for information on the documentatio
 
 有關文件註解語法，請看 [Documenting Kotlin Code](kotlin-doc.md) 
 
-## Using string templates (字串模版)
+## Using string templates
 
-**String templates：利用 `$` 或 `${}` 符號在字串內 `""` 使用變數或程式區塊**
+Using string templates ：字串模版
+
+String templates：利用 `$` 或 `${}` 符號在字串內 `""` 使用變數或程式區塊**
 
 ``` kotlin
 fun main(args: Array<String>) {
@@ -198,10 +206,11 @@ fun main(args: Array<String>) {
 ```
 See [String templates](basic-types.html#string-templates).
 
-## Using conditional expressions (條件表達式)
+## Using conditional expressions
 
+Using conditional expressions ：使用條件表達式
 
-**Conditional expressions：條件表達式，if、else**
+Conditional expressions：條件表達式，if、else**
 
 ``` kotlin
 //sampleStart
@@ -233,7 +242,9 @@ fun main(args: Array<String>) {
 ```
 See [*if*-expressions](control-flow.md#if-expression).
 
-## Using nullable values and checking for `null` (使用可空的變數和null檢查)
+## Using nullable values and checking for `null`
+
+Using nullable values and checking for `null` ：使用可空的變數和null檢查
 
 A reference must be explicitly marked as nullable when `null` value is possible.
 
@@ -315,7 +326,9 @@ fun main(args: Array<String>) {
 ```
 See [Null-safety](null-safety.md).
 
-## Using type checks and automatic casts (使用類型檢查與自動強轉)
+## Using type checks and automatic casts
+
+Using type checks and automatic casts ：使用類型檢查與自動強轉
 
 The `is` operator checks if an expression is an instance of a type.
 If an immutable local variable or property is checked for a specific type, there's no need to cast it explicitly:
@@ -400,7 +413,9 @@ fun main(args: Array<String>) {
 ```
 See [Classes](classes.md) and [Type casts](typecasts.md).
 
-## Using a `for` loop (使用 `for` 循環)
+## Using a `for` loop
+
+Using a `for` loop ：使用 `for` 循環
 
 ``` kotlin
 fun main(args: Array<String>) {
@@ -439,7 +454,9 @@ fun main(args: Array<String>) {
 
 See [for loop](control-flow.md#for-loops).
 
-## Using a `while` loop (使用 `while` 循環)
+## Using a `while` loop
+
+Using a `while` loop ：使用 `while` 循環
 
 ``` kotlin
 fun main(args: Array<String>) {
@@ -461,7 +478,9 @@ fun main(args: Array<String>) {
 
 See [while loop](control-flow.md#while-loops).
 
-## Using `when` expression (使用 `when` 表達式)
+## Using `when` expression
+
+Using `when` expression ：使用 `when` 表達式
 
 ``` kotlin
 //sampleStart
@@ -493,7 +512,9 @@ fun main(args: Array<String>) {
 
 See [when expression](control-flow.md#when-expression).
 
-## Using ranges (使用範圍)
+## Using ranges
+
+Using ranges ：使用範圍
 
 Check if a number is within a range using `in` operator:
 
@@ -573,7 +594,9 @@ fun main(args: Array<String>) {
 ```
 See [Ranges](ranges.html).
 
-## Using collections (使用集合)
+## Using collections
+
+Using collections ：使用集合
 
 Iterating over a collection:
 
@@ -638,7 +661,9 @@ fun main(args: Array<String>) {
 ```
 See [Higher-order functions and Lambdas](lambdas.md).
 
-## Creating basic classes and their instances: (建立基本類別和它的實例)
+## Creating basic classes and their instances:
+
+Creating basic classes and their instances ：建立基本類別和它的實例
 
 ``` kotlin
 fun main(args: Array<String>) {

@@ -7,6 +7,8 @@ title: "Idioms"
 
 # Idioms (慣用語法)
 
+Idioms ：慣用語法
+
 A collection of random and frequently used idioms in Kotlin. If you have a favorite idiom, contribute it by sending a pull request.
 
 在Kotlin中隨機和經常使用的慣語集合，如果你有最喜歡的慣語，請寄送pull request貢獻它
@@ -32,14 +34,18 @@ provides a `Customer` class with the following functionality:
 
 ---
 
-### Default values for function parameters (函數參數的預設值)
+### Default values for function parameters
+
+Default values for function parameters ：函數參數的預設值
 
 ``` kotlin
 fun foo(a: Int = 0, b: String = "") { ... }
 ```
 ---
 
-### Filtering a list (過濾列表)
+### Filtering a list
+
+Filtering a list ：過濾列表
 
 **Lambda表達式 `{}` 可以依自己需求要不要加參數**
 
@@ -55,7 +61,9 @@ val positives = list.filter { it > 0 }
 ```
 ---
 
-### String Interpolation (字串插值)
+### String Interpolation
+
+String Interpolation ：字串插值
 
 **別名：String Templates**
 
@@ -64,7 +72,9 @@ println("Name $name")
 ```
 ---
 
-### Instance Checks (實例檢查)
+### Instance Checks
+
+Instance Checks ：實例檢查
 
 **實例檢查用 `is`**
 
@@ -77,7 +87,9 @@ when (x) {
 ```
 ---
 
-### Traversing a map/list of pairs (遍歷映射/結對的列表)
+### Traversing a map/list of pairs
+
+Traversing a map/list of pairs ：遍歷映射/結對的列表
 
 ``` kotlin
 for ((k, v) in map) {
@@ -88,7 +100,9 @@ for ((k, v) in map) {
 
 ---
 
-### Using ranges (使用範圍)
+### Using ranges
+
+Using ranges ：使用範圍
 
 **注意：until不包括最後一個**
 
@@ -101,21 +115,27 @@ if (x in 1..10) { ... }
 ```
 ---
 
-### Read-only list (唯讀列表)
+### Read-only list
+
+Read-only list ：唯讀列表
 
 ``` kotlin
 val list = listOf("a", "b", "c")
 ```
 ---
 
-### Read-only map (唯讀映射)
+### Read-only map
+
+Read-only map ：唯讀映射
 
 ``` kotlin
 val map = mapOf("a" to 1, "b" to 2, "c" to 3)
 ```
 ---
 
-### Accessing a map (存取映射)
+### Accessing a map
+
+Accessing a map ：存取映射
 
 ``` kotlin
 println(map["key"])
@@ -123,7 +143,9 @@ map["key"] = value
 ```
 ---
 
-### Lazy property (惰性/執行時才產生的屬性 `by lazy`)
+### Lazy property
+
+Lazy property ：惰性/執行時才產生的屬性 `by lazy`
 
 **lazy：一定要宣告 `val`，當程式有調用屬性時才建構**
 
@@ -134,7 +156,9 @@ val p: String by lazy {
 ```
 ---
 
-### Extension Functions (擴展函數)
+### Extension Functions
+
+Extension Functions ：擴展函數
 
 ``` kotlin
 fun String.spaceToCamelCase() { ... }
@@ -143,7 +167,9 @@ fun String.spaceToCamelCase() { ... }
 ```
 ---
 
-### Creating a singleton (建立單例模式 `object`)
+### Creating a singleton
+
+Creating a singleton ：建立單例模式 `object`
 
 **object：與類別用法相同，差別多做了單例模式**
 
@@ -154,7 +180,9 @@ object Resource {
 ```
 ---
 
-### If not null shorthand (if not null的速記法 `?.`)
+### If not null shorthand
+
+If not null shorthand ：if not null的速記法 `?.`
 
 ``` kotlin
 val files = File("Test").listFiles()
@@ -163,7 +191,9 @@ println(files?.size)
 ```
 ---
 
-### If not null and else shorthand (if not null 和 else 速記法 `?.` `?:`)
+### If not null and else shorthand
+
+If not null and else shorthand ：if not null 和 else 速記法 `?.` `?:`
 
 ``` kotlin
 val files = File("Test").listFiles()
@@ -172,7 +202,9 @@ println(files?.size ?: "empty")
 ```
 ---
 
-### Executing a statement if null ( if null 的執行敘述 `?:`)
+### Executing a statement if null
+
+Executing a statement if null ：if null 的執行敘述 `?:`
 
 ``` kotlin
 val values = ...
@@ -180,7 +212,9 @@ val email = values["email"] ?: throw IllegalStateException("Email is missing!")
 ```
 ---
 
-### Get first item of a possibly empty collection (取得集合第一個可能為空的項目)
+### Get first item of a possibly empty collection
+
+Get first item of a possibly empty collection ：取得集合第一個可能為空的項目
 
 ``` kotlin
 val emails = ... // might be empty
@@ -188,7 +222,9 @@ val mainEmail = emails.firstOrNull() ?: ""
 ```
 ---
 
-### Execute if not null (if not null的執行 `value?.let{}`)
+### Execute if not null
+
+Execute if not null ：if not null的執行 `value?.let{}`
 
 ``` kotlin
 val value = ...
@@ -199,7 +235,9 @@ value?.let {
 ```
 ---
 
-### Map nullable value if not null (if not null 處理映射可空的值 `value?.let { transformValue(it) }`)
+### Map nullable value if not null
+
+Map nullable value if not null ：if not null 處理映射可空的值 `value?.let { transformValue(it) }`
 
 ``` kotlin
 val value = ...
@@ -208,7 +246,9 @@ val mapped = value?.let { transformValue(it) } ?: defaultValueIfValueIsNull
 ```
 ---
 
-### Return on when statement (回傳`when`的敘述可由變數接收)
+### Return on when statement
+
+Return on when statement ：回傳 `when` 的敘述可由變數接收
 
 ``` kotlin
 fun transform(color: String): Int {
@@ -222,7 +262,9 @@ fun transform(color: String): Int {
 ```
 ---
 
-### 'try/catch' expression (try/cache 表達式可由變數接收)
+### 'try/catch' expression
+
+'try/catch' expression ：try/cache 表達式可由變數接收
 
 ``` kotlin
 fun test() {
@@ -237,7 +279,9 @@ fun test() {
 ```
 ---
 
-### 'if' expression ('if' 表達式可由變數接收)
+### 'if' expression
+
+'if' expression ：'if' 表達式可由變數接收
 
 ``` kotlin
 fun foo(param: Int) {
@@ -252,7 +296,9 @@ fun foo(param: Int) {
 ```
 ---
 
-### Builder-style usage of methods that return `Unit` (建構者風格用法的方法回傳 `Unit`)
+### Builder-style usage of methods that return `Unit`
+
+Builder-style usage of methods that return `Unit` ：建構者風格用法的方法回傳 `Unit`
 
 ``` kotlin
 fun arrayOfMinusOnes(size: Int): IntArray {
@@ -261,8 +307,9 @@ fun arrayOfMinusOnes(size: Int): IntArray {
 ```
 ---
 
+### Single-expression functions
 
-### Single-expression functions (單行表達式函數)
+Single-expression functions ：單行表達式函數
 
 ``` kotlin
 fun theAnswer() = 42
@@ -289,7 +336,9 @@ fun transform(color: String): Int = when (color) {
 ```
 ---
 
-### Calling multiple methods on an object instance ('with') (在物件實例調用多個方法與 `with`)
+### Calling multiple methods on an object instance ('with')
+
+Calling multiple methods on an object instance ('with') ：在物件實例調用多個方法與 `with`
 
 ``` kotlin
 class Turtle {
@@ -311,7 +360,9 @@ with(myTurtle) { //draw a 100 pix square
 ```
 ---
 
-### Java 7's try with resources (嘗試使用 java 7的資源)
+### Java 7's try with resources
+
+Java 7's try with resources ：嘗試使用 java 7的資源
 
 ``` kotlin
 val stream = Files.newInputStream(Paths.get("/some/file.txt"))
@@ -321,7 +372,9 @@ stream.buffered().reader().use { reader ->
 ```
 ---
 
-### Convenient form for a generic function that requires the generic type information (泛型函數的方便形式需要泛型相關的資訊)
+### Convenient form for a generic function that requires the generic type information
+
+Convenient form for a generic function that requires the generic type information ：泛型函數的方便形式需要泛型相關的資訊
 
 ``` kotlin
 //  public final class Gson {
@@ -333,7 +386,9 @@ inline fun <reified T: Any> Gson.fromJson(json: JsonElement): T = this.fromJson(
 ```
 ---
 
-### Consuming a nullable Boolean (使用可空的Boolean)
+### Consuming a nullable Boolean
+
+Consuming a nullable Boolean ：使用可空的Boolean
 
 ``` kotlin
 val b: Boolean? = ...
