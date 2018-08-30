@@ -463,7 +463,7 @@ println("$s.length is ${s.length}") // prints "abc.length is 3"
 ```
 Templates are supported both inside raw strings and inside escaped strings.If you need to represent a literal `$` character in a raw string (which doesn't support backslash escaping), you can use the following syntax:
 
-模版支援在原始字串入和轉義 (跳脫) 字串內，如果你需要表示一個文字 `$` 字元在原始文字 (這不支援版斜線跳脫) ，你可以使用以下句法：
+模版支援在原始字串內和轉義 (跳脫) 字串內，如果你需要表示一個文字 `$` 字元在原始文字 (這不支援版斜線跳脫) ，你可以使用以下句法：
 
 ``` kotlin
 val price = """
