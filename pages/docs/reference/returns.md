@@ -82,11 +82,11 @@ fun main(args: Array<String>) {
     foo()
 }
 ```
-The *return*-expression returns from the nearest enclosing function, i.e. `foo`. (Note that such non-local returns are supported only for lambda expressions passed to [inline functions](inline-functions.md).) If we need to return from a lambda expression, we have to label it and qualify the *return*:
-
 ---
 
 ### Explicit Labels 顯式標籤 
+
+The *return*-expression returns from the nearest enclosing function, i.e. `foo`. (Note that such non-local returns are supported only for lambda expressions passed to [inline functions](inline-functions.md).) If we need to return from a lambda expression, we have to label it and qualify the *return*:
 
 `return-表達式` 從最近一層封閉函數 `{... return}` 回傳，即： `foo` (請注意，只對表達式被傳遞到 [inline functions](inline-functions.md) 支援這樣非區域的回傳) ，如果我們需要從表達式返回，我們必須使用標籤標記和修飾符 return ：
 
