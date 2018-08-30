@@ -5,7 +5,9 @@ category: Basics
 title: Coding Conventions
 ---
 
-# Coding Conventions (編碼慣例)
+# Coding Conventions
+
+Coding Conventions ：編碼慣例
 
 This page contains the current coding style for the Kotlin language.
 
@@ -19,7 +21,9 @@ This page contains the current coding style for the Kotlin language.
 * [Idiomatic use of language features](#idiomatic-use-of-language-features)
 * [Coding conventions for libraries](#coding-conventions-for-libraries)
 
-### Applying the style guide (應用風格指南)
+### Applying the style guide
+
+Applying the style guide ：應用風格指南
 
 To configure the IntelliJ formatter according to this style guide, please install Kotlin plugin version
 1.2.20 or newer, go to Settings | Editor | Code Style | Kotlin, click on "Set from..." link in the upper
@@ -33,9 +37,13 @@ inspections that verify other issues described in the style guide (such as namin
 
 根據這份風格指南檢驗你的代碼，去啟用 "Settings | Editor | inspections | Kotlin | Style issues | File is not formatted according to project settings" 檢查，預設情況下，在風格指南額外檢查描述校驗其他問題(例如命名慣例)
 
-## Source code organization (來源代碼組織)
+## Source code organization
 
-### Directory structure (目錄結構)
+Source code organization ：來源代碼組織
+
+### Directory structure
+
+Directory structure ：目錄結構
 
 In mixed-language projects, Kotlin source files should reside in the same source root as the Java source files,
 and follow the same directory structure (each file should be stored in the directory corresponding to each package statement).
@@ -53,7 +61,9 @@ the common root package omitted
 
 ---
 
-### Source file names (來源檔案命名)
+### Source file names
+
+Source file names ：來源檔案命名
 
 If a Kotlin file contains a single class (potentially with related top-level declarations), its name should be the same as the name of the class, with the .kt extension appended.
 
@@ -69,7 +79,9 @@ The name of the file should describe what the code in the file does. Therefore, 
 
 ---
 
-### Source file organization (來源檔案組織)
+### Source file organization
+
+Source file organization ：來源檔案組織
 
 Placing multiple declarations (classes, top-level functions or properties) in the same Kotlin source file is encouraged as long as these declarations are closely related to each other semantically and the file size remains reasonable (not exceeding a few hundred lines).
 
@@ -81,7 +93,9 @@ In particular, when defining extension functions for a class which are relevant 
 
 ---
 
-### Class layout (類別怖局、安排)
+### Class layout
+
+Class layout ：類別怖局、安排
 
 Generally, the contents of a class is sorted in the following order:
 
@@ -102,7 +116,9 @@ Put nested classes next to the code that uses those classes. If the classes are 
 
 ---
 
-### Interface implementation layout (介面實作怖局、安排)
+### Interface implementation layout
+
+Interface implementation layout ：介面實作怖局、安排
 
 When implementing an interface, keep the implementing members in the same order as members of the interface (if necessary, interspersed with additional private methods used for the implementation)
 
@@ -110,7 +126,9 @@ When implementing an interface, keep the implementing members in the same order 
 
 ---
 
-### Overload layout (多載怖局、安排)
+### Overload layout
+
+Overload layout ：多載怖局、安排
 
 **Overload：多載、超載、負載，在相同類別或檔案中，定義「名稱相同」，但「參數個數不同」或是「參數類型不同」的函數方法**
 
@@ -118,7 +136,9 @@ Always put overloads next to each other in a class.
 
 在類別中放置多載彼此相鄰於代碼中的上下順序
 
-## Naming rules (命名規則)
+## Naming rules
+
+Naming rules ：命名規則
 
 Kotlin follows the Java naming conventions. In particular:
 
@@ -139,7 +159,9 @@ object EmptyDeclarationProcessor : DeclarationProcessor() { ... }
 ```
 ---
 
-### Function names (函數命名)
+### Function names
+
+Function names ：函數命名
 
 Names of functions, properties and local variables start with a lower case letter and use camel humps and no underscores:
 
@@ -162,7 +184,9 @@ fun Foo(): Foo { return FooImpl(...) }
 ```
 ---
 
-#### Names for test methods (測式方法的命名)
+#### Names for test methods
+
+Names for test methods ：測式方法的命名
 
 In tests (and only in tests), it's acceptable to use method names with spaces enclosed in backticks.
 (Note that such method names are currently not supported by the Android runtime.) Underscores in method names are also allowed in test code.
@@ -180,7 +204,9 @@ class MyTestCase {
 ```
 ---
 
-### Property names (屬性命名)
+### Property names
+
+Property names ：屬性命名
 
 Names of constants (properties marked with `const`, or top-level or object `val` properties with no custom `get` function that hold deeply immutable data) should use uppercase underscore-separated names:
 
@@ -209,7 +235,9 @@ For enum constants, it's OK to use either uppercase underscore-separated names
 
 ---
 
-#### Names for backing properties (背景屬性命名)
+#### Names for backing properties
+
+Names for backing properties ：背景屬性命名
 
 If a class has two properties which are conceptually the same but one is part of a public API and another is an implementation detail, use an underscore as the prefix for the name of the private property:
 
@@ -225,7 +253,9 @@ class C {
 ```
 ---
 
-### Choosing good names (選擇好的命名)
+### Choosing good names
+
+Choosing good names ：選擇好的命名
 
 The name of a class is usually a noun or a noun phrase explaining what the class _is_: `List`, `PersonReader`.
 
@@ -249,7 +279,9 @@ capitalize only the first letter if it is longer (`XmlFormatter`, `HttpInputStre
 當使用縮寫為宣告命名的一部份時，如果它由兩個字母組成 (`IOStream`) 將縮寫為大寫字母 (`IO`)；如果它是較長的單字 (`XmlFormatter`) 將縮寫的首字為大寫字母 (`Xml`、`Formatter`)
 
 
-## Formatting (編排格式)
+## Formatting
+
+Formatting ：編排格式
 
 In most cases, Kotlin follows the Java coding conventions.
 
@@ -276,7 +308,9 @@ if (elements != null) {
 
 ---
 
-### Horizontal whitespace (水平空格)
+### Horizontal whitespace
+
+Horizontal whitespace ：水平空格
 
 Put spaces around binary operators (`a + b`). Exception: don't put spaces around the "range to" operator (`0..i`).
 
@@ -333,7 +367,9 @@ As a general rule, avoid horizontal alignment of any kind. Renaming an identifie
 
 ---
 
-### Colon (冒號 `:`)
+### Colon
+
+Colon ：冒號 `:`
 
 Put a space before `:` in the following cases:
 
@@ -364,7 +400,9 @@ class FooImpl : Foo() {
 ```
 ---
 
-### Class header formatting (類別標頭編排格式)
+### Class header formatting
+
+Class header formatting ：類別標頭編排格式
 
 Classes with a few primary constructor parameters can be written in a single line:
 
@@ -432,7 +470,9 @@ Use regular indent (4 spaces) for constructor parameters.
 
 > 理由：這在確保在主建構元宣告屬性與類別本文宣告屬性有相同縮排
 
-### Modifiers (修飾符)
+### Modifiers
+
+Modifiers ：修飾符
 
 If a declaration has multiple modifiers, always put them in the following order:
 
@@ -468,7 +508,9 @@ Unless you're working on a library, omit redundant modifiers (e.g. `public`).
 
 除非你從事於函式庫的應用，省略冗餘的修飾符 (例如 `public`)
 
-### Annotation formatting (註釋編排格式)
+### Annotation formatting
+
+Annotation formatting ：註釋編排格式
 
 Annotations are typically placed on separate lines, before the declaration to which they are attached, and with the same indentation:
 
@@ -492,7 +534,9 @@ A single annotation without arguments may be placed on the same line as the corr
 ``` kotlin
 @Test fun foo() { ... }
 ```
-### File annotations (檔案註釋)
+### File annotations
+
+File annotations ：檔案註釋
 
 File annotations are placed after the file comment (if any), before the `package` statement, and are separated from `package` with a blank line (to emphasize the fact that they target the file and not the package).
 
@@ -504,7 +548,9 @@ File annotations are placed after the file comment (if any), before the `package
 
 package foo.bar
 ```
-### Function formatting (函數編排格式)
+### Function formatting
+
+Function formatting ：函數編排格式
 
 If the function signature doesn't fit on a single line, use the following syntax:
 
@@ -537,7 +583,9 @@ fun foo(): Int {     // bad
 
 fun foo() = 1        // good
 ```
-### Expression body formatting (表達式內文編排格式)
+### Expression body formatting
+
+Expression body formatting ：表達式內文編排格式
 
 If the function has an expression body that doesn't fit in the same line as the declaration, put the `=` sign on the first line.Indent the expression body by 4 spaces.
 
@@ -547,7 +595,9 @@ If the function has an expression body that doesn't fit in the same line as the 
 fun f(x: String) =
     x.length
 ```
-### Property formatting (屬性編排格式)
+### Property formatting
+
+Property formatting ：屬性編排格式
 
 For very simple read-only properties, consider one-line formatting:
 
@@ -570,7 +620,9 @@ and indent the initializer by four spaces:
 private val defaultCharset: Charset? =
     EncodingRegistry.getInstance().getDefaultCharsetForPropertiesFiles(file)
 ```
-### Formatting control flow statements (控制流程敘述編排格式)
+### Formatting control flow statements
+
+Formatting control flow statements ：控制流程敘述編排格式
 
 If the condition of an `if` or `when` statement is multiline, always use curly braces around the body of the statement.Indent each subsequent line of the condition by 4 spaces relative to statement begin. Put the closing parentheses of the condition together with the opening curly brace on a separate line:
 
@@ -636,7 +688,9 @@ when (foo) {
 }
 ```
 
-### Method call formatting (方法調用編排格式)
+### Method call formatting
+
+Method call formatting ：方法調用編排格式
 
 In long argument lists, put a line break after the opening parenthesis. Indent arguments by 4 spaces. 
 Group multiple closely related arguments on the same line.
@@ -654,7 +708,9 @@ Put spaces around the `=` sign separating the argument name and value.
 
 在 `=` 符號後空格分隔參數名稱與值
 
-### Chained call wrapping (包裝鍊式調用)
+### Chained call wrapping
+
+Chained call wrapping ：包裝鍊式調用
 
 When wrapping chained calls, put the `.` character or the `?.` operator on the next line, with a single indent:
 
@@ -670,7 +726,9 @@ The first call in the chain usually should have a line break before it, but it's
 
 在鏈式的第一個調用之前通常應該換行分隔物件，忽略它的代碼更有意義的方式是 ok 的
 
-### Lambda formatting (Lambda編排格式)
+### Lambda formatting
+
+Lambda formatting ：Lambda編排格式
 
 In lambda expressions, spaces should be used around the curly braces, as well as around the arrow which separates the parameters from the body. If a call takes a single lambda, it should be passed outside of parentheses whenever possible.
 
@@ -710,7 +768,9 @@ foo {
    context.configureEnv(environment)
 }
 ```
-## Documentation comments (文件註解)
+## Documentation comments
+
+Documentation comments ：文件註解
 
 For longer documentation comments, place the opening `/**` on a separate line and begin each subsequent line with an asterisk:
 
@@ -750,13 +810,17 @@ fun abs(number: Int) = ...
  */
 fun abs(number: Int) = ...
 ```
-## Avoiding redundant constructs (避免冗餘的建構元)
+## Avoiding redundant constructs
+
+Avoiding redundant constructs ：避免冗餘的建構元
 
 In general, if a certain syntactic construction in Kotlin is optional and highlighted by the IDE as redundant, you should omit it in your code. Do not leave unnecessary syntactic elements in code just "for clarity".
 
 一般來說，如果在 Kotlin 某種語意結構由 IDE 視為冗餘是可選(可有可無)和突顯，你應該在你的代碼省略它，不要在代碼中留下不必要的語意元素，就是 '為了清晰' 
 
-### Unit (單元)
+### Unit
+
+Unit ：單元
 
 **Unit：類似於 Java 的 null**
 
@@ -769,13 +833,17 @@ fun foo() { // ": Unit" is omitted here
 
 }
 ```
-### Semicolons (分號)
+### Semicolons
+
+Semicolons ：分號
 
 Omit semicolons whenever possible.
 
 盡可能省略
 
-### String templates (字串模版)
+### String templates
+
+String templates ：字串模版
 
 Don't use curly braces when inserting a simple variable into a string template. Use curly braces only for longer expressions.
 
@@ -785,9 +853,13 @@ Don't use curly braces when inserting a simple variable into a string template. 
 println("$name has ${children.size} children")
 ```
 
-## Idiomatic use of language features (慣用語言特徵)
+## Idiomatic use of language features
 
-### Immutability (不可變、不變性)
+Idiomatic use of language features ：慣用語言特徵
+
+### Immutability
+
+Immutability ：不可變、不變性
 
 Prefer using immutable data to mutable. Always declare local variables and properties as `val` rather than `var` if they are not modified after initialization.
 
@@ -814,7 +886,9 @@ val allowedValues = listOf("a", "b", "c")
 
 ---
 
-### Default parameter values (預設參數值)
+### Default parameter values
+
+Default parameter values ：預設參數值
 
 **Overload：多載、超載、負載，在相同類別或檔案中，定義「名稱相同」，但「參數個數不同」或是「參數類型不同」的函數方法**
 
@@ -831,7 +905,9 @@ fun foo(a: String = "a") { ... }
 ```
 ---
 
-### Type aliases (類型別名)
+### Type aliases
+
+Type aliases ：類型別名
 
 If you have a functional type or a type with type parameters which is used multiple times in a codebase, prefer defining a type alias for it:
 
@@ -842,7 +918,9 @@ typealias PersonIndex = Map<String, Person>
 ```
 ---
 
-### Lambda parameters (Lambda 參數)
+### Lambda parameters
+
+Lambda parameters ：Lambda 參數
 
 In lambdas which are short and not nested, it's recommended to use the `it` convention instead of declaring the parameter explicitly. In nested lambdas with parameters, parameters should be always declared explicitly.
 
@@ -850,7 +928,9 @@ In lambdas which are short and not nested, it's recommended to use the `it` conv
 
 ---
 
-### Returns in a lambda (在 Lambda 回傳)
+### Returns in a lambda
+
+Returns in a lambda ：在 Lambda 回傳
 
 Avoid using multiple labeled returns in a lambda. Consider restructuring the lambda so that it will have a single exit point.If that's not possible or not clear enough, consider converting the lambda into an anonymous function.
 
@@ -862,7 +942,9 @@ Do not use a labeled return for the last statement in a lambda.
 
 ---
 
-### Named arguments (命名參數)
+### Named arguments
+
+Named arguments ：命名參數
 
 Use the named argument syntax when a method takes multiple parameters of the same primitive type, or for parameters of `Boolean` type,unless the meaning of all parameters is absolutely clear from context.
 
@@ -872,7 +954,9 @@ drawSquare(x = 10, y = 10, width = 100, height = 100, fill = true)
 ```
 ---
 
-### Using conditional statements (使用條件敘述)
+### Using conditional statements
+
+Using conditional statements ：使用條件敘述
 
 Prefer using the expression form of `try`, `if` and `when`. Examples:
 
@@ -902,7 +986,9 @@ when(x) {
 ```
 ---
 
-### `if` versus `when` ( `if` 與 `when` 相對差別)
+### `if` versus `when`
+
+`if` versus `when` ： `if` 與 `when` 相對差別
 
 Prefer using `if` for binary conditions instead of `when`. Instead of
 
@@ -921,7 +1007,9 @@ Prefer using `when` if there are three or more options.
 
 ---
 
-### Using nullable `Boolean` values in conditions (在條件上使用可空的 `Boolean` 值)
+### Using nullable `Boolean` values in conditions
+
+Using nullable `Boolean` values in conditions ：在條件上使用可空的 `Boolean` 值
 
 If you need to use a nullable `Boolean` in a conditional statement, use `if (value == true)` or `if (value == false)` checks.
 
@@ -929,7 +1017,9 @@ If you need to use a nullable `Boolean` in a conditional statement, use `if (val
 
 ---
 
-### Using loops (使用循環)
+### Using loops
+
+Using loops ：使用循環
 
 Prefer using higher-order functions (`filter`, `map` etc.) to loops. Exception: `forEach` (prefer using a regular `for` loop instead, unless the receiver of `forEach` is nullable or `forEach` is used as part of a longer call chain).
 
@@ -941,7 +1031,9 @@ When making a choice between a complex expression using multiple higher-order fu
 
 ---
 
-### Loops on ranges (循環範圍)
+### Loops on ranges
+
+Loops on ranges ：循環範圍
 
 Use the `until` function to loop over an open range:
 
@@ -953,7 +1045,9 @@ for (i in 0 until n) { ... }  // good
 ```
 ---
 
-### Using strings (使用字串)
+### Using strings
+
+Using strings ：使用字串
 
 Prefer using string templates to string concatenation.
 
@@ -982,7 +1076,9 @@ val a = """if(a > 1) {
 ```
 ---
 
-### Functions vs Properties (函數 vs 屬性)
+### Functions vs Properties
+
+Functions vs Properties ：函數 vs 屬性
 
 In some cases functions with no arguments might be interchangeable with read-only properties. Although the semantics are similar, there are some stylistic conventions on when to prefer one to another.
 
@@ -998,7 +1094,9 @@ Prefer a property over a function when the underlying algorithm:
 
 ---
 
-### Using extension functions (使用擴展函數)
+### Using extension functions
+
+Using extension functions ：使用擴展函數
 
 Use extension functions liberally. Every time you have a function that works primarily on an object, consider making it an extension function accepting that object as a receiver. To minimize API pollution, restrict the visibility of extension functions as much as it makes sense. As necessary, use local extension functions, member extension functions, or top-level extension functions with private visibility.
 
@@ -1006,7 +1104,9 @@ Use extension functions liberally. Every time you have a function that works pri
 
 ---
 
-### Using infix functions (使用中綴函數)
+### Using infix functions
+
+Using infix functions ：使用中綴函數
 
 Declare a function as infix only when it works on two objects which play a similar role. Good examples: `and`, `to`, `zip`. Bad example: `add`.
 
@@ -1018,7 +1118,9 @@ Don't declare a method as infix if it mutates the receiver object.
 
 ---
 
-### Factory functions (工廠函數)
+### Factory functions
+
+Factory functions ：工廠函數
 
 If you declare a factory function for a class, avoid giving it the same name as the class itself. Prefer using a distinct name making it clear why the behavior of the factory function is special. Only if there is really no special semantics, you can use the same name as the class.
 
@@ -1041,7 +1143,9 @@ If you have an object with multiple overloaded constructors that don't call diff
 
 ---
 
-### Platform types (平台類型)
+### Platform types
+
+Platform types ：平台類型
 
 A public function/method returning an expression of a platform type must declare its Kotlin type explicitly:
 
@@ -1069,7 +1173,9 @@ fun main(args: Array<String>) {
 ```
 ---
 
-### Using scope functions apply/with/run/also/let (使用範圍函數 apply/with/run/also/let)
+### Using scope functions apply/with/run/also/let
+
+Using scope functions apply/with/run/also/let ：使用範圍函數 apply/with/run/also/let
 
 **詳細來源代碼參考 [Standard.kt](https://github.com/JetBrains/kotlin/blob/master/libraries/stdlib/src/kotlin/util/Standard.kt)**
 
@@ -1261,7 +1367,9 @@ public inline fun <T, R> with(receiver: T, block: T.() -> R): R {
 
 ---
 
-## Coding conventions for libraries (函式庫的編碼慣例)
+## Coding conventions for libraries
+
+Coding conventions for libraries ：函式庫的編碼慣例
 
 When writing libraries, it's recommended to follow an additional set of rules to ensure API stability:
 
