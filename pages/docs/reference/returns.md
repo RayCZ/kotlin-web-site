@@ -7,39 +7,46 @@ title: "Returns and Jumps: break and continue"
 
 # Returns and Jumps
 
+Returns and Jumps ：回傳和區段跳轉
+
 Kotlin has three structural jump expressions:
 
-* *return*{: .keyword }. By default returns from the nearest enclosing function or [anonymous function](lambdas.html#anonymous-functions).
-* *break*{: .keyword }. Terminates the nearest enclosing loop.
-* *continue*{: .keyword }. Proceeds to the next step of the nearest enclosing loop.
+Kotlin 有三種結構跳轉表示法：
+
+* *return*. By default returns from the nearest enclosing function or [anonymous function](lambdas.html#anonymous-functions).
+  `return`。預設情況下，從最近一層封閉函數 `{... return}` 返回或匿名函數
+* *break*. Terminates the nearest enclosing loop.
+  `break`。中斷最近一層封閉循環
+* *continue*. Proceeds to the next step of the nearest enclosing loop.
+  `continue`。前進最近一層封閉循環下一步
 
 All of these expressions can be used as part of larger expressions:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+所有這些表達式可以用作較大表達式的一部分：
+
 ``` kotlin
 val s = person.name ?: return
 ```
-</div>
-
 The type of these expressions is the [Nothing type](exceptions.html#the-nothing-type).
+
+這些表達式類型是 [Nothing type](exceptions.md#the-nothing-type).
 
 ## Break and Continue Labels
 
-Any expression in Kotlin may be marked with a *label*{: .keyword }.
-Labels have the form of an identifier followed by the `@` sign, for example: `abc@`, `fooBar@` are valid labels (see the [grammar](grammar.html#labelReference)).
-To label an expression, we just put a label in front of it
+Break and Continue Labels ：返回和繼續標籤
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+Any expression in Kotlin may be marked with a *label*. Labels have the form of an identifier followed by the `@` sign, for example: `abc@`, `fooBar@` are valid labels (see the [grammar](grammar.html#labelReference)). To label an expression, we just put a label in front of it
+
+在 Kotlin 任何表達式都可能使用 `label` 標記，標籤有識別名稱之後放 `@` 的符號形式，例如： `abc@` 、 `fooBar@` 是有效標籤 (請參閱 [grammar for *grammar*](https://kotlinlang.org/docs/reference/grammar.html#labelReference))，要標記表達式，我們只放一個標籤在它前面 `loop@ for (....)`
+
 ``` kotlin
 loop@ for (i in 1..100) {
     // ...
 }
 ```
-</div>
+Now, we can qualify a *break* or a *continue* with a label:
 
-Now, we can qualify a *break*{: .keyword } or a *continue*{: .keyword } with a label:
-
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+現在我們可以使用標籤修飾符 `break` 或 `continue`
 ``` kotlin
 loop@ for (i in 1..100) {
     for (j in 1..100) {
@@ -47,10 +54,9 @@ loop@ for (i in 1..100) {
     }
 }
 ```
-</div>
+A *break* qualified with a label jumps to the execution point right after the loop marked with that label.A *continue* proceeds to the next iteration of that loop.
 
-A *break*{: .keyword } qualified with a label jumps to the execution point right after the loop marked with that label.
-A *continue*{: .keyword } proceeds to the next iteration of that loop.
+ `break` 修飾符
 
 
 ## Return at Labels
