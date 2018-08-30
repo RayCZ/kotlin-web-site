@@ -20,7 +20,7 @@ class Goo { ... }
 ```
 All the contents (such as classes and functions) of the source file are contained by the package declared.
 
-所有來源檔案的內容(例如類別或是函數)被包含在 package 宣告下
+所有來源檔案的內容 (例如類別或是函數) 被包含在 package 宣告下
 
 So, in the example above, the full name of `baz()` is `foo.bar.baz`, and the full name of `Goo` is `foo.bar.Goo`. 
 
