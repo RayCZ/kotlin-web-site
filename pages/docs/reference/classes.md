@@ -11,53 +11,52 @@ related:
 
 # Classes and Inheritance
 
+Classes and Inheritance ：類別和繼承
+
 ## Classes
 
-Classes in Kotlin are declared using the keyword *class*{: .keyword }:
+Classes ：類別
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+Classes in Kotlin are declared using the keyword *class*:
+
+在 Kotlin 的類別使用關鍵字 `class` 宣告：
+
 ``` kotlin
 class Invoice { ... }
 ```
-</div>
+The class declaration consists of the class name, the class header (specifying its type parameters, the primary constructor etc.) and the class body, surrounded by curly braces. Both the header and the body are optional; if the class has no body, curly braces can be omitted.
 
-The class declaration consists of the class name, the class header (specifying its type parameters, the primary
-constructor etc.) and the class body, surrounded by curly braces. Both the header and the body are optional;
-if the class has no body, curly braces can be omitted.
+類別宣告由類別名稱、類別標頭 (指定它的類型參數、主建構元等等) 、類別內文所組成，內文由大括號圍繞，標頭和內文是可選的 (可填或不填) ；如果類別沒有內文，大括號可以被省略
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
 ``` kotlin
 class Empty
 ```
-</div>
-
 ### Constructors
+
+Constructors ：建構元
 
 A class in Kotlin can have a **primary constructor** and one or more **secondary constructors**. The primary
 constructor is part of the class header: it goes after the class name (and optional type parameters).
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+在 Kotlin 的類別可以有主建構元和一個或更多個第二建構元，主建構元是類別標頭的一部分；在類別名之後 (和可選的類型參數)
+
 ``` kotlin
 class Person constructor(firstName: String) { ... }
 ```
-</div>
+If the primary constructor does not have any annotations or visibility modifiers, the *constructor* keyword can be omitted:
 
-If the primary constructor does not have any annotations or visibility modifiers, the *constructor*{: .keyword }
-keyword can be omitted:
+如果主建構元不會有任何註釋 `@Nonnull`或可見性 `public` 的修飾符，`constructor` 關建字可以被省略
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
 ``` kotlin
 class Person(firstName: String) { ... }
 ```
-</div>
+The primary constructor cannot contain any code. Initialization code can be placed in **initializer blocks**, which are prefixed with the *init* keyword.
 
-The primary constructor cannot contain any code. Initialization code can be placed
-in **initializer blocks**, which are prefixed with the *init*{: .keyword } keyword.
+主建構元不可以包含任何執行代碼，初始化代碼可以被放到初始化區塊，使用 `init` 關鍵字前綴修飾
 
-During an instance initialization, the initializer blocks are executed in the same order as they appear 
-in the class body, interleaved with the property initializers:
+During an instance initialization, the initializer blocks are executed in the same order as they appear in the class body, interleaved with the property initializers:
 
-<div class="sample" markdown="1" theme="idea">
+在實例初始化期間，初始化區塊的執行與下面類別內文出現的順序相同，與屬性初始化交錯執行
 
 ``` kotlin
 //sampleStart
@@ -79,48 +78,51 @@ class InitOrderDemo(name: String) {
 fun main(args: Array<String>) {
     InitOrderDemo("hello")
 }
+
+//ans:
+//First property: hello
+//First initializer block that prints hello
+//Second property: 5
+//Second initializer block that prints 5
 ```
-</div>
+Note that parameters of the primary constructor can be used in the initializer blocks. They can also be used in property initializers declared in the class body:
 
-Note that parameters of the primary constructor can be used in the initializer blocks. They can also be used in
-property initializers declared in the class body:
+請注意：主建構元的參數可以被用在初始化區塊中，它們也可以用在類別內文中宣告屬性初始化
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
 ``` kotlin
 class Customer(name: String) {
     val customerKey = name.toUpperCase()
 }
 ```
-</div>
-
 In fact, for declaring properties and initializing them from the primary constructor, Kotlin has a concise syntax:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+實際上，對於來自主建構元宣告屬性和初始化它們， Kotlin 有一個簡潔的句法
 ``` kotlin
 class Person(val firstName: String, val lastName: String, var age: Int) { ... }
 ```
-</div>
-
 Much the same way as regular properties, the properties declared in the primary constructor can be
-mutable (*var*{: .keyword }) or read-only (*val*{: .keyword }).
+mutable (*var*) or read-only (*val*).
 
-If the constructor has annotations or visibility modifiers, the *constructor*{: .keyword } keyword is required, and
-the modifiers go before it:
+與常規屬性大致相同的方式，在建構元宣告屬性可以為可變的 (`var`) 或 唯讀的 (`val`)
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+If the constructor has annotations or visibility modifiers, the *constructor* keyword is required, and the modifiers go before it:
+
+如果建構元有註釋或可見性修飾符， 必須要有 `constructor` 關鍵字， 並且註釋或修飾符在 `constructor` 前面
+
 ``` kotlin
 class Customer public @Inject constructor(name: String) { ... }
 ```
-</div>
-
 For more details, see [Visibility Modifiers](visibility-modifiers.html#constructors).
 
+更多細節，看參閱 [Visibility Modifiers](visibility-modifiers.md#constructors)
 
 #### Secondary Constructors
 
-The class can also declare **secondary constructors**, which are prefixed with *constructor*{: .keyword }:
+Secondary Constructors ：第二建構元
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+The class can also declare **secondary constructors**, which are prefixed with *constructor*:
+
+類別也可以宣告第二建構元，使用 `constructor` 為前綴
 ``` kotlin
 class Person {
     constructor(parent: Person) {
@@ -128,13 +130,9 @@ class Person {
     }
 }
 ```
-</div>
+If the class has a primary constructor, each secondary constructor needs to delegate to the primary constructor, either directly or indirectly through another secondary constructor(s). Delegation to another constructor of the same class is done using the *this* keyword:
 
-If the class has a primary constructor, each secondary constructor needs to delegate to the primary constructor, either
-directly or indirectly through another secondary constructor(s). Delegation to another constructor of the same class
-is done using the *this*{: .keyword } keyword:
-
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+如果類別有主建構元，每個第二建構元需要直接或間接通過另一個第二建構元調用主建構元 `: this(name)`，使用 `this` 完成相同類別的另一個建構元調用
 ``` kotlin
 class Person(val name: String) {
     constructor(name: String, parent: Person) : this(name) {
@@ -142,12 +140,7 @@ class Person(val name: String) {
     }
 }
 ```
-</div>
-
-Note that code in initializer blocks effectively becomes part of the primary constructor. Delegation to the primary
-constructor happens as the first statement of a secondary constructor, so the code in all initializer blocks is executed
-before the secondary constructor body. Even if the class has no primary constructor, the delegation still happens
-implicitly, and the initializer blocks are still executed:
+Note that code in initializer blocks effectively becomes part of the primary constructor. Delegation to the primary constructor happens as the first statement of a secondary constructor, so the code in all initializer blocks is executed before the secondary constructor body. Even if the class has no primary constructor, the delegation still happens implicitly, and the initializer blocks are still executed:
 
 <div class="sample" markdown="1" theme="idea">
 
@@ -227,7 +220,7 @@ class Example // Implicitly inherits from Any
 </div>
 
 > Note: `Any` is not `java.lang.Object`; in particular, it does not have any members other than `equals()`, `hashCode()` and `toString()`.
-Please consult the [Java interoperability](java-interop.html#object-methods) section for more details.
+> Please consult the [Java interoperability](java-interop.html#object-methods) section for more details.
 
 To declare an explicit supertype, we place the type after a colon in the class header:
 
@@ -240,9 +233,9 @@ class Derived(p: Int) : Base(p)
 </div>
 
 > The *open*{: .keyword } annotation on a class is the opposite of Java's *final*{: .keyword }: it allows others
-to inherit from this class. By default, all classes in Kotlin are final, which
-corresponds to [Effective Java, 3rd Edition](http://www.oracle.com/technetwork/java/effectivejava-136174.html),
-Item 19: *Design and document for inheritance or else prohibit it*.
+> to inherit from this class. By default, all classes in Kotlin are final, which
+> corresponds to [Effective Java, 3rd Edition](http://www.oracle.com/technetwork/java/effectivejava-136174.html),
+> Item 19: *Design and document for inheritance or else prohibit it*.
 
 If the derived class has a primary constructor, the base class can (and must) be initialized right there,
 using the parameters of the primary constructor.

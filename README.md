@@ -19,7 +19,7 @@
 
 ## Classes and Objects (類別與物件)
 
-- [Classes and Inheritance](pages/docs/reference/classes.md) (類別與繼承)
+- [Classes and Inheritance](pages/docs/reference/classes.md) (類別和繼承)
 
 - [Properties and Fields](pages/docs/reference/properties.md)
 
