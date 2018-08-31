@@ -31,6 +31,8 @@ The class declaration consists of the class name, the class header (specifying i
 ``` kotlin
 class Empty
 ```
+---
+
 ### Constructors
 
 Constructors ：建構元
@@ -38,14 +40,14 @@ Constructors ：建構元
 A class in Kotlin can have a **primary constructor** and one or more **secondary constructors**. The primary
 constructor is part of the class header: it goes after the class name (and optional type parameters).
 
-在 Kotlin 的類別可以有主建構元和一個或更多個第二建構元，主建構元是類別標頭的一部分；在類別名之後 (和可選的類型參數)
+在 Kotlin 的類別可以有主建構元和一個或更多個次要建構元，主建構元是類別標頭的一部分；在類別名之後 (和可選的類型參數)
 
 ``` kotlin
 class Person constructor(firstName: String) { ... }
 ```
 If the primary constructor does not have any annotations or visibility modifiers, the *constructor* keyword can be omitted:
 
-如果主建構元不會有任何註釋 `@Nonnull`或可見性 `public` 的修飾符，`constructor` 關建字可以被省略
+如果主建構元不會有任何註釋 `@Nonnull` 或可見性 `public` 的修飾符，`constructor` 關建字可以被省略
 
 ``` kotlin
 class Person(firstName: String) { ... }
@@ -112,17 +114,19 @@ If the constructor has annotations or visibility modifiers, the *constructor* ke
 ``` kotlin
 class Customer public @Inject constructor(name: String) { ... }
 ```
-For more details, see [Visibility Modifiers](visibility-modifiers.html#constructors).
+For more details, see [Visibility Modifiers](visibility-modifiers.md#constructors).
 
 更多細節，看參閱 [Visibility Modifiers](visibility-modifiers.md#constructors)
 
+---
+
 #### Secondary Constructors
 
-Secondary Constructors ：第二建構元
+Secondary Constructors ：次要建構元
 
 The class can also declare **secondary constructors**, which are prefixed with *constructor*:
 
-類別也可以宣告第二建構元，使用 `constructor` 為前綴
+類別也可以宣告次要建構元，使用 `constructor` 為前綴
 ``` kotlin
 class Person {
     constructor(parent: Person) {
@@ -132,7 +136,7 @@ class Person {
 ```
 If the class has a primary constructor, each secondary constructor needs to delegate to the primary constructor, either directly or indirectly through another secondary constructor(s). Delegation to another constructor of the same class is done using the *this* keyword:
 
-如果類別有主建構元，每個第二建構元需要直接或間接通過另一個第二建構元調用主建構元 `: this(name)`，使用 `this` 完成相同類別的另一個建構元調用
+如果類別已有主建構元，每個次要建構元需要調用主建構元，用直接或間接方式通過另一個次要建構元調用主建構元 `: this(name)`，使用 `this` 完成相同類別的另一個建構元調用
 ``` kotlin
 class Person(val name: String) {
     constructor(name: String, parent: Person) : this(name) {
@@ -142,7 +146,7 @@ class Person(val name: String) {
 ```
 Note that code in initializer blocks effectively becomes part of the primary constructor. Delegation to the primary constructor happens as the first statement of a secondary constructor, so the code in all initializer blocks is executed before the secondary constructor body. Even if the class has no primary constructor, the delegation still happens implicitly, and the initializer blocks are still executed:
 
-<div class="sample" markdown="1" theme="idea">
+注意：在初始化區塊的該代碼有效的成為主建構元的一部分，調用主建構元發生在次要建構元的一個敘述，所以在執行次要建構元內文之前先執行所有在初始化區塊的代碼，即使類別沒有主建構元，調用還是會隱性發生，並且初始化區塊仍然被執行
 
 ``` kotlin
 //sampleStart
@@ -160,91 +164,108 @@ class Constructors {
 fun main(args: Array<String>) {
     Constructors(1)
 }
+
+//ans:
+//Init block
+//Constructor
 ```
-</div>
+If a non-abstract class does not declare any constructors (primary or secondary), it will have a generated primary constructor with no arguments. The visibility of the constructor will be public. If you do not want your class to have a public constructor, you need to declare an empty primary constructor with non-default visibility:
 
-If a non-abstract class does not declare any constructors (primary or secondary), it will have a generated primary
-constructor with no arguments. The visibility of the constructor will be public. If you do not want your class
-to have a public constructor, you need to declare an empty primary constructor with non-default visibility:
-
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+如果一個非抽象類別沒有宣告任何建構元 (主要或次要)，它將自動生成一個沒有參數的主建構元，建構元的可見性將為公開的，如果你不想要你的類別有公開建構元，你需要宣告一個空的、非預設可見性建構元
 ``` kotlin
 class DontCreateMe private constructor () { ... }
 ```
-</div>
-
-> **NOTE**: On the JVM, if all of the parameters of the primary constructor have default values, the compiler will
-> generate an additional parameterless constructor which will use the default values. This makes it easier to use
-> Kotlin with libraries such as Jackson or JPA that create class instances through parameterless constructors.
-> <div class="sample" markdown="1" theme="idea" data-highlight-only>
+> **NOTE**: On the JVM, if all of the parameters of the primary constructor have default values, the compiler will generate an additional parameterless constructor which will use the default values. This makes it easier to use Kotlin with libraries such as Jackson or JPA that create class instances through parameterless constructors.
+>
+> **注意**：在 JVM 上，如果主建構元的所有參數有預設值，編譯器將生成額外無參數的建構元，無參數建構元將使用預設值，這使它更容易去使用 Kotlin的函式庫，例如： Jackson 、 JPA ，函式庫通過無參數建構元建立類別實例
+>
+> ```kotlin
 > class Customer(val customerName: String = "")
-> </div>
+> ```
 
-{:.info}
+---
 
 ### Creating instances of classes
 
+Creating instances of classes ：建立類別的實例
+
 To create an instance of a class, we call the constructor as if it were a regular function:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+為了建立一個類別的實例，我們可以調用建構元，如果建構元是一個常規函數：
 ``` kotlin
 val invoice = Invoice()
 
 val customer = Customer("Joe Smith")
 ```
-</div>
+Note that Kotlin does not have a *new* keyword.
 
-Note that Kotlin does not have a *new*{: .keyword } keyword.
+注意： Kotlin 不會有 `new` 關鍵字
 
-Creating instances of nested, inner and anonymous inner classes is described in [Nested classes](nested-classes.html).
+Creating instances of nested, inner and anonymous inner classes is described in [Nested classes](nested-classes.md).
+
+創建內嵌、內部、匿名內部類別的實例描述在 [Nested classes](nested-classes.md)
+
+---
 
 ### Class Members
 
+Class Members ：類別成員
+
 Classes can contain:
 
-* [Constructors and initializer blocks](classes.html#constructors)
-* [Functions](functions.html)
-* [Properties](properties.html)
-* [Nested and Inner Classes](nested-classes.html)
-* [Object Declarations](object-declarations.html)
+類別可以包含：
+
+* [Constructors and initializer blocks](classes.md#constructors)
+  建構元和初始化區塊
+* [Functions](functions.md)
+  函數
+* [Properties](properties.md)
+  屬性
+* [Nested and Inner Classes](nested-classes.md)
+  內嵌和內部類別
+* [Object Declarations](object-declarations.md)
+  物件宣告
 
 
 ## Inheritance
 
+Inheritance ：繼承
+
 All classes in Kotlin have a common superclass `Any`, that is the default superclass for a class with no supertypes declared:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+在 Kotlin 的所有類別有共同的超 (父) 類別 `Any` ，對於一個類別沒有宣告超 (父) 類型， `Any` 類別是預設超 (父) 類別
 ``` kotlin
 class Example // Implicitly inherits from Any
 ```
-</div>
-
-> Note: `Any` is not `java.lang.Object`; in particular, it does not have any members other than `equals()`, `hashCode()` and `toString()`.
-> Please consult the [Java interoperability](java-interop.html#object-methods) section for more details.
+> Note: `Any` is not `java.lang.Object`; in particular, it does not have any members other than `equals()`, `hashCode()` and `toString()`. Please consult the [Java interoperability](java-interop.html#object-methods) section for more details.
+>
+> 注意： `Any` 不是 `java.lang.Object` ；特別是，它沒有任何成員除了 `equals()` 、 `hashCode()` 、 `toString()` ，更多細節請參閱 [Java interoperability](java-interop.html#object-methods) 章節
 
 To declare an explicit supertype, we place the type after a colon in the class header:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+去宣告明顯的超 (父) 類型，在類別標頭的冒號之後放置類型
 ``` kotlin
 open class Base(p: Int)
 
 class Derived(p: Int) : Base(p)
 ```
-</div>
-
-> The *open*{: .keyword } annotation on a class is the opposite of Java's *final*{: .keyword }: it allows others
-> to inherit from this class. By default, all classes in Kotlin are final, which
-> corresponds to [Effective Java, 3rd Edition](http://www.oracle.com/technetwork/java/effectivejava-136174.html),
-> Item 19: *Design and document for inheritance or else prohibit it*.
+> The *open* annotation on a class is the opposite of Java's *final*: it allows others
+> to inherit from this class. By default, all classes in Kotlin are final, which corresponds to [Effective Java, 3rd Edition](http://www.oracle.com/technetwork/java/effectivejava-136174.html), Item 19: *Design and document for inheritance or else prohibit it*.
+>
+> 在類別 `open` 註釋與 Java 的 final 相反：它允許從這個類別讓其他類別去繼承，預值下，在 Kotlin 所有類別是 `final` ，對應於 [Effective Java, 3rd Edition](http://www.oracle.com/technetwork/java/effectivejava-136174.html) , Item 19: *Design and document for inheritance or else prohibit it*
 
 If the derived class has a primary constructor, the base class can (and must) be initialized right there,
 using the parameters of the primary constructor.
 
-If the class has no primary constructor, then each secondary constructor has to initialize the base type
-using the *super*{: .keyword } keyword, or to delegate to another constructor which does that.
-Note that in this case different secondary constructors can call different constructors of the base type:
+如果衍生 (子) 類別已有主建構元，基礎類別可以 (且必須) 在主建構元裡初始化，並且使用主建構元的參數
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+If the class has no primary constructor, then each secondary constructor has to initialize the base type
+using the *super* keyword, or to delegate to another constructor which does that.Note that in this case different secondary constructors can call different constructors of the base type:
+
+如果類別沒有主建構元，接著每個次要建構元必須初始化基礎 (父) 類型使用 `super` 關鍵字，或去調用其他建構元做該件事，注意：在這個情況，不同建構元可以各自調用不同的基礎 (父) 類型的建構元：
+
+**建構元各自調用父類別建構元 `super(ctx)` 或 ``super(ctx, attrs)`**
+
 ``` kotlin
 class MyView : View {
     constructor(ctx: Context) : super(ctx)
@@ -252,14 +273,17 @@ class MyView : View {
     constructor(ctx: Context, attrs: AttributeSet) : super(ctx, attrs)
 }
 ```
-</div>
+---
 
 ### Overriding Methods
+
+Overriding Methods ：覆寫方法
 
 As we mentioned before, we stick to making things explicit in Kotlin. And unlike Java, Kotlin requires explicit
 annotations for overridable members (we call them *open*) and for overrides:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+如我們之前所述，我們堅持在 Kotlin 中明確表達做的事情，並且不像 Java ， Kotlin需要明確註釋為可覆寫的成員 (我們調用它們需要有 `open`) 並衍生 (子) 類別註釋 `override`
+
 ``` kotlin
 open class Base {
     open fun v() { ... }
@@ -269,21 +293,21 @@ class Derived() : Base() {
     override fun v() { ... }
 }
 ```
-</div>
+The *override* annotation is required for `Derived.v()`. If it were missing, the compiler would complain. If there is no *open* annotation on a function, like `Base.nv()`, declaring a method with the same signature in a subclass is illegal, either with *override* or without it. In a final class (e.g. a class with no *open* annotation), open members are prohibited.
 
-The *override*{: .keyword } annotation is required for `Derived.v()`. If it were missing, the compiler would complain.
-If there is no *open*{: .keyword } annotation on a function, like `Base.nv()`, declaring a method with the same signature in a subclass is illegal,
-either with *override*{: .keyword } or without it. In a final class (e.g. a class with no *open*{: .keyword } annotation), open members are prohibited.
+**Function signature：函數簽名，包括函數的名稱、參數順序、參數類型、泛型欄位等資訊總稱**
 
-A member marked *override*{: .keyword } is itself open, i.e. it may be overridden in subclasses. If you want to prohibit re-overriding, use *final*{: .keyword }:
+`Derived.v()` 需要註釋 `override` - `override fun v() { ... }`，如果 `override` 被遺忘，編譯器可能會抱怨，如果在函數沒有 `open` 註釋，像 `Base.nv()` 在子類別宣告一個方法使用相同簽名是非法的，無論是使用 `override` 或不使用它，在一個 `final` 類別 (例如：沒有 `open` 註釋的類別) ，公開的成員被禁用
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+A member marked *override* is itself open, i.e. it may be overridden in subclasses. If you want to prohibit re-overriding, use *final*:
+
+一個成員被標記 `override` 代表它本身是 `open` ，即它在子類別可以被覆寫，如果你想要禁用 `re-override` ，使用 `final` ：
 ``` kotlin
 open class AnotherDerived() : Base() {
     final override fun v() { ... }
 }
 ```
-</div>
+---
 
 ### Overriding Properties 
 
