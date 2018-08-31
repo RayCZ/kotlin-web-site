@@ -311,9 +311,12 @@ open class AnotherDerived() : Base() {
 
 ### Overriding Properties 
 
-Overriding properties works in a similar way to overriding methods; properties declared on a superclass that are then redeclared on a derived class must be prefaced with *override*{: .keyword }, and they must have a compatible type. Each declared property can be overridden by a property with an initializer or by a property with a getter method.
+Overriding Properties ：覆寫屬性
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+Overriding properties works in a similar way to overriding methods; properties declared on a superclass that are then redeclared on a derived class must be prefaced with *override*, and they must have a compatible type. Each declared property can be overridden by a property with an initializer or by a property with a getter method.
+
+覆寫屬性的工作與覆寫方法類似；在超 (父) 類別宣告屬性接著在衍生 (子) 類別重新宣告屬性，必須以 `override` 為宣告的開始，並且它們必須有兼容類型，每個被宣告的屬性可以由衍生 (子) 類別初始化屬性或屬性的 getter 方法覆寫
+
 ``` kotlin
 open class Foo {
     open val x: Int get() { ... }
@@ -323,13 +326,13 @@ class Bar1 : Foo() {
     override val x: Int = ...
 }
 ```
-</div>
-
 You can also override a `val` property with a `var` property, but not vice versa. This is allowed because a `val` property essentially declares a getter method, and overriding it as a `var` additionally declares a setter method in the derived class.
 
-Note that you can use the *override*{: .keyword } keyword as part of the property declaration in a primary constructor.
+你也可以使用 `var` 屬性覆寫一個 `val` 屬性，但也不可以反過來，這是允許的，因為一個 `val` 屬性本質上已宣告一個 getter 方法，並且在衍生 (子) 類別覆寫屬性為 `var` ，額外多宣告一個 setter 方法
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+Note that you can use the *override* keyword as part of the property declaration in a primary constructor.
+
+注意：在主建構元你可以使用 `override` 關鍵字為屬性宣告的一部分
 ``` kotlin 
 interface Foo {
     val count: Int
@@ -341,13 +344,15 @@ class Bar2 : Foo {
     override var count: Int = 0
 }
 ```
-</div>
+---
 
 ### Derived class initialization order
 
+Derived class initialization order ：衍生類別初始化順序
+
 During construction of a new instance of a derived class, the base class initialization is done as the first step (preceded only by evaluation of the arguments for the base class constructor) and thus happens before the initialization logic of the derived class is run. 
 
-<div class="sample" markdown="1" theme="idea">
+在衍生 (子) 類別創建實例的建構期間，基礎 (父) 類別初始化為第一步完成 (只在基礎 (父) 類別建構元參數執行之前) ，因此在衍生 (子) 類別的初始化邏輯運行之前發生
 
 ``` kotlin
 //sampleStart
@@ -375,10 +380,22 @@ fun main(args: Array<String>) {
     println("Constructing Derived(\"hello\", \"world\")")
     val d = Derived("hello", "world")
 }
-```
-</div>
 
-It means that, by the time of the base class constructor execution, the properties declared or overridden in the derived class are not yet initialized. If any of those properties are used in the base class initialization logic (either directly or indirectly, through another overridden *open*{: .keyword } member implementation), it may lead to incorrect behavior or a runtime failure. When designing a base class, you should therefore avoid using *open*{: .keyword } members in the constructors, property initializers, and *init*{: .keyword } blocks.
+//ans:
+//Constructing Derived("hello", "world")
+//Argument for Base: Hello
+//Initializing Base
+//Initializing size in Base: 5
+//Initializing Derived
+//Initializing size in Derived: 10
+```
+**執行順序：父類別建構元參數 > 父類別初始化區塊 > 父類別屬性 > 子類別初始化區塊 > 子類別屬性**
+
+It means that, by the time of the base class constructor execution, the properties declared or overridden in the derived class are not yet initialized. If any of those properties are used in the base class initialization logic (either directly or indirectly, through another overridden *open* member implementation), it may lead to incorrect behavior or a runtime failure. When designing a base class, you should therefore avoid using *open* members in the constructors, property initializers, and *init* blocks.
+
+這意味著，在基礎 (父) 類別建構元執行時，在衍生 (子) 類別宣告或覆寫屬性還沒被初始化，如果在基礎 (父) 類別初始化邏輯中使用任何這些屬性 (直接或是間接，透過另一個覆寫 `open` 修飾的成員實作) ， 它可能導致不正確的行為或運行時期失敗，因此當我們設計一個基礎 (父) 類別時，你應該避免在建構元、屬性初始化、`init` 區塊使用修飾為 `open` 的成員
+
+---
 
 ### Calling the superclass implementation
 
