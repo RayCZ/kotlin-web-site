@@ -328,7 +328,7 @@ class Bar1 : Foo() {
 ```
 You can also override a `val` property with a `var` property, but not vice versa. This is allowed because a `val` property essentially declares a getter method, and overriding it as a `var` additionally declares a setter method in the derived class.
 
-你也可以使用 `var` 屬性覆寫一個 `val` 屬性，但也不可以反過來，這是允許的，因為一個 `val` 屬性本質上已宣告一個 getter 方法，並且在衍生 (子) 類別覆寫屬性為 `var` ，額外多宣告一個 setter 方法
+你也可以使用 `var` 屬性覆寫一個 `val` 屬性，但不可以反過來，這是允許的，因為一個 `val` 屬性本質上已宣告一個 getter 方法，並且在衍生 (子) 類別覆寫屬性為 `var` ，額外多宣告一個 setter 方法
 
 Note that you can use the *override* keyword as part of the property declaration in a primary constructor.
 
