@@ -9,7 +9,40 @@
 ## Basics (基礎)
 
 - [Basic Types](pages/docs/reference/basic-types.md) (基本類型)
+
 - [Packages and Imports](pages/docs/reference/packages.md) (package 和匯入)
+
 - [Control Flow](pages/docs/reference/control-flow.md) (控制流程)
+
 - [Returns and Jumps](pages/docs/reference/returns.md) (回傳和區段跳轉)
+
+
+## Classes and Objects (類別與物件)
+
+- [Classes and Inheritance](pages/docs/reference/classes.md) (類別與繼承)
+
+- [Properties and Fields](pages/docs/reference/properties.md)
+
+- [Interfaces](pages/docs/reference/interfaces.md)
+
+- [Visibility Modifiers](pages/docs/reference/visibility-modifiers.md)
+
+- [Extensions](pages/docs/reference/extensions.md)
+
+- [Data Classes](pages/docs/reference/data-classes.md)
+
+- [Sealed Classes](pages/docs/reference/sealed-classes.md)
+
+- [Generics](pages/docs/reference/generics.md)
+
+- [Nested Classes](pages/docs/reference/nested-classes.md)
+
+- [Enum Classes](pages/docs/reference/enum-classes.md)
+
+- [Objects](pages/docs/reference/objects.md)
+
+- [Delegation](pages/docs/reference/delegation.md)
+
+- [Delegated Properties](pages/docs/reference/delegated-properties.md)
+
 
