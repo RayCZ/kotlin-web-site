@@ -56,7 +56,7 @@ loop@ for (i in 1..100) {
 ```
 A *break* qualified with a label jumps to the execution point right after the loop marked with that label.A *continue* proceeds to the next iteration of that loop.
 
-使用標籤修飾一個 break `break@loop` ，跳轉到 loop被標記該標籤 `loop@` 之後立即執行點，`continue` 繼續進行該循環的下一個遍歷
+使用標籤 `@` 修飾一個 break `break@loop` ，跳轉到 loop 被標記標籤 `@`  `loop@` 之後的執行點，`continue` 繼續進行該循環的下一個遍歷
 
 
 ## Return at Labels
