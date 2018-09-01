@@ -476,7 +476,7 @@ class C() : A(), B {
 
 It's fine to inherit from both `A` and `B`, and we have no problems with `a()` and `b()` since `C` inherits only one implementation of each of these functions. But for `f()` we have two implementations inherited by `C`, and thus we have to override `f()` in `C` and provide our own implementation that eliminates the ambiguity.
 
-繼承 `A` 和 `B` 都沒關係，並且使用函數 `a()` 和 `b()` 沒有問題，因為 `C` 只繼承這些函數的一個實作，但對於 `f()` 我們由 `C` 繼承兩個實作，因為我們在 `C` 必需覆寫 `f()` 並且提供我們擁有的實作消除分歧
+繼承 `A` 和 `B` 都沒關係，並且使用函數 `a()` 和 `b()` 都沒有問題，因為 `C` 只繼承這些函數的一個實作，但對於 `f()` 我們由 `C` 繼承兩個實作，因為我們在 `C` 必需覆寫 `f()` 並且提供我們擁有的實作消除分歧
 
 ---
 
