@@ -399,15 +399,19 @@ It means that, by the time of the base class constructor execution, the properti
 
 ### Calling the superclass implementation
 
-Code in a derived class can call its superclass functions and property accessors implementations using the *super*{: .keyword } keyword:
+Code in a derived class can call its superclass functions and property accessors implementations using the *super* keyword:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
-```kotlin
+在衍生 (子) 類別可以使用 `super` 調用它的超 (父) 類別函數或屬性存取器 (setter/getter) 實作：
+
+
+``` kotlin
 open class Foo {
     open fun f() { println("Foo.f()") }
     open val x: Int get() = 1
 }
+```
 
+``` kotlin
 class Bar : Foo() {
     override fun f() { 
         super.f()
@@ -417,12 +421,12 @@ class Bar : Foo() {
     override val x: Int get() = super.x + 1
 }
 ```
-</div>
 
-Inside an inner class, accessing the superclass of the outer class is done with the *super*{: .keyword } keyword qualified with the outer class name: `super@Outer`:
+Inside an inner class, accessing the superclass of the outer class is done with the *super* keyword qualified with the outer class name: `super@Outer`:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
-```kotlin
+在內部類別內，存取外部類別的超 (父) 類別，使用外部類別名稱修飾 `super` 關鍵字來完成 `super@Outer` ：
+
+``` kotlin
 class Bar : Foo() {
     override fun f() { /* ... */ }
     override val x: Int get() = 0
@@ -435,7 +439,8 @@ class Bar : Foo() {
     }
 }
 ```
-</div>
+
+---
 
 ### Overriding Rules
 
@@ -443,7 +448,6 @@ In Kotlin, implementation inheritance is regulated by the following rule: if a c
 it must override this member and provide its own implementation (perhaps, using one of the inherited ones).
 To denote the supertype from which the inherited implementation is taken, we use *super*{: .keyword } qualified by the supertype name in angle brackets, e.g. `super<Base>`:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
 ``` kotlin
 open class A {
     open fun f() { print("A") }
@@ -463,7 +467,6 @@ class C() : A(), B {
     }
 }
 ```
-</div>
 
 It's fine to inherit from both `A` and `B`, and we have no problems with `a()` and `b()` since `C` inherits only one implementation of each of these functions.
 But for `f()` we have two implementations inherited by `C`, and thus we have to override `f()` in `C`
@@ -477,7 +480,6 @@ Note that we do not need to annotate an abstract class or function with open –
 
 We can override a non-abstract open member with an abstract one
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
 ``` kotlin
 open class Base {
     open fun f() {}
@@ -487,7 +489,6 @@ abstract class Derived : Base() {
     override abstract fun f()
 }
 ```
-</div>
 
 ## Companion Objects
 
