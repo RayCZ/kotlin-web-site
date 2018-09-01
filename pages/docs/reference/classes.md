@@ -399,6 +399,8 @@ It means that, by the time of the base class constructor execution, the properti
 
 ### Calling the superclass implementation
 
+Calling the superclass implementation ：調用超 (父) 類別實作
+
 Code in a derived class can call its superclass functions and property accessors implementations using the *super* keyword:
 
 在衍生 (子) 類別可以使用 `super` 調用它的超 (父) 類別函數或屬性存取器 (setter/getter) 實作：
@@ -444,9 +446,13 @@ class Bar : Foo() {
 
 ### Overriding Rules
 
-In Kotlin, implementation inheritance is regulated by the following rule: if a class inherits many implementations of the same member from its immediate superclasses,
-it must override this member and provide its own implementation (perhaps, using one of the inherited ones).
-To denote the supertype from which the inherited implementation is taken, we use *super*{: .keyword } qualified by the supertype name in angle brackets, e.g. `super<Base>`:
+Overriding Rules ：覆寫規則
+
+In Kotlin, implementation inheritance is regulated by the following rule: if a class inherits many implementations of the same member from its immediate superclasses,it must override this member and provide its own implementation (perhaps, using one of the inherited ones).To denote the supertype from which the inherited implementation is taken, we use *super* qualified by the supertype name in angle brackets, e.g. `super<Base>`:
+
+member ：成員，包括屬性與函數
+
+在 Kotlin 中，實作繼承受以下規則約束：如果一個類別從它的直屬超 (父) 類別，繼承多個相同函數的實作 `fun f() 或 fun b()`，它必須覆寫這個函數並且提供它擁有的實作 (可能使用其中一個繼承的實作)，為了表示超 (父) 類型，帶入繼承實作的超 (父) 類型，我們在尖括號使用超 (父) 類型名稱修飾 `super` ，既是： `super<Base>`
 
 ``` kotlin
 open class A {
@@ -468,9 +474,11 @@ class C() : A(), B {
 }
 ```
 
-It's fine to inherit from both `A` and `B`, and we have no problems with `a()` and `b()` since `C` inherits only one implementation of each of these functions.
-But for `f()` we have two implementations inherited by `C`, and thus we have to override `f()` in `C`
-and provide our own implementation that eliminates the ambiguity.
+It's fine to inherit from both `A` and `B`, and we have no problems with `a()` and `b()` since `C` inherits only one implementation of each of these functions. But for `f()` we have two implementations inherited by `C`, and thus we have to override `f()` in `C` and provide our own implementation that eliminates the ambiguity.
+
+繼承 `A` 和 `B` 都沒關係，並且使用 `a()` 和 `b()` 沒有問題，因為 `c` 只繼承這些函數的一個實作，但對於 `f()` 我們由 `C` 繼承兩個實作，因為我們在 `C` 必需覆寫 `f()` 並且提供我們擁有的實作消除分歧
+
+---
 
 ## Abstract Classes
 
