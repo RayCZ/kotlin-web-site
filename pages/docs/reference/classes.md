@@ -237,9 +237,9 @@ All classes in Kotlin have a common superclass `Any`, that is the default superc
 ``` kotlin
 class Example // Implicitly inherits from Any
 ```
-> Note: `Any` is not `java.lang.Object`; in particular, it does not have any members other than `equals()`, `hashCode()` and `toString()`. Please consult the [Java interoperability](java-interop.html#object-methods) section for more details.
+> Note: `Any` is not `java.lang.Object`; in particular, it does not have any members other than `equals()`, `hashCode()` and `toString()`. Please consult the [Java interoperability](java-interop.md#object-methods) section for more details.
 >
-> 注意： `Any` 不是 `java.lang.Object` ；特別是，它沒有任何成員除了 `equals()` 、 `hashCode()` 、 `toString()` ，更多細節請參閱 [Java interoperability](java-interop.html#object-methods) 章節
+> 注意： `Any` 不是 `java.lang.Object` ；特別是，它沒有任何成員除了 `equals()` 、 `hashCode()` 、 `toString()` ，更多細節請參閱 [Java interoperability](java-interop.md#object-methods) 章節
 
 To declare an explicit supertype, we place the type after a colon in the class header:
 
@@ -515,4 +515,4 @@ inside that class.
 
 Even more specifically, if you declare a [companion object](object-declarations.md#companion-objects) inside your class, you'll be able to call its members with the same syntax as calling static methods in Java/C#, using only the class name as a qualifier.
 
-更具體來說，如果在你的類別內宣告一個 [夥伴物件](object-declarations.md#companion-objects) ，你將能調用類別內的成員，與在 Java/C# 中調用靜態方法相同的句法
+更具體來說，如果在你的類別內宣告一個 [夥伴物件](object-declarations.md#companion-objects) ，你將能調用類別內的成員，與在 Java/C# 中調用靜態方法相同的句法，只使用類別名稱為修飾符
