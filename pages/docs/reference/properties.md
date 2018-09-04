@@ -7,12 +7,16 @@ title: "Properties and Fields: Getters, Setters, const, lateinit"
 
 # Properties and Fields
 
+Properties and Fields  ：屬性與欄位
+
 ## Declaring Properties
 
-Classes in Kotlin can have properties.
-These can be declared as mutable, using the *var*{: .keyword } keyword or read-only using the *val*{: .keyword } keyword.
+Declaring Properties ：宣告屬性
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+Classes in Kotlin can have properties. These can be declared as mutable, using the *var* keyword or read-only using the *val* keyword.
+
+在 Kotlin 中的類別可以有屬性，這些可以被宣告為可變的，使用 `var` 關鍵字或唯讀使用 `val` 關鍵字
+
 ``` kotlin
 class Address {
     var name: String = ...
@@ -22,11 +26,11 @@ class Address {
     var zip: String = ...
 }
 ```
-</div>
 
 To use a property, we simply refer to it by name, as if it were a field in Java:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+要使用屬性，我們只需要透過名稱引用它，就像它是 Java 中的欄位一樣：
+
 ``` kotlin
 fun copyAddress(address: Address): Address {
     val result = Address() // there's no 'new' keyword in Kotlin
@@ -36,53 +40,58 @@ fun copyAddress(address: Address): Address {
     return result
 }
 ```
-</div>
 
 ## Getters and Setters
 
+Getters and Setters ：獲取屬性和設置屬性
+
+Accessor ：存取器，為獲取屬性與設置屬性的集合
+
 The full syntax for declaring a property is
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only auto-indent="false">
+宣告屬性的完整語法
+
 ``` kotlin
 var <propertyName>[: <PropertyType>] [= <property_initializer>]
     [<getter>]
     [<setter>]
 ```
-</div>
 
-The initializer, getter and setter are optional. Property type is optional if it can be inferred from the initializer
-(or from the getter return type, as shown below).
+The initializer, getter and setter are optional. Property type is optional if it can be inferred from the initializer (or from the getter return type, as shown below).
+
+初始化、獲取屬性、設置屬性是可選的，如果可以從初始化值 (或從獲取屬性回傳類型，如下所示) 推斷屬性類型，代表屬性類型是可選的
 
 Examples:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only auto-indent="false">
+範例：
+
 ``` kotlin
 var allByDefault: Int? // error: explicit initializer required, default getter and setter implied
 var initialized = 1 // has type Int, default getter and setter
 ```
-</div>
 
 The full syntax of a read-only property declaration differs from a mutable one in two ways: it starts with `val` instead of `var` and does not allow a setter:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only auto-indent="false">
+在兩種屬性宣告方式，唯讀屬性宣告的完整語法不同於可變屬性宣告，唯讀屬性開頭 `val` 代替 `var` 並且不允許設置屬性
+
 ``` kotlin
 val simple: Int? // has type Int, default getter, must be initialized in constructor
 val inferredType = 1 // has type Int and a default getter
 ```
-</div>
 
 We can write custom accessors, very much like ordinary functions, right inside a property declaration. Here's an example of a custom getter:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only auto-indent="false">
+我們可以在屬性宣告之後，編寫自定義的存取器，非常像普通的方法，以下是自定義獲取屬性的範例：
+
 ``` kotlin
 val isEmpty: Boolean
     get() = this.size == 0
 ```
-</div>
 
 A custom setter looks like this:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only auto-indent="false">
+一個自定義設置屬性看起來像：
+
 ``` kotlin
 var stringRepresentation: String
     get() = this.toString()
@@ -90,37 +99,39 @@ var stringRepresentation: String
         setDataFromString(value) // parses the string and assigns values to other properties
     }
 ```
-</div>
 
 By convention, the name of the setter parameter is `value`, but you can choose a different name if you prefer.
 
+按照慣例，設置屬性參數的名稱是 `value`　，但如果你有偏好，你可以選擇不同名稱
+
 Since Kotlin 1.1, you can omit the property type if it can be inferred from the getter:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+從 Kotlin 1.1 版本，如果你可以從設置屬性推斷屬性類型，你可以省略屬性類型宣告：
+
 ``` kotlin
 val isEmpty get() = this.size == 0  // has type Boolean
 ```
-</div>
 
-If you need to change the visibility of an accessor or to annotate it, but don't need to change the default implementation,
-you can define the accessor without defining its body:
+If you need to change the visibility of an accessor or to annotate it, but don't need to change the default implementation, you can define the accessor without defining its body:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only auto-indent="false">
+如果你需要改變存取器的可見性或註釋它，但不需要改變預設的實作，你可以只定義存取器且存取器沒有內文
+
 ``` kotlin
 var setterVisibility: String = "abc"
     private set // the setter is private and has the default implementation
 
 var setterWithAnnotation: Any? = null
     @Inject set // annotate the setter with Inject
+
 ```
-</div>
+
 
 ### Backing Fields
 
 Fields cannot be declared directly in Kotlin classes. However, when a property needs a backing field, Kotlin provides it automatically. This backing field can be referenced in the accessors using the `field` identifier:
 
 <div class="sample" markdown="1" theme="idea" data-highlight-only auto-indent="false">
-``` kotlin
+​``` kotlin
 var counter = 0 // Note: the initializer assigns the backing field directly
     set(value) {
         if (value >= 0) field = value
@@ -191,7 +202,7 @@ but you still want to avoid null checks when referencing the property inside the
 To handle this case, you can mark the property with the `lateinit` modifier:
 
 <div class="sample" markdown="1" theme="idea" data-highlight-only>
-``` kotlin
+​``` kotlin
 public class MyTest {
     lateinit var subject: TestSubject
 
@@ -234,7 +245,7 @@ the outer types, or at top level in the same file.
 See [Overriding Properties](classes.html#overriding-properties)
 
 ## Delegated Properties
-  
+
 The most common kind of properties simply reads from (and maybe writes to) a backing field. 
 On the other hand, with custom getters and setters one can implement any behaviour of a property.
 Somewhere in between, there are certain common patterns of how a property may work. A few examples: lazy values,

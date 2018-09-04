@@ -21,7 +21,7 @@
 
 - [Classes and Inheritance](pages/docs/reference/classes.md) (類別和繼承)
 
-- [Properties and Fields](pages/docs/reference/properties.md)
+- [Properties and Fields](pages/docs/reference/properties.md) (屬性和欄位)
 
 - [Interfaces](pages/docs/reference/interfaces.md)
 
