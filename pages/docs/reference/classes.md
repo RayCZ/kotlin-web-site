@@ -478,15 +478,17 @@ It's fine to inherit from both `A` and `B`, and we have no problems with `a()` a
 
 繼承 `A` 和 `B` 都沒關係，並且使用函數 `a()` 和 `b()` 都沒有問題，因為 `C` 只繼承這些函數的一個實作，但對於 `f()` 我們由 `C` 繼承兩個實作，因為我們在 `C` 必需覆寫 `f()` 並且提供我們擁有的實作消除分歧
 
----
-
 ## Abstract Classes
 
-A class and some of its members may be declared *abstract*{: .keyword }.
-An abstract member does not have an implementation in its class.
-Note that we do not need to annotate an abstract class or function with open – it goes without saying.
+Abstract Classes ：抽象類別
+
+A class and some of its members may be declared *abstract*. An abstract member does not have an implementation in its class. Note that we do not need to annotate an abstract class or function with open – it goes without saying.
+
+一個類別和它的一些成員可以被宣告為  `abstract` ，一個抽象成員在它的類別本身不會有有實作，注意：我們不需要使用 `open` 來註釋抽象類別或函數 - 不可而喻 (抽象代表已經是要去實作了)
 
 We can override a non-abstract open member with an abstract one
+
+我們可以使用 `abstract` 再次覆寫一個非抽象 `open` 的成員
 
 ``` kotlin
 open class Base {
@@ -500,13 +502,17 @@ abstract class Derived : Base() {
 
 ## Companion Objects
 
-In Kotlin, unlike Java or C#, classes do not have static methods. In most cases, it's recommended to simply use
-package-level functions instead.
+Companion Objects ：夥伴物件，類似於 Java 的 static
 
-If you need to write a function that can be called without having a class instance but needs access to the internals
-of a class (for example, a factory method), you can write it as a member of an [object declaration](object-declarations.html)
+In Kotlin, unlike Java or C#, classes do not have static methods. In most cases, it's recommended to simply use package-level functions instead.
+
+在 Kotlin 中，不像 Java 或 C# ，類別不需要靜態方法，在大多情況下，推薦簡單地使用 package-level 函數取代靜態
+
+If you need to write a function that can be called without having a class instance but needs access to the internals of a class (for example, a factory method), you can write it as a member of an [object declaration](object-declarations.md)
 inside that class.
 
-Even more specifically, if you declare a [companion object](object-declarations.html#companion-objects) inside your class,
-you'll be able to call its members with the same syntax as calling static methods in Java/C#, using only the class name
-as a qualifier.
+如果你需要寫一個可以被調用沒有類別實例的函數，但需要存取類別的內部 (例如：工廠方法) ，你可以在類別內編寫為一個 [object 宣告](object-declarations.md)的成員
+
+Even more specifically, if you declare a [companion object](object-declarations.md#companion-objects) inside your class, you'll be able to call its members with the same syntax as calling static methods in Java/C#, using only the class name as a qualifier.
+
+更具體來說，如果在你的類別內宣告一個 [夥伴物件](object-declarations.md#companion-objects) ，你將能調用類別內的成員，與在 Java/C# 中調用靜態方法相同的句法
