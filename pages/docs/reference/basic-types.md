@@ -203,7 +203,7 @@ Kotlin supports the standard set of arithmetical operations over numbers, which 
 See [Operator overloading](operator-overloading.md).
 
 Kotlin支援數字上的標準算術運算符組，它們被宣告為適當類別的成員 (但編譯器將優化調用對應的指令) 。
-請參閱 [Operator overloading](operator-overloading.md).
+請參閱 [Operator overloading](operator-overloading.md) 。
 
 As of bitwise operations, there're no special characters for them, but just named functions that can be called in infix form, for example:
 
@@ -392,7 +392,7 @@ println(s + "def")
 ```
 Note that in most cases using [string templates](#string-templates) or raw strings is preferable to string concatenation.
 
-注意：在大多情況下，使用字串模版或原始字串比字串連接更好
+注意：在大多情況下，使用字串模版或原始字串比字串連接更好。
 
 ---
 

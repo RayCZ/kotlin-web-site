@@ -24,11 +24,11 @@ import java.util.*
 ```
 It is not required to match directories and packages: source files can be placed arbitrarily in the file system.
 
-package 需不要匹配目錄與 package ：在檔案系統中來源檔案可以隨意的放置
+package 需不要匹配目錄與 package ：在檔案系統中來源檔案可以隨意的放置。
 
 See [Packages](packages.md).
 
-參閱 [Packages](packages.md)
+參閱 [Packages](packages.md) 。
 
 ## Defining functions
 
@@ -164,7 +164,7 @@ fun main(args: Array<String>) {
 ```
 See also [Properties And Fields](properties.md).
 
-參閱 [Properties And Fields](properties.md)
+參閱 [Properties And Fields](properties.md) 。
 
 
 ## Comments
@@ -212,7 +212,7 @@ fun main(args: Array<String>) {
 ```
 See [String templates](basic-types.md#string-templates).
 
-參閱  [String templates](basic-types.md#string-templates)
+參閱  [String templates](basic-types.md#string-templates) 。
 
 ## Using conditional expressions
 
@@ -250,7 +250,7 @@ fun main(args: Array<String>) {
 ```
 See [*if*-expressions](control-flow.md#if-expression).
 
-參閱 [*if*-expressions](control-flow.md#if-expression)
+參閱 [*if*-expressions 。](control-flow.md#if-expression)
 
 ## Using nullable values and checking for `null`
 
@@ -338,7 +338,7 @@ fun main(args: Array<String>) {
 ```
 See [Null-safety](null-safety.md).
 
-參閱 [Null-safety](null-safety.md)
+參閱 [Null-safety](null-safety.md) 。
 
 ## Using type checks and automatic casts
 
@@ -426,7 +426,7 @@ fun main(args: Array<String>) {
 ```
 See [Classes](classes.md) and [Type casts](typecasts.md).
 
-參閱 [Classes](classes.md) 和 [Type casts](typecasts.md).
+參閱 [Classes](classes.md) 和 [Type casts](typecasts.md) 。
 
 ## Using a `for` loop
 
@@ -469,7 +469,7 @@ fun main(args: Array<String>) {
 
 See [for loop](control-flow.md#for-loops).
 
-參閱 [for loop](control-flow.md#for-loops)
+參閱 [for loop](control-flow.md#for-loops) 。
 
 ## Using a `while` loop
 
@@ -497,7 +497,7 @@ fun main(args: Array<String>) {
 
 See [while loop](control-flow.md#while-loops).
 
-參閱 [while loop](control-flow.md#while-loops)
+參閱 [while loop](control-flow.md#while-loops) 。
 
 ## Using `when` expression
 
@@ -535,7 +535,7 @@ fun main(args: Array<String>) {
 
 See [when expression](control-flow.md#when-expression).
 
-參閱 [when expression](control-flow.md#when-expression)
+參閱 [when expression](control-flow.md#when-expression) 。
 
 ## Using ranges
 
@@ -619,7 +619,7 @@ fun main(args: Array<String>) {
 ```
 See [Ranges](ranges.md).
 
-參閱 [Ranges](ranges.md)
+參閱 [Ranges](ranges.md) 。
 
 ## Using collections
 
@@ -688,7 +688,7 @@ fun main(args: Array<String>) {
 ```
 See [Higher-order functions and Lambdas](lambdas.md).
 
-參閱 [Higher-order functions and Lambdas](lambdas.md)
+參閱 [Higher-order functions and Lambdas](lambdas.md) 。
 
 ## Creating basic classes and their instances:
 
@@ -734,4 +734,4 @@ class Triangle(
 ```
 See [classes](classes.md) and [objects and instances](object-declarations.md).
 
-參閱 [classes](classes.md) 和 [objects and instances](object-declarations.md).
+參閱 [classes](classes.md) 和 [objects and instances](object-declarations.md) 。
