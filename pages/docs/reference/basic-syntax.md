@@ -210,9 +210,9 @@ fun main(args: Array<String>) {
     println(s2)//ans:a was 1, but now is 2
 }
 ```
-See [String templates](basic-types.html#string-templates).
+See [String templates](basic-types.md#string-templates).
 
-參閱  [String templates](basic-types.html#string-templates)
+參閱  [String templates](basic-types.md#string-templates)
 
 ## Using conditional expressions
 
@@ -617,9 +617,9 @@ fun main(args: Array<String>) {
 //sampleEnd
 }
 ```
-See [Ranges](ranges.html).
+See [Ranges](ranges.md).
 
-參閱 [Ranges](ranges.html)
+參閱 [Ranges](ranges.md)
 
 ## Using collections
 
