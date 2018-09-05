@@ -139,7 +139,8 @@ Explicit Conversions ：明顯的轉換
 Due to different representations, smaller types are not subtypes of bigger ones.
 If they were, we would have troubles of the following sort:
 
-由於表示法不同，較小的類型不是較大類型的子類型
+由於表示法不同，較小的類型不是較大類型的子類型。如果是，我們會遇到以下排序麻煩：
+
 ``` kotlin
 // Hypothetical code, does not actually compile:
 val a: Int? = 1 // A boxed Int (java.lang.Integer)
@@ -148,11 +149,11 @@ print(b == a) // Surprise! This prints "false" as Long's equals() checks whether
 ```
 So equality would have been lost silently all over the place, not to mention identity.
 
-所以相同就會在整個地方默默的消失，更不用說識別 (參照)
+所以相同就會在整個地方默默的消失，更不用說識別 (參照) 。
 
 As a consequence, smaller types are NOT implicitly converted to bigger types. This means that we cannot assign a value of type `Byte` to an `Int` variable without an explicit conversion
 
-結果，較小的類型不會隱式轉換到大類型，這意味著我們不會在沒有明顯的轉換情況下將 `Byte` 類型值分配給 `Int` 變數
+結果，較小的類型不會隱式轉換到大類型。這意味著我們不會在沒有明顯的轉換情況下將 `Byte` 類型值分配給 `Int` 變數
 ``` kotlin
 fun main(args: Array<String>) {
 //sampleStart
@@ -201,7 +202,7 @@ Operations ：運算符
 Kotlin supports the standard set of arithmetical operations over numbers, which are declared as members of appropriate classes (but the compiler optimizes the calls down to the corresponding instructions).
 See [Operator overloading](operator-overloading.md).
 
-Kotlin支援數字上的標準算術運算符組，它們被宣告為適當類別的成員 (但編譯器將優化調用對應的指令) 
+Kotlin支援數字上的標準算術運算符組，它們被宣告為適當類別的成員 (但編譯器將優化調用對應的指令) 。
 請參閱 [Operator overloading](operator-overloading.md).
 
 As of bitwise operations, there're no special characters for them, but just named functions that can be called in infix form, for example:
@@ -242,7 +243,7 @@ The operations on floating point numbers discussed in this section are:
 
 When the operands `a` and `b` are statically known to be `Float` or `Double` or their nullable counterparts (the type is declared or inferred or is a result of a [smart cast](typecasts.md#smart-casts)), the operations on the numbers and the range that they form follow the IEEE 754 Standard for Floating-Point Arithmetic. 
 
-當靜態已經知道運算符 `a` 和 `b` 是 `Float` 或 `Double` 或它們可空的對應物 (從宣告或推斷類型或是智能轉換的結果) ，在數值和範圍的運算符它們遵循浮點數算術的 IEEE 754 標準
+當靜態已經知道運算符 `a` 和 `b` 是 `Float` 或 `Double` 或它們可空的對應物 (從宣告或推斷類型或是智能轉換的結果) ，在數值和範圍的運算符它們遵循浮點數算術的 IEEE 754 標準。
 
 However, to support generic use cases and provide total ordering, when the operands are **not** statically typed as floating point numbers (e.g. `Any`, `Comparable<...>`, a type parameter), the operations use the `equals` and `compareTo` implementations for `Float` and `Double`, which disagree with the standard, so that:
 
@@ -261,7 +262,7 @@ Characters ：字元
 
 Characters are represented by the type `Char`. They can not be treated directly as numbers
 
-`Char` 類型表示為字元，你不可以直接視為數值
+`Char` 類型表示為字元。你不可以直接視為數值
 
 ``` kotlin
 fun check(c: Char) {
@@ -272,7 +273,7 @@ fun check(c: Char) {
 ```
 Character literals go in single quotes: `'1'`. Special characters can be escaped using a backslash. The following escape sequences are supported: `\t`, `\b`, `\n`, `\r`, `\'`, `\"`, `\\` and `\$`. To encode any other character, use the Unicode escape sequence syntax: `'\uFF00'`.
 
-字元進入單引號：`'1'`，可以使用反斜線 `\` 轉義 (跳脫) 為特別字元，支援以下轉義 (跳脫) 序列： `\t` , `\b `, `\n` , `\r` , `\'` , `\"` , `\\` 和 `\$`，對任何其他字元進行編碼請使用 Unicode 轉義 (跳脫) 序列 `\uFF00`
+字元進入單引號：`'1'` 。可以使用反斜線 `\` 轉義 (跳脫) 為特別字元。支援以下轉義 (跳脫) 序列： `\t` , `\b `, `\n` , `\r` , `\'` , `\"` , `\\` 和 `\$` 。對任何其他字元進行編碼請使用 Unicode 轉義 (跳脫) 序列 `\uFF00` 。
 
 We can explicitly convert a character to an `Int` number:
 
@@ -287,7 +288,7 @@ fun decimalDigitValue(c: Char): Int {
 ```
 Like numbers, characters are boxed when a nullable reference is needed. Identity is not preserved by the boxing operation.
 
-像數值一樣，當需要一個可空的參照自動裝箱字元，自動裝箱操作不會保留識別
+像數值一樣，當需要一個可空的參照自動裝箱字元。自動裝箱操作不會保留識別。
 
 ## Booleans
 
@@ -295,11 +296,11 @@ Booleans ：布林值
 
 The type `Boolean` represents booleans, and has two values: *true* and *false*.
 
-`Boolean` 類型表示為布林值，且有兩個值： `true` 和 `false`
+`Boolean` 類型表示為布林值，且有兩個值： `true` 和 `false` 。
 
 Booleans are boxed if a nullable reference is needed.
 
-如果需要可空參照自動裝箱布林值
+如果需要可空參照自動裝箱布林值。
 
 Built-in operations on booleans include
 
@@ -329,7 +330,7 @@ class Array<T> private constructor() {
 ```
 To create an array, we can use a library function `arrayOf()` and pass the item values to it, so that `arrayOf(1, 2, 3)` creates an array [1, 2, 3]. Alternatively, the `arrayOfNulls()` library function can be used to create an array of a given size filled with null elements.
 
-創建陣列，我們可以使用函式庫數函數 `arrayOf` 並且傳遞項目值給它，以便 `arrayOf(1, 2, 3,)` 創建一個陣列 [ 1 , 2 , 3 ]，或者 `arrayOfNulls()` 函式庫函數可以用於創建使用 null 元素填滿已給大小的陣列
+創建陣列，我們可以使用函式庫數函數 `arrayOf` 並且傳遞項目值給它，以便 `arrayOf(1, 2, 3,)` 創建一個陣列 [ 1 , 2 , 3 ] 。或者 `arrayOfNulls()` 函式庫函數可以用於創建使用 null 元素填滿已給大小的陣列。
 
 Another option is to use the `Array` constructor that takes the array size and the function that can return the initial value of each array element given its index:
 
@@ -346,15 +347,15 @@ fun main(args: Array<String>) {
 ```
 As we said above, the `[]` operation stands for calls to member functions `get()` and `set()`.
 
-如上所述，`[]` 操作代表調用成員函數 `get()` 和 `set()`
+如上所述，`[]` 操作代表調用成員函數 `get()` 和 `set()` 。
 
 Note: unlike Java, arrays in Kotlin are invariant. This means that Kotlin does not let us assign an `Array<String>` to an `Array<Any>`, which prevents a possible runtime failure (but you can use `Array<out Any>`,  see [Type Projections](generics.md#type-projections)).
 
-注意：不像 Java，在 Kotlin 陣列是不可變的，這意味著 Kotlin 不會讓我們分配一個 `Array<String>` 給 `Array<Any>` ，這可防止可能的運行時失敗 (但你可以使用 `Array<out Any>` ，詳細請看 [Type Projections](generics.md#type-projections))
+注意：不像 Java，在 Kotlin 陣列是不可變的。這意味著 Kotlin 不會讓我們分配一個 `Array<String>` 給 `Array<Any>` ，這可防止可能的運行時失敗 (但你可以使用 `Array<out Any>` ，詳細請看 [Type Projections](generics.md#type-projections)) 。
 
 Kotlin also has specialized classes to represent arrays of primitive types without boxing overhead: `ByteArray`, `ShortArray`, `IntArray` and so on. These classes have no inheritance relation to the `Array` class, but they have the same set of methods and properties. Each of them also has a corresponding factory function:
 
-Kotlin 也有專門類別來表示原生類型的陣列並沒有自動裝箱的開銷： `ByteArray` , `ShortArray` , `IntArray` 等等，這些類別沒有與 `Array` 繼承關係，但你有相同方法和屬性集合，他們每個類型都有相應的工廠函數：
+Kotlin 也有專門類別來表示原生類型的陣列並沒有自動裝箱的開銷： `ByteArray` , `ShortArray` , `IntArray` 等等。這些類別沒有與 `Array` 繼承關係，但他們有相同方法和屬性集合。他們每個類型都有相應的工廠函數：
 
 ``` kotlin
 val x: IntArray = intArrayOf(1, 2, 3)
@@ -366,7 +367,8 @@ Strings ：字串
 
 Strings are represented by the type `String`. Strings are immutable. Elements of a string are characters that can be accessed by the indexing operation: `s[i]`. A string can be iterated over with a *for*-loop:
 
-`String` 類型表示為字串，字串是不可變的，字串元素是字元可以透過索引操作存取： `s[i]` ，一個字串可以使用 `for-loop` 遍歷
+`String` 類型表示為字串。字串是不可變的。字串元素是字元可以透過索引操作存取： `s[i]` 。一個字串可以使用 `for-loop` 遍歷
+
 ``` kotlin
 fun main(args: Array<String>) {
 val str = "abcd"
@@ -379,7 +381,7 @@ for (c in str) {
 ```
 You can concatenate strings using the `+` operator. This also works for concatenating strings with values of other types, as long as the first element in the expression is a string:
 
-你可以使用 `+` 運算符連接字串，這也可用於使用其他類型的數值連接，以及在表示法中第一個元素是一個字串 `val s = "abc" + 1`
+你可以使用 `+` 運算符連接字串。這也可用於使用其他類型的數值連接，以及在表示法中第一個元素是一個字串 `val s = "abc" + 1`
 ``` kotlin
 fun main(args: Array<String>) {
 //sampleStart
@@ -400,13 +402,13 @@ String Literals ：字串文字
 
 Kotlin has two types of string literals: escaped strings that may have escaped characters in them and raw strings that can contain newlines and arbitrary text. An escaped string is very much like a Java string:
 
-Kotlin 有兩個字串文字類型：在字串中轉義 (跳脫) 字串可以有轉義 (跳脫) 字元並在原始字串可以包含換行和隨意文字，一個轉義 (跳脫) 字串非常像 Java 字串：
+Kotlin 有兩個字串文字類型：在字串中轉義 (跳脫) 字串可以有轉義 (跳脫) 字元並在原始字串可以包含換行和隨意文字。一個轉義 (跳脫) 字串非常像 Java 字串：
 ``` kotlin
 val s = "Hello, world!\n"
 ```
 Escaping is done in the conventional way, with a backslash. See [Characters](#characters) above for the list of supported escape sequences.
 
-在常規方式做轉義 (跳脫) ，使用反斜線 `\` ，參閱支援轉義 (跳脫) 序列的列表 [Characters](#characters) 上述
+在常規方式做轉義 (跳脫) ，使用反斜線 `\` 。參閱支援轉義 (跳脫) 序列的列表 [Characters](#characters) 上述。
 
 A raw string is delimited by a triple quote (`"""`), contains no escaping and can contain newlines and any other characters:
 
@@ -430,7 +432,7 @@ val text = """
 ```
 By default `|` is used as margin prefix, but you can choose another character and pass it as a parameter, like `trimMargin(">")`.
 
-透過預設 `|` 用為邊距前綴，但你可以選擇其他字元和傳遞它為參數，像 `trimMargin(">")`
+透過預設 `|` 用為邊距前綴，但你可以選擇其他字元和傳遞它為參數，像 `trimMargin(">")` 。
 
 ---
 
@@ -440,7 +442,7 @@ String Templates ：字串模版
 
 Strings may contain template expressions, i.e. pieces of code that are evaluated and whose results are concatenated into the string.A template expression starts with a dollar sign ($) and consists of either a simple name:
 
-字串可以包含模版表示法，即執行代碼的片段並將結果連接到字串 `"println("i = $i")"`，一個模版表示法開頭使用錢號 ($) 由一個簡單名稱組成：
+字串可以包含模版表示法，即執行代碼的片段並將結果連接到字串 `"println("i = $i")"` 。一個模版表示法開頭使用錢號 ($) 由一個簡單名稱組成：
 ``` kotlin
 fun main(args: Array<String>) {
 //sampleStart
@@ -463,7 +465,7 @@ println("$s.length is ${s.length}") // prints "abc.length is 3"
 ```
 Templates are supported both inside raw strings and inside escaped strings.If you need to represent a literal `$` character in a raw string (which doesn't support backslash escaping), you can use the following syntax:
 
-模版支援在原始字串內和轉義 (跳脫) 字串內，如果你需要表示一個文字 `$` 字元在原始文字 (這不支援版斜線跳脫) ，你可以使用以下句法：
+模版支援在原始字串內和轉義 (跳脫) 字串內。如果你需要表示一個文字 `$` 字元在原始文字 (這不支援版斜線跳脫) ，你可以使用以下句法：
 
 ``` kotlin
 val price = """
