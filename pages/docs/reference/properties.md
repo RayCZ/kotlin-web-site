@@ -253,7 +253,7 @@ Checking whether a lateinit var is initialized (since 1.2) ：檢查 lateinit va
 
 To check whether a `lateinit var` has already been initialized, use `.isInitialized` on the [reference to that property](reflection.md#property-references):
 
-檢查 `lateinit var` 是否已經被初始化，[在引用屬性時]((reflection.md#property-references))使用 `.isInitialized`
+檢查 `lateinit var` 是否已經被初始化，[在引用屬性時](reflection.md#property-references)使用 `.isInitialized`
 
 ```kotlin
 if (foo::bar.isInitialized) {
