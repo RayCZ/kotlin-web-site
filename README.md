@@ -23,7 +23,7 @@
 
 - [Properties and Fields](pages/docs/reference/properties.md) (屬性和欄位)
 
-- [Interfaces](pages/docs/reference/interfaces.md)
+- [Interfaces](pages/docs/reference/interfaces.md) (介面)
 
 - [Visibility Modifiers](pages/docs/reference/visibility-modifiers.md)
 

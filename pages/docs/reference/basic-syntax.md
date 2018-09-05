@@ -28,6 +28,8 @@ package 需不要匹配目錄與 package ：在檔案系統中來源檔案可以
 
 See [Packages](packages.md).
 
+參閱 [Packages](packages.md)
+
 ## Defining functions
 
 Defining functions ：定義函數
@@ -100,6 +102,8 @@ fun main(args: Array<String>) {
 ```
 See [Functions](functions.md).
 
+參閱 [Functions](functions.md)
+
 ## Defining variables
 
 Defining variables ：定義變數
@@ -160,6 +164,8 @@ fun main(args: Array<String>) {
 ```
 See also [Properties And Fields](properties.md).
 
+參閱 [Properties And Fields](properties.md)
+
 
 ## Comments
 
@@ -167,7 +173,7 @@ Comments ：註解
 
 Just like Java and JavaScript, Kotlin supports end-of-line and block comments.
 
-就像 Java 或 JavaScript， Kotlin 支援行尾和區塊註解
+就像 Java 或 JavaScript， Kotlin 支援行尾和區塊註解。
 
 ``` kotlin
 // This is an end-of-line comment
@@ -178,17 +184,17 @@ Just like Java and JavaScript, Kotlin supports end-of-line and block comments.
 
 Unlike Java, block comments in Kotlin can be nested.
 
-不像 Java，在 Kotlin 區塊註解可以被內嵌
+不像 Java，在 Kotlin 區塊註解可以被內嵌。
 
 See [Documenting Kotlin Code](kotlin-doc.md) for information on the documentation comment syntax.
 
-有關文件註解語法，請看 [Documenting Kotlin Code](kotlin-doc.md) 
+有關文件註解語法，請看 [Documenting Kotlin Code](kotlin-doc.md) 。
 
 ## Using string templates
 
 Using string templates ：字串模版
 
-String templates：利用 `$` 或 `${}` 符號在字串內 `""` 使用變數或程式區塊**
+**String templates：利用 `$` 或 `${}` 符號在字串內 `""` 使用變數或程式區塊**
 
 ``` kotlin
 fun main(args: Array<String>) {
@@ -206,11 +212,13 @@ fun main(args: Array<String>) {
 ```
 See [String templates](basic-types.html#string-templates).
 
+參閱  [String templates](basic-types.html#string-templates)
+
 ## Using conditional expressions
 
 Using conditional expressions ：使用條件表達式
 
-Conditional expressions：條件表達式，if、else**
+**Conditional expressions：條件表達式，if、else**
 
 ``` kotlin
 //sampleStart
@@ -229,7 +237,7 @@ fun main(args: Array<String>) {
 ```
 Using `if` as an expression:
 
-使用 `if` 為一個單行表達式 (Lambda) ，差別在於方法可以用 `=` 指定表達式
+使用 `if` 為一個單行表達式 (Lambda) ，差別在於方法可以用 `=` 指定表達式：
 
 ``` kotlin
 //sampleStart
@@ -242,13 +250,15 @@ fun main(args: Array<String>) {
 ```
 See [*if*-expressions](control-flow.md#if-expression).
 
+參閱 [*if*-expressions](control-flow.md#if-expression)
+
 ## Using nullable values and checking for `null`
 
 Using nullable values and checking for `null` ：使用可空的變數和null檢查
 
 A reference must be explicitly marked as nullable when `null` value is possible.
 
-當可能為 `null` 值時，一個參照必須明確標記為可空的
+當可能為 `null` 值時，一個參照必須明確標記為可空的。
 
 Return `null` if `str` does not hold an integer:
 
@@ -293,6 +303,8 @@ fun main(args: Array<String>) {
 ```
 or
 
+或
+
 ``` kotlin
 fun parseInt(str: String): Int? {
     return str.toIntOrNull()
@@ -326,14 +338,15 @@ fun main(args: Array<String>) {
 ```
 See [Null-safety](null-safety.md).
 
+參閱 [Null-safety](null-safety.md)
+
 ## Using type checks and automatic casts
 
 Using type checks and automatic casts ：使用類型檢查與自動強轉
 
-The `is` operator checks if an expression is an instance of a type.
-If an immutable local variable or property is checked for a specific type, there's no need to cast it explicitly:
+The `is` operator checks if an expression is an instance of a type. If an immutable local variable or property is checked for a specific type, there's no need to cast it explicitly:
 
-`is` 運算符檢查是否為類型的實例，如果一個不可變的區域變數或屬或被檢查為特定類型，沒有明確強轉的必要：
+`is` 運算符檢查是否為類型的實例。如果一個不可變的區域變數或屬或被檢查為特定類型，沒有明確強轉的必要：
 
 
 **以下例子：```if (obj is String)``` 已經先檢查過自動強轉，所以在 ```{ return obj.length }``` 區塊內不再使用強轉 `as`**
@@ -413,6 +426,8 @@ fun main(args: Array<String>) {
 ```
 See [Classes](classes.md) and [Type casts](typecasts.md).
 
+參閱 [Classes](classes.md) 和 [Type casts](typecasts.md).
+
 ## Using a `for` loop
 
 Using a `for` loop ：使用 `for` 循環
@@ -454,9 +469,13 @@ fun main(args: Array<String>) {
 
 See [for loop](control-flow.md#for-loops).
 
+參閱 [for loop](control-flow.md#for-loops)
+
 ## Using a `while` loop
 
-Using a `while` loop ：使用 `while` 循環
+Using a `while` loop ：
+
+使用 `while` 循環：
 
 ``` kotlin
 fun main(args: Array<String>) {
@@ -478,9 +497,13 @@ fun main(args: Array<String>) {
 
 See [while loop](control-flow.md#while-loops).
 
+參閱 [while loop](control-flow.md#while-loops)
+
 ## Using `when` expression
 
-Using `when` expression ：使用 `when` 表達式
+Using `when` expression ：
+
+使用 `when` 表達式：
 
 ``` kotlin
 //sampleStart
@@ -511,6 +534,8 @@ fun main(args: Array<String>) {
 ```
 
 See [when expression](control-flow.md#when-expression).
+
+參閱 [when expression](control-flow.md#when-expression)
 
 ## Using ranges
 
@@ -560,7 +585,7 @@ fun main(args: Array<String>) {
 
 Iterating over a range:
 
-遍歷(走訪、循環)一個範圍
+遍歷(走訪、循環)一個範圍：
 
 ``` kotlin
 fun main(args: Array<String>) {
@@ -577,7 +602,7 @@ fun main(args: Array<String>) {
 
 or over a progression:
 
-或超出進展(步數)
+或超出進展(步數)：
 
 ``` kotlin
 fun main(args: Array<String>) {
@@ -593,6 +618,8 @@ fun main(args: Array<String>) {
 }
 ```
 See [Ranges](ranges.html).
+
+參閱 [Ranges](ranges.html)
 
 ## Using collections
 
@@ -621,7 +648,7 @@ fun main(args: Array<String>) {
 
 Checking if a collection contains an object using `in` operator:
 
-使用 `in` 運算符檢查集合是否包含物件
+使用 `in` 運算符檢查集合是否包含物件：
 
 ``` kotlin
 fun main(args: Array<String>) {
@@ -660,6 +687,8 @@ fun main(args: Array<String>) {
 //AVOCADO
 ```
 See [Higher-order functions and Lambdas](lambdas.md).
+
+參閱 [Higher-order functions and Lambdas](lambdas.md)
 
 ## Creating basic classes and their instances:
 
@@ -704,3 +733,5 @@ class Triangle(
 }
 ```
 See [classes](classes.md) and [objects and instances](object-declarations.md).
+
+參閱 [classes](classes.md) 和 [objects and instances](object-declarations.md).
