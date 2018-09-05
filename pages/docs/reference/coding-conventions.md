@@ -11,7 +11,7 @@ Coding Conventions ：編碼慣例
 
 This page contains the current coding style for the Kotlin language.
 
-這頁包含目前 Kotlin 語言的編碼風格
+這頁包含目前 Kotlin 語言的編碼風格。
 
 * [Source code organization](#source-code-organization)
 * [Naming rules](#naming-rules)
@@ -35,7 +35,7 @@ To verify that your code is formatted according to the style guide, go to the in
 the "Kotlin | Style issues | File is not formatted according to project settings" inspection. Additional
 inspections that verify other issues described in the style guide (such as naming conventions) are enabled by default.
 
-根據這份風格指南檢驗你的代碼，去啟用 "Settings | Editor | inspections | Kotlin | Style issues | File is not formatted according to project settings" 檢查，預設情況下，在風格指南額外檢查描述校驗其他問題(例如命名慣例)
+根據這份風格指南檢驗你的代碼，去啟用 "Settings | Editor | inspections | Kotlin | Style issues | File is not formatted according to project settings" 檢查，預設情況下，在風格指南額外檢查描述校驗其他問題 (例如命名慣例)。
 
 ## Source code organization
 
@@ -45,19 +45,18 @@ Source code organization ：來源代碼組織
 
 Directory structure ：目錄結構
 
-In mixed-language projects, Kotlin source files should reside in the same source root as the Java source files,
-and follow the same directory structure (each file should be stored in the directory corresponding to each package statement).
+In mixed-language projects, Kotlin source files should reside in the same source root as the Java source files,and follow the same directory structure (each file should be stored in the directory corresponding to each package statement).
 
-在混合語言專案中，Kotlin 來源檔案與 Java 來源檔案應該位於相同起始(根)來源，並遵循相同目錄結構 (每個檔案應該儲存在對應每個 package 描述的目錄)
+在混合語言專案中，Kotlin 來源檔案與 Java 來源檔案應該位於相同起始 (根) 來源，並遵循相同目錄結構 (每個檔案應該儲存在對應每個 package 描述的目錄) 。
 
 In pure Kotlin projects, the recommended directory structure is to follow the package structure with
 the common root package omitted
 
-在單一(純) Kotlin 專案中，推薦目錄結構是遵循 package 結構，使用上通用的起始(根) package 被省略
+在單一 (純) Kotlin 專案中，推薦目錄結構是遵循 package 結構，使用上通用的起始 (根) package 被省略
 
 (e.g. if all the code in the project is in the "org.example.kotlin" package and its subpackages, files with the "org.example.kotlin" package should be placed directly under the source root, and files in "org.example.kotlin.foo.bar" should be in the "foo/bar" subdirectory of the source root).
 
-(例如：如果在專案中所有的代碼在 "org.example.kotlin" package 和它的子 packages，檔案內宣告 package "org.example.kotlin" 應該直接放置在起始(根)來源下，並在 "org.example.kotlin.foo.bar"下的檔案應該在起始來源的子目錄 "foo/bar")
+(例如：如果在專案中所有的代碼在 "org.example.kotlin" package 和它的子 packages，檔案內宣告 package "org.example.kotlin" 應該直接放置在起始 (根) 來源下，並在 "org.example.kotlin.foo.bar"下的檔案應該在起始來源的子目錄 "foo/bar") 。
 
 ---
 
@@ -67,15 +66,15 @@ Source file names ：來源檔案命名
 
 If a Kotlin file contains a single class (potentially with related top-level declarations), its name should be the same as the name of the class, with the .kt extension appended.
 
-如果 Kotlin 檔案內包含單個類別 (可能使用有關 top-level 宣告)，檔案的名稱應該與類別名稱相同，檔名附加 .kt 擴展
+如果 Kotlin 檔案內包含單個類別 (可能使用有關 top-level 宣告)，檔案的名稱應該與類別名稱相同，檔名附加 .kt 擴展。
 
  If a file contains multiple classes, or only top-level declarations, choose a name describing what the file contains, and name the file accordingly. Use camel humps with an uppercase first letter (e.g. `ProcessDeclarations.kt`).
 
-如果檔案包含多個類別，或只是 top-level 宣告，選擇檔案內包含的名稱描述，並相應地命名該檔案，使用駝峰式與開頭大寫(例如 `ProcessDeclarations.kt`)
+如果檔案包含多個類別，或只是 top-level 宣告，選擇檔案內包含的名稱描述，並相應地命名該檔案。使用駝峰式與開頭大寫 (例如 `ProcessDeclarations.kt`)
 
 The name of the file should describe what the code in the file does. Therefore, you should avoid using meaningless words such as "Util" in file names.
 
-檔案名稱描述檔案內代碼做的事，因此，你應該避免使用無意義的單字在檔案名稱，例如 "Util"
+檔案名稱描述檔案內代碼做的事。因此，你應該避免使用無意義的單字在檔案名稱，例如 "Util"。
 
 ---
 
@@ -85,11 +84,11 @@ Source file organization ：來源檔案組織
 
 Placing multiple declarations (classes, top-level functions or properties) in the same Kotlin source file is encouraged as long as these declarations are closely related to each other semantically and the file size remains reasonable (not exceeding a few hundred lines).
 
-在相同 Kotlin 來源檔案放置多個宣告 (classes, top-level functions or properties ) 是被鼓勵支持的，只要這些宣告彼此緊密相關的語義並且檔案大小保持合理 (不超過幾百行)
+在相同 Kotlin 來源檔案放置多個宣告 (classes, top-level functions or properties ) 是被鼓勵支持的，只要這些宣告彼此緊密相關的語義並且檔案大小保持合理 (不超過幾百行)。
 
 In particular, when defining extension functions for a class which are relevant for all clients of this class, put them in the same file where the class itself is defined. When defining extension functions that make sense only for a specific client, put them next to the code of that client. Do not create files just to hold "all extensions of Foo".
 
-特別地，為所有客戶端相關的類別定義擴展函數，放置它們在相同檔案內並定義類別本身，當只為特別客戶端定義有意義的擴展函數時，放它們在客戶端代碼的旁邊，不要建立檔案只為了保存 "Foo所有擴展"
+特別地，為所有客戶端相關的類別定義擴展函數，放置它們在相同檔案內並定義類別本身，當只為特別客戶端定義有意義的擴展函數時，放它們在客戶端代碼的旁邊。不要建立檔案只為了保存 "Foo所有擴展"。
 
 ---
 
@@ -101,18 +100,22 @@ Generally, the contents of a class is sorted in the following order:
 
 通常，類別的內容按以下的順序做排序
 
-- Property declarations and initializer blocks (屬性宣告和初始化區塊)
-- Secondary constructors (第二建構元)
-- Method declarations (方法宣告)
-- Companion object (夥伴物件：類型於 Java 的靜態類)
+- Property declarations and initializer blocks
+  屬性宣告和初始化區塊
+- Secondary constructors
+  第二建構元
+- Method declarations
+  方法宣告
+- Companion object
+  夥伴物件：類型於 Java 的靜態類
 
 Do not sort the method declarations alphabetically or by visibility, and do not separate regular methods from extension methods. Instead, put related stuff together, so that someone reading the class from top to bottom would be able to follow the logic of what's happening. Choose an order (either higher-level stuff first, or vice versa) and stick to it.
 
-不會依字母或可見性排序方法的宣告，也不會分開從擴展方法中的常規方法，相反，放置相關的資料在一起，以便某人從上而下的閱讀類別，能循著正在發生事情的邏輯，選擇一個排序 (首要的高階資料，反之亦然) 和堅持下去
+不會依字母或可見性排序方法的宣告，也不會分開從擴展方法中的常規方法。相反，放置相關的資料在一起，以便某人從上而下的閱讀類別，能循著正在發生事情的邏輯。選擇一個排序 (首要的高階資料，反之亦然) 和堅持下去。
 
 Put nested classes next to the code that uses those classes. If the classes are intended to be used externally and aren't referenced inside the class, put them in the end, after the companion object.
 
-放內嵌類別到使用那些類別代碼的旁邊，如果類別有意的使用在外部類別並不會在類別內引用它，放它們在尾端，夥伴物件之後
+放內嵌類別到使用那些類別代碼的旁邊。如果類別有意的使用在外部類別並不會在類別內引用它，放它們在尾端，夥伴物件之後。
 
 ---
 
@@ -134,7 +137,7 @@ Overload layout ：多載怖局、安排
 
 Always put overloads next to each other in a class.
 
-在類別中放置多載彼此相鄰於代碼中的上下順序
+在類別中放置多載彼此相鄰於代碼中的上下順序。
 
 ## Naming rules
 
@@ -165,7 +168,7 @@ Function names ：函數命名
 
 Names of functions, properties and local variables start with a lower case letter and use camel humps and no underscores:
 
-函數命名，屬性或區域變數開頭為小寫字母並使用駝峰式、無底線
+函數命名，屬性或區域變數開頭為小寫字母並使用駝峰式、無底線：
 
 ``` kotlin
 fun processDeclarations() { ... }
@@ -173,7 +176,7 @@ var declarationCount = ...
 ```
 Exception: factory functions used to create instances of classes can have the same name as the class being created:
 
-例外：用於創建實例的「工廠模式」函數可以與正在創建類別相同的名稱
+例外：用於創建實例的「工廠模式」函數可以與正在創建類別相同的名稱：
 
 ``` kotlin
 abstract class Foo { ... }
@@ -191,9 +194,9 @@ Names for test methods ：測式方法的命名
 In tests (and only in tests), it's acceptable to use method names with spaces enclosed in backticks.
 (Note that such method names are currently not supported by the Android runtime.) Underscores in method names are also allowed in test code.
 
-在測試中(並只在測試中)，可以接受在反引號 \`\`中使用空格的方法名稱
+在測試中 (並只在測試中) ，可以接受在反引號 \`\`中使用空格的方法名稱。
 
-(注意：這樣命名的方法名稱目前不支援Android運行時期)在測試代碼中允許方法名稱使用底線
+(注意：這樣命名的方法名稱目前不支援Android運行時期。) 在測試代碼中允許方法名稱使用底線。
 
 ``` kotlin
 class MyTestCase {
@@ -228,10 +231,9 @@ Names of properties holding references to singleton objects can use the same nam
 ``` kotlin
 val PersonComparator: Comparator<Person> = ...
 ```
-For enum constants, it's OK to use either uppercase underscore-separated names
-(`enum class Color { RED, GREEN }`) or regular camel-humps names starting with an uppercase letter, depending on the usage.
+For enum constants, it's OK to use either uppercase underscore-separated names (`enum class Color { RED, GREEN }`) or regular camel-humps names starting with an uppercase letter, depending on the usage.
 
-對於 enum 常數，使用大寫底線分隔命名或常規鴕峰式命名開頭大寫字母，取決於用法
+對於 enum 常數，使用大寫底線分隔命名或常規鴕峰式命名開頭大寫字母，取決於用法。
 
 ---
 
@@ -241,7 +243,7 @@ Names for backing properties ：背景屬性命名
 
 If a class has two properties which are conceptually the same but one is part of a public API and another is an implementation detail, use an underscore as the prefix for the name of the private property:
 
-如果類別有兩個屬性在概念上相同，但一個為對外公開API的一部份，並且另一個為實作細節，使用底線為前綴(開頭)為私有屬性的命名
+如果類別有兩個屬性在概念上相同，但一個為對外公開API的一部份，並且另一個為實作細節，使用底線為前綴 (開頭) 為私有屬性的命名：
 
 ``` kotlin
 class C {
@@ -259,24 +261,24 @@ Choosing good names ：選擇好的命名
 
 The name of a class is usually a noun or a noun phrase explaining what the class _is_: `List`, `PersonReader`.
 
-類別名稱通常為名詞或名詞短語解釋類別是：`List` , `PersonReader`
+類別名稱通常為名詞或名詞短語解釋類別是：`List` , `PersonReader` 。
 
 The name of a method is usually a verb or a verb phrase saying what the method _does_: `close`, `readPersons`.
 
-方法名稱通常為動詞或動詞短語說明方法做的事：`close` , `readPersons`
+方法名稱通常為動詞或動詞短語說明方法做的事：`close` , `readPersons` 。
 
 The name should also suggest if the method is mutating the object or returning a new one. For instance `sort` is sorting a collection in place, while `sorted` is returning a sorted copy of the collection.
 
-命名也表名方法是目前正在改變的物件或回傳新的物件，比如 `sort` 是排序執行中讓集合到位，而 `sorted` 回傳已排序集合的副本
+命名也表名方法是目前正在改變的物件或回傳新的物件。比如 `sort` 是排序執行中讓集合到位，而 `sorted` 回傳已排序集合的副本。
 
 The names should make it clear what the purpose of the entity is, so it's best to avoid using meaningless words (`Manager`, `Wrapper` etc.) in names.
 
-命名應該清楚說明實體存在的目的是什麼，所以在命名時它最好避免無意義的單字 (`Manager`, `Wrapper` 等等)
+命名應該清楚說明實體存在的目的是什麼，所以在命名時它最好避免無意義的單字 (`Manager`, `Wrapper` 等等。)。
 
 When using an acronym as part of a declaration name, capitalize it if it consists of two letters (`IOStream`);
 capitalize only the first letter if it is longer (`XmlFormatter`, `HttpInputStream`).
 
-當使用縮寫為宣告命名的一部份時，如果它由兩個字母組成 (`IOStream`) 將縮寫為大寫字母 (`IO`)；如果它是較長的單字 (`XmlFormatter`) 將縮寫的首字為大寫字母 (`Xml`、`Formatter`)
+當使用縮寫為宣告命名的一部份時，如果它由兩個字母組成 (`IOStream`) 將縮寫為大寫字母 (`IO`)；如果它是較長的單字 (`XmlFormatter`) 將縮寫的首字為大寫字母 (`Xml`、`Formatter`) 。
 
 
 ## Formatting
@@ -285,15 +287,15 @@ Formatting ：編排格式
 
 In most cases, Kotlin follows the Java coding conventions.
 
-大部份情況下，Kotlin 遵循 Java 編碼慣例
+大部份情況下， Kotlin 遵循 Java 編碼慣例。
 
 Use 4 spaces for indentation. Do not use tabs.
 
-使用四個空格為縮排，不使用 tabs
+使用四個空格為縮排。不使用 tabs。
 
 For curly braces, put the opening brace in the end of the line where the construct begins, and the closing brace on a separate line aligned vertically with the opening construct.
 
-對於大括號 `{}`, 在行尾放開頭大括號 `{` 表示建構開始，並在單獨一行關閉大括號 `}` 垂直對齊開頭建構
+對於大括號 `{}`, 在行尾放開頭大括號 `{` 表示建構開始，並在單獨一行關閉大括號 `}` 垂直對齊開頭建構。
 
 ``` kotlin
 if (elements != null) {
@@ -304,7 +306,7 @@ if (elements != null) {
 ```
 (Note: In Kotlin, semicolons are optional, and therefore line breaks are significant. The language design assumes Java-style braces, and you may encounter surprising behavior if you try to use a different formatting style.)
 
-(注意：在Kotlin，分號 `;` 是可選的(可有可無)，因此換行是重要的，語言設計假設為 Java 風格的括號，如果你嘗試使用不同編排格式，你可能會遇到令人驚訝的問題)
+(注意：在 Kotlin，分號 `;` 是可選的(可有可無)，因此換行是重要的。語言設計假設為 Java 風格的括號，如果你嘗試使用不同編排格式，你可能會遇到令人驚訝的問題。)
 
 ---
 
@@ -314,7 +316,7 @@ Horizontal whitespace ：水平空格
 
 Put spaces around binary operators (`a + b`). Exception: don't put spaces around the "range to" operator (`0..i`).
 
-在二元運算符的之間 (`a + b`) 放置空格 ，例外：不要在 "range to" 運算符 (`0..i`) 之間放空格
+在二元運算符的之間 (`a + b`) 放置空格 。例外：不要在 "range to" 運算符 (`0..i`) 之間放空格。
 
 Do not put spaces around unary operators (`a++`)
 
@@ -322,11 +324,11 @@ Do not put spaces around unary operators (`a++`)
 
 Put spaces between control flow keywords (`if`, `when`, `for` and `while`) and the corresponding opening parenthesis.
 
-在控制流程關鍵字 (`if`, `when`, `for` and `while`) 和相應的左括號 `(` 之間放空格，例如：if (....)、while (....)
+在控制流程關鍵字 (`if`, `when`, `for` and `while`) 和相應的左括號 `(` 之間放空格，例如：if (....)、while (....) 。
 
 Do not put a space before an opening parenthesis in a primary constructor declaration, method declaration or method call.
 
-不要在主建構元宣告、方法宣告、方法調用的左括號之前放空格，例如：class A()、fun foo(x: Int )、call()
+不要在主建構元宣告、方法宣告、方法調用的左括號之前放空格，例如：class A()、fun foo(x: Int )、call() 。
 
 ```kotlin
 class A(val x: Int)
@@ -339,7 +341,7 @@ fun bar() {
 ```
 Never put a space after `(`, `[`, or before `]`, `)`.
 
-禁止在 `(` , `[` 之後，或是 `]` , `)` 之前放空格
+禁止在 `(` , `[` 之後，或是 `]` , `)` 之前放空格。
 
 Never put a space around `.` or `?.`: `foo.bar().filter { it > 2 }.joinToString()`, `foo?.bar()`
 
@@ -363,7 +365,7 @@ Do not put a space before `?` used to mark a nullable type: `String?`
 
 As a general rule, avoid horizontal alignment of any kind. Renaming an identifier to a name with a different length should not affect the formatting of either the declaration or any of the usages.
 
-作為一般規則，避免任何類型的水平對齊，識別符重新命名不同長度的名稱不應該影響宣告或任何用法的編排格式
+作為一般規則，避免任何類型的水平對齊。識別符重新命名不同長度的名稱不應該影響宣告或任何用法的編排格式。
 
 ---
 
@@ -375,17 +377,20 @@ Put a space before `:` in the following cases:
 
 在 `:` 前放空格，在以下例子：
 
-  * when it's used to separate a type and a supertype; (當它用於分隔一個類型與一個超(父)類型)
-  * when delegating to a superclass constructor or a different constructor of the same class; (當調用超(父)類別建構元或一個相同類別不同建構元)
-  * after the `object` keyword. (`object` 關鍵字之後)
+  * when it's used to separate a type and a supertype;
+    當它用於分隔一個類型與一個超 (父) 類型
+  * when delegating to a superclass constructor or a different constructor of the same class;
+    當調用超 (父) 類別建構元或一個相同類別不同建構元
+  * after the `object` keyword.
+    `object` 關鍵字之後。
 
 Don't put a space before `:` when it separates a declaration and its type.
 
-當冒號用於分隔一個宣告並為它的類型時，不要在 `:` 之前放空格
+當冒號用於分隔一個宣告並為它的類型時，不要在 `:` 之前放空格。
 
 Always put a space after `:`.
 
-一直(總是)在 `:` 之後放空格
+一直 (總是) 在 `:` 之後放空格。
 
 ``` kotlin
 abstract class Foo<out T : Any> : IFoo {
@@ -413,7 +418,7 @@ class Person(id: Int, name: String)
 ```
 Classes with longer headers should be formatted so that each primary constructor parameter is in a separate line with indentation.Also, the closing parenthesis should be on a new line. If we use inheritance, then the superclass constructor call or list of implemented interfaces should be located on the same line as the parenthesis:
 
-類別有較長的標頭應該被編排，以便每個主建構元參數使用縮排在單獨一行，此外，左括號 `)` 應該在新的一行，如果使用繼承，然後超(父)類別建構元調用或介面實作的列表(清單)應該位於括號同行：
+類別有較長的標頭應該被編排，以便每個主建構元參數使用縮排在單獨一行。此外，左括號 `)` 應該在新的一行，如果使用繼承，然後超 (父) 類別建構元調用或介面實作的列表(清單)應該位於括號同行：
 
 ```kotlin
 class Person(
@@ -424,7 +429,7 @@ class Person(
 ```
 For multiple interfaces, the superclass constructor call should be located first and then each interface should be located in a different line:
 
-對於多個介面，超(父)類別建構元調用應該位於第一個並且接續每個介面應該位於不同行：
+對於多個介面，超 (父) 類別建構元調用應該位於第一個並且接續每個介面應該位於不同行：
 
 ```kotlin
 class Person(
@@ -436,7 +441,7 @@ class Person(
 ```
 For classes with a long supertype list, put a line break after the colon and align all supertype names vertically:
 
-對於類別有較長的超(父)類清單，在冒號後斷行並垂直對齊所有超(父)類型名稱：
+對於類別有較長的超 (父) 類清單，在冒號後斷行並垂直對齊所有超 (父) 類型名稱：
 
 ```kotlin
 class MyFavouriteVeryLongClassHolder :
@@ -450,7 +455,7 @@ class MyFavouriteVeryLongClassHolder :
 To clearly separate the class header and body when the class header is long, either put a blank line
 following the class header (as in the example above), or put the opening curly brace on a separate line:
 
-當類別標頭太長時，清楚的分隔類別標頭與內文，在類別標頭後放置空白行 (如上所示)，或是放左大括號 `{` 在單行：
+當類別標頭太長時，清楚的分隔類別標頭與內文，在類別標頭後放置空白行 (如上所示) ，或是放左大括號 `{` 在單行：
 ```kotlin
 class MyFavouriteVeryLongClassHolder :
     MyLongHolder<MyFavouriteVeryLongClass>(),
@@ -464,11 +469,11 @@ class MyFavouriteVeryLongClassHolder :
 
 Use regular indent (4 spaces) for constructor parameters.
 
-使用常規縮排 (4空格) 作為建構元參數
+使用常規縮排 (4空格) 作為建構元參數。
 
 > Rationale: This ensures that properties declared in the primary constructor have the same indentation as properties declared in the body of a class.
 
-> 理由：這在確保在主建構元宣告屬性與類別本文宣告屬性有相同縮排
+> 理由：這在確保在主建構元宣告屬性與類別本文宣告屬性有相同縮排。
 
 ### Modifiers
 
@@ -476,7 +481,7 @@ Modifiers ：修飾符
 
 If a declaration has multiple modifiers, always put them in the following order:
 
-如果宣告多個修飾符，依以下順序(上到下)放置它們：
+如果宣告多個修飾符，依以下順序 (上到下) 放置它們：
 
 ``` kotlin
 public / protected / private / internal
@@ -714,7 +719,7 @@ Chained call wrapping ：包裝鍊式調用
 
 When wrapping chained calls, put the `.` character or the `?.` operator on the next line, with a single indent:
 
-當包裝鍊式調用時，放 `.` 字元或 `?.` 運算符在下一行的開頭，使用單行縮排(4空格)
+當包裝鍊式調用時，放 `.` 字元或 `?.` 運算符在下一行的開頭，使用單行縮排 (4空格)
 
 ``` kotlin
 val anchor = owner
@@ -816,7 +821,7 @@ Avoiding redundant constructs ：避免冗餘的建構元
 
 In general, if a certain syntactic construction in Kotlin is optional and highlighted by the IDE as redundant, you should omit it in your code. Do not leave unnecessary syntactic elements in code just "for clarity".
 
-一般來說，如果在 Kotlin 某種語意結構由 IDE 視為冗餘是可選(可有可無)和突顯，你應該在你的代碼省略它，不要在代碼中留下不必要的語意元素，就是 '為了清晰' 
+一般來說，如果在 Kotlin 某種語意結構由 IDE 視為冗餘是可選 (可有可無) 和突顯，你應該在你的代碼省略它，不要在代碼中留下不必要的語意元素，就是 '為了清晰' 
 
 ### Unit
 
@@ -867,7 +872,7 @@ Prefer using immutable data to mutable. Always declare local variables and prope
 
 Always use immutable collection interfaces (`Collection`, `List`, `Set`, `Map`) to declare collections which are not mutated. When using factory functions to create collection instances, always use functions that return immutable collection types when possible:
 
-總是使用不可變的集合介面(抽象介面) (`Collection`, `List`, `Set`, `Map`) 進行宣告集合不可改變，而不是利用集合的衍生(子)類別為可變的集合類型，當使用工廠函數進行建立集合實例，盡可能回傳不可變集合類型(抽象、介面)而不是具體類型：
+總是使用不可變的集合介面 (抽象介面) (`Collection`, `List`, `Set`, `Map`) 進行宣告集合不可改變，而不是利用集合的衍生 (子) 類別為可變的集合類型，當使用工廠函數進行建立集合實例，盡可能回傳不可變集合類型 (抽象、介面) 而不是具體類型：
 
 ``` kotlin
 // Bad: use of mutable collection type for value which will not be mutated
@@ -924,7 +929,7 @@ Lambda parameters ：Lambda 參數
 
 In lambdas which are short and not nested, it's recommended to use the `it` convention instead of declaring the parameter explicitly. In nested lambdas with parameters, parameters should be always declared explicitly.
 
-在 Lambda 是短而不內嵌的(調用的callback)，建議使用 `it` 慣語而不是明顯的宣告參數，使用參數在內嵌 Lambda，參數應該明顯已被宣告
+在 Lambda 是短而不內嵌的 (調用的callback) ，建議使用 `it` 慣語而不是明顯的宣告參數，使用參數在內嵌 Lambda，參數應該明顯已被宣告
 
 ---
 
@@ -1027,7 +1032,7 @@ Prefer using higher-order functions (`filter`, `map` etc.) to loops. Exception: 
 
 When making a choice between a complex expression using multiple higher-order functions and a loop, understand the cost of the operations being performed in each case and keep performance considerations in mind. 
 
-在使用多個高階函數的複雜表達式和環循之間做選擇，瞭解每個情況下正在執行操作的花費(成本)和留心持續考慮效能
+在使用多個高階函數的複雜表達式和環循之間做選擇，瞭解每個情況下正在執行操作的花費 (成本) 和留心持續考慮效能
 
 ---
 
@@ -1037,7 +1042,7 @@ Loops on ranges ：循環範圍
 
 Use the `until` function to loop over an open range:
 
-使用 `until` 函數去遍歷(走訪)開放的範圍
+使用 `until` 函數去遍歷 (走訪) 開放的範圍
 
 ```kotlin
 for (i in 0..n - 1) { ... }  // bad
@@ -1088,9 +1093,12 @@ Prefer a property over a function when the underlying algorithm:
 
 當在底層演算法優先使用屬性勝過函數：
 
-* does not throw 不會丟出異常
-* is cheap to calculate (or caсhed on the first run) 是便宜容易計算 (或 第一次運行保留快取)
-* returns the same result over invocations if the object state hasn't changed (如果在物件的狀態沒有被改變，回傳相同的結果)
+* does not throw
+  不會丟出異常
+* is cheap to calculate (or caсhed on the first run)
+  是便宜容易計算 (或 第一次運行保留快取)
+* returns the same result over invocations if the object state hasn't changed
+  如果在物件的狀態沒有被改變，回傳相同的結果
 
 ---
 
@@ -1139,7 +1147,7 @@ class Point(val x: Double, val y: Double) {
 ```
 If you have an object with multiple overloaded constructors that don't call different superclass constructors and can't be reduced to a single constructor with default argument values, prefer to replace the overloaded constructors with factory functions.
 
-如果你有一個物件有多個多載建構元，不能調用不同超(父)類別建構元並不可減少單個建構元的預設參數值，優先使用工廠函數代替多載建構元
+如果你有一個物件有多個多載建構元，不能調用不同超 (父) 類別建構元並不可減少單個建構元的預設參數值，優先使用工廠函數代替多載建構元
 
 ---
 

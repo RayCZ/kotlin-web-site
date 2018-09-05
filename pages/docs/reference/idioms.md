@@ -11,7 +11,7 @@ Idioms ：慣用語法
 
 A collection of random and frequently used idioms in Kotlin. If you have a favorite idiom, contribute it by sending a pull request.
 
-在Kotlin中隨機和經常使用的慣語集合，如果你有最喜歡的慣語，請寄送pull request貢獻它
+在 Kotlin 中隨機和經常使用的慣語集合。如果你有最喜歡的慣語，請寄送 pull request 貢獻它。
 
 ---
 
@@ -30,7 +30,6 @@ provides a `Customer` class with the following functionality:
 * `toString()`
 * `copy()`
 * `component1()`, `component2()`, ..., for all properties (see [Data classes](data-classes.md))
-
 
 ---
 
