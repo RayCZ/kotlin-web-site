@@ -106,7 +106,7 @@ By convention, the name of the setter parameter is `value`, but you can choose a
 
 Since Kotlin 1.1, you can omit the property type if it can be inferred from the getter:
 
-從 Kotlin 1.1 版本，如果你可以從設置屬性推斷屬性類型，你可以省略屬性類型宣告：
+從 Kotlin 1.1 版本，如果你可以從獲取屬性推斷屬性類型，你可以省略屬性類型宣告：
 
 ``` kotlin
 val isEmpty get() = this.size == 0  // has type Boolean
@@ -125,38 +125,52 @@ var setterWithAnnotation: Any? = null
 
 ```
 
+---
 
 ### Backing Fields
 
+Backing Fields ：支援欄位，欄位代表的是屬性本身
+
+請參閱 https://stackoverflow.com/questions/47678991/kotlin-explain-me-about-backing-fields
+
 Fields cannot be declared directly in Kotlin classes. However, when a property needs a backing field, Kotlin provides it automatically. This backing field can be referenced in the accessors using the `field` identifier:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only auto-indent="false">
-​``` kotlin
+在 Kotlin 類別內不可以直接宣告欄位，然後，當有一個屬性需要一個支援欄位時， Kotlin自動提供支援欄位，這個支援欄位在存取器 (設置屬性/獲取屬性) 使用 `field` 識別並可以引用到支援欄位
+
+``` kotlin
 var counter = 0 // Note: the initializer assigns the backing field directly
     set(value) {
         if (value >= 0) field = value
     }
 ```
-</div>
 
 The `field` identifier can only be used in the accessors of the property.
 
+`field` 識別只可以用在屬性的存取器
+
 A backing field will be generated for a property if it uses the default implementation of at least one of the accessors, or if a custom accessor references it through the `field` identifier.
+
+如果屬性使用至少一個存取器並預設實作，或如果自定義存取器引用到屬性並透過 `field` 識別，屬性將產生支援欄位
 
 For example, in the following case there will be no backing field:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only auto-indent="false">
+範例，在以下情況將沒有支援欄位
+
 ``` kotlin
 val isEmpty: Boolean
     get() = this.size == 0
 ```
-</div>
+
+---
 
 ### Backing Properties
 
+Backing Properties ：支援屬性
+
 If you want to do something that does not fit into this "implicit backing field" scheme, you can always fall back to having a *backing property*:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only auto-indent="false">
+如果你想要做一些不適合這種 " 隱式支援欄位 " 計劃，你總可以回到有支援屬性的方式
+
 ``` kotlin
 private var _table: Map<String, Int>? = null
 public val table: Map<String, Int>
@@ -167,88 +181,106 @@ public val table: Map<String, Int>
         return _table ?: throw AssertionError("Set to null by another thread")
     }
 ```
-</div>
 
 In all respects, this is just the same as in Java since access to private properties with default getters and setters is optimized so that no function call overhead is introduced.
 
+在所有方面，這只是與 Java 相同方式，因為使用預設優化的獲取屬性與設置屬性存取私有屬性，因此不會引入函數調用的開銷
 
 ## Compile-Time Constants
 
-Properties the value of which is known at compile time can be marked as _compile time constants_ using the `const` modifier.
-Such properties need to fulfil the following requirements:
+Compile-Time Constants ：編譯時期的常數
+
+Properties the value of which is known at compile time can be marked as _compile time constants_ using the `const` modifier. Such properties need to fulfil the following requirements:
+
+ 編譯時期的常數使用 ` const` 修飾符標記為在編譯時期已知屬性的值，這樣屬性需要滿足以下需求：
 
   * Top-level or member of an `object`
+    最高層級或物件成員
   * Initialized with a value of type `String` or a primitive type
+    使用 `String` 類型或原生類型的值初始化
   * No custom getter
+    沒有自定義獲取屬性
 
 Such properties can be used in annotations:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+這樣的屬性可以使用在註釋：
+
 ``` kotlin
 const val SUBSYSTEM_DEPRECATED: String = "This subsystem is deprecated"
 
 @Deprecated(SUBSYSTEM_DEPRECATED) fun foo() { ... }
 ```
-</div>
-
 
 ## Late-Initialized Properties and Variables
 
-Normally, properties declared as having a non-null type must be initialized in the constructor.
-However, fairly often this is not convenient. For example, properties can be initialized through dependency injection,
-or in the setup method of a unit test. In this case, you cannot supply a non-null initializer in the constructor,
-but you still want to avoid null checks when referencing the property inside the body of a class.
+Late-Initialized Properties and Variables ：延遲初始化的屬性嶼變數
+
+Normally, properties declared as having a non-null type must be initialized in the constructor. However, fairly often this is not convenient. For example, properties can be initialized through dependency injection, or in the setup method of a unit test. In this case, you cannot supply a non-null initializer in the constructor, but you still want to avoid null checks when referencing the property inside the body of a class.
+
+通常，屬性宣告為有非空的類型 `String?` 必須在建構元初始化，然而，這通常是相當的不方便，例如：屬性可以透過依賴注入初始化，或在單元測試的設置方法。在這樣的情況下，你不可以在建構元提供一個非空的初始化，但你仍想要避免可空的檢查在你需要在類別內中引用到屬性時
 
 To handle this case, you can mark the property with the `lateinit` modifier:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
-​``` kotlin
+為了處理這種情況，你可以標記屬性使用 `lateinit` 修飾符：
+
+``` kotlin
 public class MyTest {
     lateinit var subject: TestSubject
 
     @SetUp fun setup() {
         subject = TestSubject()
     }
-
+    
     @Test fun test() {
         subject.method()  // dereference directly
     }
 }
 ```
-</div>
 
-The modifier can be used on `var` properties declared inside the body of a class (not in the primary constructor, and only
-when the property does not have a custom getter or setter) and, since Kotlin 1.2, for top-level properties and 
-local variables. The type of the property or variable must be non-null, and it must not be a primitive type.
+The modifier can be used on `var` properties declared inside the body of a class (not in the primary constructor, and only when the property does not have a custom getter or setter) and, since Kotlin 1.2, for top-level properties and local variables. The type of the property or variable must be non-null, and it must not be a primitive type.
 
-Accessing a `lateinit` property before it has been initialized throws a special exception that clearly identifies the property
-being accessed and the fact that it hasn't been initialized.
+`lateinit` 可以用在類別的內文中用於 `var` 屬性 (不在主建構元，並只能當屬性沒有自定義的獲取屬性與設置屬性) ，從 Kotlin 1.2 版支援最高層級屬性與區域變數。屬性或變數類型必須是非空的，且屬性必須不是原生類型。
+
+Accessing a `lateinit` property before it has been initialized throws a special exception that clearly identifies the property being accessed and the fact that it hasn't been initialized.
+
+在屬性被初始化之前，存取一個 `lateinit` 屬性會丟出特殊的異常，異常會清楚的識別屬性正在被存取，以及屬性未被初始化的事實。
+
+---
 
 ### Checking whether a lateinit var is initialized (since 1.2)
 
-To check whether a `lateinit var` has already been initialized, use `.isInitialized` on 
-the [reference to that property](reflection.html#property-references):
+Checking whether a lateinit var is initialized (since 1.2) ：檢查 lateinit var 是否已經被初始化 (從 1.2 版)
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+To check whether a `lateinit var` has already been initialized, use `.isInitialized` on the [reference to that property](reflection.md#property-references):
+
+檢查 `lateinit var` 是否已經被初始化，[在引用屬性時]((reflection.md#property-references))使用 `.isInitialized`
+
 ```kotlin
 if (foo::bar.isInitialized) {
     println(foo.bar)
 }
 ```
-</div>
 
-This check is only available for the properties that are lexically accessible, i.e. declared in the same type or in one of
-the outer types, or at top level in the same file.
+This check is only available for the properties that are lexically accessible, i.e. declared in the same type or in one of the outer types, or at top level in the same file.
+
+這個檢查只可用於屬性是詞彙存取，即是相同類型或外部類型之一的宣告，或在相同檔案的最高層級
 
 ## Overriding Properties
 
-See [Overriding Properties](classes.html#overriding-properties)
+Overriding Properties ：覆寫屬性
+
+See [Overriding Properties](classes.md#overriding-properties)
+
+參閱 [Overriding Properties](classes.md#overriding-properties)
 
 ## Delegated Properties
 
-The most common kind of properties simply reads from (and maybe writes to) a backing field. 
-On the other hand, with custom getters and setters one can implement any behaviour of a property.
-Somewhere in between, there are certain common patterns of how a property may work. A few examples: lazy values,
-reading from a map by a given key, accessing a database, notifying listener on access, etc.
+Delegated Properties ：委派屬性
 
-Such common behaviours can be implemented as libraries using [_delegated properties_](delegated-properties.html).
+The most common kind of properties simply reads from (and maybe writes to) a backing field. On the other hand, with custom getters and setters one can implement any behaviour of a property. Somewhere in between, there are certain common patterns of how a property may work. A few examples: lazy values, reading from a map by a given key, accessing a database, notifying listener on access, etc.
+
+最常見的屬性只是從一個支援欄位讀取 (或許是寫入) ，另一方面使用自定義的獲取屬性和設置屬性之一可以實作屬性的任何行為。介於兩者之間，有一些某些常見的樣式關於屬性如何運作，一些範例：惰性值、透過 key 從map取值，存取資料庫、在存取時通知監聽者等等。
+
+Such common behaviours can be implemented as libraries using [_delegated properties_](delegated-properties.md).
+
+這些常見的行為可以被實作在函數庫使用 [_delegated properties_](delegated-properties.md)。
