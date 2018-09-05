@@ -511,7 +511,7 @@ private val foo: Foo
 ```
 Unless you're working on a library, omit redundant modifiers (e.g. `public`).
 
-除非你從事於函式庫的應用，省略冗餘的修飾符 (例如 `public`)
+除非你從事於函式庫的應用，省略冗餘的修飾符 (例如 `public`) 。
 
 ### Annotation formatting
 
@@ -545,7 +545,7 @@ File annotations ：檔案註釋
 
 File annotations are placed after the file comment (if any), before the `package` statement, and are separated from `package` with a blank line (to emphasize the fact that they target the file and not the package).
 
-檔案註釋放置在檔案註解 `/**...*/` 之後，在 `package` 敘述之前，使用空白行從 `package` 分隔
+檔案註釋放置在檔案註解 `/**...*/` 之後，在 `package` 敘述之前，使用空白行從 `package` 分隔 (強調實際上他目標是檔案而不是 package) 。
 
 ``` kotlin
 /** License, copyright and whatever */
@@ -580,7 +580,7 @@ Use regular indent (4 spaces) for function parameters.
 
 Prefer using an expression body for functions with the body consisting of a single expression.
 
-偏好使用Lambda表達式當內文，函數的內文由單行表達式組合
+偏好使用Lambda表達式當內文，函數的內文由單行表達式組合。
 ``` kotlin
 fun foo(): Int {     // bad
     return 1 
@@ -594,7 +594,7 @@ Expression body formatting ：表達式內文編排格式
 
 If the function has an expression body that doesn't fit in the same line as the declaration, put the `=` sign on the first line.Indent the expression body by 4 spaces.
 
-如果函數有表達式內文不適合與宣告同行，放 `=` 符號在第一行，透過4空格縮排表達式內文
+如果函數有表達式內文不適合與宣告同行，放 `=` 符號在第一行，透過4空格縮排表達式內文。
 
 ``` kotlin
 fun f(x: String) =
@@ -631,7 +631,7 @@ Formatting control flow statements ：控制流程敘述編排格式
 
 If the condition of an `if` or `when` statement is multiline, always use curly braces around the body of the statement.Indent each subsequent line of the condition by 4 spaces relative to statement begin. Put the closing parentheses of the condition together with the opening curly brace on a separate line:
 
-如果 `if` 或 `when` 敘述的條件是多行，使用括號 `()` 環繞敘述內文，透過4個空格相對放置敘述開始條件，縮排後續每行條件，放條件結尾的右括號 `)` 與開頭敘述左括號 `{` 在單獨一行：
+如果 `if` 或 `when` 敘述的條件是多行，使用括號 `()` 環繞敘述內文。透過4個空格相對放置敘述開始條件，縮排後續每行條件。放條件結尾的右括號 `)` 與開頭敘述左括號 `{` 在單獨一行：
 
 ``` kotlin
 if (!component.isSyncing &&
@@ -684,7 +684,7 @@ private fun parsePropertyValue(propName: String, token: Token) {
 ```
 Put short branches on the same line as the condition, without braces.
 
-與條件同行的短分支，沒有括號
+與條件同行的短分支，沒有括號。
 
 ``` kotlin
 when (foo) {
@@ -700,7 +700,7 @@ Method call formatting ：方法調用編排格式
 In long argument lists, put a line break after the opening parenthesis. Indent arguments by 4 spaces. 
 Group multiple closely related arguments on the same line.
 
-在太長參數列表，左括號 `(` 後換行，透過4個空格縮排參數，多個密切相關參數群組為一行
+在太長參數列表，左括號 `(` 後換行。透過 4 個空格縮排參數。多個密切相關參數群組為一行。
 
 ``` kotlin
 drawSquare(
@@ -737,7 +737,7 @@ Lambda formatting ：Lambda編排格式
 
 In lambda expressions, spaces should be used around the curly braces, as well as around the arrow which separates the parameters from the body. If a call takes a single lambda, it should be passed outside of parentheses whenever possible.
 
-在 Lambda 表達式，應該在大括號 `{}` 之間空格，以及箭頭從內文分隔參數之間空格，如果一個調用帶有單個 Lambda `it`，它盡可能在括號外傳遞
+在 Lambda 表達式，應該在大括號 `{}` 之間空格，以及箭頭從內文分隔參數之間空格。如果一個調用帶有單個 Lambda `it`，它盡可能在括號外傳遞。
 
 ``` kotlin
 list.filter { it > 10 }
@@ -796,7 +796,7 @@ Short comments can be placed on a single line:
 ```
 Generally, avoid using `@param` and `@return` tags. Instead, incorporate the description of parameters and return values directly into the documentation comment, and add links to parameters wherever they are mentioned. Use `@param` and `@return` only when a lengthy description is required which doesn't fit into the flow of the main text.
 
-通常，避免使用 `@param` 和 `@return` 標籤，相反，將參數描述 `＠param ....` 與回傳值 `@return ...` 直接合併到文件註解，並且新增連結到參數無論他們有沒有注意到，只在需要冗長描述且不適合主要文字流程時才使用 `@param` 和 `return` 
+通常，避免使用 `@param` 和 `@return` 標籤。相反，將參數描述 `＠param ....` 與回傳值 `@return ...` 直接合併到文件註解，並且新增連結到參數無論他們有沒有注意到。只在需要冗長描述且不適合主要文字流程時才使用 `@param` 和 `return` 。
 
 ``` kotlin
 // Avoid doing this:
@@ -821,7 +821,7 @@ Avoiding redundant constructs ：避免冗餘的建構元
 
 In general, if a certain syntactic construction in Kotlin is optional and highlighted by the IDE as redundant, you should omit it in your code. Do not leave unnecessary syntactic elements in code just "for clarity".
 
-一般來說，如果在 Kotlin 某種語意結構由 IDE 視為冗餘是可選 (可有可無) 和突顯，你應該在你的代碼省略它，不要在代碼中留下不必要的語意元素，就是 '為了清晰' 
+一般來說，如果在 Kotlin 某種語意結構由 IDE 視為冗餘是可選 (可有可無) 和突顯，你應該在你的代碼省略它。不要在代碼中留下不必要的語意元素，就是 '為了清晰' 。
 
 ### Unit
 
@@ -852,7 +852,7 @@ String templates ：字串模版
 
 Don't use curly braces when inserting a simple variable into a string template. Use curly braces only for longer expressions.
 
-當插入簡單變數到字串模版時不需要大括號，只有對於較長的表達式才使用大括號
+當插入簡單變數到字串模版時不需要大括號。只有對於較長的表達式才使用大括號。
 
 ``` kotlin
 println("$name has ${children.size} children")
@@ -868,11 +868,11 @@ Immutability ：不可變、不變性
 
 Prefer using immutable data to mutable. Always declare local variables and properties as `val` rather than `var` if they are not modified after initialization.
 
-優先使用不可變的資料進行可變的，如果在初始化後不去修改區域變數和屬性，總是宣告為 `val` 而不是 `var` 
+優先使用不可變的資料進行可變的。如果在初始化後不去修改區域變數和屬性，總是宣告為 `val` 而不是 `var` 。
 
 Always use immutable collection interfaces (`Collection`, `List`, `Set`, `Map`) to declare collections which are not mutated. When using factory functions to create collection instances, always use functions that return immutable collection types when possible:
 
-總是使用不可變的集合介面 (抽象介面) (`Collection`, `List`, `Set`, `Map`) 進行宣告集合不可改變，而不是利用集合的衍生 (子) 類別為可變的集合類型，當使用工廠函數進行建立集合實例，盡可能回傳不可變集合類型 (抽象、介面) 而不是具體類型：
+總是使用不可變的集合介面 (抽象介面) (`Collection`, `List`, `Set`, `Map`) 進行宣告集合不可改變。而不是利用集合的衍生 (子) 類別為可變的集合類型，當使用工廠函數進行建立集合實例，盡可能回傳不可變集合類型 (抽象、介面) 而不是具體類型：
 
 ``` kotlin
 // Bad: use of mutable collection type for value which will not be mutated
@@ -899,7 +899,7 @@ Default parameter values ：預設參數值
 
 Prefer declaring functions with default parameter values to declaring overloaded functions.
 
-優先宣告函數使用預設值去宣告多載函數
+優先宣告函數使用預設值去宣告多載函數。
 ``` kotlin
 // Bad
 fun foo() = foo("a")
@@ -929,7 +929,7 @@ Lambda parameters ：Lambda 參數
 
 In lambdas which are short and not nested, it's recommended to use the `it` convention instead of declaring the parameter explicitly. In nested lambdas with parameters, parameters should be always declared explicitly.
 
-在 Lambda 是短而不內嵌的 (調用的callback) ，建議使用 `it` 慣語而不是明顯的宣告參數，使用參數在內嵌 Lambda，參數應該明顯已被宣告
+在 Lambda 是短而不內嵌的 (調用的callback) ，建議使用 `it` 慣語而不是明顯的宣告參數。使用參數在內嵌 Lambda，參數應該明顯已被宣告。
 
 ---
 
@@ -939,11 +939,11 @@ Returns in a lambda ：在 Lambda 回傳
 
 Avoid using multiple labeled returns in a lambda. Consider restructuring the lambda so that it will have a single exit point.If that's not possible or not clear enough, consider converting the lambda into an anonymous function.
 
-在 Lambda避免使用多個 return 標記，考慮重構 Lambda 以便它有單個出口點，如果這不可能或不夠清楚，考慮轉換 Lambda 到匿名函數
+在 Lambda 避免使用多個 return 標記。考慮重構 Lambda 以便它有單個出口點。如果這不可能或不夠清楚，考慮轉換 Lambda 到匿名函數。
 
 Do not use a labeled return for the last statement in a lambda.
 
-不要在 Lambda 最後一行敘述使用 return，Kotlin 自動會回傳最後一行
+不要在 Lambda 最後一行敘述使用 return，Kotlin 自動會回傳最後一行。
 
 ---
 
@@ -953,7 +953,7 @@ Named arguments ：命名參數
 
 Use the named argument syntax when a method takes multiple parameters of the same primitive type, or for parameters of `Boolean` type,unless the meaning of all parameters is absolutely clear from context.
 
-當方法帶有多個相同原生類型的參數或 `Boolean` 類型的參數使用命名參數語法，除非所有參數的意義從環境中絕對清楚的
+當方法帶有多個相同原生類型的參數或 `Boolean` 類型的參數使用命名參數語法，除非所有參數的意義從環境中絕對清楚的。
 ``` kotlin
 drawSquare(x = 10, y = 10, width = 100, height = 100, fill = true)
 ```
@@ -965,7 +965,7 @@ Using conditional statements ：使用條件敘述
 
 Prefer using the expression form of `try`, `if` and `when`. Examples:
 
-優先使用 `try` , `if` 和 `when` 表達式形式，例如：
+優先使用 `try` , `if` 和 `when` 表達式形式。例如：
 ``` kotlin
 return if (x) foo() else bar()
 
@@ -997,7 +997,7 @@ when(x) {
 
 Prefer using `if` for binary conditions instead of `when`. Instead of
 
-二元條件優先使用 `if` 而不是 `when`，而不是以下列子：
+二元條件優先使用 `if` 而不是 `when` 。而不是以下列子：
 ``` kotlin
 when (x) {
     null -> ...
@@ -1008,7 +1008,7 @@ use `if (x == null) ... else ...`
 
 Prefer using `when` if there are three or more options.
 
-如果有三個或更多選項，優先使用 `when`
+如果有三個或更多選項，優先使用 `when` 。
 
 ---
 
@@ -1018,7 +1018,7 @@ Using nullable `Boolean` values in conditions ：在條件上使用可空的 `Bo
 
 If you need to use a nullable `Boolean` in a conditional statement, use `if (value == true)` or `if (value == false)` checks.
 
-如果在條件敘述上你需要使用可空的 `Boolean` ，使用`if (value == true)` 或 `if (value == false)` 檢查
+如果在條件敘述上你需要使用可空的 `Boolean` ，使用`if (value == true)` 或 `if (value == false)` 檢查。
 
 ---
 
@@ -1028,11 +1028,11 @@ Using loops ：使用循環
 
 Prefer using higher-order functions (`filter`, `map` etc.) to loops. Exception: `forEach` (prefer using a regular `for` loop instead, unless the receiver of `forEach` is nullable or `forEach` is used as part of a longer call chain).
 
-優先使用高階函數 (`filter` , `map` 等等) 到循環，例外：`forEach` (優先使用常規 `for` 循環取代，除非 `forEach`的接收器可以為可空的或 `forEach` 用為較長鍊式調用的一部份)
+優先使用高階函數 (`filter` , `map` 等等。) 到循環。例外：`forEach` (優先使用常規 `for` 循環取代，除非 `forEach`的接收器可以為可空的或 `forEach` 用為較長鍊式調用的一部份)。
 
 When making a choice between a complex expression using multiple higher-order functions and a loop, understand the cost of the operations being performed in each case and keep performance considerations in mind. 
 
-在使用多個高階函數的複雜表達式和環循之間做選擇，瞭解每個情況下正在執行操作的花費 (成本) 和留心持續考慮效能
+在使用多個高階函數的複雜表達式和環循之間做選擇，瞭解每個情況下正在執行操作的花費 (成本) 和留心持續考慮效能。
 
 ---
 
@@ -1056,11 +1056,11 @@ Using strings ：使用字串
 
 Prefer using string templates to string concatenation.
 
-優先使用使用字串模版進行字串連接
+優先使用使用字串模版進行字串連接。
 
 Prefer to use multiline strings instead of embedding `\n` escape sequences into regular string literals.
 
-優先使用多行字串而不是嵌入 `\n` 跳脫字元序列到常規字串文字中
+優先使用多行字串而不是嵌入 `\n` 跳脫字元序列到常規字串文字中。
 
 To maintain indentation in multiline strings, use `trimIndent` when the resulting string does not require any internal indentation, or `trimMargin` when internal indentation is required:
 
@@ -1087,7 +1087,7 @@ Functions vs Properties ：函數 vs 屬性
 
 In some cases functions with no arguments might be interchangeable with read-only properties. Although the semantics are similar, there are some stylistic conventions on when to prefer one to another.
 
-在某些情況下，沒有參數的函數可以與唯讀屬性互換，儘管語義相似，有某些風格慣例優先屬性勝過函數
+在某些情況下，沒有參數的函數可以與唯讀屬性互換。儘管語義相似，有某些風格慣例優先屬性勝過函數。
 
 Prefer a property over a function when the underlying algorithm:
 
@@ -1108,7 +1108,7 @@ Using extension functions ：使用擴展函數
 
 Use extension functions liberally. Every time you have a function that works primarily on an object, consider making it an extension function accepting that object as a receiver. To minimize API pollution, restrict the visibility of extension functions as much as it makes sense. As necessary, use local extension functions, member extension functions, or top-level extension functions with private visibility.
 
-使用豐富的擴展函數，每當你有一個在物件上主要工作的函數，考慮使它變成擴展函數接受物件為接收器，為了最小化污染 API ，限制擴展函數的可見性使它有意義的，根據需要，使用私有可見性的區域擴展函數、擴展函數成員、最高層級擴展函數
+使用豐富的擴展函數。每當你有一個在物件上主要工作的函數，考慮使它變成擴展函數接受物件為接收器。為了最小化污染 API ，限制擴展函數的可見性使它有意義的。根據需要，使用私有可見性的區域擴展函數、擴展函數成員、最高層級擴展函數。
 
 ---
 
@@ -1118,11 +1118,11 @@ Using infix functions ：使用中綴函數
 
 Declare a function as infix only when it works on two objects which play a similar role. Good examples: `and`, `to`, `zip`. Bad example: `add`.
 
-只有函數在兩個物件扮演類似的角色，才宣告函數為中綴，好的例子：`and` , `to` , `zip`。壞的例子： `add`
+只有函數在兩個物件扮演類似的角色，才宣告函數為中綴。好的例子：`and` , `to` , `zip`。壞的例子： `add`
 
 Don't declare a method as infix if it mutates the receiver object.
 
-如果它是可變的接收器物件，則不要宣告方法為中綴
+如果它是可變的接收器物件，則不要宣告方法為中綴。
 
 ---
 
@@ -1132,7 +1132,7 @@ Factory functions ：工廠函數
 
 If you declare a factory function for a class, avoid giving it the same name as the class itself. Prefer using a distinct name making it clear why the behavior of the factory function is special. Only if there is really no special semantics, you can use the same name as the class.
 
-如果你為類別宣告工廠函數，避免給它與類別本身相同的名子，優先使用獨特名子使它明確知道為何工廠函數的行為是特殊的，只有在沒有特殊語義的情況下，你可以使用與類別相同的名子
+如果你為類別宣告工廠函數，避免給它與類別本身相同的名子。優先使用獨特名子使它明確知道為何工廠函數的行為是特殊的，只有在沒有特殊語義的情況下，你可以使用與類別相同的名子。
 
 Example:
 
@@ -1147,7 +1147,7 @@ class Point(val x: Double, val y: Double) {
 ```
 If you have an object with multiple overloaded constructors that don't call different superclass constructors and can't be reduced to a single constructor with default argument values, prefer to replace the overloaded constructors with factory functions.
 
-如果你有一個物件有多個多載建構元，不能調用不同超 (父) 類別建構元並不可減少單個建構元的預設參數值，優先使用工廠函數代替多載建構元
+如果你有一個物件有多個多載建構元，不能調用不同超 (父) 類別建構元並不可減少單個建構元的預設參數值，優先使用工廠函數代替多載建構元。
 
 ---
 
@@ -1189,11 +1189,11 @@ Using scope functions apply/with/run/also/let ：使用範圍函數 apply/with/r
 
 Kotlin provides a variety of functions to execute a block of code in the context of a given object. To choose the correct function, consider the following:
 
-Kotlin 提供各種函數 (apply/with/run/also/let) 去執行給予物件內容的代碼區塊，去選擇正確函數，請考慮以下：
+Kotlin 提供各種函數 (apply/with/run/also/let) 去執行給予物件內容的代碼區塊。去選擇正確函數，請考慮以下：
 
   * Are you calling methods on multiple objects in the block, or passing the instance of the context object as an argument? If you are, use one of the functions that allows you to access the context object as `it`,
     not `this` (`also` or `let`). Use `also` if the receiver is not used at all in the block.
-  * 你在代碼區塊裡面多個物件調用方法，或傳遞內容物件的實例當作參數？如果是，允許你存取內容物件為 `it` 參數之一，不是 `this` (`also` 或 `let` 兩個函數都帶有參數 `it` 代表調用的物件)，如果在區塊中接收器根本沒有使用，請使用 `also` 
+  * 你在代碼區塊裡面多個物件調用方法，或傳遞內容物件的實例當作參數？如果是，允許你存取內容物件為 `it` 參數之一，不是 `this` (`also` 或 `let` 兩個函數都帶有參數 `it` 代表調用的物件)。如果在區塊中接收器根本沒有使用，請使用 `also` 。
 
 ``` kotlin
 // Context object is 'it'
