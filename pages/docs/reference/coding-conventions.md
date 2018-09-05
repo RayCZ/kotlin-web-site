@@ -35,7 +35,7 @@ To verify that your code is formatted according to the style guide, go to the in
 the "Kotlin | Style issues | File is not formatted according to project settings" inspection. Additional
 inspections that verify other issues described in the style guide (such as naming conventions) are enabled by default.
 
-根據這份風格指南檢驗你的代碼，去啟用 "Settings | Editor | inspections | Kotlin | Style issues | File is not formatted according to project settings" 檢查，預設情況下，在風格指南額外檢查描述校驗其他問題 (例如命名慣例)。
+根據這份風格指南檢驗你的代碼，去啟用 "Settings | Editor | inspections | Kotlin | Style issues | File is not formatted according to project settings" 檢查，預設情況下。在風格指南額外檢查描述校驗其他問題 (例如命名慣例)。
 
 ## Source code organization
 
@@ -88,7 +88,7 @@ Placing multiple declarations (classes, top-level functions or properties) in th
 
 In particular, when defining extension functions for a class which are relevant for all clients of this class, put them in the same file where the class itself is defined. When defining extension functions that make sense only for a specific client, put them next to the code of that client. Do not create files just to hold "all extensions of Foo".
 
-特別地，為所有客戶端相關的類別定義擴展函數，放置它們在相同檔案內並定義類別本身，當只為特別客戶端定義有意義的擴展函數時，放它們在客戶端代碼的旁邊。不要建立檔案只為了保存 "Foo所有擴展"。
+特別地，為所有客戶端相關的類別定義擴展函數，放置它們在相同檔案內並定義類別本身。當只為特別客戶端定義有意義的擴展函數時，放它們在客戶端代碼的旁邊。不要建立檔案只為了保存 "Foo所有擴展"。
 
 ---
 
@@ -145,7 +145,7 @@ Naming rules ：命名規則
 
 Kotlin follows the Java naming conventions. In particular:
 
-Kotlin 遵循 Java 命名規例，特別地：
+Kotlin 遵循 Java 命名規則。特別地：
 
 Names of packages are always lower case and do not use underscores (`org.example.myproject`). Using multi-word names is generally discouraged, but if you do need to use multiple words, you can either simply concatenate them together or use camel humps (`org.example.myProject`).
 
@@ -194,9 +194,7 @@ Names for test methods ：測式方法的命名
 In tests (and only in tests), it's acceptable to use method names with spaces enclosed in backticks.
 (Note that such method names are currently not supported by the Android runtime.) Underscores in method names are also allowed in test code.
 
-在測試中 (並只在測試中) ，可以接受在反引號 \`\`中使用空格的方法名稱。
-
-(注意：這樣命名的方法名稱目前不支援Android運行時期。) 在測試代碼中允許方法名稱使用底線。
+在測試中 (並只在測試中) ，可以接受在反引號 \`\`中使用空格的方法名稱。 (注意：這樣命名的方法名稱目前不支援Android運行時期。) 在測試代碼中允許方法名稱使用底線。
 
 ``` kotlin
 class MyTestCase {
@@ -418,7 +416,7 @@ class Person(id: Int, name: String)
 ```
 Classes with longer headers should be formatted so that each primary constructor parameter is in a separate line with indentation.Also, the closing parenthesis should be on a new line. If we use inheritance, then the superclass constructor call or list of implemented interfaces should be located on the same line as the parenthesis:
 
-類別有較長的標頭應該被編排，以便每個主建構元參數使用縮排在單獨一行。此外，左括號 `)` 應該在新的一行，如果使用繼承，然後超 (父) 類別建構元調用或介面實作的列表(清單)應該位於括號同行：
+類別有較長的標頭應該被編排，以便每個主建構元參數使用縮排在單獨一行。此外，左括號 `)` 應該在新的一行。如果使用繼承，然後超 (父) 類別建構元調用或介面實作的列表(清單)應該位於括號同行：
 
 ```kotlin
 class Person(
@@ -572,7 +570,7 @@ fun longMethodName(
 ```
 Use regular indent (4 spaces) for function parameters.
 
-使用常規縮排 (4空格) 作為函數參數
+使用常規縮排 (4空格) 作為函數參數。
 
 > Rationale: Consistency with constructor parameters
 
@@ -594,7 +592,7 @@ Expression body formatting ：表達式內文編排格式
 
 If the function has an expression body that doesn't fit in the same line as the declaration, put the `=` sign on the first line.Indent the expression body by 4 spaces.
 
-如果函數有表達式內文不適合與宣告同行，放 `=` 符號在第一行，透過4空格縮排表達式內文。
+如果函數有表達式內文不適合與宣告同行，放 `=` 符號在第一行。透過4空格縮排表達式內文。
 
 ``` kotlin
 fun f(x: String) =
@@ -711,7 +709,7 @@ drawSquare(
 ```
 Put spaces around the `=` sign separating the argument name and value.
 
-在 `=` 符號後空格分隔參數名稱與值
+在 `=` 符號後空格分隔參數名稱與值。
 
 ### Chained call wrapping
 
@@ -729,7 +727,7 @@ val anchor = owner
 ```
 The first call in the chain usually should have a line break before it, but it's OK to omit it if the code makes more sense that way.
 
-在鏈式的第一個調用之前通常應該換行分隔物件，忽略它的代碼更有意義的方式是 ok 的
+在鏈式的第一個調用之前通常應該換行分隔物件，忽略它的代碼更有意義的方式是 ok 的。
 
 ### Lambda formatting
 
@@ -1118,7 +1116,7 @@ Using infix functions ：使用中綴函數
 
 Declare a function as infix only when it works on two objects which play a similar role. Good examples: `and`, `to`, `zip`. Bad example: `add`.
 
-只有函數在兩個物件扮演類似的角色，才宣告函數為中綴。好的例子：`and` , `to` , `zip`。壞的例子： `add`
+只有函數在兩個物件扮演類似的角色，才宣告函數為中綴。好的例子：`and` , `to` , `zip` 。壞的例子： `add` 。
 
 Don't declare a method as infix if it mutates the receiver object.
 
@@ -1132,7 +1130,7 @@ Factory functions ：工廠函數
 
 If you declare a factory function for a class, avoid giving it the same name as the class itself. Prefer using a distinct name making it clear why the behavior of the factory function is special. Only if there is really no special semantics, you can use the same name as the class.
 
-如果你為類別宣告工廠函數，避免給它與類別本身相同的名子。優先使用獨特名子使它明確知道為何工廠函數的行為是特殊的，只有在沒有特殊語義的情況下，你可以使用與類別相同的名子。
+如果你為類別宣告工廠函數，避免給它與類別本身相同的名子。優先使用獨特名子使它明確知道為何工廠函數的行為是特殊的。只有在沒有特殊語義的情況下，你可以使用與類別相同的名子。
 
 Example:
 
