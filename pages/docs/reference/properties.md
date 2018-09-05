@@ -213,7 +213,7 @@ const val SUBSYSTEM_DEPRECATED: String = "This subsystem is deprecated"
 
 ## Late-Initialized Properties and Variables
 
-Late-Initialized Properties and Variables ：延遲初始化的屬性嶼變數
+Late-Initialized Properties and Variables ：延遲初始化的屬性與變數
 
 Normally, properties declared as having a non-null type must be initialized in the constructor. However, fairly often this is not convenient. For example, properties can be initialized through dependency injection, or in the setup method of a unit test. In this case, you cannot supply a non-null initializer in the constructor, but you still want to avoid null checks when referencing the property inside the body of a class.
 
