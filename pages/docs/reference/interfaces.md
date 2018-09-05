@@ -131,8 +131,8 @@ class D : A, B {
 
 Interfaces *A* and *B* both declare functions *foo()* and *bar()*. Both of them implement *foo()*, but only *B* implements *bar()* (*bar()* is not marked abstract in *A*, because this is the default for interfaces, if the function has no body). Now, if we derive a concrete class *C* from *A*, we, obviously, have to override *bar()* and provide an implementation.
 
-介面 `A` 和 `B` 都宣告函數 `foo()` 和 `bar()`。它們兩個都實作 `foo()` ，但只有 `B` 實作 `bar()` (`bar()` 在 `A` 沒有被標記為抽象，因為這是介面的預設，如果函數沒有內容) 。現在，如果我們從 `A` 衍生具體類別 `C` ，我們顯然必須覆寫 `bar()` 並提供一個實作
+介面 `A` 和 `B` 都宣告函數 `foo()` 和 `bar()`。它們兩個都實作 `foo()` ，但只有 `B` 實作 `bar()` (`bar()` 在 `A` 沒有被標記為抽象，因為這是介面的預設，如果函數沒有內容) 。現在，如果我們從 `A` 衍生具體類別 `C` ，我們顯然必須覆寫 `bar()` 並提供一個實作。
 
 However, if we derive *D* from *A* and *B*, we need to implement all the methods which we have inherited from multiple interfaces, and to specify how exactly *D* should implement them. This rule applies both to methods for which we've inherited a single implementation (*bar()*) and multiple implementations (*foo()*).
 
-可是，如果我們從 `A` 和 `B` 衍生 `D`，我們需要實作從多個介面繼承的所有方法，並指定 `D` 應該如何實作。這個規則適用我們繼承單個實作 (`bar()`) 和多個實作 (`foo()`) 的方法
+可是，如果我們從 `A` 和 `B` 衍生 `D`，我們需要實作從多個介面繼承的所有方法，並指定 `D` 應該如何實作。這個規則適用我們繼承單個實作 (`bar()`) 和多個實作 (`foo()`) 的方法。
