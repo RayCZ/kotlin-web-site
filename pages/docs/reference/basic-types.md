@@ -11,7 +11,7 @@ Basic Types ：基本類型
 
 In Kotlin, everything is an object in the sense that we can call member functions and properties on any variable. Some of the types can have a special internal representation - for example, numbers, characters and booleans can be represented as primitive values at runtime - but to the user they look like ordinary classes. In this section we describe the basic types used in Kotlin: numbers, characters, booleans, arrays, and strings.
 
-在 Kotlin 中，在某種意義上每件事都是一個物件，我們可以在任何變數調用成員函數或屬性，某些類型可以有特別的內部表示 - 例如，數值、字元、布林在運行時可以被表示為原生數值 - 但對於使用者，他們看起來像普通類別，在這個章節我們介紹在 Kotlin 中的基本類型：數值、字元、布林、陣列、字串
+在 Kotlin 中，在某種意義上每件事都是一個物件，我們可以在任何變數調用成員函數或屬性。某些類型可以有特別的內部表示 - 例如，數值、字元、布林在運行時可以被表示為原生數值 - 但對於使用者，他們看起來像普通類別。在這個章節我們介紹在 Kotlin 中的基本類型：數值、字元、布林、陣列、字串。
 
 ## Numbers
 
@@ -19,7 +19,7 @@ Numbers ：數值
 
 Kotlin handles numbers in a way close to Java, but not exactly the same. For example, there are no implicit widening conversions for numbers, and literals are slightly different in some cases.
 
-在 Kotlin 以接近 Java 的方式處理數字，但不完全相同，例如：數字沒有明確的擴展轉換，並且在某些情況下文字略有不同
+在 Kotlin 以接近 Java 的方式處理數字，但不完全相同。例如：數字沒有明確的擴展轉換，並且在某些情況下文字略有不同。
 
 Kotlin provides the following built-in types representing numbers (this is close to Java):
 
@@ -36,7 +36,7 @@ Kotlin 提供以下內建類型表示數值 (這與 Java 接近) ：
 
 Note that characters are not numbers in Kotlin.
 
-注意在 Kotlin 字元不是數值
+注意在 Kotlin 字元不是數值。
 
 ---
 
@@ -59,7 +59,7 @@ There are the following kinds of literal constants for integral values:
 
 NOTE: Octal literals are not supported.
 
-注意：八進位文字不支援
+注意：八進位文字不支援。
 
 Kotlin also supports a conventional notation for floating-point numbers:
 
@@ -95,7 +95,7 @@ Representation ：表示法
 
 On the Java platform, numbers are physically stored as JVM primitive types, unless we need a nullable number reference (e.g. `Int?`) or generics are involved. In the latter cases numbers are boxed.
 
-在 Java 平台，數值在物理上存為 JVM 原生類型，除非你需要可空的數值引用 (例如： `Int?` ) 或泛型的涉及，在後一種情況會已自動裝箱
+在 Java 平台，數值在物理上存為 JVM 原生類型，除非你需要可空的數值引用 (例如： `Int?` ) 或泛型的涉及。在後一種情況會已自動裝箱。
 
 Note that boxing of numbers does not necessarily preserve identity:
 
