@@ -58,7 +58,7 @@ The primary constructor cannot contain any code. Initialization code can be plac
 
 During an instance initialization, the initializer blocks are executed in the same order as they appear in the class body, interleaved with the property initializers:
 
-在實例初始化期間，初始化區塊的執行與下面類別內文出現的順序相同，與屬性初始化交錯執行
+在實例初始化期間，初始化區塊的執行與下面類別內文出現的順序相同，與屬性初始化交錯執行：
 
 ``` kotlin
 //sampleStart
@@ -105,11 +105,11 @@ class Person(val firstName: String, val lastName: String, var age: Int) { ... }
 Much the same way as regular properties, the properties declared in the primary constructor can be
 mutable (*var*) or read-only (*val*).
 
-與常規屬性大致相同的方式，在建構元宣告屬性可以為可變的 (`var`) 或 唯讀的 (`val`)
+與常規屬性大致相同的方式，在建構元宣告屬性可以為可變的 (`var`) 或 唯讀的 (`val`) 。
 
 If the constructor has annotations or visibility modifiers, the *constructor* keyword is required, and the modifiers go before it:
 
-如果建構元有註釋或可見性修飾符， 必須要有 `constructor` 關鍵字， 並且註釋或修飾符在 `constructor` 前面
+如果建構元有註釋或可見性修飾符， 必須要有 `constructor` 關鍵字， 並且註釋或修飾符在 `constructor` 前面：
 
 ``` kotlin
 class Customer public @Inject constructor(name: String) { ... }
@@ -136,7 +136,7 @@ class Person {
 ```
 If the class has a primary constructor, each secondary constructor needs to delegate to the primary constructor, either directly or indirectly through another secondary constructor(s). Delegation to another constructor of the same class is done using the *this* keyword:
 
-如果類別已有主建構元，每個次要建構元需要調用主建構元。用直接或間接方式通過另一個次要建構元調用主建構元 `: this(name)`，使用 `this` 完成相同類別的另一個建構元調用
+如果類別已有主建構元，每個次要建構元需要調用主建構元。用直接或間接方式通過另一個次要建構元調用主建構元 `: this(name)`，使用 `this` 完成相同類別的另一個建構元調用：
 ``` kotlin
 class Person(val name: String) {
     constructor(name: String, parent: Person) : this(name) {
@@ -146,7 +146,7 @@ class Person(val name: String) {
 ```
 Note that code in initializer blocks effectively becomes part of the primary constructor. Delegation to the primary constructor happens as the first statement of a secondary constructor, so the code in all initializer blocks is executed before the secondary constructor body. Even if the class has no primary constructor, the delegation still happens implicitly, and the initializer blocks are still executed:
 
-注意：在初始化區塊的該代碼有效的成為主建構元的一部分。調用主建構元發生在次要建構元的一個敘述，所以在執行次要建構元內文之前先執行所有在初始化區塊的代碼。即使類別沒有主建構元，調用還是會隱性發生，並且初始化區塊仍然被執行
+注意：在初始化區塊的該代碼有效的成為主建構元的一部分。調用主建構元發生在次要建構元的一個敘述，所以在執行次要建構元內文之前先執行所有在初始化區塊的代碼。即使類別沒有主建構元，調用還是會隱性發生，並且初始化區塊仍然被執行：
 
 ``` kotlin
 //sampleStart
@@ -297,7 +297,7 @@ The *override* annotation is required for `Derived.v()`. If it were missing, the
 
 **Function signature：函數簽名，包括函數的名稱、參數順序、參數類型、泛型欄位等資訊總稱**
 
-`Derived.v()` 需要註釋 `override` - `override fun v() { ... }` 。如果 `override` 被遺忘，編譯器可能會抱怨，如果在函數沒有 `open` 註釋，像 `Base.nv()` 在子類別宣告一個方法使用相同簽名是非法的，無論是使用 `override` 或不使用它。在一個 `final` 類別 (例如：沒有 `open` 註釋的類別) ，公開的成員被禁用。
+`Derived.v()` 需要註釋 `override` - `override fun v() { ... }` 。如果 `override` 被遺忘，編譯器可能會抱怨。如果在函數沒有 `open` 註釋，像 `Base.nv()` 在子類別宣告一個方法使用相同簽名是非法的，無論是使用 `override` 或不使用它。在一個 `final` 類別 (例如：沒有 `open` 註釋的類別) ，公開的成員被禁用。
 
 A member marked *override* is itself open, i.e. it may be overridden in subclasses. If you want to prohibit re-overriding, use *final*:
 
