@@ -14,11 +14,11 @@ Kotlin has three structural jump expressions:
 Kotlin 有三種結構跳轉表示法：
 
 * *return*. By default returns from the nearest enclosing function or [anonymous function](lambdas.md#anonymous-functions).
-  `return`。預設情況下，從最近一層封閉函數 `{... return}` 返回或[匿名函數](lambdas.md#anonymous-functions)
+  `return`。預設情況下，從最近一層封閉函數 `{... return}` 返回或[匿名函數](lambdas.md#anonymous-functions) 。
 * *break*. Terminates the nearest enclosing loop.
-  `break`。中斷最近一層封閉循環
+  `break`。中斷最近一層封閉循環。
 * *continue*. Proceeds to the next step of the nearest enclosing loop.
-  `continue`。前進最近一層封閉循環下一步
+  `continue`。前進最近一層封閉循環下一步。
 
 All of these expressions can be used as part of larger expressions:
 
@@ -29,7 +29,7 @@ val s = person.name ?: return
 ```
 The type of these expressions is the [Nothing type](exceptions.md#the-nothing-type).
 
-這些表達式類型是 [Nothing type](exceptions.md#the-nothing-type).
+這些表達式類型是 [Nothing type](exceptions.md#the-nothing-type) 。
 
 ## Break and Continue Labels
 
@@ -37,7 +37,7 @@ Break and Continue Labels ：返回和繼續標籤
 
 Any expression in Kotlin may be marked with a *label*. Labels have the form of an identifier followed by the `@` sign, for example: `abc@`, `fooBar@` are valid labels (see the [grammar](https://kotlinlang.org/docs/reference/grammar.html#labelReference)). To label an expression, we just put a label in front of it
 
-在 Kotlin 任何表達式都可能使用 `label` 標記，標籤有識別名稱之後放 `@` 的符號形式，例如： `abc@` 、 `fooBar@` 是有效標籤 (請參閱 [grammar](https://kotlinlang.org/docs/reference/grammar.html#labelReference))，要標記表達式，我們只放一個標籤在它前面 `loop@ for (....)`
+在 Kotlin 任何表達式都可能使用 `label` 標記。標籤有識別名稱之後放 `@` 的符號形式，例如： `abc@` 、 `fooBar@` 是有效標籤 (請參閱 [grammar](https://kotlinlang.org/docs/reference/grammar.html#labelReference)) 。要標記表達式，我們只放一個標籤在它前面 `loop@ for (....)`
 
 ``` kotlin
 loop@ for (i in 1..100) {
@@ -56,7 +56,7 @@ loop@ for (i in 1..100) {
 ```
 A *break* qualified with a label jumps to the execution point right after the loop marked with that label.A *continue* proceeds to the next iteration of that loop.
 
-使用標籤 `@` 修飾一個 break `break@loop` ，跳轉到 loop 被標記標籤 `@`  `loop@` 之後的執行點，`continue` 繼續進行該循環的下一個遍歷
+使用標籤 `@` 修飾一個 break `break@loop` ，跳轉到 loop 被標記標籤 `@`  `loop@` 之後的執行點。 `continue` 繼續進行該循環的下一個遍歷。
 
 
 ## Return at Labels
@@ -65,7 +65,7 @@ Return at Labels：在標籤回傳
 
 With function literals, local functions and object expression, functions can be nested in Kotlin. Qualified *return*s allow us to return from an outer function. The most important use case is returning from a lambda expression. Recall that when we write this:
 
-使用函數文字、區域函數和物件表達式、函數可以被被內嵌在 Kotlin，修飾符 `return` 允許我們回傳從外部函數調用，最重要的使用案例是從 Lambda 表達式中回傳，當我們在這寫 `return` 時被回傳
+使用函數文字、區域函數和物件表達式、函數可以被被內嵌在 Kotlin。修飾符 `return` 允許我們回傳從外部函數調用。最重要的使用案例是從 Lambda 表達式中回傳。當我們在這寫 `return` 時被回傳：
 
 ``` kotlin
 //sampleStart
@@ -88,7 +88,7 @@ fun main(args: Array<String>) {
 
 The *return*-expression returns from the nearest enclosing function, i.e. `foo`. (Note that such non-local returns are supported only for lambda expressions passed to [inline functions](inline-functions.md).) If we need to return from a lambda expression, we have to label it and qualify the *return*:
 
-`return-表達式` 從最近一層封閉函數 `{... return}` 回傳，即： `foo` (請注意，只對表達式被傳遞到 [inline functions](inline-functions.md) 支援這樣非區域的回傳) ，如果我們需要從表達式返回，我們必須使用標籤標記和修飾符 return ：
+`return-表達式` 從最近一層封閉函數 `{... return}` 回傳，即： `foo` 。 ( 請注意，只對表達式被傳遞到 [inline functions](inline-functions.md) 支援這樣非區域的回傳。 ) ，如果我們需要從表達式返回，我們必須使用標籤標記和修飾符 return ：匿名函數
 
 **`return@lit` 不會從函數跳出到 main 而是到另一個標籤 `lit@`**
 
@@ -143,7 +143,7 @@ fun main(args: Array<String>) {
 
 Alternatively, we can replace the lambda expression with an [anonymous function](lambdas.md#anonymous-functions).A *return* statement in an anonymous function will return from the anonymous function itself.
 
-或者，我們可以使用匿名函數回取代 Lambda 表達式，在匿名函數中使用 `return` 敘述將從匿名函數當中回傳
+或者，我們可以使用匿名函數回取代 Lambda 表達式。在匿名函數中使用 `return` 敘述將從匿名函數當中回傳：
 
 **由於是匿名函數 `forEach(fun(value: Int) {... return ...})` 所以不會整個跳出到 main**
 
@@ -170,7 +170,7 @@ fun main(args: Array<String>) {
 
 Note that the use of local returns in previous three examples is similar to the use of *continue* in regular loops. There is no direct equivalent for *break*, but it can be simulated by adding another nesting lambda and non-locally returning from it:
 
-注意：在前三個例子使用區域回傳 `forEach {... return}` 類似於在常規循環中使用 `continue`，沒有直接等同於 `break` ，但 `break` 可以被模擬，增加另一個內嵌的 Lambda `run{}`和 從內嵌 Lambda 非區域性回傳
+注意：在前三個例子使用區域回傳 `forEach {... return}` 類似於在常規循環中使用 `continue` 。沒有直接等同於 `break` ，但 `break` 可以被模擬，增加另一個內嵌的 Lambda `run{}`和 從內嵌 Lambda 非區域性回傳：
 
 **`return@loop` 傳到 `loop@`，再傳到 `run()`**
 
@@ -202,4 +202,4 @@ return@a 1
 ```
 means "return `1` at label `@a`" and not "return a labeled expression `(@a 1)`".
 
-表示 "在標籤 `@a` 回傳 `1`" 而不是 "回傳標籤表達式 `(@a 1)`"
+表示 "在標籤 `@a` 回傳 `1`" 而不是 "回傳標籤表達式 `(@a 1)`" 。
