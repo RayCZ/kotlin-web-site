@@ -72,7 +72,7 @@ var initialized = 1 // has type Int, default getter and setter
 
 The full syntax of a read-only property declaration differs from a mutable one in two ways: it starts with `val` instead of `var` and does not allow a setter:
 
-在兩種屬性宣告方式，唯讀屬性宣告的完整語法不同於可變屬性宣告，唯讀屬性開頭 `val` 代替 `var` 並且不允許設置屬性
+在兩種屬性宣告方式，唯讀屬性宣告的完整語法不同於可變屬性宣告，唯讀屬性開頭 `val` 代替 `var` 並且不允許設置屬性：
 
 ``` kotlin
 val simple: Int? // has type Int, default getter, must be initialized in constructor
@@ -114,7 +114,7 @@ val isEmpty get() = this.size == 0  // has type Boolean
 
 If you need to change the visibility of an accessor or to annotate it, but don't need to change the default implementation, you can define the accessor without defining its body:
 
-如果你需要改變存取器的可見性或註釋它，但不需要改變預設的實作，你可以只定義存取器且存取器沒有內文
+如果你需要改變存取器的可見性或註釋它，但不需要改變預設的實作，你可以只定義存取器且存取器沒有內文：
 
 ``` kotlin
 var setterVisibility: String = "abc"
@@ -253,7 +253,7 @@ Checking whether a lateinit var is initialized (since 1.2) ：檢查 lateinit va
 
 To check whether a `lateinit var` has already been initialized, use `.isInitialized` on the [reference to that property](reflection.md#property-references):
 
-檢查 `lateinit var` 是否已經被初始化，[在引用屬性時](reflection.md#property-references)使用 `.isInitialized`
+檢查 `lateinit var` 是否已經被初始化，[在引用屬性時](reflection.md#property-references)使用 `.isInitialized` ：
 
 ```kotlin
 if (foo::bar.isInitialized) {
