@@ -128,7 +128,7 @@ fun hasPrefix(x: Any) = when(x) {
 ```
 *when* can also be used as a replacement for an *if*-*else* *if* chain. If no argument is supplied, the branch conditions are simply boolean expressions, and a branch is executed when its condition is true:
 
-`when` 也可以用為一個 `if-else` `if` 鏈的替代品，如果沒有提供參數，分支條件是簡單布林表達式，並且當它條件為 `true` 執行該分支：
+`when` 也可以用為一個 `if-else` `if` 鏈的替代品。如果沒有提供參數，分支條件是簡單布林表達式，並且當它條件為 `true` 執行該分支：
 
 ``` kotlin
 when {
