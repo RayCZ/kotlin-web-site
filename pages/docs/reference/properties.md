@@ -15,7 +15,7 @@ Declaring Properties ：宣告屬性
 
 Classes in Kotlin can have properties. These can be declared as mutable, using the *var* keyword or read-only using the *val* keyword.
 
-在 Kotlin 中的類別可以有屬性，這些可以被宣告為可變的，使用 `var` 關鍵字或唯讀使用 `val` 關鍵字
+在 Kotlin 中的類別可以有屬性。這些可以被宣告為可變的，使用 `var` 關鍵字或唯讀使用 `val` 關鍵字。
 
 ``` kotlin
 class Address {
@@ -59,7 +59,7 @@ var <propertyName>[: <PropertyType>] [= <property_initializer>]
 
 The initializer, getter and setter are optional. Property type is optional if it can be inferred from the initializer (or from the getter return type, as shown below).
 
-初始化、獲取屬性、設置屬性是可選的，如果可以從初始化值 (或從獲取屬性回傳類型，如下所示) 推斷屬性類型，代表屬性類型是可選的
+初始化、獲取屬性、設置屬性是可選的。如果可以從初始化值 (或從獲取屬性回傳類型，如下所示) 推斷屬性類型，代表屬性類型是可選的。
 
 Examples:
 
@@ -81,7 +81,7 @@ val inferredType = 1 // has type Int and a default getter
 
 We can write custom accessors, very much like ordinary functions, right inside a property declaration. Here's an example of a custom getter:
 
-我們可以在屬性宣告之後，編寫自定義的存取器，非常像普通的方法，以下是自定義獲取屬性的範例：
+我們可以在屬性宣告之後，編寫自定義的存取器，非常像普通的方法。以下是自定義獲取屬性的範例：
 
 ``` kotlin
 val isEmpty: Boolean
@@ -102,7 +102,7 @@ var stringRepresentation: String
 
 By convention, the name of the setter parameter is `value`, but you can choose a different name if you prefer.
 
-按照慣例，設置屬性參數的名稱是 `value`　，但如果你有偏好，你可以選擇不同名稱
+按照慣例，設置屬性參數的名稱是 `value`　，但如果你有偏好，你可以選擇不同名稱。
 
 Since Kotlin 1.1, you can omit the property type if it can be inferred from the getter:
 
@@ -135,7 +135,7 @@ Backing Fields ：支援欄位，欄位代表的是屬性本身
 
 Fields cannot be declared directly in Kotlin classes. However, when a property needs a backing field, Kotlin provides it automatically. This backing field can be referenced in the accessors using the `field` identifier:
 
-在 Kotlin 類別內不可以直接宣告欄位，然後，當有一個屬性需要一個支援欄位時， Kotlin自動提供支援欄位，這個支援欄位在存取器 (設置屬性/獲取屬性) 使用 `field` 識別並可以引用到支援欄位
+在 Kotlin 類別內不可以直接宣告欄位。然後，當有一個屬性需要一個支援欄位時， Kotlin自動提供支援欄位。這個支援欄位在存取器 (設置屬性/獲取屬性) 使用 `field` 識別並可以引用到支援欄位
 
 ``` kotlin
 var counter = 0 // Note: the initializer assigns the backing field directly
@@ -146,15 +146,15 @@ var counter = 0 // Note: the initializer assigns the backing field directly
 
 The `field` identifier can only be used in the accessors of the property.
 
-`field` 識別只可以用在屬性的存取器
+`field` 識別只可以用在屬性的存取器。
 
 A backing field will be generated for a property if it uses the default implementation of at least one of the accessors, or if a custom accessor references it through the `field` identifier.
 
-如果屬性使用至少一個存取器並預設實作，或如果自定義存取器引用到屬性並透過 `field` 識別，屬性將產生支援欄位
+如果屬性使用至少一個存取器並預設實作，或如果自定義存取器引用到屬性並透過 `field` 識別，屬性將產生支援欄位。
 
 For example, in the following case there will be no backing field:
 
-範例，在以下情況將沒有支援欄位
+範例，在以下情況將沒有支援欄位：
 
 ``` kotlin
 val isEmpty: Boolean
@@ -169,7 +169,7 @@ Backing Properties ：支援屬性
 
 If you want to do something that does not fit into this "implicit backing field" scheme, you can always fall back to having a *backing property*:
 
-如果你想要做一些不適合這種 " 隱式支援欄位 " 計劃，你總可以回到有支援屬性的方式
+如果你想要做一些不適合這種 " 隱式支援欄位 " 計劃，你總可以回到有支援屬性的方式：
 
 ``` kotlin
 private var _table: Map<String, Int>? = null
@@ -184,7 +184,7 @@ public val table: Map<String, Int>
 
 In all respects, this is just the same as in Java since access to private properties with default getters and setters is optimized so that no function call overhead is introduced.
 
-在所有方面，這只是與 Java 相同方式，因為使用預設優化的獲取屬性與設置屬性存取私有屬性，因此不會引入函數調用的開銷
+在所有方面，這只是與 Java 相同方式，因為使用預設優化的獲取屬性與設置屬性存取私有屬性，因此不會引入函數調用的開銷。
 
 ## Compile-Time Constants
 
@@ -192,7 +192,7 @@ Compile-Time Constants ：編譯時期的常數
 
 Properties the value of which is known at compile time can be marked as _compile time constants_ using the `const` modifier. Such properties need to fulfil the following requirements:
 
- 編譯時期的常數使用 ` const` 修飾符標記為在編譯時期已知屬性的值，這樣屬性需要滿足以下需求：
+ 編譯時期的常數使用 ` const` 修飾符標記為在編譯時期已知屬性的值。這樣屬性需要滿足以下需求：
 
   * Top-level or member of an `object`
     最高層級或物件成員
@@ -217,7 +217,7 @@ Late-Initialized Properties and Variables ：延遲初始化的屬性與變數
 
 Normally, properties declared as having a non-null type must be initialized in the constructor. However, fairly often this is not convenient. For example, properties can be initialized through dependency injection, or in the setup method of a unit test. In this case, you cannot supply a non-null initializer in the constructor, but you still want to avoid null checks when referencing the property inside the body of a class.
 
-通常，屬性宣告為有非空的類型 `String?` 必須在建構元初始化，然而，這通常是相當的不方便，例如：屬性可以透過依賴注入初始化，或在單元測試的設置方法。在這樣的情況下，你不可以在建構元提供一個非空的初始化，但你仍想要避免可空的檢查在你需要在類別內中引用到屬性時
+通常，屬性宣告為有非空的類型 `String?` 必須在建構元初始化。然而，這通常是相當的不方便。例如：屬性可以透過依賴注入初始化，或在單元測試的設置方法。在這樣的情況下，你不可以在建構元提供一個非空的初始化，但你仍想要避免可空的檢查在你需要在類別內中引用到屬性時。
 
 To handle this case, you can mark the property with the `lateinit` modifier:
 
@@ -263,7 +263,7 @@ if (foo::bar.isInitialized) {
 
 This check is only available for the properties that are lexically accessible, i.e. declared in the same type or in one of the outer types, or at top level in the same file.
 
-這個檢查只可用於屬性是詞彙存取，即是相同類型或外部類型之一的宣告，或在相同檔案的最高層級
+這個檢查只可用於屬性是詞彙存取，即是相同類型或外部類型之一的宣告，或在相同檔案的最高層級。
 
 ## Overriding Properties
 
@@ -279,7 +279,7 @@ Delegated Properties ：委派屬性
 
 The most common kind of properties simply reads from (and maybe writes to) a backing field. On the other hand, with custom getters and setters one can implement any behaviour of a property. Somewhere in between, there are certain common patterns of how a property may work. A few examples: lazy values, reading from a map by a given key, accessing a database, notifying listener on access, etc.
 
-最常見的屬性只是從一個支援欄位讀取 (或許是寫入) ，另一方面使用自定義的獲取屬性和設置屬性之一可以實作屬性的任何行為。介於兩者之間，有一些某些常見的樣式關於屬性如何運作，一些範例：惰性值、透過 key 從map取值，存取資料庫、在存取時通知監聽者等等。
+最常見的屬性只是從一個支援欄位讀取 (或許是寫入) 。另一方面使用自定義的獲取屬性和設置屬性之一可以實作屬性的任何行為。介於兩者之間，有一些某些常見的樣式關於屬性如何運作。一些範例：惰性值、透過 key 從map取值，存取資料庫、在存取時通知監聽者等等。
 
 Such common behaviours can be implemented as libraries using [_delegated properties_](delegated-properties.md).
 
