@@ -135,7 +135,7 @@ Backing Fields ：支援欄位，欄位代表的是屬性本身
 
 Fields cannot be declared directly in Kotlin classes. However, when a property needs a backing field, Kotlin provides it automatically. This backing field can be referenced in the accessors using the `field` identifier:
 
-在 Kotlin 類別內不可以直接宣告欄位。然後，當有一個屬性需要一個支援欄位時， Kotlin自動提供支援欄位。這個支援欄位在存取器 (設置屬性/獲取屬性) 使用 `field` 識別並可以引用到支援欄位
+在 Kotlin 類別內不可以直接宣告欄位。然後，當有一個屬性需要一個支援欄位時， Kotlin自動提供支援欄位。這個支援欄位在存取器 (設置屬性/獲取屬性) 使用 `field` 識別並可以引用到支援欄位：
 
 ``` kotlin
 var counter = 0 // Note: the initializer assigns the backing field directly

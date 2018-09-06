@@ -98,7 +98,7 @@ Class layout ：類別怖局、安排
 
 Generally, the contents of a class is sorted in the following order:
 
-通常，類別的內容按以下的順序做排序
+通常，類別的內容按以下的順序做排序：
 
 - Property declarations and initializer blocks
   屬性宣告和初始化區塊
@@ -618,7 +618,7 @@ val foo: String
 For properties with an initializer, if the initializer is long, add a line break after the equals sign
 and indent the initializer by four spaces:
 
-對於使用初始化屬性，如果初始化太長，等於符號 `=` 換行並且透過4空格縮排初始化
+對於使用初始化屬性，如果初始化太長，等於符號 `=` 換行並且透過4空格縮排初始化：
 ```kotlin
 private val defaultCharset: Charset? =
     EncodingRegistry.getInstance().getDefaultCharsetForPropertiesFiles(file)
@@ -644,7 +644,7 @@ if (!component.isSyncing &&
 
 Put the `else`, `catch`, `finally` keywords, as well as the `while` keyword of a do/while loop, on the same line as the preceding curly brace:
 
-放置 `else` , `catch` , `finally` 關鍵字，以及 do/while 循環的 `while` 關鍵字，與結尾大括號 `}` 同行
+放置 `else` , `catch` , `finally` 關鍵字，以及 do/while 循環的 `while` 關鍵字，與結尾大括號 `}` 同行：
 
 ``` kotlin
 if (condition) {
@@ -717,7 +717,7 @@ Chained call wrapping ：包裝鍊式調用
 
 When wrapping chained calls, put the `.` character or the `?.` operator on the next line, with a single indent:
 
-當包裝鍊式調用時，放 `.` 字元或 `?.` 運算符在下一行的開頭，使用單行縮排 (4空格)
+當包裝鍊式調用時，放 `.` 字元或 `?.` 運算符在下一行的開頭，使用單行縮排 (4空格) ：
 
 ``` kotlin
 val anchor = owner
@@ -742,7 +742,7 @@ list.filter { it > 10 }
 ```
 If assigning a label for a lambda, do not put a space between the label and the opening curly brace:
 
-如果為 Lambda 分配一個標籤，在標記 `@` 與左大括號 `{ ` 之間不要放置空格
+如果為 Lambda 分配一個標籤，在標記 `@` 與左大括號 `{ ` 之間不要放置空格：
 
 ``` kotlin
 fun foo() {
@@ -753,7 +753,7 @@ fun foo() {
 ```
 When declaring parameter names in a multiline lambda, put the names on the first line, followed by the arrow and the newline:
 
-當在多行 Lambda宣告參數命稱時，在第一行放置名稱，箭頭之後新的一行
+當在多行 Lambda宣告參數命稱時，在第一行放置名稱，箭頭之後新的一行：
 ``` kotlin
 appendCommaSeparated(properties) { prop ->
     val propertyValue = prop.get(obj)  // ...
@@ -761,7 +761,7 @@ appendCommaSeparated(properties) { prop ->
 ```
 If the parameter list is too long to fit on a line, put the arrow on a separate line:
 
-如果參數列表太長適合新的一行，在單獨一行放箭頭 `->`
+如果參數列表太長適合新的一行，在單獨一行放箭頭 `->` ：
 
 ``` kotlin
 foo {
@@ -777,7 +777,7 @@ Documentation comments ：文件註解
 
 For longer documentation comments, place the opening `/**` on a separate line and begin each subsequent line with an asterisk:
 
-對於太長文件註解，在單獨一行放開頭 `/**` 並使用星號 `*` 在後續每行的開頭
+對於太長文件註解，在單獨一行放開頭 `/**` 並使用星號 `*` 在後續每行的開頭：
 
 ``` kotlin
 /**
@@ -787,7 +787,7 @@ For longer documentation comments, place the opening `/**` on a separate line an
 ```
 Short comments can be placed on a single line:
 
-短註解可以放置單行
+短註解可以放置單行：
 
 ``` kotlin
 /** This is a short documentation comment. */
@@ -829,7 +829,7 @@ Unit ：單元
 
 If a function returns Unit, the return type should be omitted:
 
-如果函數回傳 Unit，回傳類型應該被省略
+如果函數回傳 Unit，回傳類型應該被省略：
 
 ``` kotlin
 fun foo() { // ": Unit" is omitted here
@@ -914,7 +914,7 @@ Type aliases ：類型別名
 
 If you have a functional type or a type with type parameters which is used multiple times in a codebase, prefer defining a type alias for it:
 
-如果你有函數類型或使用類型參數的類型在代碼庫中多次使用，優先定義類型別名給它
+如果你有函數類型或使用類型參數的類型在代碼庫中多次使用，優先定義類型別名給它：
 ```kotlin
 typealias MouseClickHandler = (Any, MouseEvent) -> Unit
 typealias PersonIndex = Map<String, Person>
@@ -1040,7 +1040,7 @@ Loops on ranges ：循環範圍
 
 Use the `until` function to loop over an open range:
 
-使用 `until` 函數去遍歷 (走訪) 開放的範圍
+使用 `until` 函數去遍歷 (走訪) 開放的範圍：
 
 ```kotlin
 for (i in 0..n - 1) { ... }  // bad
@@ -1062,7 +1062,7 @@ Prefer to use multiline strings instead of embedding `\n` escape sequences into 
 
 To maintain indentation in multiline strings, use `trimIndent` when the resulting string does not require any internal indentation, or `trimMargin` when internal indentation is required:
 
-為了在多行字串維護縮排，在結果字串不需要任何內部縮排使用 `trimIndent` ，或當內部縮排被需要 `trimMargin`
+為了在多行字串維護縮排，在結果字串不需要任何內部縮排使用 `trimIndent` ，或當內部縮排被需要 `trimMargin` ：
 
 ``` kotlin
 assertEquals(
