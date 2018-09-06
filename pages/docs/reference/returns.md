@@ -116,7 +116,7 @@ fun main(args: Array<String>) {
 Now, it returns only from the lambda expression. Oftentimes it is more convenient to use implicit labels:
 such a label has the same name as the function to which the lambda is passed.
 
-現在，它只從 Lambda 表達式回傳，通常使用隱式標籤更方便：這樣的標籤 `return@forEach` 與 Lambda `forEach{....}` 被傳遞的函數有相同名稱
+現在，它只從 Lambda 表達式回傳。通常使用隱式標籤更方便：這樣的標籤 `return@forEach` 與 Lambda `forEach{....}` 被傳遞的函數有相同名稱。
 
 **`return@forEach` 不會從函數跳出到 main 而是到函數名稱 `forEach{...}`**
 
@@ -143,7 +143,7 @@ fun main(args: Array<String>) {
 
 Alternatively, we can replace the lambda expression with an [anonymous function](lambdas.md#anonymous-functions).A *return* statement in an anonymous function will return from the anonymous function itself.
 
-或者，我們可以使用匿名函數回取代 Lambda 表達式。在匿名函數中使用 `return` 敘述將從匿名函數當中回傳：
+或者，我們可以使用匿名函數回取代 Lambda 表達式。在匿名函數中使用 `return` 敘述將從匿名函數當中回傳。
 
 **由於是匿名函數 `forEach(fun(value: Int) {... return ...})` 所以不會整個跳出到 main**
 
