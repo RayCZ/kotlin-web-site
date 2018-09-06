@@ -89,7 +89,7 @@ The *else* branch is evaluated if none of the other branch conditions are satisf
 
 If many cases should be handled in the same way, the branch conditions may be combined with a comma:
 
-如果有相同方式下處理多個情況，使用逗號 `,` 組合分支條件 ` 0, 1 -> ...`
+如果有相同方式下處理多個情況，使用逗號 `,` 組合分支條件 ` 0, 1 -> ...` ：
 ``` kotlin
 when (x) {
     0, 1 -> print("x == 0 or x == 1")
@@ -177,7 +177,7 @@ All of these three functions need to be marked as `operator`.
 
 To iterate over a range of numbers, use a [range expression](ranges.md):
 
-遍歷數值範圍，使用 [range expression](ranges.md)
+遍歷數值範圍，使用 [range expression](ranges.md) ：
 ``` kotlin
 fun main(args: Array<String>) {
 //sampleStart

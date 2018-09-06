@@ -46,7 +46,7 @@ Literal Constants ：文字常數
 
 There are the following kinds of literal constants for integral values:
 
-有以下幾種整數值的文字常數表示法。
+有以下幾種整數值的文字常數表示法：
 
 * Decimals: `123`
   十進位：`123`
@@ -99,7 +99,7 @@ On the Java platform, numbers are physically stored as JVM primitive types, unle
 
 Note that boxing of numbers does not necessarily preserve identity:
 
-請注意：數字裝箱不一定會保留識別 (參照)
+請注意：數字裝箱不一定會保留識別 (參照) ：
 
 **===：使用這種表示法判斷是不是同一種參照、引用**
 
@@ -367,7 +367,7 @@ Strings ：字串
 
 Strings are represented by the type `String`. Strings are immutable. Elements of a string are characters that can be accessed by the indexing operation: `s[i]`. A string can be iterated over with a *for*-loop:
 
-`String` 類型表示為字串。字串是不可變的。字串元素是字元可以透過索引操作存取： `s[i]` 。一個字串可以使用 `for-loop` 遍歷
+`String` 類型表示為字串。字串是不可變的。字串元素是字元可以透過索引操作存取： `s[i]` 。一個字串可以使用 `for-loop` 遍歷：
 
 ``` kotlin
 fun main(args: Array<String>) {
@@ -381,7 +381,7 @@ for (c in str) {
 ```
 You can concatenate strings using the `+` operator. This also works for concatenating strings with values of other types, as long as the first element in the expression is a string:
 
-你可以使用 `+` 運算符連接字串。這也可用於使用其他類型的數值連接，以及在表示法中第一個元素是一個字串 `val s = "abc" + 1`
+你可以使用 `+` 運算符連接字串。這也可用於使用其他類型的數值連接，以及在表示法中第一個元素是一個字串 `val s = "abc" + 1` ：
 ``` kotlin
 fun main(args: Array<String>) {
 //sampleStart

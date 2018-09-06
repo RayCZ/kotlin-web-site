@@ -40,7 +40,7 @@ Constructors ：建構元
 A class in Kotlin can have a **primary constructor** and one or more **secondary constructors**. The primary
 constructor is part of the class header: it goes after the class name (and optional type parameters).
 
-在 Kotlin 的類別可以有主建構元和一個或更多個次要建構元。主建構元是類別標頭的一部分；在類別名之後 (和可選的類型參數) 。
+在 Kotlin 的類別可以有主建構元和一個或更多個次要建構元。主建構元是類別標頭的一部分：在類別名之後 (和可選的類型參數) 。
 
 ``` kotlin
 class Person constructor(firstName: String) { ... }
@@ -89,7 +89,7 @@ fun main(args: Array<String>) {
 ```
 Note that parameters of the primary constructor can be used in the initializer blocks. They can also be used in property initializers declared in the class body:
 
-請注意：主建構元的參數可以被用在初始化區塊中。它們也可以用在類別內文中宣告屬性初始化
+請注意：主建構元的參數可以被用在初始化區塊中。它們也可以用在類別內文中宣告屬性初始化：
 
 ``` kotlin
 class Customer(name: String) {
@@ -98,7 +98,7 @@ class Customer(name: String) {
 ```
 In fact, for declaring properties and initializing them from the primary constructor, Kotlin has a concise syntax:
 
-實際上，對於來自主建構元宣告屬性和初始化它們， Kotlin 有一個簡潔的句法
+實際上，對於來自主建構元宣告屬性和初始化它們， Kotlin 有一個簡潔的句法：
 ``` kotlin
 class Person(val firstName: String, val lastName: String, var age: Int) { ... }
 ```
@@ -171,7 +171,7 @@ fun main(args: Array<String>) {
 ```
 If a non-abstract class does not declare any constructors (primary or secondary), it will have a generated primary constructor with no arguments. The visibility of the constructor will be public. If you do not want your class to have a public constructor, you need to declare an empty primary constructor with non-default visibility:
 
-如果一個非抽象類別沒有宣告任何建構元 (主要或次要)，它將自動生成一個沒有參數的主建構元。建構元的可見性將為公開的。如果你不想要你的類別有公開建構元，你需要宣告一個空的、非預設可見性建構元
+如果一個非抽象類別沒有宣告任何建構元 (主要或次要)，它將自動生成一個沒有參數的主建構元。建構元的可見性將為公開的。如果你不想要你的類別有公開建構元，你需要宣告一個空的、非預設可見性建構元：
 ``` kotlin
 class DontCreateMe private constructor () { ... }
 ```

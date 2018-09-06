@@ -85,7 +85,7 @@ import foo.* // everything in 'foo' becomes accessible
 
 If there is a name clash, we can disambiguate by using `as` keyword to locally rename the clashing entity:
 
-如果有名稱衝突，我們可以透過使用 `as` 關鍵字區域性重新命名消除衝突的實體
+如果有名稱衝突，我們可以透過使用 `as` 關鍵字區域性重新命名消除衝突的實體：
 
 
 ``` kotlin

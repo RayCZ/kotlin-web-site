@@ -46,7 +46,7 @@ loop@ for (i in 1..100) {
 ```
 Now, we can qualify a *break* or a *continue* with a label:
 
-現在我們可以使用標籤修飾符 `break` 或 `continue`
+現在我們可以使用標籤修飾符 `break` 或 `continue` ：
 ``` kotlin
 loop@ for (i in 1..100) {
     for (j in 1..100) {
@@ -88,7 +88,7 @@ fun main(args: Array<String>) {
 
 The *return*-expression returns from the nearest enclosing function, i.e. `foo`. (Note that such non-local returns are supported only for lambda expressions passed to [inline functions](inline-functions.md).) If we need to return from a lambda expression, we have to label it and qualify the *return*:
 
-`return-表達式` 從最近一層封閉函數 `{... return}` 回傳，即： `foo` 。 ( 請注意，只對表達式被傳遞到 [inline functions](inline-functions.md) 支援這樣非區域的回傳。 ) ，如果我們需要從表達式返回，我們必須使用標籤標記和修飾符 return ：匿名函數
+`return-表達式` 從最近一層封閉函數 `{... return}` 回傳，即： `foo` 。 ( 請注意，只對表達式被傳遞到 [inline functions](inline-functions.md) 支援這樣非區域的回傳。 ) ，如果我們需要從表達式返回，我們必須使用標籤標記和修飾符 return ：
 
 **`return@lit` 不會從函數跳出到 main 而是到另一個標籤 `lit@`**
 
