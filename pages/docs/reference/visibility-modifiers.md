@@ -34,7 +34,7 @@ class Bar { ... }
 
 * If you do not specify any visibility modifier, `public` is used by default, which means that your declarations will be
   visible everywhere;
-  如果你沒有指定任何可見性修飾符， 預設使用 `public` ，`public` 意味著你的宣告將隨處可見可用； 
+  如果你沒有指定任何可見性修飾符， 預設使用 `public` ， `public` 意味著你的宣告將隨處可見可用； 
 * If you mark a declaration `private`, it will only be visible inside the file containing the declaration;
   如果你標記宣告 `private` ， `private` 將只能在檔案包含的宣告可見；
 * If you mark it `internal`, it is visible everywhere in the same [module](#modules);
