@@ -7,15 +7,21 @@ title: "Extensions"
 
 # Extensions
 
-Kotlin, similar to C# and Gosu, provides the ability to extend a class with new functionality without having to inherit from the class or use any type of design pattern such as Decorator.
-This is done via special declarations called _extensions_. Kotlin supports _extension functions_ and _extension properties_.
+Extensions ：擴展
+
+Kotlin, similar to C# and Gosu, provides the ability to extend a class with new functionality without having to inherit from the class or use any type of design pattern such as Decorator. This is done via special declarations called _extensions_. Kotlin supports _extension functions_ and _extension properties_.
+
+Kotlin ，類似於 C# 和 Gosu。提供了使用新功能擴展類別的能力，不需從類別繼承或使用設計樣式的任何類型例如 Decorator ，這是透過 `extensions` 調用特別宣告來完成的。 Kotlin 支援擴展函數和擴展屬性
 
 ## Extension Functions
+
+Extension Functions ：擴展函數
 
 To declare an extension function, we need to prefix its name with a _receiver type_, i.e. the type being extended.
 The following adds a `swap` function to `MutableList<Int>`:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+為了宣告擴展函數，我們需要使用 `receiver` 類型為它的前綴名稱，即是擴展類型。
+
 ``` kotlin
 fun MutableList<Int>.swap(index1: Int, index2: Int) {
     val tmp = this[index1] // 'this' corresponds to the list
@@ -23,21 +29,20 @@ fun MutableList<Int>.swap(index1: Int, index2: Int) {
     this[index2] = tmp
 }
 ```
-</div>
 
-The *this*{: .keyword } keyword inside an extension function corresponds to the receiver object (the one that is passed before the dot). 
-Now, we can call such a function on any `MutableList<Int>`:
+The *this* keyword inside an extension function corresponds to the receiver object (the one that is passed before the dot). Now, we can call such a function on any `MutableList<Int>`:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+擴展函數內的 `this` 關鍵字對應到 receiver 物件 (逗點前傳遞的物件) 。
+
 ``` kotlin
 val l = mutableListOf(1, 2, 3)
 l.swap(0, 2) // 'this' inside 'swap()' will hold the value of 'l'
 ```
-</div>
 
 Of course, this function makes sense for any `MutableList<T>`, and we can make it generic:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+當然，這個函數對於任何的 `MutableList<T>` 是有意義的，並且我們可以使它通用的：
+
 ``` kotlin
 fun <T> MutableList<T>.swap(index1: Int, index2: Int) {
     val tmp = this[index1] // 'this' corresponds to the list
@@ -45,21 +50,23 @@ fun <T> MutableList<T>.swap(index1: Int, index2: Int) {
     this[index2] = tmp
 }
 ```
-</div>
 
-We declare the generic type parameter before the function name for it to be available in the receiver type expression. 
-See [Generic functions](generics.html).
+We declare the generic type parameter before the function name for it to be available in the receiver type expression. See [Generic functions](generics.md).
+
+我們宣告在 `receiver` 類型表達式可用的函數名稱前面宣告泛型類型參數。參閱 [Generic functions](generics.md)
 
 ## Extensions are resolved **statically**
 
-Extensions do not actually modify classes they extend. By defining an extension, you do not insert new members into a class,
-but merely make new functions callable with the dot-notation on variables of this type.
+Extensions are resolved **statically** ：Extensions 靜態解析
 
-We would like to emphasize that extension functions are dispatched **statically**, i.e. they are not virtual by receiver type.
-This means that the extension function being called is determined by the type of the expression on which the function is invoked,
-not by the type of the result of evaluating that expression at runtime. For example:
+Extensions do not actually modify classes they extend. By defining an extension, you do not insert new members into a class, but merely make new functions callable with the dot-notation on variables of this type.
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+擴展實際上不是修改類別本身，而是擴展它們。透過定義一個擴展，你不是插入新成員到一個類別，而是在這個類型的變數使用逗點符號製造可調用的新函數
+
+We would like to emphasize that extension functions are dispatched **statically**, i.e. they are not virtual by receiver type. This means that the extension function being called is determined by the type of the expression on which the function is invoked, not by the type of the result of evaluating that expression at runtime. For example:
+
+我們想要強調擴展函數是靜態派送，換句話說，在 receiver 類型他們不是虛擬的 。這意味著擴展函數被調用由調用函數的表達式類型決定，而不是在運行時表達式執行結果的類型決定。範例：
+
 ``` kotlin
 open class C
 
@@ -75,16 +82,18 @@ fun printFoo(c: C) {
 
 printFoo(D())
 ```
-</div>
 
 This example will print "c", because the extension function being called depends only on the declared type of the
 parameter `c`, which is the `C` class.
 
-If a class has a member function, and an extension function is defined which has the same receiver type, the same name
-and is applicable to given arguments, the **member always wins**.
-For example:
+這個範例將印出 "c" ，因為擴展函數只取決於參數 `c` 的宣告類型，就是 `C` 類別
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+If a class has a member function, and an extension function is defined which has the same receiver type, the same name and is applicable to given arguments, the **member always wins**. For example:
+
+如果一個類別有一個成員函數，並且同時定義了有相同 receiver 類型的擴展函數，相同名稱和適用已給的參數，**成員總是贏的**。例如：
+
+**當擴展函數與類別函數有相同名稱和參數，總是以類別函數為優先**
+
 ``` kotlin
 class C {
     fun foo() { println("member") }
@@ -92,13 +101,15 @@ class C {
 
 fun C.foo() { println("extension") }
 ```
-</div>
 
 If we call `c.foo()` of any `c` of type `C`, it will print "member", not "extension".
 
+如果我們調用 `c.foo()` ，它將印 "member" ， 不是 "extensions" 。
+
 However, it's perfectly OK for extension functions to overload member functions which have the same name but a different signature:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+但是，擴展函數可以多載有相同名稱但不同簽名的成員函數，這是完全可以的：
+
 ```kotlin
 class C {
     fun foo() { println("member") }
@@ -106,19 +117,21 @@ class C {
 
 fun C.foo(i: Int) { println("extension") }
 ```
-</div>
 
 The call to `C().foo(1)` will print "extension".
 
+調用 `C().foo(1)` 將印出 "extensions" 。
 
 ## Nullable Receiver
+
+Nullable Receiver ：可空的 Receiver
 
 Note that extensions can be defined with a nullable receiver type. Such extensions can be called on an object variable
 even if its value is null, and can check for `this == null` inside the body. This is what allows you
 to call toString() in Kotlin without checking for null: the check happens inside the extension function.
 
 <div class="sample" markdown="1" theme="idea" data-highlight-only>
-``` kotlin
+​``` kotlin
 fun Any?.toString(): String {
     if (this == null) return "null"
     // after the null check, 'this' is autocast to a non-null type, so the toString() below
@@ -170,7 +183,7 @@ fun MyClass.Companion.foo() { ... }
 Just like regular members of the companion object, they can be called using only the class name as the qualifier:
 
 <div class="sample" markdown="1" theme="idea" data-highlight-only>
-``` kotlin
+​``` kotlin
 MyClass.foo()
 ```
 </div>
@@ -183,7 +196,7 @@ Most of the time we define extensions on the top level, i.e. directly under pack
 <div class="sample" markdown="1" theme="idea" data-highlight-only>
 ``` kotlin
 package foo.bar
- 
+
 fun Baz.goo() { ... } 
 ```
 </div>
@@ -191,7 +204,7 @@ fun Baz.goo() { ... }
 To use such an extension outside its declaring package, we need to import it at the call site:
 
 <div class="sample" markdown="1" theme="idea" data-highlight-only>
-``` kotlin
+​``` kotlin
 package com.example.usage
 
 import foo.bar.goo // importing all extensions by name "goo"
@@ -226,7 +239,7 @@ class C {
         bar()   // calls D.bar
         baz()   // calls C.baz
     }
-
+    
     fun caller(d: D) {
         d.foo()   // call the extension function
     }
@@ -238,7 +251,7 @@ In case of a name conflict between the members of the dispatch receiver and the 
 precedence. To refer to the member of the dispatch receiver you can use the [qualified `this` syntax](this-expressions.html#qualified).
 
 <div class="sample" markdown="1" theme="idea" data-highlight-only>
-``` kotlin
+​``` kotlin
 class C {
     fun D.foo() {
         toString()         // calls D.toString()
@@ -265,7 +278,7 @@ open class C {
     open fun D1.foo() {
         println("D1.foo in C")
     }
-
+    
     fun caller(d: D) {
         d.foo()   // call the extension function
     }
@@ -302,7 +315,7 @@ In Java, we are used to classes named "\*Utils": `FileUtils`, `StringUtils` and 
 And the unpleasant part about these Utils-classes is that the code that uses them looks like this:
 
 <div class="sample" markdown="1" theme="idea" data-highlight-only auto-indent="false">
-```java
+​```java
 // Java
 Collections.swap(list, Collections.binarySearch(list,
     Collections.max(otherList)),
