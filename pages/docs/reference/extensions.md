@@ -11,16 +11,17 @@ Extensions ：擴展
 
 Kotlin, similar to C# and Gosu, provides the ability to extend a class with new functionality without having to inherit from the class or use any type of design pattern such as Decorator. This is done via special declarations called _extensions_. Kotlin supports _extension functions_ and _extension properties_.
 
-Kotlin ，類似於 C# 和 Gosu。提供了使用新功能擴展類別的能力，不需從類別繼承或使用設計樣式的任何類型例如 Decorator ，這是透過 `extensions` 調用特別宣告來完成的。 Kotlin 支援擴展函數和擴展屬性
+Kotlin ，類似於 C# 和 Gosu，提供了使用新功能擴展類別的能力，不需要從類別繼承或使用設計樣式的任何類型例如： Decorator 。這是透過 `extensions` 調用特別宣告來完成的。 Kotlin 支援擴展函數和擴展屬性。
+
+---
 
 ## Extension Functions
 
 Extension Functions ：擴展函數
 
-To declare an extension function, we need to prefix its name with a _receiver type_, i.e. the type being extended.
-The following adds a `swap` function to `MutableList<Int>`:
+To declare an extension function, we need to prefix its name with a _receiver type_, i.e. the type being extended. The following adds a `swap` function to `MutableList<Int>`:
 
-為了宣告擴展函數，我們需要使用 `receiver` 類型為它的前綴名稱，即是擴展類型。
+為了宣告擴展函數，我們需要使用 `receiver` 類型為它的前綴名稱，即是擴展類型。以下新增 `swap` 函數給 `MutableList<Int>` ：
 
 ``` kotlin
 fun MutableList<Int>.swap(index1: Int, index2: Int) {
@@ -32,7 +33,7 @@ fun MutableList<Int>.swap(index1: Int, index2: Int) {
 
 The *this* keyword inside an extension function corresponds to the receiver object (the one that is passed before the dot). Now, we can call such a function on any `MutableList<Int>`:
 
-擴展函數內的 `this` 關鍵字對應到 receiver 物件 (逗點前傳遞的物件) 。
+擴展函數內的 `this` 關鍵字對應到 receiver 物件 (逗點前傳遞的物件) 。現在，我們可以在任何 `MutableList<Int>` 調用這樣一個函數：
 
 ``` kotlin
 val l = mutableListOf(1, 2, 3)
@@ -55,6 +56,8 @@ We declare the generic type parameter before the function name for it to be avai
 
 我們宣告在 `receiver` 類型表達式可用的函數名稱前面宣告泛型類型參數。參閱 [Generic functions](generics.md)
 
+---
+
 ## Extensions are resolved **statically**
 
 Extensions are resolved **statically** ：Extensions 靜態解析
@@ -65,7 +68,7 @@ Extensions do not actually modify classes they extend. By defining an extension,
 
 We would like to emphasize that extension functions are dispatched **statically**, i.e. they are not virtual by receiver type. This means that the extension function being called is determined by the type of the expression on which the function is invoked, not by the type of the result of evaluating that expression at runtime. For example:
 
-我們想要強調擴展函數是靜態派送，換句話說，在 receiver 類型他們不是虛擬的 。這意味著擴展函數被調用由調用函數的表達式類型決定，而不是在運行時表達式執行結果的類型決定。範例：
+我們想要強調擴展函數是**靜態**派送，換句話說，在 receiver 類型他們不是虛擬的 。這意味著擴展函數被調用由調用函數的表達式類型決定，而不是在運行時表達式執行結果的類型決定。範例：
 
 ``` kotlin
 open class C
@@ -122,16 +125,17 @@ The call to `C().foo(1)` will print "extension".
 
 調用 `C().foo(1)` 將印出 "extensions" 。
 
+---
+
 ## Nullable Receiver
 
 Nullable Receiver ：可空的 Receiver
 
-Note that extensions can be defined with a nullable receiver type. Such extensions can be called on an object variable
-even if its value is null, and can check for `this == null` inside the body. This is what allows you
-to call toString() in Kotlin without checking for null: the check happens inside the extension function.
+Note that extensions can be defined with a nullable receiver type. Such extensions can be called on an object variable even if its value is null, and can check for `this == null` inside the body. This is what allows you to call toString() in Kotlin without checking for null: the check happens inside the extension function.
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
-​``` kotlin
+注意： extensions 可以使用可空的 receiver 類型定義。即使它的值為 null，也可以在物件變數調用 extensions，並且可以在內文中檢查 `this == null` 。這是允許你在 Kotlin 去調用 toString() 而沒有檢查 null ：在函展函數內發生檢查。
+
+``` kotlin
 fun Any?.toString(): String {
     if (this == null) return "null"
     // after the null check, 'this' is autocast to a non-null type, so the toString() below
@@ -139,38 +143,44 @@ fun Any?.toString(): String {
     return toString()
 }
 ```
-</div>
+
+---
 
 ## Extension Properties
 
+Extension Properties ：擴展屬性
+
 Similarly to functions, Kotlin supports extension properties:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only auto-indent="false">
+類似於函數， Kotlin 支援擴展屬性：
+
 ``` kotlin
 val <T> List<T>.lastIndex: Int
     get() = size - 1
 ```
-</div>
 
-Note that, since extensions do not actually insert members into classes, there's no efficient way for an extension 
-property to have a [backing field](properties.html#backing-fields). This is why **initializers are not allowed for 
-extension properties**. Their behavior can only be defined by explicitly providing getters/setters.
+Note that, since extensions do not actually insert members into classes, there's no efficient way for an extension property to have a [backing field](properties.md#backing-fields). This is why **initializers are not allowed for extension properties**. Their behavior can only be defined by explicitly providing getters/setters.
+
+注意：因為 extensions 實際上不會插入成員到類別，擴展函數沒有有效的方式獲得[支援欄位](properties.md#backing-fields) 。這是為何**擴展屬性不充許初始化的原因**。他們的行為只能由明確提供 getters/setters 來定義。
 
 Example:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+範例：
+
 ``` kotlin
 val Foo.bar = 1 // error: initializers are not allowed for extension properties
 ```
-</div>
 
+---
 
 ## Companion Object Extensions
 
-If a class has a [companion object](object-declarations.html#companion-objects) defined, you can also define extension
-functions and properties for the companion object:
+Companion Object Extensions ：夥伴物件擴展
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+If a class has a [companion object](object-declarations.md#companion-objects) defined, you can also define extension functions and properties for the companion object:
+
+如果一個類別已定義一個[夥伴物件](object-declarations.md#companion-objects)，你也可以對於夥伴物件定義擴展函數和屬性：
+
 ``` kotlin
 class MyClass {
     companion object { }  // will be called "Companion"
@@ -178,33 +188,36 @@ class MyClass {
 
 fun MyClass.Companion.foo() { ... }
 ```
-</div>
 
 Just like regular members of the companion object, they can be called using only the class name as the qualifier:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
-​``` kotlin
+就像常規夥伴物件成員，可以只使用類別名稱為修飾符調用他們：
+
+``` kotlin
 MyClass.foo()
 ```
-</div>
 
+---
 
 ## Scope of Extensions
 
+Scope of Extensions ：擴展的範圍
+
 Most of the time we define extensions on the top level, i.e. directly under packages:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+大多數的時候我們定義擴展在最高層級，換句話說，直接在 packages 下：
+
 ``` kotlin
 package foo.bar
 
 fun Baz.goo() { ... } 
 ```
-</div>
 
 To use such an extension outside its declaring package, we need to import it at the call site:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
-​``` kotlin
+在宣告 package 之外使用這樣的擴展，我們需要匯入他在調用場景：
+
+``` kotlin
 package com.example.usage
 
 import foo.bar.goo // importing all extensions by name "goo"
@@ -216,9 +229,10 @@ fun usage(baz: Baz) {
 }
 
 ```
-</div>
 
-See [Imports](packages.html#imports) for more information.
+See [Imports](packages.md#imports) for more information.
+
+更多資訊請參閱 [Imports](packages.md#imports) 。
 
 ## Declaring Extensions as Members
 
