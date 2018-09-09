@@ -122,32 +122,46 @@ class Unrelated(o: Outer) {
 
 ### Constructors
 
-To specify a visibility of the primary constructor of a class, use the following syntax (note that you need to add an
-explicit *constructor*{: .keyword } keyword):
+Constructors ：建構元
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
-​``` kotlin
+To specify a visibility of the primary constructor of a class, use the following syntax (note that you need to add an
+explicit *constructor* keyword):
+
+指定類別的主建構元可見性，使用以下句法 (注意：你需要添加一個明確的 *constructor* 關鍵字) ：
+
+``` kotlin
 class C private constructor(a: Int) { ... }
 ```
-</div>
 
 Here the constructor is private. By default, all constructors are `public`, which effectively
 amounts to them being visible everywhere where the class is visible (i.e. a constructor of an `internal` class is only 
 visible within the same module).
-     
+
+這裡的建構元是 `private`。預設上，所有建構元是 `public` ， `public` 實際上相當於他們類別可見的每個地方都可見 (即是 `internal` 類別的建構元只能在相同模組內可見) 。
 
 ### Local declarations
 
+Local declarations ：區域宣告
+
 Local variables, functions and classes can not have visibility modifiers.
+
+區域變數、函數、類別不可以有可見性修飾符。
 
 ---
 
 ## Modules
 
-The `internal` visibility modifier means that the member is visible within the same module. More specifically,
-a module is a set of Kotlin files compiled together:
+Modules ：模組
+
+The `internal` visibility modifier means that the member is visible within the same module. More specifically, a module is a set of Kotlin files compiled together:
+
+`internal` 可見性修飾符意味著在相同模組內可見，更具體的說，一個模組是一個編譯在一起的 `Kotlin` 檔案：
 
   * an IntelliJ IDEA module;
+    一個 IntelliJ IDEA 模組；
   * a Maven project;
+    一個 Maven 專案；
   * a Gradle source set (with the exception that the `test` source set can access the internal declarations of `main`);
+    一個 Gradle來源集合 (除了 `test` 來源集合可以存取 `main` 的內部宣告)；
   * a set of files compiled with one invocation of the <kotlinc> Ant task.
+    一次性調用的 Ant 任務編譯成一組檔案。

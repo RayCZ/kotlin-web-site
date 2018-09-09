@@ -25,7 +25,7 @@
 
 - [Interfaces](pages/docs/reference/interfaces.md) (介面)
 
-- [Visibility Modifiers](pages/docs/reference/visibility-modifiers.md)
+- [Visibility Modifiers](pages/docs/reference/visibility-modifiers.md) (可見性修飾符)
 
 - [Extensions](pages/docs/reference/extensions.md)
 
