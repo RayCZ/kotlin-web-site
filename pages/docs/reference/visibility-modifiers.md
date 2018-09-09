@@ -17,7 +17,6 @@ Below please find explanations of how the modifiers apply to different types of 
 
 下面請查找解釋有關修飾符應用不同類型的宣告範圍。
 
----
 
 ## Packages
 
@@ -62,7 +61,6 @@ public var bar: Int = 5 // property is visible everywhere
 internal val baz = 6    // visible inside the same module
 ```
 
----
 
 ## Classes and Interfaces
 
@@ -147,7 +145,6 @@ Local variables, functions and classes can not have visibility modifiers.
 
 區域變數、函數、類別不可以有可見性修飾符。
 
----
 
 ## Modules
 

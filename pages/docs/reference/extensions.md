@@ -13,7 +13,6 @@ Kotlin, similar to C# and Gosu, provides the ability to extend a class with new 
 
 Kotlin ，類似於 C# 和 Gosu，提供了使用新功能擴展類別的能力，不需要從類別繼承或使用設計樣式的任何類型例如： Decorator 。這是透過 `extensions` 調用特別宣告來完成的。 Kotlin 支援擴展函數和擴展屬性。
 
----
 
 ## Extension Functions
 
@@ -56,7 +55,6 @@ We declare the generic type parameter before the function name for it to be avai
 
 我們宣告在 `receiver` 類型表達式可用的函數名稱前面宣告泛型類型參數。參閱 [Generic functions](generics.md)
 
----
 
 ## Extensions are resolved **statically**
 
@@ -125,7 +123,6 @@ The call to `C().foo(1)` will print "extension".
 
 調用 `C().foo(1)` 將印出 "extensions" 。
 
----
 
 ## Nullable Receiver
 
@@ -144,7 +141,6 @@ fun Any?.toString(): String {
 }
 ```
 
----
 
 ## Extension Properties
 
@@ -171,7 +167,6 @@ Example:
 val Foo.bar = 1 // error: initializers are not allowed for extension properties
 ```
 
----
 
 ## Companion Object Extensions
 
@@ -197,7 +192,6 @@ Just like regular members of the companion object, they can be called using only
 MyClass.foo()
 ```
 
----
 
 ## Scope of Extensions
 
