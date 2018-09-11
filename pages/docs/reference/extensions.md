@@ -58,7 +58,7 @@ We declare the generic type parameter before the function name for it to be avai
 
 ## Extensions are resolved **statically**
 
-Extensions are resolved **statically** ：Extensions 靜態解析
+Extensions are resolved **statically** ：擴展是靜態解析
 
 Extensions do not actually modify classes they extend. By defining an extension, you do not insert new members into a class, but merely make new functions callable with the dot-notation on variables of this type.
 
@@ -127,6 +127,8 @@ The call to `C().foo(1)` will print "extension".
 ## Nullable Receiver
 
 Nullable Receiver ：可空的 Receiver
+
+**Receiver ：逗點前傳遞的物件**
 
 Note that extensions can be defined with a nullable receiver type. Such extensions can be called on an object variable even if its value is null, and can check for `this == null` inside the body. This is what allows you to call toString() in Kotlin without checking for null: the check happens inside the extension function.
 
@@ -230,11 +232,14 @@ See [Imports](packages.md#imports) for more information.
 
 ## Declaring Extensions as Members
 
-Inside a class, you can declare extensions for another class. Inside such an extension, there are multiple _implicit receivers_ -
-objects members of which can be accessed without a qualifier. The instance of the class in which the extension is declared is called
-_dispatch receiver_, and the instance of the receiver type of the extension method is called _extension receiver_.
+Declaring Extensions as Members ：宣告擴展為成員
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+Inside a class, you can declare extensions for another class. Inside such an extension, there are multiple _implicit receivers_ - objects members of which can be accessed without a qualifier. The instance of the class in which the extension is declared is called _dispatch receiver_, and the instance of the receiver type of the extension method is called _extension receiver_.
+
+在一個類別內，你可以為另一個類別宣告擴展。在這樣的一個擴展內，有很多隱式 `receiver` - 可以在沒有修飾符存取物件成員。宣告擴展的類別實例被稱為 `dispatch receiver` ， 並且擴展方法的 `receiver` 類型的實例被稱為`extension receiver` 。
+
+**以下面來說： `fun caller(d: D)` d 代表 extension receiver ，由於是在 C 類別下宣告的，所以會有一個隱性的物件代表 C 類別本身代表 dispatch receiver**
+
 ``` kotlin
 class D {
     fun bar() { ... }
@@ -253,13 +258,12 @@ class C {
     }
 }
 ```
-</div>
 
-In case of a name conflict between the members of the dispatch receiver and the extension receiver, the extension receiver takes
-precedence. To refer to the member of the dispatch receiver you can use the [qualified `this` syntax](this-expressions.html#qualified).
+In case of a name conflict between the members of the dispatch receiver and the extension receiver, the extension receiver takes precedence. To refer to the member of the dispatch receiver you can use the [qualified `this` syntax](this-expressions.md#qualified).
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
-​``` kotlin
+在 dispatch receiver 成員和 extension receiver 之間名稱衝突，extension receiver 優先。引用 dispatch receiver 成員，你可以使用[修飾符 `this` 句法](this-expressions.md#qualified)。
+
+``` kotlin
 class C {
     fun D.foo() {
         toString()         // calls D.toString()
@@ -267,12 +271,11 @@ class C {
     }
 }
 ```
-</div>
 
-Extensions declared as members can be declared as `open` and overridden in subclasses. This means that the dispatch of such
-functions is virtual with regard to the dispatch receiver type, but static with regard to the extension receiver type.
+Extensions declared as members can be declared as `open` and overridden in subclasses. This means that the dispatch of such functions is virtual with regard to the dispatch receiver type, but static with regard to the extension receiver type.
 
-<div class="sample" markdown="1" theme="idea">
+擴展宣告為成員可以在子類別宣告為 `open` 和 `override` 。這意味著關於派送 receiver 類型，這些函數是虛擬的，但是關於擴展 receiver 類型是靜態的。
+
 ``` kotlin
 open class D { }
 
@@ -308,7 +311,6 @@ fun main(args: Array<String>) {
     C().caller(D1())  // prints "D.foo in C" - extension receiver is resolved statically
 }
 ```
-</div>
 
 ## Note on visibility
 
