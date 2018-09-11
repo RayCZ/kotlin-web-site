@@ -27,7 +27,7 @@ Extensions ：擴展
 
 Kotlin, similar to C# and Gosu, provides the ability to extend a class with new functionality without having to inherit from the class or use any type of design pattern such as Decorator. This is done via special declarations called _extensions_. Kotlin supports _extension functions_ and _extension properties_.
 
-Kotlin ，類似於 C# 和 Gosu，提供了使用新功能擴展類別的能力，不需要從類別繼承或使用設計樣式的任何類型例如： Decorator 。這是透過 `extensions` 調用特別宣告來完成的。 Kotlin 支援擴展函數和擴展屬性。
+Kotlin ，類似於 C# 和 Gosu，提供了使用新功能擴展類別的能力，不需要從類別繼承或使用設計樣式的任何類型例如： Decorator 。這是通過特別宣告來完成稱為 `extensions` 。 Kotlin 支援擴展函數和擴展屬性。
 
 
 ## Extension Functions
@@ -36,7 +36,7 @@ Extension Functions ：擴展函數
 
 To declare an extension function, we need to prefix its name with a _receiver type_, i.e. the type being extended. The following adds a `swap` function to `MutableList<Int>`:
 
-為了宣告一個擴展函數，我們需要使用 `receiver` 類型為它的前綴名稱，即是擴展類型。以下新增 `swap` 函數給 `MutableList<Int>` ：
+為了宣告一個擴展函數，我們需要使用 `receiver` 類型為它的前綴名稱，即是類型開始被擴展。以下新增 `swap` 函數給 `MutableList<Int>` ：
 
 ``` kotlin
 fun MutableList<Int>.swap(index1: Int, index2: Int) {
@@ -84,6 +84,8 @@ We would like to emphasize that extension functions are dispatched **statically*
 
 我們想要強調擴展函數是**靜態**派送，換句話說，在 receiver 類型他們不是虛擬的 。這意味著擴展函數被調用由調用函數的表達式類型決定，而不是在運行時表達式執行結果的類型決定。範例：
 
+**在下面章節會有詳細解析：當 receiver 直接調用物件方法是虛擬的，而當參數是靜態的**
+
 ``` kotlin
 open class C
 
@@ -100,7 +102,7 @@ fun printFoo(c: C) {
 printFoo(D())
 ```
 
-**靜態代表程式程宣告的類型為主，而不是運作時實際的物件類型 (虛擬) ， `printFoo(D())` 實際物件是 D 類型，但印出是 c 代表參數的宣告類型為主 `fun printFoo(c: C)`**
+**靜態代表程式程宣告的類型為主，而不是運作時實際的物件類型 (虛擬) ， `printFoo(D())` 實際物件是 D 類型，但印出是 c ，以參數的宣告類型為主 `fun printFoo(c: C)`，當參數時為靜態**
 
 This example will print "c", because the extension function being called depends only on the declared type of the
 parameter `c`, which is the `C` class.
