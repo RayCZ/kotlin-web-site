@@ -15,7 +15,11 @@ val realObject: Section = Section()
 realObject.append("Section 1")
 ```
 
-從以上這個擴展方法可以看出為 `Section` 類別擴展一個 append 方法，當我們在產生物件並且調用方法時， receiver 代表的就是這個物件本身。
+Receiver Type = Extension Type : Section
+
+從以上這個擴展方法可以看出為 `Section` 類別擴展一個 append 方法，當我們在產生物件並且調用方法時， receiver 代表的就是這個物件本身 `realObject`。
+
+
 
 # Extensions
 
@@ -32,7 +36,7 @@ Extension Functions ：擴展函數
 
 To declare an extension function, we need to prefix its name with a _receiver type_, i.e. the type being extended. The following adds a `swap` function to `MutableList<Int>`:
 
-為了宣告擴展函數，我們需要使用 `receiver` 類型為它的前綴名稱，即是擴展類型。以下新增 `swap` 函數給 `MutableList<Int>` ：
+為了宣告一個擴展函數，我們需要使用 `receiver` 類型為它的前綴名稱，即是擴展類型。以下新增 `swap` 函數給 `MutableList<Int>` ：
 
 ``` kotlin
 fun MutableList<Int>.swap(index1: Int, index2: Int) {
@@ -96,6 +100,8 @@ fun printFoo(c: C) {
 printFoo(D())
 ```
 
+**靜態代表程式程宣告的類型為主，而不是運作時實際的物件類型 (虛擬) ， `printFoo(D())` 實際物件是 D 類型，但印出是 c 代表參數的宣告類型為主 `fun printFoo(c: C)`**
+
 This example will print "c", because the extension function being called depends only on the declared type of the
 parameter `c`, which is the `C` class.
 
@@ -118,6 +124,8 @@ fun C.foo() { println("extension") }
 If we call `c.foo()` of any `c` of type `C`, it will print "member", not "extension".
 
 如果我們調用 `c.foo()` ，它將印 "member" ， 不是 "extensions" 。
+
+**class member > receiver member**
 
 However, it's perfectly OK for extension functions to overload member functions which have the same name but a different signature:
 
@@ -288,7 +296,7 @@ class C {
 
 Extensions declared as members can be declared as `open` and overridden in subclasses. This means that the dispatch of such functions is virtual with regard to the dispatch receiver type, but static with regard to the extension receiver type.
 
-擴展宣告為成員可以在子類別宣告為 `open` 和 `override` 。這意味著關於派送 receiver 類型，這些函數是虛擬的，但是關於擴展 receiver 類型是靜態的。
+擴展被宣告為成員可以在子類別宣告為 `open` 和 `override` 。這意味著關於 dispatch receiver 類型，這些函數是虛擬的，但是關於 extension receiver 類型是靜態的。
 
 ``` kotlin
 open class D { }
@@ -326,43 +334,54 @@ fun main(args: Array<String>) {
 }
 ```
 
+**receiver 為物件直接調用是虛擬的， receiver 為參數靜態的**
+
 ## Note on visibility
 
-Extensions utilize the same [visibility of other entities](visibility-modifiers.html) as regular functions declared in the same scope would. For example:
+Note on visibility ：在可見性該注意
+
+Extensions utilize the same [visibility of other entities](visibility-modifiers.md) as regular functions declared in the same scope would. For example:
+
+擴展利用在同相同範圍宣告的常規函數相同[其他實體的可見性](visibility-modifiers.md)。範例：
 
 * An extension declared on top level of a file has access to the other `private` top-level declarations in the same file;
+  在一個檔案的最高層級宣告一個擴展可以存取在相同檔案 `private` 最高層級宣告；
 * If an extension is declared outside its receiver type, such an extension cannot access the receiver's `private` members.
+  如果在 receiver 類型之外宣告擴展，這樣一個擴展不可以存取 receiver 的 `private` 。
 
 ## Motivation
 
-In Java, we are used to classes named "\*Utils": `FileUtils`, `StringUtils` and so on. The famous `java.util.Collections` belongs to the same breed.
-And the unpleasant part about these Utils-classes is that the code that uses them looks like this:
+Motivation ：動機
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only auto-indent="false">
-​```java
+In Java, we are used to classes named "\*Utils": `FileUtils`, `StringUtils` and so on. The famous `java.util.Collections` belongs to the same breed. And the unpleasant part about these Utils-classes is that the code that uses them looks like this:
+
+在 Java，我們習慣於命名 "\*Utils" 的類別： `FileUtils` 、 `StringUtils` 等等。著名的 `java.util.Collections` 屬於相同種類。關於這些 Utils-類別不愉快的部份，使用他們的代碼，看起來如下：
+
+```java
 // Java
 Collections.swap(list, Collections.binarySearch(list,
     Collections.max(otherList)),
     Collections.max(list));
 ```
-</div>
 
 Those class names are always getting in the way. We can use static imports and get this:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+那些類別名稱總是以相同方式獲取。我們可以使用 static imports 和 get this ：
+
 ```java
 // Java
 swap(list, binarySearch(list, max(otherList)), max(list));
 ```
-</div>
 
 This is a little better, but we have no or little help from the powerful code completion of the IDE. It would be so much better if we could say:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+這稍微好一點，但我們沒有或很少從 IDE 強大代碼完成幫助。如果我們可以這樣說會好得多：
+
 ```java
 // Java
 list.swap(list.binarySearch(otherList.max()), list.max());
 ```
-</div>
 
 But we don't want to implement all the possible methods inside the class `List`, right? This is where extensions help us.
+
+但我們不可能在類別 `List` 內實作所有可能的方法，對吧？這是擴展幫助我們的地方。
