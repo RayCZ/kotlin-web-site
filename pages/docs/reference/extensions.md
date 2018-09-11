@@ -334,7 +334,7 @@ fun main(args: Array<String>) {
 }
 ```
 
-**receiver 為物件直接調用是虛擬的， receiver 為參數靜態的**
+**receiver 為物件直接調用是虛擬的， receiver 為參數是靜態的**
 
 ## Note on visibility
 
@@ -355,7 +355,7 @@ Motivation ：動機
 
 In Java, we are used to classes named "\*Utils": `FileUtils`, `StringUtils` and so on. The famous `java.util.Collections` belongs to the same breed. And the unpleasant part about these Utils-classes is that the code that uses them looks like this:
 
-在 Java，我們習慣於命名 "\*Utils" 的類別： `FileUtils` 、 `StringUtils` 等等。著名的 `java.util.Collections` 屬於相同種類。關於這些 Utils-類別不愉快的部份，使用他們的代碼，看起來如下：
+在 Java，我們習慣於命名 "\*Utils" 的類別： `FileUtils` 、 `StringUtils` 等等。著名的 `java.util.Collections` 屬於相同種類。關於這些 Utils-classes 不愉快的部份，使用他們的代碼，看起來如下：
 
 ```java
 // Java
