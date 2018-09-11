@@ -238,7 +238,7 @@ Inside a class, you can declare extensions for another class. Inside such an ext
 
 在一個類別內，你可以為另一個類別宣告擴展。在這樣的一個擴展內，有很多隱式 `receiver` - 可以在沒有修飾符存取物件成員。宣告擴展的類別實例被稱為 `dispatch receiver` ， 並且擴展方法的 `receiver` 類型的實例被稱為`extension receiver` 。
 
-**以下面來說： `fun caller(d: D)` d 代表 extension receiver ，實際調用情況 C().caller(D()) ，由於是在 C 類別下宣告的，可以明顯看出是調用 C 類別的 caller 函數，調用的 C 類別本身實例代表 `dispatch receiver` ，而丟進去參數 D 類的實例是一個  `extension receiver` **
+**以下面來說： `fun caller(d: D)` d 代表 extension receiver ，實際調用情況 C().caller(D()) ，由於是在 C 類別下宣告的，可以明顯看出是調用 C 類別的 caller 函數，調用的 C 類別本身實例代表 `dispatch receiver` ，而丟進去參數 D 類的實例是一個  `extension receiver`**
 
 **C() = `dispatch receiver` ， D() = `exteions receiver`**
 
