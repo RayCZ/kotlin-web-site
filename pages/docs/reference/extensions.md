@@ -5,6 +5,18 @@ category: "Syntax"
 title: "Extensions"
 ---
 
+本章節開始之前先定義 receiver 所代表的意思： 
+
+``` kotlin
+fun Section.append(name: String)
+
+//caller
+val realObject: Section = Section()
+realObject.append("Section 1")
+```
+
+從以上這個擴展方法可以看出為 `Section` 類別擴展一個 append 方法，當我們在產生物件並且調用方法時， receiver 代表的就是這個物件本身。
+
 # Extensions
 
 Extensions ：擴展
