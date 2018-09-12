@@ -48,37 +48,42 @@ Additionally, the members generation follows these rules with regard to the memb
 另外，成員產生以下關於成員繼承的這些規則：
 
 * If there are explicit implementations of `equals()`, `hashCode()` or `toString()` in the data class body or  *final*  implementations in a superclass, then these functions are not generated, and the existing implementations are used;
-  如果在資料類別內文或在一個超 (父) 類別有 `final` 實作之中，明顯的 `equals()` 、 `hashCode()` 、 `toString()` 實作，接著這些函數不會被產生，並且使用已存在的實作；
-* If a supertype has the `componentN()` functions that are *open*{: .keyword } and return compatible types, the corresponding functions are generated for the data class and override those of the supertype. If the functions of the supertype cannot be overridden due to incompatible signatures or being final, an error is reported; 
+  如果在資料類別內文明確的 `equals()` 、 `hashCode()` 、 `toString()` 實作，或在一個超 (父) 類別有 `final` 實作，接著這些函數不會被產生，並且使用已存在的實作；
+* If a supertype has the `componentN()` functions that are *open* and return compatible types, the corresponding functions are generated for the data class and override those of the supertype. If the functions of the supertype cannot be overridden due to incompatible signatures or being final, an error is reported; 
+  如果一個超 (父) 類型有 `componentN()`函數是 `open` 且回傳兼容類型，資料類別生成對應函數並覆寫超 (父) 類型函數。如果超 (父) 類型函數不可以覆寫因為不兼容的簽名或使用 `final` ，則會報告錯誤；
 * Deriving a data class from a type that already has a `copy(...)` function with a matching signature is deprecated in Kotlin 1.2 and will be prohibited in Kotlin 1.3.
+  一個類型已有一個 `copy(...)` 函數具有匹配簽名的衍生類別在 Kotlin 1.2 版棄用並且將在 Kotlin 1.3 版禁用。
 * Providing explicit implementations for the `componentN()` and `copy()` functions is not allowed.
+  提供明確的 `componentN()`  和 `copy()` 函數實作是不充許的。
+Since 1.1, data classes may extend other classes (see [Sealed classes](sealed-classes.md) for examples).
 
-Since 1.1, data classes may extend other classes (see [Sealed classes](sealed-classes.html) for examples).
+自定 1.1 版，資料類別可以擴展其他的類別 (看 [Sealed classes](sealed-classes.md) 範例) 。
 
-On the JVM, if the generated class needs to have a parameterless constructor, default values for all properties have to be specified
-(see [Constructors](classes.html#constructors)).
+On the JVM, if the generated class needs to have a parameterless constructor, default values for all properties have to be specified (see [Constructors](classes.md#constructors)).
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+在 JVM 中，如果已生成類別需要有一個無參數建構元，所有屬性預設值必須被指定 (看 [Constructors](classes.md#constructors)) 。
+
 ``` kotlin
 data class User(val name: String = "", val age: Int = 0)
 ```
-</div>
 
 ## Properties Declared in the Class Body
 
+Properties Declared in the Class Body ：在類別的內文中宣告屬性
+
 Note that the compiler only uses the properties defined inside the primary constructor for the automatically generated functions. To exclude a property from the generated implementations, declare it inside the class body:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+注意：編輯器只使用在主建構元內定義的屬性來自動產生函數。從已生成實作排除屬性，在類別內文中宣告它
+
 ```kotlin
 data class Person(val name: String) {
     var age: Int = 0
 }
 ```
-</div>
 
 Only the property `name` will be used inside the `toString()`, `equals()`, `hashCode()`, and `copy()` implementations, and there will only be one component function `component1()`. While two `Person` objects can have different ages, they will be treated as equal.
 
-<div class="sample" markdown="1" theme="idea">
+只屬性 `name` 將在 `toString()` 、 `equals()` 、 `hashCode()` 、 `copy()` 實作內使用，並且只有一個元件函數 `component1()` 。雖然兩個 `Person` 物件可以有不同年紀，他們將被視為相等。
 
 ``` kotlin
 data class Person(val name: String) {
@@ -95,42 +100,54 @@ fun main(args: Array<String>) {
     println("person1 with age ${person1.age}: ${person1}")
     println("person2 with age ${person2.age}: ${person2}")
 }
+
+//ans:
+//person1 == person2: true
+//person1 with age 10: Person(name=John)
+//person2 with age 20: Person(name=John)
 ```
-</div>
 
 ## Copying
+
+Copying ：複製
 
 It's often the case that we need to copy an object altering _some_ of its properties, but keeping the rest unchanged. 
 This is what `copy()` function is generated for. For the `User` class above, its implementation would be as follows:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+通常情況下，我們需要複製一個改變某些屬性物件，但保持其餘的不變，這是生成 `copy` 函數的原因，對於上面 `User` 類別，它實現如下：
+
 ``` kotlin
 fun copy(name: String = this.name, age: Int = this.age) = User(name, age)     
 ```
-</div>
 
 This allows us to write:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+這充許我們寫：
+
 ``` kotlin
 val jack = User(name = "Jack", age = 1)
 val olderJack = jack.copy(age = 2)
 ```
-</div>
 
 ## Data Classes and Destructuring Declarations
 
-_Component functions_ generated for data classes enable their use in [destructuring declarations](multi-declarations.html):
+Data Classes and Destructuring Declarations  ：資料類別和解構宣告
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+_Component functions_ generated for data classes enable their use in [destructuring declarations](multi-declarations.md):
+
+為資料類別生成元件函數啟用它們使用在[解構宣告](multi-declarations.md)
+
 ``` kotlin
 val jane = User("Jane", 35) 
 val (name, age) = jane
 println("$name, $age years of age") // prints "Jane, 35 years of age"
 ```
-</div>
 
 ## Standard Data Classes
 
+Standard Data Classes ：標準資料類別
+
 The standard library provides `Pair` and `Triple`. In most cases, though, named data classes are a better design choice, 
 because they make the code more readable by providing meaningful names for properties.
+
+標準函式庫提供 `Pair` 和 `Triple` 。大多情況下，雖然命名資料類別是一個更好的設計選擇，因為透過提供屬性有意義命名使得代碼可讀的。
