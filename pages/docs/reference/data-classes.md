@@ -7,42 +7,52 @@ title: "Data Classes"
 
 # Data Classes
 
-We frequently create classes whose main purpose is to hold data.
-In such a class some standard functionality and utility functions are often mechanically
-derivable from the data. In Kotlin, this is called a _data class_ and is marked as `data`:
+Data Classes ：資料類別
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+We frequently create classes whose main purpose is to hold data. In such a class some standard functionality and utility functions are often mechanically derivable from the data. In Kotlin, this is called a _data class_ and is marked as `data`:
+
+我們經常創建類別，我們主要目的是保存資料。在這樣一個類別中，有些標準功能和工具函數通常從資料中有機制的導出。在 Kotlin ，這是被稱為一個資料類別並標記為 `data` ：
+
 ``` kotlin
 data class User(val name: String, val age: Int)
 ```
-</div>
 
 The compiler automatically derives the following members from all properties declared in the primary constructor:
-  
+
+編譯器從主建構元中宣告所有屬性自動的衍生以下成員：
+
   * `equals()`/`hashCode()` pair;
+    一對函數 `equals()`/`hashCode()` ；
   * `toString()` of the form `"User(name=John, age=42)"`;
-  * [`componentN()` functions](multi-declarations.html) corresponding to the properties in their order of declaration;
+    從 `"User(name=John, age=42)"` 的 `toString()` ；
+  * [`componentN()` functions](multi-declarations.md) corresponding to the properties in their order of declaration;
+    [`componentN()` functions](multi-declarations.md) 對應到他們宣告順序的屬性；
   * `copy()` function (see below).
+    `copy()` 函數 (見下文) 。
 
 To ensure consistency and meaningful behavior of the generated code, data classes have to fulfill the following requirements:
 
+確保生成代碼的一致性和有意義的行為，資料類別必須滿足以下條件：
+
   * The primary constructor needs to have at least one parameter;
+    主建構元需要至少一個參數
   * All primary constructor parameters need to be marked as `val` or `var`;
+    所有主建構元參數需要標記為 `val` 和 `var` ；
   * Data classes cannot be abstract, open, sealed or inner;
+    資料類別不可以是 `abstract` 、 `open` 、 `sealed` 、 `inner` ；
   * (before 1.1) Data classes may only implement interfaces.
-  
+    (1.1 版以前) 資料類別可以只實作介面。
+
 Additionally, the members generation follows these rules with regard to the members inheritance:
 
-* If there are explicit implementations of `equals()`, `hashCode()` or `toString()` in the data class body or 
-*final*{: .keyword } implementations in a superclass, then these functions are not generated, and the existing 
-implementations are used;
-* If a supertype has the `componentN()` functions that are *open*{: .keyword } and return compatible types, the 
-corresponding functions are generated for the data class and override those of the supertype. If the functions of the 
-supertype cannot be overridden due to incompatible signatures or being final, an error is reported; 
-* Deriving a data class from a type that already has a `copy(...)` function with a matching signature is deprecated in 
-Kotlin 1.2 and will be prohibited in Kotlin 1.3.
+另外，成員產生以下關於成員繼承的這些規則：
+
+* If there are explicit implementations of `equals()`, `hashCode()` or `toString()` in the data class body or  *final*  implementations in a superclass, then these functions are not generated, and the existing implementations are used;
+  如果在資料類別內文或在一個超 (父) 類別有 `final` 實作之中，明顯的 `equals()` 、 `hashCode()` 、 `toString()` 實作，接著這些函數不會被產生，並且使用已存在的實作；
+* If a supertype has the `componentN()` functions that are *open*{: .keyword } and return compatible types, the corresponding functions are generated for the data class and override those of the supertype. If the functions of the supertype cannot be overridden due to incompatible signatures or being final, an error is reported; 
+* Deriving a data class from a type that already has a `copy(...)` function with a matching signature is deprecated in Kotlin 1.2 and will be prohibited in Kotlin 1.3.
 * Providing explicit implementations for the `componentN()` and `copy()` functions is not allowed.
-  
+
 Since 1.1, data classes may extend other classes (see [Sealed classes](sealed-classes.html) for examples).
 
 On the JVM, if the generated class needs to have a parameterless constructor, default values for all properties have to be specified
@@ -89,7 +99,7 @@ fun main(args: Array<String>) {
 </div>
 
 ## Copying
-  
+
 It's often the case that we need to copy an object altering _some_ of its properties, but keeping the rest unchanged. 
 This is what `copy()` function is generated for. For the `User` class above, its implementation would be as follows:
 
