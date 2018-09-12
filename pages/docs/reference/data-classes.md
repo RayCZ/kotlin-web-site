@@ -24,7 +24,7 @@ The compiler automatically derives the following members from all properties dec
   * `equals()`/`hashCode()` pair;
     一對函數 `equals()`/`hashCode()` ；
   * `toString()` of the form `"User(name=John, age=42)"`;
-    從 `"User(name=John, age=42)"` 的 `toString()` ；
+    `"User(name=John, age=42)"` 形式的 `toString()` ；
   * [`componentN()` functions](multi-declarations.md) corresponding to the properties in their order of declaration;
     [`componentN()` functions](multi-declarations.md) 對應到他們宣告順序的屬性；
   * `copy()` function (see below).
@@ -45,7 +45,7 @@ To ensure consistency and meaningful behavior of the generated code, data classe
 
 Additionally, the members generation follows these rules with regard to the members inheritance:
 
-另外，成員產生以下關於成員繼承的這些規則：
+另外，成員產生遵循這些規則關於成員繼承：
 
 * If there are explicit implementations of `equals()`, `hashCode()` or `toString()` in the data class body or  *final*  implementations in a superclass, then these functions are not generated, and the existing implementations are used;
   如果在資料類別內文明確的 `equals()` 、 `hashCode()` 、 `toString()` 實作，或在一個超 (父) 類別有 `final` 實作，接著這些函數不會被產生，並且使用已存在的實作；
