@@ -29,9 +29,9 @@
 
 - [Extensions](pages/docs/reference/extensions.md) (擴展)
 
-- [Data Classes](pages/docs/reference/data-classes.md)
+- [Data Classes](pages/docs/reference/data-classes.md) (資料類別)
 
-- [Sealed Classes](pages/docs/reference/sealed-classes.md)
+- [Sealed Classes](pages/docs/reference/sealed-classes.md) (密封類別)
 
 - [Generics](pages/docs/reference/generics.md)
 
