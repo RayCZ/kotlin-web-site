@@ -11,7 +11,7 @@ Sealed Classes ：密封類別，類似於類別的群組化
 
 Sealed classes are used for representing restricted class hierarchies, when a value can have one of the types from a limited set, but cannot have any other type. They are, in a sense, an extension of enum classes: the set of values for an enum type is also restricted, but each enum constant exists only as a single instance, whereas a subclass of a sealed class can have multiple instances which can contain state.
 
-當一個值可以從一個有限制集合的類型之一時，密封類別用於表示限制類別的階層。在某種意義上，他們是列舉類別的擴展：對於列舉類型也是限制數值組，但每個列舉常數只作為單個實例存在，然而一個密封的子類別可以有多個實列也可以包含狀態。
+當一個值可以從一個有限制集合的類型之一時，密封類別用於表示限制類別的階層。在某種意義上，他們是列舉類別的擴展：對於列舉類型也是限制數值組，但每個列舉常數只作為單個實例存在，然而一個密封的子類別可以有多個實例也可以包含狀態。
 
 To declare a sealed class, you put the `sealed` modifier before the name of the class. A sealed class can have subclasses, but all of them must be declared in the same file as the sealed class itself. (Before Kotlin 1.1, the rules were even more strict: classes had to be nested inside the declaration of the sealed class).
 
