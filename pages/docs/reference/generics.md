@@ -43,11 +43,11 @@ wildcard ：為語言中的一種表示法 `<Type>` 代表類別、`List`、`Map
 
 One of the most tricky parts of Java's type system is wildcard types `<Type>` (see [Java Generics FAQ](http://www.angelikalanger.com/GenericsFAQ/JavaGenericsFAQ.html)). And Kotlin doesn't have any. Instead, it has two other things: declaration-site variance and type projections.
 
-Java 類型系統中最棘手的部分之一是通配符類型 (看 [Java Generics FAQ](http://www.angelikalanger.com/GenericsFAQ/JavaGenericsFAQ.html)) 。而且 Kotlin 沒有，相反的，它有另外兩件事：宣告場景的變量元素和類型預測。
+Java 類型系統中最棘手的部分之一是通配符類型 `<Type>` (看 [Java Generics FAQ](http://www.angelikalanger.com/GenericsFAQ/JavaGenericsFAQ.html)) 。而且 Kotlin 沒有，相反的，它有另外兩件事：宣告場景的變量元素和類型預測。
 
 First, let's think about why Java needs those mysterious wildcards. The problem is explained in [Effective Java, 3rd Edition](http://www.oracle.com/technetwork/java/effectivejava-136174.html), Item 31: *Use bounded wildcards to increase API flexibility*. First, generic types in Java are **invariant**, meaning that `List<String>` is **not** a subtype of `List<Object>`. Why so? If List was not **invariant**, it would have been no better than Java's arrays, since the following code would have compiled and caused an exception at runtime:
 
-首先，讓我們思聽有關 Java 為何需要那些神秘的通配符。這個問題在 [Effective Java, 3rd Edition](http://www.oracle.com/technetwork/java/effectivejava-136174.html), Item 31: *Use bounded wildcards to increase API flexibility* 解釋。首先在 Java 的泛型類型是不可變的，意思著 `List<String>` 不是一個  `List<Object>` 的子類型。為什麼這樣？如果 List 不是不可變，這將沒有比 Java 的陣列好，因為以下代碼被編譯並且在運行時造成一個異常。
+首先，讓我們思考有關 Java 為何需要那些神秘的通配符。這個問題在 [Effective Java, 3rd Edition](http://www.oracle.com/technetwork/java/effectivejava-136174.html), Item 31: *Use bounded wildcards to increase API flexibility* 解釋。首先在 Java 的泛型類型是不可變的，意思著 `List<String>` 不是一個  `List<Object>` 的子類型。為什麼這樣？如果 List 不是不可變，這將沒有比 Java 的陣列好，因為以下代碼被編譯並且在運行時造成一個異常。
 
 ``` java
 // Java
@@ -102,7 +102,7 @@ The **wildcard type argument** `? extends E` indicates that this method accepts 
 
 **以下的 collection 便於瞭解可以看成是 List 介面**
 
-通配符類型參數 `? extends E` 表示此方法接受一個集合 `List` 的元素是 E 類型的物件或某個 E 類型的子類型，不只有 E 類型本身。這意味著我們可以從集合中 `<List>` 的項目安全的讀出 E 類型 (這個集合 `<List>` 的元素是 E 子類別的實例) ，但不可以寫入它，因為我們不知道放入的元素是遵守什麼樣未知的 E 子類型，這個 限制的回報，我們有渴望的行為： `Collection<String>` 是一個 `Collection<? extends Object>` 的子類型。 "聰明的單字" ，通配符有 **擴展**-邊界 (上限) 使得類型是協變的。
+通配符類型參數 `? extends E` 表示此方法接受一個集合 `List` 的元素是 E 類型的物件或某個 E 類型的子類型，不只有 E 類型本身。這意味著我們可以從集合中 `<List>` 的項目安全的讀出 E 類型 (這個集合 `<List>` 的元素是 E 子類別的實例) ，但不可以寫入它，因為我們不知道放入的元素是遵守什麼樣未知的 E 子類型，這個限制的回報，我們有渴望的行為： `Collection<String>` 是一個 `Collection<? extends Object>` 的子類型。 "聰明的單字" ，通配符有 **擴展**-邊界 (上限) 使得類型是協變的。
 
 **covariant ：不可變，代表在類別、`List`、`Map`... 等的元素類型是不可變的，例如：`List <View>`，這個集合就是只能有 View 的元素，不能是 View 的父類別或子類別，為不可變的元素**
 
