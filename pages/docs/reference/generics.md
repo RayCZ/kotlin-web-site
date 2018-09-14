@@ -120,11 +120,15 @@ The latter is called **contravariance**, and you can only call methods that take
 
 Joshua Bloch calls those objects you only **read** from **Producers**, and those you only **write** to **Consumers**. He recommends: "*For maximum flexibility, use wildcard types on input parameters that represent producers or consumers*", and proposes the following mnemonic:
 
-Joshua Bloch 說：調那些物件你只可以從 **Producers (生產者)** 讀取，並且那些你可以寫入給 **Consumers (消費者)** 。他的建議。"*For maximum flexibility, use wildcard types on input parameters that represent producers or consumers*" ，並且提出以下助記符：
+Joshua Bloch 說：調那些物件你只可以從 **Producers (生產者)** 讀取，並且那些你可以寫入給 **Consumers (消費者)** 。他的建議。"*For maximum flexibility, use wildcard types on input parameters that represent producers or consumers*" ，並且提出以下助記：
 
 **PECS stands for Producer-Extends, Consumer-Super.**
 
+**建議從集合的物件 `List` 角度想，生產者利用 `extends` 允許物件協變的取出，算是一個由集合生產出元素給別人的過程，消費者利用 `super` 允許物件逆變 (限制) 的放入，算是別人消費了元素帶入到集合的的過程**
+
 *NOTE*: if you use a producer-object, say, `List<? extends Foo>`, you are not allowed to call `add()` or `set()` on this object, but this does not mean that this object is **immutable**: for example, nothing prevents you from calling `clear()` to remove all items from the list, since `clear()` does not take any parameters at all. The only thing guaranteed by wildcards (or other types of variance) is **type safety**. Immutability is a completely different story.
+
+注意：如果你使用一個 producer-object (生產者物件)，比如， `List<? extends Foo>` ，你不被允許在這個物件調用 `add()` 或 `set()` ，但這不意味著這個物件是**不可變的**：例如，沒有什麼阻止你調用 `clear()` 從列表去移除所有項目，因為 `clear()` 根本不會帶任何參數。透過通配符 (或其他變量元素的類型) 是唯一保證類型安全。不可變是完全不同的故事。
 
 ### Declaration-site variance
 
