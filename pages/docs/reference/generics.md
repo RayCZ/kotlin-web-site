@@ -106,7 +106,7 @@ The **wildcard type argument** `? extends E` indicates that this method accepts 
 
 **covariant ：不可變，代表在類別、`List`、`Map`... 等的元素類型是不可變的，例如：`List <View>`，這個集合就是只能有 View 的元素，不能是 View 的父類別或子類別，為不可變的元素**
 
-**covariant ：協變，代表在類別、`List`、`Map`... 等的元素類型是可變的，經由表示 `extends` 給一個擴展的類別繼承範圍，例如： `<? extends View>` ，以 Android 來說像是 `Button` 、 `ImageView` 、 `TextView` 只要是 `View` 的子類別都可以放入集合中，從繼承關係中協變而來的元素，為了確保在集合「取出」的物件類型是安全的 ，在 Kotlin `<out T>` **
+**covariant ：協變，代表在類別、`List`、`Map`... 等的元素類型是可變的，經由表示 `extends` 給一個擴展的類別繼承範圍，例如： `<? extends View>` ，以 Android 來說像是 `Button` 、 `ImageView` 、 `TextView` 只要是 `View` 的子類別都可以放入集合中，從繼承關係中協變而來的元素，為了確保在集合「取出」的物件類型是安全的 ，在 Kotlin `<out T>`**
 
 **contravariance ：逆變，代表在類別、`List`、`Map`... 等的元素類型是逆向變化的，經由表示 `super` 給定限制的類別繼承範圍，例如： `<? Super Button>` ，以 Android 來說只能是 `Button` 的父類別才能放入，所以有 `TextView` 、 `View` 、 `Object`才可以放入，算是一種限制集合元素的方式，為了確保在集合「放入」的物件類型安全，配合協變的取出是安全的，在 Kotlin `<in T>`**
 
