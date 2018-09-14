@@ -29,7 +29,7 @@ val box: Box<Int> = Box<Int>(1)
 
 But if the parameters may be inferred, e.g. from the constructor arguments or by some other means, one is allowed to omit the type arguments:
 
-但如果參數可以被推斷，例如：從建構元參數或透過一些其他的手段，允許省略類型參數：
+但如果參數可以被推斷，例如：從建構元參數或透過一些其他的手段，允許省略類型類型參數：
 
 ``` kotlin
 val box = Box(1) // 1 has type Int, so the compiler figures out that we are talking about Box<Int>
@@ -104,9 +104,9 @@ The **wildcard type argument** `? extends E` indicates that this method accepts 
 
 通配符類型參數 `? extends E` 表示此方法接受一個集合 `List` 的元素是 E 類型的物件或某個 E 類型的子類型，不只有 E 類型本身。這意味著我們可以從集合中 `<List>` 的項目安全的讀出 E 類型 (這個集合 `<List>` 的元素是 E 子類別的實例) ，但不可以寫入它，因為我們不知道放入的元素是遵守什麼樣未知的 E 子類型，這個 限制的回報，我們有渴望的行為： `Collection<String>` 是一個 `Collection<? extends Object>` 的子類型。 "聰明的單字" ，通配符有 **擴展**-邊界 (上限) 使得類型是協變的。
 
-**covariant ：不可變，代表在類別、`List`、`Map`... 等的元素類型是不可變的，例如：`List <View>`，這個集合就是只能有 View 的元素，不能是 View 的父類別或子類別，為不可變的元素。**
+**covariant ：不可變，代表在類別、`List`、`Map`... 等的元素類型是不可變的，例如：`List <View>`，這個集合就是只能有 View 的元素，不能是 View 的父類別或子類別，為不可變的元素**
 
-**covariant ：協變，代表在類別、`List`、`Map`... 等的元素類型是可變的，經由表示 `extends` 給一個擴展的類別繼承範圍，例如： `<? extends View>` ，以 Android 來說像是 `Button` 、 `ImageView` 、 `TextView` 只要是 `View` 的子類別都可以放入集合中，從繼承關係中協變而來的元素，為了確保在集合「取出」的物件類型是安全的 ，在 Kotlin `<out T>` 。**
+**covariant ：協變，代表在類別、`List`、`Map`... 等的元素類型是可變的，經由表示 `extends` 給一個擴展的類別繼承範圍，例如： `<? extends View>` ，以 Android 來說像是 `Button` 、 `ImageView` 、 `TextView` 只要是 `View` 的子類別都可以放入集合中，從繼承關係中協變而來的元素，為了確保在集合「取出」的物件類型是安全的 ，在 Kotlin `<out T>` **
 
 **contravariance ：逆變，代表在類別、`List`、`Map`... 等的元素類型是逆向變化的，經由表示 `super` 給定限制的類別繼承範圍，例如： `<? Super Button>` ，以 Android 來說只能是 `Button` 的父類別才能放入，所以有 `TextView` 、 `View` 、 `Object`才可以放入，算是一種限制集合元素的方式，為了確保在集合「放入」的物件類型安全，配合協變的取出是安全的，在 Kotlin `<in T>`**
 
