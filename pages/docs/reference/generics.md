@@ -112,11 +112,17 @@ The **wildcard type argument** `? extends E` indicates that this method accepts 
 
 The key to understanding why this trick works is rather simple: if you can only **take** items from a collection, then using a collection of `String`s and reading `Object`s from it is fine. Conversely, if you can only _put_ items into the collection, it's OK to take a collection of `Object`s and put `String`s into it: in Java we have `List<? super String>` a **supertype** of `List<Object>`.
 
+理解為什麼這個技巧的關鍵是相當簡單：如果你只可以從集合取出**項目**，接著使用一個 `String` 的集合並且從集合中讀出 `Object` 是可以的。相反，如果你只可以放入**項目**到集合，帶入一個 `object` 的集合並且放 `String` 到集合也是可以的：在 Java 中，我們有 `List<? super String>` 是一個 `List<Object>` 的子類型。
+
 The latter is called **contravariance**, and you can only call methods that take String as an argument on `List<? super String>` (e.g., you can call `add(String)` or `set(int, String)`), while if you call something that returns `T` in `List<T>`, you don't get a `String`, but an `Object`.
+
+後者稱為逆變，並且你只可以在 `List<? super String>` 調用方法帶入 String 為一個參數 (例如：你可以調用 `add(String)` 或 `set(int, String)`)，而如果你在 `List<T>` 調用回傳 `T` 的東西，你不會獲到 `String` ，而是一個 `Object` 。
 
 Joshua Bloch calls those objects you only **read** from **Producers**, and those you only **write** to **Consumers**. He recommends: "*For maximum flexibility, use wildcard types on input parameters that represent producers or consumers*", and proposes the following mnemonic:
 
-*PECS stands for Producer-Extends, Consumer-Super.*
+Joshua Bloch 說：調那些物件你只可以從 **Producers (生產者)** 讀取，並且那些你可以寫入給 **Consumers (消費者)** 。他的建議。"*For maximum flexibility, use wildcard types on input parameters that represent producers or consumers*" ，並且提出以下助記符：
+
+**PECS stands for Producer-Extends, Consumer-Super.**
 
 *NOTE*: if you use a producer-object, say, `List<? extends Foo>`, you are not allowed to call `add()` or `set()` on this object, but this does not mean that this object is **immutable**: for example, nothing prevents you from calling `clear()` to remove all items from the list, since `clear()` does not take any parameters at all. The only thing guaranteed by wildcards (or other types of variance) is **type safety**. Immutability is a completely different story.
 

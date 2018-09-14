@@ -181,7 +181,7 @@ val <T> List<T>.lastIndex: Int
 
 Note that, since extensions do not actually insert members into classes, there's no efficient way for an extension property to have a [backing field](properties.md#backing-fields). This is why **initializers are not allowed for extension properties**. Their behavior can only be defined by explicitly providing getters/setters.
 
-注意：因為 extensions 實際上不會插入成員到類別，擴展函數沒有有效的方式獲得[支援欄位](properties.md#backing-fields) 。這是為何**擴展屬性不充許初始化的原因**。他們的行為只能由明確提供 getters/setters 來定義。
+注意：因為 extensions 實際上不會插入成員到類別，擴展函數沒有有效的方式獲得[支援欄位](properties.md#backing-fields) 。這是為何**擴展屬性不允許初始化的原因**。他們的行為只能由明確提供 getters/setters 來定義。
 
 Example:
 

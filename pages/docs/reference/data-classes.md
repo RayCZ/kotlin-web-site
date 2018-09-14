@@ -57,7 +57,7 @@ Additionally, the members generation follows these rules with regard to the memb
   一個類型已有一個 `copy(...)` 函數具有匹配簽名的衍生類別在 Kotlin 1.2 版棄用並且將在 Kotlin 1.3 版禁用。
 
 * Providing explicit implementations for the `componentN()` and `copy()` functions is not allowed.
-  提供明確的 `componentN()`  和 `copy()` 函數實作是不充許的。
+  提供明確的 `componentN()`  和 `copy()` 函數實作是不允許的。
 
 Since 1.1, data classes may extend other classes (see [Sealed classes](sealed-classes.md) for examples).
 
@@ -126,7 +126,7 @@ fun copy(name: String = this.name, age: Int = this.age) = User(name, age)
 
 This allows us to write:
 
-這充許我們寫：
+這允許我們寫：
 
 ``` kotlin
 val jack = User(name = "Jack", age = 1)
