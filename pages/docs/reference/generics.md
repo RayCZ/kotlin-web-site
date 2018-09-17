@@ -102,9 +102,9 @@ The **wildcard type argument** `? extends E` indicates that this method accepts 
 
 **以下的 collection 便於瞭解可以看成是 List 介面**
 
-通配符類型參數 `? extends E` 表示此方法接受一個集合 `List` 的元素是 E 類型的物件或某個 E 類型的子類型，不只有 E 類型本身。這意味著我們可以從集合中 `<List>` 的項目安全的讀出 E 類型 (這個集合 `<List>` 的元素是 E 子類別的實例) ，但不可以寫入它，因為我們不知道放入的元素是遵守什麼樣未知的 E 子類型，這個限制的回報，我們有渴望的行為： `Collection<String>` 是一個 `Collection<? extends Object>` 的子類型。 "聰明的單字" ，通配符有 **擴展**-邊界 (上限) 使得類型是協變的。
+通配符類型參數 `? extends E` 表示此方法接受一個集合 `List` 的元素是 E 類型的物件或某個 E 類型的子類型，不只有 E 類型本身。這意味著我們可以從集合中 `<List>` 的項目安全的讀出 E 類型 (這個集合 `<List>` 的元素是 E 子類別的實例) ，但不可以寫入它，因為我們不知道放入的元素是遵守什麼樣未知的 E 子類型，這個限制的回報，我們有渴望的行為： 讓集合中的元素是可以有繼承關係的 `Collection<String>` 是一個 `Collection<? extends Object>` 的子類型。 "聰明的單詞" ，通配符有 **擴展**-邊界 (上限) 使得類型是協變的。
 
-**covariant ：不可變，代表在類別、`List`、`Map`... 等的元素類型是不可變的，例如：`List <View>`，這個集合就是只能有 View 的元素，不能是 View 的父類別或子類別，為不可變的元素**
+**invariant ：不可變，代表在類別、`List`、`Map`... 等的元素類型是不可變的，例如：`List <View>`，這個集合就是只能有 View 的元素，不能是 View 的父類別或子類別，為不可變的元素**
 
 **covariant ：協變，代表在類別、`List`、`Map`... 等的元素類型是可變的，經由表示 `extends` 給一個擴展的類別繼承範圍，例如： `<? extends View>` ，以 Android 來說像是 `Button` 、 `ImageView` 、 `TextView` 只要是 `View` 的子類別都可以放入集合中，從繼承關係中協變而來的元素，為了確保在集合「取出」的物件類型是安全的 ，在 Kotlin `<out T>`**
 
@@ -132,20 +132,23 @@ Joshua Bloch 說：調那些物件你只可以從 **Producers (生產者)** 讀�
 
 ## Declaration-site variance
 
+Declaration-site variance ：宣告場景的變量元素
+
 Suppose we have a generic interface `Source<T>` that does not have any methods that take `T` as a parameter, only methods that return `T`:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+假設我們有一個泛型介面 `Source<T>` 沒有任何方法是帶 `T` 為參數，只有方法回傳 `T` ：
+
 ``` java
 // Java
 interface Source<T> {
   T nextT();
 }
 ```
-</div>
 
 Then, it would be perfectly safe to store a reference to an instance of `Source<String>` in a variable of type `Source<Object>` -- there are no consumer-methods to call. But Java does not know this, and still prohibits it:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+接著，在一個 `Source<Object>` 類型的變數中儲存一個 `Source<String>` 實例的參照是完全安全的 -- 沒有調用 consumer-methods ，但Java不知道這點，並且禁用它：
+
 ``` java
 // Java
 void demo(Source<String> strs) {
@@ -153,14 +156,17 @@ void demo(Source<String> strs) {
   // ...
 }
 ```
-</div>
+
+**`Source<Object> objects` 與 `Source<String> strs` 變量元素為不可變 (invariant)的，類型是不同，所以不能直接引用，必需讓變量元素為可變的 (covariant) `Source<? extends Object>` 才能解決此問題**
 
 To fix this, we have to declare objects of type `Source<? extends Object>`, which is sort of meaningless, because we can call all the same methods on such a variable as before, so there's no value added by the more complex type. But the compiler does not know that.
 
-In Kotlin, there is a way to explain this sort of thing to the compiler. This is called **declaration-site variance**: we can annotate the **type parameter** `T` of Source to make sure that it is only **returned** (produced) from members of `Source<T>`, and never consumed. 
-To do this we provide the **out** modifier:
+為了修正這個問題，我們必需宣告 `Source<? extends Object>` 物件，有點無意義的，因為我們可以像以前一樣在這樣一個變數調用所有相同的方法，因此沒有增加更複雜類型的值。但編譯器不知道這點。
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+In Kotlin, there is a way to explain this sort of thing to the compiler. This is called **declaration-site variance**: we can annotate the **type parameter** `T` of Source to make sure that it is only **returned** (produced) from members of `Source<T>`, and never consumed. To do this we provide the **out** modifier:
+
+在 Kotlin 中，有一種方式可以解釋這種事情給編譯器。這被稱為**宣告-場景 變量元素** ：我們可以標記 Source 的**類型參數** `T` 確保它只能從 `Source<T>` 的成員**回傳 (生產) **，且不為是消費。為此我們提供 `out` 修飾符 ：
+
 ``` kotlin
 interface Source<out T> {
     fun nextT(): T
@@ -171,22 +177,28 @@ fun demo(strs: Source<String>) {
     // ...
 }
 ```
-</div>
 
-The general rule is: when a type parameter `T` of a class `C` is declared **out**, it may occur only in **out**\-position in the members of `C`, but in return `C<Base>` can safely be a supertype 
-of `C<Derived>`.
+**Kotlin out > Java extends > covariant**
 
-In "clever words" they say that the class `C` is **covariant** in the parameter `T`, or that `T` is a **covariant** type parameter. 
-You can think of `C` as being a **producer** of `T`'s, and NOT a **consumer** of `T`'s.
+**Kotlin in > Java super > contravariant**
 
-The **out** modifier is called a **variance annotation**, and  since it is provided at the type parameter declaration site, we talk about **declaration-site variance**. 
-This is in contrast with Java's **use-site variance** where wildcards in the type usages make the types covariant.
+The general rule is: when a type parameter `T` of a class `C` is declared **out**, it may occur only in **out**\-position in the members of `C`, but in return `C<Base>` can safely be a supertype of `C<Derived>`.
 
-In addition to **out**, Kotlin provides a complementary variance annotation: **in**. It makes a type parameter **contravariant**: it can only be consumed and never 
-produced. A good example of a contravariant type is `Comparable`:
+一般規則：當一個類別的類型參數 `T` 被宣告 `out`，它只在 `C` 的成員內發生**輸出**-位置，但在回傳 `C<Base>` 可以安全地為一個 `C<Derived>` 的超類型。
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
-​``` kotlin
+In "clever words" they say that the class `C` is **covariant** in the parameter `T`, or that `T` is a **covariant** type parameter. You can think of `C` as being a **producer** of `T`'s, and NOT a **consumer** of `T`'s.
+
+在 "聰明的單詞" 中，他們說在參數 `T` 類別 `C` 是**協變的**，或者 `T` 是一個**協變的**類型參數。你可以視 `C` 為 `T` 的生產者，而不是 `T` 的消費者。
+
+The **out** modifier is called a **variance annotation**, and  since it is provided at the type parameter declaration site, we talk about **declaration-site variance**. This is in contrast with Java's **use-site variance** where wildcards in the type usages make the types covariant.
+
+`out` 修飾符被稱為一個**變量註釋**，因為它是在類型參數宣告場景提供的，我們稱為**宣告-場景 變量元素**。這是在對比 Java 的**使用-場景 變量元素**，類型用法的通配符使類型協變的。
+
+In addition to **out**, Kotlin provides a complementary variance annotation: **in**. It makes a type parameter **contravariant**: it can only be consumed and never produced. A good example of a contravariant type is `Comparable`:
+
+除了 `out` ， Kotlin 提供一個互補變量元素註釋： `in` 。它使一個類型參數**逆變的**：它只可以為消費並且不能生產。逆變類型 `Comparable` 的一個好範例：
+
+``` kotlin
 interface Comparable<in T> {
     operator fun compareTo(other: T): Int
 }
@@ -197,10 +209,12 @@ fun demo(x: Comparable<Number>) {
     val y: Comparable<Double> = x // OK!
 }
 ```
-</div>
 
-We believe that the words **in** and **out** are self-explaining (as they were successfully used in C# for quite some time already), 
-thus the mnemonic mentioned above is not really needed, and one can rephrase it for a higher purpose:
+**Double 是 Number 的子類，一開始參數 `x: Comparable<Number>` 為  Number 變量元素，而後放入的值是 `1.0` 為Double 類型**
+
+We believe that the words **in** and **out** are self-explaining (as they were successfully used in C# for quite some time already), thus the mnemonic mentioned above is not really needed, and one can rephrase it for a higher purpose:
+
+我們認為單字 `in` 和 `out` 可從字面上自我解釋 (因為它們已經在 C# 中成功使用了很長一段時間) ，因此上述的助記符不是真正需要的，並且可以改寫它為一個更高的目的：
 
 **[The Existential](http://en.wikipedia.org/wiki/Existentialism) Transformation: Consumer in, Producer out\!** :-)
 
@@ -212,7 +226,7 @@ It is very convenient to declare a type parameter T as *out* and avoid trouble w
 A good example of this is Array:
 
 <div class="sample" markdown="1" theme="idea" data-highlight-only>
-``` kotlin
+​``` kotlin
 class Array<T>(val size: Int) {
     fun get(index: Int): T { ... }
     fun set(index: Int, value: T) { ... }
