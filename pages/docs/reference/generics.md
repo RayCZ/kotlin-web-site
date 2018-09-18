@@ -43,7 +43,7 @@ wildcard ：為語言中的一種表示法 `<Type>` 代表類別、`List`、`Map
 
 One of the most tricky parts of Java's type system is wildcard types `<Type>` (see [Java Generics FAQ](http://www.angelikalanger.com/GenericsFAQ/JavaGenericsFAQ.html)). And Kotlin doesn't have any. Instead, it has two other things: declaration-site variance and type projections.
 
-Java 類型系統中最棘手的部分之一是通配符類型 `<Type>` (看 [Java Generics FAQ](http://www.angelikalanger.com/GenericsFAQ/JavaGenericsFAQ.html)) 。而且 Kotlin 沒有，相反的，它有另外兩件事：宣告場景的變量元素和類型投射。
+Java 類型系統中最棘手的部分之一是通配符類型 `<Type>` (看 [Java Generics FAQ](http://www.angelikalanger.com/GenericsFAQ/JavaGenericsFAQ.html)) 。而且 Kotlin 沒有，相反的，它有另外兩件事：宣告-場景的變量元素和類型投射。
 
 First, let's think about why Java needs those mysterious wildcards. The problem is explained in [Effective Java, 3rd Edition](http://www.oracle.com/technetwork/java/effectivejava-136174.html), Item 31: *Use bounded wildcards to increase API flexibility*. First, generic types in Java are **invariant**, meaning that `List<String>` is **not** a subtype of `List<Object>`. Why so? If List was not **invariant**, it would have been no better than Java's arrays, since the following code would have compiled and caused an exception at runtime:
 
@@ -132,7 +132,7 @@ Joshua Bloch 說：調那些物件你只可以從 **Producers (生產者)** 讀�
 
 ## Declaration-site variance
 
-Declaration-site variance ：宣告場景的變量元素
+Declaration-site variance ：宣告-場景的變量元素
 
 Suppose we have a generic interface `Source<T>` that does not have any methods that take `T` as a parameter, only methods that return `T`:
 
