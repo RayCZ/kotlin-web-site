@@ -43,7 +43,7 @@ wildcard ：為語言中的一種表示法 `<Type>` 代表類別、`List`、`Map
 
 One of the most tricky parts of Java's type system is wildcard types `<Type>` (see [Java Generics FAQ](http://www.angelikalanger.com/GenericsFAQ/JavaGenericsFAQ.html)). And Kotlin doesn't have any. Instead, it has two other things: declaration-site variance and type projections.
 
-Java 類型系統中最棘手的部分之一是通配符類型 `<Type>` (看 [Java Generics FAQ](http://www.angelikalanger.com/GenericsFAQ/JavaGenericsFAQ.html)) 。而且 Kotlin 沒有，相反的，它有另外兩件事：宣告場景的變量元素和類型預測。
+Java 類型系統中最棘手的部分之一是通配符類型 `<Type>` (看 [Java Generics FAQ](http://www.angelikalanger.com/GenericsFAQ/JavaGenericsFAQ.html)) 。而且 Kotlin 沒有，相反的，它有另外兩件事：宣告場景的變量元素和類型投射。
 
 First, let's think about why Java needs those mysterious wildcards. The problem is explained in [Effective Java, 3rd Edition](http://www.oracle.com/technetwork/java/effectivejava-136174.html), Item 31: *Use bounded wildcards to increase API flexibility*. First, generic types in Java are **invariant**, meaning that `List<String>` is **not** a subtype of `List<Object>`. Why so? If List was not **invariant**, it would have been no better than Java's arrays, since the following code would have compiled and caused an exception at runtime:
 
@@ -220,11 +220,11 @@ We believe that the words **in** and **out** are self-explaining (as they were s
 
 ## Type projections
 
-Type projections ：類型預測
+Type projections ：類型投射
 
 ### Use-site variance: Type projections
 
-Use-site variance: Type projections ：使用-場景 變量元素 : 類型預測
+Use-site variance: Type projections ：使用-場景 變量元素 : 類型投射
 
 It is very convenient to declare a type parameter T as *out* and avoid trouble with subtyping on the use site, but some classes **can't** actually be restricted to only return `T`'s! A good example of this is Array:
 
@@ -239,7 +239,8 @@ class Array<T>(val size: Int) {
 
 This class cannot be either co\- or contravariant in `T`. And this imposes certain inflexibilities. Consider the following function:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+這個類別在 `T` 下不能是協變或是逆變。這就強加於某部分的不靈活。考慮以下函數：
+
 ``` kotlin
 fun copy(from: Array<Any>, to: Array<Any>) {
     assert(from.size == to.size)
@@ -247,45 +248,49 @@ fun copy(from: Array<Any>, to: Array<Any>) {
         to[i] = from[i]
 }
 ```
-</div>
 
 This function is supposed to copy items from one array to another. Let's try to apply it in practice:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+這函數應該從一個陣列複製到另一個陣列，讓我們在實踐中嘗試去應用它：
+
 ``` kotlin
 val ints: Array<Int> = arrayOf(1, 2, 3)
 val any = Array<Any>(3) { "" } 
 copy(ints, any) // Error: expects (Array<Any>, Array<Any>)
 ```
-</div>
 
 Here we run into the same familiar problem: `Array<T>` is **invariant** in `T`, thus neither of `Array<Int>` and `Array<Any>` 
-is a subtype of the other. Why? Again, because copy **might** be doing bad things, i.e. it might attempt to **write**, say, a String to `from`,
-and if we actually passed an array of `Int` there, a `ClassCastException` would have been thrown sometime later.
+is a subtype of the other. Why? Again, because copy **might** be doing bad things, i.e. it might attempt to **write**, say, a String to `from`, and if we actually passed an array of `Int` there, a `ClassCastException` would have been thrown sometime later.
+
+這裡我們運行到相同類似的問題： `Array<T>` 在  `T` 是不可以變的，因此 `Array<Int>` 和 `Array<Any>` 都不是另一個類的子類型。為何？同樣的，因為複製可能會做壞的事情，換句話說，它可能嘗試去**寫入**，哎呀，一個字串給 `from` ，並且如果我們真的傳遞一個 `Int` 陣列，那麼稍後會拋出一個 `ClassCastException` 。
 
 Then, the only thing we want to ensure is that `copy()` does not do any bad things. We want to prohibit it from **writing** to `from`, and we can:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+接著，唯一的一件事，我想要確保的是 `copy()` 不會做任何壞事。我們想要禁用它從**寫入**到 `from` ，並且我們可以： 
+
 ``` kotlin
 fun copy(from: Array<out Any>, to: Array<Any>) { ... }
 ```
-</div>
 
-What has happened here is called **type projection**: we said that `from` is not simply an array, but a restricted (**projected**) one: we can only call those methods that return the type parameter 
-`T`, in this case it means that we can only call `get()`. This is our approach to **use-site variance**, and corresponds to Java's `Array<? extends Object>`, 
-but in a slightly simpler way.
+What has happened here is called **type projection**: we said that `from` is not simply an array, but a restricted (**projected**) one: we can only call those methods that return the type parameter `T`, in this case it means that we can only call `get()`. This is our approach to **use-site variance**, and corresponds to Java's `Array<? extends Object>`, but in a slightly simpler way.
+
+這裡發生的事情稱為**類型投射**：我們說 `from` 不只是一個陣列，而是一個受限制的 (**已投射**) ：我們只可以調用那些方法回傳類型參數 `T` ，在這樣的情況它意味著我們可以只調用 `get()` 。這是我們**使用-場景的變量元素**方法，並且對應該 Java 的 `Array<? extends Object>` ，但稍微更簡單的方式：
 
 You can project a type with **in** as well:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+你也可以用 `in` 投射一個類型：
+
 ``` kotlin
 fun fill(dest: Array<in String>, value: String) { ... }
 ```
-</div>
 
 `Array<in String>` corresponds to Java's `Array<? super String>`, i.e. you can pass an array of `CharSequence` or an array of `Object` to the `fill()` function.
 
+`Array<in String>` 對應到 Java 的 `Array<? super String>` ，換句話說，你可以傳遞一個 ``CharSequence` 的陣列或一個 `Object` 的陣列給 `fill()` 函數。
+
 ### Star-projections
+
+Star-projections 星號投射
 
 Sometimes you want to say that you know nothing about the type argument, but still want to use it in a safe way.
 The safe way here is to define such a projection of the generic type, that every concrete instantiation of that generic type would be a subtype of that projection.
