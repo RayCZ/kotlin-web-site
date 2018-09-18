@@ -274,7 +274,7 @@ fun copy(from: Array<out Any>, to: Array<Any>) { ... }
 
 What has happened here is called **type projection**: we said that `from` is not simply an array, but a restricted (**projected**) one: we can only call those methods that return the type parameter `T`, in this case it means that we can only call `get()`. This is our approach to **use-site variance**, and corresponds to Java's `Array<? extends Object>`, but in a slightly simpler way.
 
-這裡發生的事情稱為**類型投射**：我們說 `from` 不只是一個陣列，而是一個受限制的 (**已投射**) ：我們只可以調用那些方法回傳類型參數 `T` ，在這樣的情況它意味著我們可以只調用 `get()` 。這是我們**使用-場景的變量元素**方法，並且對應該 Java 的 `Array<? extends Object>` ，但稍微更簡單的方式：
+這裡發生的事情稱為**類型投射**：我們說 `from` 不只是一個陣列，而是一個受限制的 (**已投射**) ：我們只可以調用那些方法回傳類型參數 `T` ，在這樣的情況它意味著我們可以只調用 `get()` 。這是我們**使用-場景的變量元素**方法，並且對應到 Java 的 `Array<? extends Object>` ，但稍微更簡單的方式：
 
 You can project a type with **in** as well:
 
