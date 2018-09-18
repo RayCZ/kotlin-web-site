@@ -220,19 +220,22 @@ We believe that the words **in** and **out** are self-explaining (as they were s
 
 ## Type projections
 
+Type projections ：類型預測
+
 ### Use-site variance: Type projections
 
-It is very convenient to declare a type parameter T as *out* and avoid trouble with subtyping on the use site, but some classes **can't** actually be restricted to only return `T`'s! 
-A good example of this is Array:
+Use-site variance: Type projections ：使用-場景 變量元素 : 類型預測
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
-​``` kotlin
+It is very convenient to declare a type parameter T as *out* and avoid trouble with subtyping on the use site, but some classes **can't** actually be restricted to only return `T`'s! A good example of this is Array:
+
+宣告一個類型參數 T 為 `out` 並且在使用場景上避免使用子類型化的麻煩，但有些類別實際上不能只限制回傳 `T` ! 這是一個陣列的好範例：
+
+``` kotlin
 class Array<T>(val size: Int) {
     fun get(index: Int): T { ... }
     fun set(index: Int, value: T) { ... }
 }
 ```
-</div>
 
 This class cannot be either co\- or contravariant in `T`. And this imposes certain inflexibilities. Consider the following function:
 
