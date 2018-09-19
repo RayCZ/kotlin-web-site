@@ -360,7 +360,7 @@ val l = singletonList(1)
 
 ## Generic constraints
 
-Generic constraints ：泛型約束，限制泛型類型的方法 `<T : Type>` 
+Generic constraints ：泛型約束，泛型的具體類型約束，限制泛型類型的方法 `<T : Type>` 
 
 The set of all possible types that can be substituted for a given type parameter may be restricted by **generic constraints**.
 
@@ -368,7 +368,7 @@ The set of all possible types that can be substituted for a given type parameter
 
 ### Upper bounds
 
-Upper bounds ：上限，限制泛型的具體類型 `<T : Type>`
+Upper bounds ：上限，類型參數上的限制或界限，限制泛型的具體類型 `<T : Type>`
 
 The most common type of constraint is an **upper bound** that corresponds to Java's *extends* keyword:
 
@@ -389,7 +389,7 @@ sort(listOf(HashMap<Int, String>())) // Error: HashMap<Int, String> is not a sub
 
 The default upper bound (if none specified) is `Any?`. Only one upper bound can be specified inside the angle brackets. If the same type parameter needs more than one upper bound, we need a separate **where**\-clause:
 
-預設上限 (如果沒有指定) 是 `Any?` 範例： `<T : Any?>`。在尖號內只能一個上限可以被指定 `<T : Type>`。如果相同類型參數需要超過一個上限，我們需要單獨 **where**-子句 (在整個函數宣告的最後跟起始的大括號前加上 **where**) ：
+預設上限 (如果沒有指定) 是 `Any?` 範例： `<T : Any?>`。只能在尖號內指定一個上限 `<T : Type>`。如果相同類型參數需要超過一個上限，我們需要單獨 **where**-子句 (在整個函數宣告的最後跟起始的大括號前加上 **where**) ：
 
 ``` kotlin
 fun <T> copyWhenGreater(list: List<T>, threshold: T): List<String>
