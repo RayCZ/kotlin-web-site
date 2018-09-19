@@ -210,7 +210,7 @@ fun demo(x: Comparable<Number>) {
 }
 ```
 
-**Double 是 Number 的子類，一開始參數 `x: Comparable<Number>` 為  Number 變量元素，而後放入的值是 `1.0` 為Double 類型**
+**Double 是 Number 的子類，一開始參數 `x: Comparable<Number>` 為  Number 變量元素，而後放入的值是 `1.0` 為 Double 類型**
 
 We believe that the words **in** and **out** are self-explaining (as they were successfully used in C# for quite some time already), thus the mnemonic mentioned above is not really needed, and one can rephrase it for a higher purpose:
 
@@ -326,63 +326,71 @@ If a generic type has several type parameters each of them can be projected inde
 
 ## Generic functions
 
+Generic functions ：泛型函數
+
 Not only classes can have type parameters. Functions can, too. Type parameters are placed **before** the name of the function:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+不只類別可以有類型參數。函數也可以有。在函數名稱前放置類型參數：
+
 ``` kotlin
 fun <T> singletonList(item: T): List<T> {
     // ...
 }
-
 fun <T> T.basicToString() : String {  // extension function
     // ...
 }
+
 ```
-</div>
 
 To call a generic function, specify the type arguments at the call site **after** the name of the function:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
-​``` kotlin
+去調用一個泛型函數，函數名稱**之後**指定類型參數在調用場景：
+
+``` kotlin
 val l = singletonList<Int>(1)
 ```
-</div>
 
 Type arguments can be omitted if they can be inferred from the context, so the following example works as well:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+如果類型參數可以從環境 (參數內的值) 推斷，類型參數可以被省略，，則以下範例也可以使用：
+
 ``` kotlin
 val l = singletonList(1)
 ```
-</div>
 
 ## Generic constraints
 
+Generic constraints ：泛型約束，限制泛型類型的方法 `<T : Type>` 
+
 The set of all possible types that can be substituted for a given type parameter may be restricted by **generic constraints**.
+
+由泛型約束限制所有可能的類型集合可以代替已給類型參數。
 
 ### Upper bounds
 
+Upper bounds ：上限，限制泛型的具體類型 `<T : Type>`
+
 The most common type of constraint is an **upper bound** that corresponds to Java's *extends* keyword:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+最常見的類型約束是一個**上限**對應到 Java 的 `extends` 關鍵字：
+
 ``` kotlin
 fun <T : Comparable<T>> sort(list: List<T>) {  ... }
 ```
-</div>
 
 The type specified after a colon is the **upper bound**: only a subtype of `Comparable<T>` may be substituted for `T`. For example:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+在冒號後指定類型是**上限**：只有一個  `Comparable<T>` 子類型可以代替 `T` 。 範例：
+
 ``` kotlin
 sort(listOf(1, 2, 3)) // OK. Int is a subtype of Comparable<Int>
 sort(listOf(HashMap<Int, String>())) // Error: HashMap<Int, String> is not a subtype of Comparable<HashMap<Int, String>>
 ```
-</div>
 
-The default upper bound (if none specified) is `Any?`. Only one upper bound can be specified inside the angle brackets.
-If the same type parameter needs more than one upper bound, we need a separate **where**\-clause:
+The default upper bound (if none specified) is `Any?`. Only one upper bound can be specified inside the angle brackets. If the same type parameter needs more than one upper bound, we need a separate **where**\-clause:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only auto-indent="false">
+預設上限 (如果沒有指定) 是 `Any?` 範例： `<T : Any?>`。在尖號內只能一個上限可以被指定 `<T : Type>`。如果相同類型參數需要超過一個上限，我們需要單獨 **where**-子句 (在整個函數宣告的最後跟起始的大括號前加上 **where**) ：
+
 ``` kotlin
 fun <T> copyWhenGreater(list: List<T>, threshold: T): List<String>
     where T : CharSequence,
@@ -390,25 +398,15 @@ fun <T> copyWhenGreater(list: List<T>, threshold: T): List<String>
     return list.filter { it > threshold }.map { it.toString() }
 }
 ```
-</div>
 
 ## Type erasure
 
-The type safety checks that Kotlin performs for generic declaration usages are only done at compile time.
-At runtime, the instances of generic types do not hold any information about their actual type arguments.
-The type information is said to be *erased*. For example, the instances of `Foo<Bar>` and `Foo<Baz?>` are erased to
-just `Foo<*>`.
+Type erasure ：類型消除
 
-Therefore, there is no general way to check whether an instance of a generic type was created with certain type
-arguments at runtime, and the compiler [prohibits such *is*{: .keyword }-checks](typecasts.html#type-erasure-and-generic-type-checks).
+The type safety checks that Kotlin performs for generic declaration usages are only done at compile time. At runtime, the instances of generic types do not hold any information about their actual type arguments. The type information is said to be *erased*. For example, the instances of `Foo<Bar>` and `Foo<Baz?>` are erased to just `Foo<*>`.
 
-Type casts to generic types with concrete type arguments, e.g. `foo as List<String>`, cannot be checked at runtime.  
-These [unchecked casts](typecasts.html#unchecked-casts) can be used when type safety is implied by the high-level 
-program logic but cannot be inferred directly by the compiler. The compiler issues a warning on unchecked casts, and at 
-runtime, only the non-generic part is checked (equivalent to `foo as List<*>`).
+Therefore, there is no general way to check whether an instance of a generic type was created with certain type arguments at runtime, and the compiler [prohibits such *is*{: .keyword }-checks](typecasts.html#type-erasure-and-generic-type-checks).
 
-The type arguments of generic function calls are also only checked at compile time. Inside the function bodies, 
-the type parameters cannot be used for type checks, and type casts to type parameters (`foo as T`) are unchecked. However,
-[reified type parameters](inline-functions.html#reified-type-parameters) of inline functions are substituted by the actual 
-type arguments in the inlined function body at the call sites and thus can be used for type checks and casts,
-with the same restrictions for instances of generic types as described above.
+Type casts to generic types with concrete type arguments, e.g. `foo as List<String>`, cannot be checked at runtime. These [unchecked casts](typecasts.html#unchecked-casts) can be used when type safety is implied by the high-level program logic but cannot be inferred directly by the compiler. The compiler issues a warning on unchecked casts, and at runtime, only the non-generic part is checked (equivalent to `foo as List<*>`).
+
+The type arguments of generic function calls are also only checked at compile time. Inside the function bodies, the type parameters cannot be used for type checks, and type casts to type parameters (`foo as T`) are unchecked. However, [reified type parameters](inline-functions.html#reified-type-parameters) of inline functions are substituted by the actual type arguments in the inlined function body at the call sites and thus can be used for type checks and casts, with the same restrictions for instances of generic types as described above.
