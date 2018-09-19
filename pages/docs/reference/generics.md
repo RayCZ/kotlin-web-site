@@ -106,9 +106,9 @@ The **wildcard type argument** `? extends E` indicates that this method accepts 
 
 **invariant ：不可變，代表在類別、`List`、`Map`... 等的元素類型是不可變的，例如：`List <View>`，這個集合就是只能有 View 的元素，不能是 View 的父類別或子類別，為不可變的元素**
 
-**covariant ：協變，代表在類別、`List`、`Map`... 等的元素類型是可變的，經由表示 `extends` 給一個擴展的類別繼承範圍，例如： `<? extends View>` ，以 Android 來說像是 `Button` 、 `ImageView` 、 `TextView` 只要是 `View` 的子類別都可以放入集合中，從繼承關係中協變而來的元素，為了確保在集合「取出」的物件類型是安全的 ，在 Kotlin `<out T>`**
+**covariant ：協變，使元素「衍生」或「進化」，代表在類別、`List`、`Map`... 等的元素類型是可變的，經由表示 `extends` 給一個擴展的類別繼承範圍，例如： `<? extends View>` ，以 Android 來說像是 `Button` 、 `ImageView` 、 `TextView` 只要是 `View` 的子類別都可以放入集合中，從繼承關係中協變而來的元素，為了確保在集合「取出」的物件類型是安全的 ，在 Kotlin `<out T>`**
 
-**contravariance ：逆變，代表在類別、`List`、`Map`... 等的元素類型是逆向變化的，經由表示 `super` 給定限制的類別繼承範圍，例如： `<? Super Button>` ，以 Android 來說只能是 `Button` 的父類別才能放入，所以有 `TextView` 、 `View` 、 `Object`才可以放入，算是一種限制集合元素的方式，為了確保在集合「放入」的物件類型安全，配合協變的取出是安全的，在 Kotlin `<in T>`**
+**contravariance ：逆變，使元素「還原」或「退化」，代表在類別、`List`、`Map`... 等的元素類型是逆向變化的，經由表示 `super` 給定限制的類別繼承範圍，例如： `<? Super Button>` ，以 Android 來說只能是 `Button` 的父類別才能放入，所以有 `TextView` 、 `View` 、 `Object`才可以放入，算是一種限制集合元素的方式，為了確保在集合「放入」的物件類型安全，配合協變的取出是安全的，在 Kotlin `<in T>`**
 
 The key to understanding why this trick works is rather simple: if you can only **take** items from a collection, then using a collection of `String`s and reading `Object`s from it is fine. Conversely, if you can only _put_ items into the collection, it's OK to take a collection of `Object`s and put `String`s into it: in Java we have `List<? super String>` a **supertype** of `List<Object>`.
 
@@ -288,27 +288,43 @@ fun fill(dest: Array<in String>, value: String) { ... }
 
 `Array<in String>` 對應到 Java 的 `Array<? super String>` ，換句話說，你可以傳遞一個 ``CharSequence` 的陣列或一個 `Object` 的陣列給 `fill()` 函數。
 
+---
+
 ### Star-projections
 
 Star-projections 星號投射
 
-Sometimes you want to say that you know nothing about the type argument, but still want to use it in a safe way.
-The safe way here is to define such a projection of the generic type, that every concrete instantiation of that generic type would be a subtype of that projection.
+Sometimes you want to say that you know nothing about the type argument, but still want to use it in a safe way. The safe way here is to define such a projection of the generic type, that every concrete instantiation of that generic type would be a subtype of that projection.
+
+有時你想說你對類型參數一無所知，但還是想要在一個安全的方式去使用它。這裡的安全方式是定義這樣一個泛型類型的投射，泛型類型的每個具體實例都是投射的子類型。
+
+
 
 Kotlin provides so called **star-projection** syntax for this:
 
- - For `Foo<out T : TUpper>`, where `T` is a covariant type parameter with the upper bound `TUpper`, `Foo<*>` is equivalent to `Foo<out TUpper>`. It means that when the `T` is unknown you can safely *read* values of `TUpper` from `Foo<*>`.
- - For `Foo<in T>`, where `T` is a contravariant type parameter, `Foo<*>` is equivalent to `Foo<in Nothing>`. It means there is nothing you can *write* to `Foo<*>` in a safe way when `T` is unknown.
- - For `Foo<T : TUpper>`, where `T` is an invariant type parameter with the upper bound `TUpper`, `Foo<*>` is equivalent to `Foo<out TUpper>` for reading values and to `Foo<in Nothing>` for writing values.
+Kotlin 提供所謂的**星號-投射**語法：
 
-If a generic type has several type parameters each of them can be projected independently.
-For example, if the type is declared as `interface Function<in T, out U>` we can imagine the following star-projections:
+ - For `Foo<out T : TUpper>`, where `T` is a covariant type parameter with the upper bound `TUpper`, `Foo<*>` is equivalent to `Foo<out TUpper>`. It means that when the `T` is unknown you can safely *read* values of `TUpper` from `Foo<*>`.
+   對於 `Foo<out T : TUpper>` ，其中 `T` 是一個使用上限 `TUpper` 的協變類型參數， `Foo<*>` 相當於 `Foo<out TUpper>` 。它意味著當 `T` 是未知你可以從 `Foo<*>` 安全**讀取** `Tupper` 的值。
+ - For `Foo<in T>`, where `T` is a contravariant type parameter, `Foo<*>` is equivalent to `Foo<in Nothing>`. It means there is nothing you can *write* to `Foo<*>` in a safe way when `T` is unknown.
+   對於 `Foo<in T>` ，其中 `T` 是一個逆變的類型參數， `Foo<*>` 相當於 `Foo<in Nothing>` 。它意味著沒有什麼，當 `T` 是未知時，你可以在一個安全的方式下寫入到 `Foo<*>` 。
+ - For `Foo<T : TUpper>`, where `T` is an invariant type parameter with the upper bound `TUpper`, `Foo<*>` is equivalent to `Foo<out TUpper>` for reading values and to `Foo<in Nothing>` for writing values.
+   對於 `Foo<T : TUpper>` ，其中 `T` 是一個使用上限 `TUpper` 不可變類型參數，`Foo<*>` 相當於 `Foo<out TUpper>` 用於取值而 `Foo<in Nothing>` 用於寫值。
+
+If a generic type has several type parameters each of them can be projected independently. For example, if the type is declared as `interface Function<in T, out U>` we can imagine the following star-projections:
+
+如果一個泛型類型有多個類型參數，它們每個參數可以被單獨地投射。例如：如果類型被宣告為  `interface Function<in T, out U>` ，我們可以想像以下星號-投射：
 
  - `Function<*, String>` means `Function<in Nothing, String>`;
+   `Function<*, String>` 意味著 `Function<in Nothing, String>`;
  - `Function<Int, *>` means `Function<Int, out Any?>`;
+   `Function<Int, *>` 意味著 `Function<Int, out Any?>`;
  - `Function<*, *>` means `Function<in Nothing, out Any?>`.
+   `Function<*, *>` 意味著`Function<in Nothing, out Any?>`.
 
 *Note*: star-projections are very much like Java's raw types, but safe.
+
+注意：星號-投射是非常像 Java 原生類型，但是安全的。
 
 ## Generic functions
 
