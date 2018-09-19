@@ -224,7 +224,7 @@ Type projections ：類型投射
 
 ### Use-site variance: Type projections
 
-Use-site variance: Type projections ：使用-場景 變量元素 : 類型投射
+Use-site variance: Type projections ：使用-場景 變量元素 : 類型投射，依據所給的參數類型投射出這個泛型的類型
 
 It is very convenient to declare a type parameter T as *out* and avoid trouble with subtyping on the use site, but some classes **can't** actually be restricted to only return `T`'s! A good example of this is Array:
 
@@ -297,8 +297,6 @@ Star-projections 星號投射
 Sometimes you want to say that you know nothing about the type argument, but still want to use it in a safe way. The safe way here is to define such a projection of the generic type, that every concrete instantiation of that generic type would be a subtype of that projection.
 
 有時你想說你對類型參數一無所知，但還是想要在一個安全的方式去使用它。這裡的安全方式是定義這樣一個泛型類型的投射，泛型類型的每個具體實例都是投射的子類型。
-
-
 
 Kotlin provides so called **star-projection** syntax for this:
 
