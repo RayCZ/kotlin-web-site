@@ -33,9 +33,9 @@
 
 - [Sealed Classes](pages/docs/reference/sealed-classes.md) (密封類別)
 
-- [Generics](pages/docs/reference/generics.md)
+- [Generics](pages/docs/reference/generics.md) (泛型)
 
-- [Nested Classes](pages/docs/reference/nested-classes.md)
+- [Nested Classes](pages/docs/reference/nested-classes.md) (內嵌類別)
 
 - [Enum Classes](pages/docs/reference/enum-classes.md)
 
