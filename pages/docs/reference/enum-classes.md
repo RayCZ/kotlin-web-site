@@ -71,7 +71,7 @@ in Java.
 
 Enum entries cannot contain nested types other than inner classes (deprecated in Kotlin 1.2).
 
-列舉項目入不可以包含內嵌類型，隱了內部類別 (在 Kotlin 1.2 版棄用)
+列舉項目不可以包含內嵌類型，隱了內部類別 (在 Kotlin 1.2 版棄用)
 
 ## Implementing Interfaces in Enum Classes
 
@@ -110,7 +110,7 @@ fun main(args: Array<String>) {
 //TIMES(13, 31) = 403
 ```
 
-**`apply` 方法是 `BinaryOperator<Int>` 父類別 `BiFunction<T,U,R>` 的方法 **
+**`apply` 方法是 `BinaryOperator<Int>` 父類別 `BiFunction<T,U,R>` 的方法**
 
 **`applyAsInt` 方法是 `IntBinaryOperator` 的方法**
 
