@@ -114,7 +114,7 @@ fun main(args: Array<String>) {
 
 **`applyAsInt` 方法是 `IntBinaryOperator` 的方法**
 
-**匿名類別 `PLUS` 、 `TIMES` 都繼承 `override fun applyAsInt(t: Int, u: Int) = apply(t, u)` 又覆寫 `override fun apply(t: Int, u: Int): Int`**
+**匿名類別 `PLUS{}` 、 `TIMES{}` 都繼承 `override fun applyAsInt(t: Int, u: Int) = apply(t, u)` 又覆寫 `override fun apply(t: Int, u: Int): Int`**
 
 ## Working with Enum Constants
 
