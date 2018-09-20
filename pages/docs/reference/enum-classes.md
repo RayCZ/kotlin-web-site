@@ -118,24 +118,25 @@ fun main(args: Array<String>) {
 
 ## Working with Enum Constants
 
-Just like in Java, enum classes in Kotlin have synthetic methods allowing to list
-the defined enum constants and to get an enum constant by its name. The signatures
-of these methods are as follows (assuming the name of the enum class is `EnumClass`):
+Working with Enum Constants ：使用列舉常數工作
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
-​``` kotlin
+Just like in Java, enum classes in Kotlin have synthetic methods allowing to list the defined enum constants and to get an enum constant by its name. The signatures of these methods are as follows (assuming the name of the enum class is `EnumClass`):
+
+就像在 Java ，在 Kotlin 的列舉類別有合成方法允許列表定義列舉常數和成員名稱去獲取列舉常數，這些方法的簽名如下 (假設列舉類別的名稱是 `EnumClass`) ：
+
+``` kotlin
 EnumClass.valueOf(value: String): EnumClass
 EnumClass.values(): Array<EnumClass>
 ```
-</div>
 
-The `valueOf()` method throws an `IllegalArgumentException` if the specified name does
-not match any of the enum constants defined in the class.
+The `valueOf()` method throws an `IllegalArgumentException` if the specified name does not match any of the enum constants defined in the class.
 
-Since Kotlin 1.1, it's possible to access the constants in an enum class in a generic way, using
-the `enumValues<T>()` and `enumValueOf<T>()` functions:
+如果指定名稱沒有匹配任何在類別內定義的列舉常數， `valueOf()` 方法丟出一個 `IllegalArgumentException`。
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+Since Kotlin 1.1, it's possible to access the constants in an enum class in a generic way, using the `enumValues<T>()` and `enumValueOf<T>()` functions:
+
+自 Kotlin 1.1 ，使用 `enumValues<T>()` 和 `enumValueOf<T>()` 函數，以泛型方式在列舉類別去存取常數。
+
 ``` kotlin
 enum class RGB { RED, GREEN, BLUE }
 
@@ -145,16 +146,16 @@ inline fun <reified T : Enum<T>> printAllValues() {
 
 printAllValues<RGB>() // prints RED, GREEN, BLUE
 ```
-</div>
 
 Every enum constant has properties to obtain its name and position in the enum class declaration:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
-​``` kotlin
+每個列舉常數在列舉宣告中有屬性去獲取它的名稱和位置
+
+``` kotlin
 val name: String
 val ordinal: Int
 ```
-</div>
 
-The enum constants also implement the [Comparable](/api/latest/jvm/stdlib/kotlin/-comparable/index.html) interface,
-with the natural order being the order in which they are defined in the enum class.
+The enum constants also implement the [Comparable](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-comparable/index.html) interface, with the natural order being the order in which they are defined in the enum class.
+
+列舉常數也可實作 [Comparable](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-comparable/index.html) 介面，使用自然順序是它們在列舉類別中定義的順序。
