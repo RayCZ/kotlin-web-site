@@ -7,23 +7,30 @@ title: "Enum Classes"
 
 # Enum Classes
 
+Enum Classes ：列舉類別
+
 The most basic usage of enum classes is implementing type-safe enums:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+列舉類別的大多基本用法是實作類型-安全列舉：
+
 ``` kotlin
 enum class Direction {
     NORTH, SOUTH, WEST, EAST
 }
 ```
-</div>
 
 Each enum constant is an object. Enum constants are separated with commas.
 
+每個列舉常數是一個物件。列舉常數使用逗號分隔。
+
 ## Initialization
+
+Initialization ：賦予值
 
 Since each enum is an instance of the enum class, they can be initialized as:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+因為每個列舉是一個列舉類別的實例，他們可以被賦值為：
+
 ``` kotlin
 enum class Color(val rgb: Int) {
         RED(0xFF0000),
@@ -31,13 +38,15 @@ enum class Color(val rgb: Int) {
         BLUE(0x0000FF)
 }
 ```
-</div>
 
 ## Anonymous Classes
 
+Anonymous Classes ：匿名類別
+
 Enum constants can also declare their own anonymous classes:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+列舉常數也可以宣告他們擁有的匿名類別：
+
 ``` kotlin
 enum class ProtocolState {
     WAITING {
@@ -47,25 +56,30 @@ enum class ProtocolState {
     TALKING {
         override fun signal() = WAITING
     };
-
+    
     abstract fun signal(): ProtocolState
 }
 ```
-</div>
 
 with their corresponding methods, as well as overriding base methods. Note that if the enum class defines any
 members, you need to separate the enum constant definitions from the member definitions with a semicolon, just like
 in Java.
 
+使用相應的方法，以及覆寫基本方法。注意：如果列舉類別定義任何成員，你需要使用分號從成員定義分離常數定義，就像在 Java 。
+
 Enum entries cannot contain nested types other than inner classes (deprecated in Kotlin 1.2).
 
+列舉輸入不可以包含內嵌類型，隱了內部類別 (在 Kotlin 1.2 版棄用)
+
 ## Implementing Interfaces in Enum Classes
+
+Implementing Interfaces in Enum Classes ：在列舉類別實作介面
 
 An enum class may implement an interface (but not derive from a class), providing either a single interface members implementation for all of the entries, or separate ones for each entry within its anonymous class. This is done by adding the interfaces to the enum class declaration as follows:
 
 <div class="sample" markdown="1" theme="idea">
 
-``` kotlin
+​``` kotlin
 import java.util.function.BinaryOperator
 import java.util.function.IntBinaryOperator
 
@@ -99,7 +113,7 @@ the defined enum constants and to get an enum constant by its name. The signatur
 of these methods are as follows (assuming the name of the enum class is `EnumClass`):
 
 <div class="sample" markdown="1" theme="idea" data-highlight-only>
-``` kotlin
+​``` kotlin
 EnumClass.valueOf(value: String): EnumClass
 EnumClass.values(): Array<EnumClass>
 ```
@@ -126,7 +140,7 @@ printAllValues<RGB>() // prints RED, GREEN, BLUE
 Every enum constant has properties to obtain its name and position in the enum class declaration:
 
 <div class="sample" markdown="1" theme="idea" data-highlight-only>
-``` kotlin
+​``` kotlin
 val name: String
 val ordinal: Int
 ```
