@@ -61,15 +61,17 @@ enum class ProtocolState {
 }
 ```
 
+**`WAITING{}` 和 `TALKING{}` 都是匿名類別，並且實作  `abstract fun signal()`**
+
 with their corresponding methods, as well as overriding base methods. Note that if the enum class defines any
 members, you need to separate the enum constant definitions from the member definitions with a semicolon, just like
 in Java.
 
-使用相應的方法，以及覆寫基本方法。注意：如果列舉類別定義任何成員，你需要使用分號從成員定義分離常數定義，就像在 Java 。
+使用它們相應的方法，以及覆寫基本方法。注意：如果列舉類別定義任何成員，你需要使用分號從成員定義分離常數定義，就像在 Java 。
 
 Enum entries cannot contain nested types other than inner classes (deprecated in Kotlin 1.2).
 
-列舉輸入不可以包含內嵌類型，隱了內部類別 (在 Kotlin 1.2 版棄用)
+列舉項目入不可以包含內嵌類型，隱了內部類別 (在 Kotlin 1.2 版棄用)
 
 ## Implementing Interfaces in Enum Classes
 
@@ -77,9 +79,9 @@ Implementing Interfaces in Enum Classes ：在列舉類別實作介面
 
 An enum class may implement an interface (but not derive from a class), providing either a single interface members implementation for all of the entries, or separate ones for each entry within its anonymous class. This is done by adding the interfaces to the enum class declaration as follows:
 
-<div class="sample" markdown="1" theme="idea">
+一個列舉類別可以實作一個介面 (但不能從一個類別衍生) ，為了所有項目提供單個介面成員實作，或為列舉內匿名類別的每個項目提供單個介面成員實作，這是透過添加介面到列舉類別宣告來完成，如下所示：
 
-​``` kotlin
+``` kotlin
 import java.util.function.BinaryOperator
 import java.util.function.IntBinaryOperator
 
@@ -103,8 +105,16 @@ fun main(args: Array<String>) {
         println("$f($a, $b) = ${f.apply(a, b)}")
     }
 }
+//ans:
+//PLUS(13, 31) = 44
+//TIMES(13, 31) = 403
 ```
-</div>
+
+**`apply` 方法是 `BinaryOperator<Int>` 父類別 `BiFunction<T,U,R>` 的方法 **
+
+**`applyAsInt` 方法是 `IntBinaryOperator` 的方法**
+
+**匿名類別 `PLUS` 、 `TIMES` 都繼承 `override fun applyAsInt(t: Int, u: Int) = apply(t, u)` 又覆寫 `override fun apply(t: Int, u: Int): Int`**
 
 ## Working with Enum Constants
 
