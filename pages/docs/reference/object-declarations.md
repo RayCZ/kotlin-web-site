@@ -61,7 +61,7 @@ fun foo() {
 
 Note that anonymous objects can be used as types only in local and private declarations. If you use an anonymous object as a return type of a public function or the type of a public property, the actual type of that function or property will be the declared supertype of the anonymous object, or `Any` if you didn't declare any supertype. Members added in the anonymous object will not be accessible.
 
-注意：匿名物件只在本地或私有宣告用作類型 `object{...}`。如果你使用匿名物件為一個公開函數的回傳類型或一個公開屬性，函數或屬性的真實類型將被宣告匿名物件的超類型，或如果你未宣告任何超類型為 `Any` ，在匿名物件新增成員將不可存取。
+注意：匿名物件只在區域或私有宣告用作類型 `object{...}`。如果你使用匿名物件為一個公開函數的回傳類型或一個公開屬性，函數或屬性的真實類型將被宣告匿名物件的超類型，或如果你未宣告任何超類型為 `Any` ，在匿名物件新增成員將不可存取。
 
 ``` kotlin
 class C {
@@ -153,32 +153,36 @@ object DefaultListener : MouseAdapter() {
 
 **NOTE**: object declarations can't be local (i.e. be nested directly inside a function), but they can be nested into other object declarations or non-inner classes.
 
+注意：物件宣告不能在區域 (換句話說，在一個函數內直接嵌入) ，但它們可以內嵌到其他物件宣告或非內部類別。
 
 ### Companion Objects
 
-An object declaration inside a class can be marked with the *companion*{: .keyword } keyword:
+Companion Objects ：夥伴物件
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
-​``` kotlin
+An object declaration inside a class can be marked with the *companion* keyword:
+
+可以使用 `companion` 關鍵字標記在一個類別中的物件宣告：
+
+``` kotlin
 class MyClass {
     companion object Factory {
         fun create(): MyClass = MyClass()
     }
 }
 ```
-</div>
 
 Members of the companion object can be called by using simply the class name as the qualifier:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+透過簡單的類別名稱為修飾符調用夥伴物件的成員：
+
 ``` kotlin
 val instance = MyClass.create()
 ```
-</div>
 
 The name of the companion object can be omitted, in which case the name `Companion` will be used:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+夥伴物件的名稱可以被省略，在這種情況下將使用名稱 `Companion` ：
+
 ``` kotlin
 class MyClass {
     companion object { }
@@ -186,13 +190,13 @@ class MyClass {
 
 val x = MyClass.Companion
 ```
-</div>
 
 Note that, even though the members of companion objects look like static members in other languages, at runtime those
 are still instance members of real objects, and can, for example, implement interfaces:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
-​``` kotlin
+請注意：即使夥伴物件的成員看起來像在其他語言的靜態成員，在運行時它們仍然還是真實物件的實例成員，並且可以，例如，實作介面：
+
+``` kotlin
 interface Factory<T> {
     fun create(): T
 }
@@ -203,17 +207,22 @@ class MyClass {
     }
 }
 ```
-</div>
 
-However, on the JVM you can have members of companion objects generated as real static methods and fields, if you use
-the `@JvmStatic` annotation. See the [Java interoperability](java-to-kotlin-interop.html#static-fields) section
-for more details.
+However, on the JVM you can have members of companion objects generated as real static methods and fields, if you use the `@JvmStatic` annotation. See the [Java interoperability](java-to-kotlin-interop.md#static-fields) section for more details.
 
+然而，在 JVM 上，如果你使用 `@JvmStatic` 註解，你可以讓夥伴物件的成員生成真實靜態方法和欄位，更多細節請參閱 [Java interoperability](java-to-kotlin-interop.md#static-fields) 章節。
 
 ### Semantic difference between object expressions and declarations
 
+Semantic difference between object expressions and declarations ：物件表達式和宣告之間的語義差異
+
 There is one important semantic difference between object expressions and object declarations:
 
+物件表達式和物件宣告之間存在一個重要的語義差異：
+
 * object expressions are executed (and initialized) **immediately**, where they are used;
+  物件表達式立即執行 (和初始化) 的，使用它們時；
 * object declarations are initialized **lazily**, when accessed for the first time;
+  物件宣告在第一次存取時被懶惰的初始化；
 * a companion object is initialized when the corresponding class is loaded (resolved), matching the semantics of a Java static initializer.
+  當讀取 (解析) 對應的類別時，初始化夥伴物件，匹配 Java 靜態初始化的語義
