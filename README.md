@@ -37,9 +37,9 @@
 
 - [Nested Classes](pages/docs/reference/nested-classes.md) (內嵌類別)
 
-- [Enum Classes](pages/docs/reference/enum-classes.md)
+- [Enum Classes](pages/docs/reference/enum-classes.md) (列舉類別)
 
-- [Objects](pages/docs/reference/objects.md)
+- [Objects](pages/docs/reference/object-declarations.md) (物件)
 
 - [Delegation](pages/docs/reference/delegation.md)
 
