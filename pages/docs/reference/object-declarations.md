@@ -7,15 +7,20 @@ title: "Object Expressions, Object Declarations and Companion Objects"
 
 # Object Expressions and Declarations
 
-Sometimes we need to create an object of a slight modification of some class, without explicitly declaring a new subclass for it.
-Java handles this case with *anonymous inner classes*.
-Kotlin slightly generalizes this concept with *object expressions* and *object declarations*.
+Object Expressions and Declarations ：物件表達式和宣告
+
+Sometimes we need to create an object of a slight modification of some class, without explicitly declaring a new subclass for it. Java handles this case with *anonymous inner classes*. Kotlin slightly generalizes this concept with *object expressions* and *object declarations*.
+
+有時我們需要創建一個稍微修改某類別的物件，不需要對物件明確宣告一個新類別。 Java 使用匿名內部類別處理這種情況。 Kotlin 使用物件表達式和物件宣告稍微概括這個概含。
 
 ## Object expressions
 
+Object expressions ：物件表達式
+
 To create an object of an anonymous class that inherits from some type (or types), we write:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+要創建從某些類型 (或多類型) 繼承的匿名類別物件 `object : MouseAdapter()`，我們寫：
+
 ``` kotlin
 window.addMouseListener(object : MouseAdapter() {
     override fun mouseClicked(e: MouseEvent) { ... }
@@ -23,12 +28,11 @@ window.addMouseListener(object : MouseAdapter() {
     override fun mouseEntered(e: MouseEvent) { ... }
 })
 ```
-</div>
 
-If a supertype has a constructor, appropriate constructor parameters must be passed to it.
-Many supertypes may be specified as a comma-separated list after the colon:
+If a supertype has a constructor, appropriate constructor parameters must be passed to it. Many supertypes may be specified as a comma-separated list after the colon:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+如果一個超 (父) 類型有建構元，必須將適當的建構元參數傳遞給它 `A(1)` 。在冒號之後很多超 (父) 類型可以指定為逗號-分隔列表 `object : A(1), B` 。
+
 ``` kotlin
 open class A(x: Int) {
     public open val y: Int = x
@@ -40,11 +44,11 @@ val ab: A = object : A(1), B {
     override val y = 15
 }
 ```
-</div>
 
 If, by any chance, we need "just an object", with no nontrivial supertypes, we can simply say:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+如果，任何機會，我們需要 "只是一個物件" ，沒有非凡的超類型，我們可以簡單的說 `object {....}`：
+
 ``` kotlin
 fun foo() {
     val adHoc = object {
@@ -54,14 +58,11 @@ fun foo() {
     print(adHoc.x + adHoc.y)
 }
 ```
-</div>
 
-Note that anonymous objects can be used as types only in local and private declarations. If you use an anonymous object as a
-return type of a public function or the type of a public property, the actual type of that function or property
-will be the declared supertype of the anonymous object, or `Any` if you didn't declare any supertype. Members added
-in the anonymous object will not be accessible.
+Note that anonymous objects can be used as types only in local and private declarations. If you use an anonymous object as a return type of a public function or the type of a public property, the actual type of that function or property will be the declared supertype of the anonymous object, or `Any` if you didn't declare any supertype. Members added in the anonymous object will not be accessible.
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+注意：匿名物件只在本地或私有宣告用作類型 `object{...}`。如果你使用匿名物件為一個公開函數的回傳類型或一個公開屬性，函數或屬性的真實類型將被宣告匿名物件的超類型，或如果你未宣告任何超類型為 `Any` ，在匿名物件新增成員將不可存取。
+
 ``` kotlin
 class C {
     // Private function, so the return type is the anonymous object type
@@ -73,19 +74,18 @@ class C {
     fun publicFoo() = object {
         val x: String = "x"
     }
-
+    
     fun bar() {
         val x1 = foo().x        // Works
         val x2 = publicFoo().x  // ERROR: Unresolved reference 'x'
     }
 }
 ```
-</div>
 
-Just like Java's anonymous inner classes, code in object expressions can access variables from the enclosing scope.
-(Unlike Java, this is not restricted to final variables.)
+Just like Java's anonymous inner classes, code in object expressions can access variables from the enclosing scope. (Unlike Java, this is not restricted to final variables.)
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+就像 Java 匿名內部類別，在物件表達式的代碼可以從閉包的範圍存取變數。 (不像 Java ，這是被限制為 `final` 變數。)
+
 ``` kotlin
 fun countClicks(window: JComponent) {
     var clickCount = 0
@@ -95,7 +95,7 @@ fun countClicks(window: JComponent) {
         override fun mouseClicked(e: MouseEvent) {
             clickCount++
         }
-
+    
         override fun mouseEntered(e: MouseEvent) {
             enterCount++
         }
@@ -103,14 +103,15 @@ fun countClicks(window: JComponent) {
     // ...
 }
 ```
-</div>
 
 ## Object declarations
 
-[Singleton](http://en.wikipedia.org/wiki/Singleton_pattern) may be useful in several cases,
-and Kotlin (after Scala) makes it easy to declare singletons:
+Object declarations ：物件宣告
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+[Singleton](http://en.wikipedia.org/wiki/Singleton_pattern) may be useful in several cases, and Kotlin (after Scala) makes it easy to declare singletons:
+
+單例模式在某些情況下有用的，而 Kotlin (在 Scala 之後) 使它容易宣告單例模式：
+
 ``` kotlin
 object DataProviderManager {
     fun registerDataProvider(provider: DataProvider) {
@@ -121,24 +122,27 @@ object DataProviderManager {
         get() = // ...
 }
 ```
-</div>
 
-This is called an *object declaration*, and it always has a name following the *object*{: .keyword } keyword.
-Just like a variable declaration, an object declaration is not an expression, and cannot be used on the right hand side of an assignment statement.
+This is called an *object declaration*, and it always has a name following the *object* keyword. Just like a variable declaration, an object declaration is not an expression, and cannot be used on the right hand side of an assignment statement.
+
+這稱為物件宣告，並且物件宣告總是在 `object` 關鍵字之後有名稱。就像一個變數宣告，物件宣告不是一個表達式，也不可以用在賦值敘述的右手邊。
 
 Object declaration's initialization is thread-safe.
 
+物件宣告初始化是線程安全。
+
 To refer to the object, we use its name directly:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+參照到該物件，我們直接使用它的名稱：
+
 ``` kotlin
 DataProviderManager.registerDataProvider(...)
 ```
-</div>
 
 Such objects can have supertypes:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+這物件可以有超 (父) 類型：
+
 ``` kotlin
 object DefaultListener : MouseAdapter() {
     override fun mouseClicked(e: MouseEvent) { ... }
@@ -146,7 +150,6 @@ object DefaultListener : MouseAdapter() {
     override fun mouseEntered(e: MouseEvent) { ... }
 }
 ```
-</div>
 
 **NOTE**: object declarations can't be local (i.e. be nested directly inside a function), but they can be nested into other object declarations or non-inner classes.
 
@@ -156,7 +159,7 @@ object DefaultListener : MouseAdapter() {
 An object declaration inside a class can be marked with the *companion*{: .keyword } keyword:
 
 <div class="sample" markdown="1" theme="idea" data-highlight-only>
-``` kotlin
+​``` kotlin
 class MyClass {
     companion object Factory {
         fun create(): MyClass = MyClass()
@@ -189,7 +192,7 @@ Note that, even though the members of companion objects look like static members
 are still instance members of real objects, and can, for example, implement interfaces:
 
 <div class="sample" markdown="1" theme="idea" data-highlight-only>
-``` kotlin
+​``` kotlin
 interface Factory<T> {
     fun create(): T
 }
