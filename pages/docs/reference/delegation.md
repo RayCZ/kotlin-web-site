@@ -48,7 +48,7 @@ fun main(args: Array<String>) {
 The *by*-clause in the supertype list for `Derived` indicates that `b` will be stored internally in objects 
 of `Derived` and the compiler will generate all the methods of `Base` that forward to `b`.
 
-`Derived` 的超 (父) 類型列表中 `by` 子句，表示 `b` 內部儲存在 `Derived` 的物件，編輯器將生成轉發到 `b` 的所有 `Base` 方法。
+`Derived` 的超 (父) 類型列表中 `by` 子句，表示 `b` 內部儲存在 `Derived` 中的物件，編輯器將生成轉發到 `b` 的所有 `Base` 方法。
 
 ### Overriding a member of an interface implemented by delegation 
 
