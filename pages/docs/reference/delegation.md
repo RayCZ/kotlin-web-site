@@ -7,17 +7,24 @@ title: "Delegation"
 
 # Delegation
 
+Delegation ：委派
+
 ## Property Delegation
 
-Delegated properties are described on a separate page: [Delegated Properties](delegated-properties.html).
+Property Delegation ：屬性委派
+
+Delegated properties are described on a separate page: [Delegated Properties](delegated-properties.md).
+
+委派屬性在單獨頁面上描述：[Delegated Properties](delegated-properties.md)
 
 ## Implementation by Delegation
 
-The [Delegation pattern](https://en.wikipedia.org/wiki/Delegation_pattern) has proven to be a good alternative to implementation inheritance,
-and Kotlin supports it natively requiring zero boilerplate code.
-A class `Derived` can implement an interface `Base` by delegating all of its public members to a specified object:
+The [Delegation pattern](https://en.wikipedia.org/wiki/Delegation_pattern) has proven to be a good alternative to implementation inheritance, and Kotlin supports it natively requiring zero boilerplate code. A class `Derived` can implement an interface `Base` by delegating all of its public members to a specified object:
 
-<div class="sample" markdown="1" theme="idea">
+**程式設計中的模組化程式碼，可以稱為boilerplate code，意即這些程式碼不會變**
+
+已證明委派樣式是實現繼承的一個很好替代方案，且 Kotlin 原生支援委派樣式需要零樣版的代碼 。一個類別 `Derived` 可以通過委派它的所有公開成員給指定物件 `by b` 實作一個介面 `Base` ：
+
 
 ``` kotlin
 interface Base {
@@ -35,10 +42,11 @@ fun main(args: Array<String>) {
     Derived(b).print()
 }
 ```
-</div>
 
-The *by*{: .keyword }-clause in the supertype list for `Derived` indicates that `b` will be stored internally in objects 
+The *by*-clause in the supertype list for `Derived` indicates that `b` will be stored internally in objects 
 of `Derived` and the compiler will generate all the methods of `Base` that forward to `b`.
+
+`Derived` 的超 (父) 類型列表中 `by` 子句，表示 `b` 內部儲存在 `Derived` 的物件，編輯器將生成轉發到 `b` 的所有 `Base` 方法。
 
 ### Overriding a member of an interface implemented by delegation 
 
