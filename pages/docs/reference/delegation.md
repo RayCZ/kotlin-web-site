@@ -19,6 +19,8 @@ Delegated properties are described on a separate page: [Delegated Properties](de
 
 ## Implementation by Delegation
 
+Implementation by Delegation ：透過委派實作繼承
+
 The [Delegation pattern](https://en.wikipedia.org/wiki/Delegation_pattern) has proven to be a good alternative to implementation inheritance, and Kotlin supports it natively requiring zero boilerplate code. A class `Derived` can implement an interface `Base` by delegating all of its public members to a specified object:
 
 **程式設計中的模組化程式碼，可以稱為boilerplate code，意即這些程式碼不會變**
