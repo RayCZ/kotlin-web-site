@@ -43,6 +43,8 @@ fun main(args: Array<String>) {
     val b = BaseImpl(10)
     Derived(b).print()
 }
+
+//ans:10
 ```
 
 The *by*-clause in the supertype list for `Derived` indicates that `b` will be stored internally in objects 
@@ -52,11 +54,12 @@ of `Derived` and the compiler will generate all the methods of `Base` that forwa
 
 ### Overriding a member of an interface implemented by delegation 
 
-[Overrides](classes.html#overriding-methods) work as you might expect: the compiler will use your `override` 
-implementations instead of those in the delegate object. If we were to add `override fun print() { print("abc") }` to 
-`Derived`, the program would print "abc" instead of "10" when `print` is called:
+Overriding a member of an interface implemented by delegation  ：透過委派實作介面覆寫成員
 
-<div class="sample" markdown="1" theme="idea">
+[Overrides](classes.md#overriding-methods) work as you might expect: the compiler will use your `override` implementations instead of those in the delegate object. If we were to add `override fun print() { print("abc") }` to `Derived`, the program would print "abc" instead of "10" when `print` is called:
+
+覆寫依你期望的工作：編譯器將使用你的 `override` 修飾符實作法方替代那些在委派物件的方法。如果我們新增 `override fun print() { print("abc") }` 到 `Derived` ，在調用 `print` 時，程式將印出 "abc" 替代 "10" ：
+
 
 ``` kotlin
 interface Base {
@@ -78,13 +81,14 @@ fun main(args: Array<String>) {
     Derived(b).printMessage()
     Derived(b).printMessageLine()
 }
+
+//ans:abc10
 ```
-</div>
 
-Note, however, that members overridden in this way do not get called from the members of the 
-delegate object, which can only access its own implementations of the interface members:
+Note, however, that members overridden in this way do not get called from the members of the delegate object, which can only access its own implementations of the interface members:
 
-<div class="sample" markdown="1" theme="idea">
+注意：雖然在這種方式覆寫成員不會從委派物件的成員調用，只可以存取類別內介面成員的實作：
+
 
 ``` kotlin
 interface Base {
@@ -109,4 +113,3 @@ fun main(args: Array<String>) {
     println(derived.message)
 }
 ```
-</div>
