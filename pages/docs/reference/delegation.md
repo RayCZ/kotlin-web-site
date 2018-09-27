@@ -116,3 +116,5 @@ fun main(args: Array<String>) {
 //BaseImpl: x = 10
 //Message of Derived
 ```
+
+**如果要讓  `derived.print()` 印出 Message of Derived ，需要在  `Derived` 內覆寫 `override fun print() { println(message) }` ，只會對應類別內該有的成員**
