@@ -87,7 +87,7 @@ fun main(args: Array<String>) {
 
 Note, however, that members overridden in this way do not get called from the members of the delegate object, which can only access its own implementations of the interface members:
 
-注意：雖然在這種方式覆寫成員不會從委派物件的成員調用，只可以存取類別內介面成員的實作：
+注意：雖然在這種方式覆寫成員不會從委派物件的成員調用，只可以存取類別內擁有的介面成員實作：
 
 
 ``` kotlin
@@ -112,4 +112,7 @@ fun main(args: Array<String>) {
     derived.print()
     println(derived.message)
 }
+//ans:
+//BaseImpl: x = 10
+//Message of Derived
 ```
