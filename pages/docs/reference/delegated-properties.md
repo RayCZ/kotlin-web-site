@@ -7,77 +7,84 @@ title: "Delegated Properties"
 
 # Delegated Properties
 
+Delegated Properties ：委外屬性
+
 There are certain common kinds of properties, that, though we can implement them manually every time we need them, 
 would be very nice to implement once and for all, and put into a library. Examples include:
 
+有某些常見的屬性種類，雖然我們可以每次在我們需要它們時手動的實作它們，一勞永逸的實作它們並且放入函式庫非常好。範例包括：
+
 * lazy properties: the value gets computed only upon first access;
+  懶惰屬性：只根據第一次存取時才運算獲取值；
 * observable properties: listeners get notified about changes to this property;
+  可觀察的屬性：監聽者會收到這個屬性改變的通知；
 * storing properties in a map, instead of a separate field for each property.
+  在一個 map 儲存屬性，代替每個屬性的一個單獨欄位。
 
 To cover these (and other) cases, Kotlin supports _delegated properties_:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+為了涵蓋這些 (和其他) 情況， Kotlin 支援委外屬性：
+
 ``` kotlin
 class Example {
     var p: String by Delegate()
 }
 ```
-</div>
 
-The syntax is: `val/var <property name>: <Type> by <expression>`. The expression after *by*{:.keyword} is the _delegate_, 
-because `get()` (and `set()`) corresponding to the property will be delegated to its `getValue()` and `setValue()` methods.
-Property delegates don’t have to implement any interface, but they have to provide a `getValue()` function (and `setValue()` --- for *var*{:.keyword}s).
-For example:
+The syntax is: `val/var <property name>: <Type> by <expression>`. The expression after *by* is the _delegate_, because `get()` (and `set()`) corresponding to the property will be delegated to its `getValue()` and `setValue()` methods. Property delegates don’t have to implement any interface, but they have to provide a `getValue()` function (and `setValue()` --- for *var*s). For example:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+語法是： `val/var <property name>: <Type> by <expression>` 。在 `by` 之後的表達式是委外的類別，因為對應屬性的 `get()` (和 `set()`) 將委外給它的 `getValue()` 和 `setValue` 方法。屬性委外不必實作任何介面，但是它們必須提供一個 `getValue()` 函數 (和 `setValue()`) ---於 `var` 可變的屬性。範例：
+
 ``` kotlin
 class Delegate {
     operator fun getValue(thisRef: Any?, property: KProperty<*>): String {
         return "$thisRef, thank you for delegating '${property.name}' to me!"
     }
- 
+
     operator fun setValue(thisRef: Any?, property: KProperty<*>, value: String) {
         println("$value has been assigned to '${property.name}' in $thisRef.")
     }
 }
 ```
-</div>
 
-When we read from `p` that delegates to an instance of `Delegate`, the `getValue()` function from `Delegate` is called,
-so that its first parameter is the object we read `p` from and the second parameter holds a description of `p` itself 
-(e.g. you can take its name). For example:
+When we read from `p` that delegates to an instance of `Delegate`, the `getValue()` function from `Delegate` is called, so that its first parameter is the object we read `p` from and the second parameter holds a description of `p` itself (e.g. you can take its name). For example:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+當我們從 `p` 讀取時，委外給一個 `Delegate` 實例，調用 `Delegate` 的 `getValue()` 函數，因此 `getValue()` 第一個參數是我們讀取 `p` 的物件，第二個參數持有 `p` 本身的描述 (例如：你可以取得它的屬性名子) 。範例：
+
 ``` kotlin
 val e = Example()
 println(e.p)
 ```
-</div>
 
 This prints:
+
+這印出：
 
 ```
 Example@33a17727, thank you for delegating ‘p’ to me!
 ```
- 
+
 Similarly, when we assign to `p`, the `setValue()` function is called. The first two parameters are the same, and the third holds the value being assigned:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+類似地，當我們賦值給 `p` ，調用 `setValue()` 函數。首先兩個參數相同，且第三個參數保存被分配的值 "NEW"： 
+
 ``` kotlin
 e.p = "NEW"
 ```
-</div>
 
 This prints
- 
+
 ```
 NEW has been assigned to ‘p’ in Example@33a17727.
 ```
 
-The specification of the requirements to the delegated object can be found [below](delegated-properties.html#property-delegate-requirements).
+The specification of the requirements to the delegated object can be found [below](delegated-properties.md#property-delegate-requirements).
 
-Note that since Kotlin 1.1 you can declare a delegated property inside a function or code block, it shouldn't necessarily be a member of a class.
-Below you can find [the example](delegated-properties.html#local-delegated-properties-since-11).
+可以從[下面](delegated-properties.md#property-delegate-requirements)找到對委外物件的要求規範。
+
+Note that since Kotlin 1.1 you can declare a delegated property inside a function or code block, it shouldn't necessarily be a member of a class. Below you can find [the example](delegated-properties.md#local-delegated-properties-since-11).
+
+注意：從 Kotlin 1.1 版，你可以在一個函數或代碼區塊內宣告一個委外屬性，它不一定是一個類別的成員，你可以在下面找到該[範例](delegated-properties.md#local-delegated-properties-since-11)。
 
 ## Standard Delegates
 
@@ -117,7 +124,7 @@ The handler gets called every time we assign to the property (_after_ the assign
 parameters: a property being assigned to, the old value and the new one:
 
 <div class="sample" markdown="1" theme="idea">
-``` kotlin
+​``` kotlin
 import kotlin.properties.Delegates
 
 class User {
@@ -189,7 +196,7 @@ fun main(args: Array<String>) {
 This works also for *var*{:.keyword}’s properties if you use a `MutableMap` instead of read-only `Map`:
 
 <div class="sample" markdown="1" theme="idea" data-highlight-only>
-``` kotlin
+​``` kotlin
 class MutableUser(val map: MutableMap<String, Any?>) {
     var name: String by map
     var age: Int     by map
@@ -242,7 +249,7 @@ The delegate class may implement one of the interfaces `ReadOnlyProperty` and `R
 These interfaces are declared in the Kotlin standard library:
 
 <div class="sample" markdown="1" theme="idea" data-highlight-only auto-indent="false">
-``` kotlin
+​``` kotlin
 interface ReadOnlyProperty<in R, out T> {
     operator fun getValue(thisRef: R, property: KProperty<*>): T
 }
@@ -290,7 +297,7 @@ One of the possible use cases of `provideDelegate` is to check property consiste
 For example, if you want to check the property name before binding, you can write something like this:
 
 <div class="sample" markdown="1" theme="idea" data-highlight-only>
-``` kotlin
+​``` kotlin
 class ResourceDelegate<T> : ReadOnlyProperty<MyUI, T> {
     override fun getValue(thisRef: MyUI, property: KProperty<*>): T { ... }
 }
@@ -350,7 +357,7 @@ Compare the generated code for the property declaration `val prop: Type by MyDel
 [above](delegated-properties.html#translation-rules) (when the `provideDelegate` method is not present):
 
 <div class="sample" markdown="1" theme="idea" data-highlight-only auto-indent="false">
-``` kotlin
+​``` kotlin
 class C {
     var prop: Type by MyDelegate()
 }
