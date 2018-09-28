@@ -185,7 +185,7 @@ class User(val map: Map<String, Any?>) {
 
 In this example, the constructor takes a map:
 
-在這範例，建構元帶一個 `Map` `mapof(..)`：
+在這範例，建構元帶一個 `Map` `mapof(...)`：
 
 ``` kotlin
 val user = User(mapOf(
