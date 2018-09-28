@@ -166,7 +166,7 @@ If you want to be able to intercept an assignment and "veto" it, use [`vetoable(
 
 **`vetoable` 在分配值之「前」執行，可用於滿足某些條件才能分配值，例如：設定數量時要大於 1 否則就不執行**
 
-**`Observabl` 在分配值之「後」執行，用於通知接下來的處理，例如：數量輸入完計算總價**
+**`Observable` 在分配值之「後」執行，用於通知接下來的處理，例如：數量輸入完計算總價**
 
 ## Storing Properties in a Map
 
