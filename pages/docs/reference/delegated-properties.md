@@ -88,45 +88,61 @@ Note that since Kotlin 1.1 you can declare a delegated property inside a functio
 
 ## Standard Delegates
 
+Standard Delegates ：標準化委外
+
 The Kotlin standard library provides factory methods for several useful kinds of delegates.
+
+Kotlin 標準函式庫有一些有用的委外種類提供工廠方法。
 
 ### Lazy
 
-[`lazy()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/lazy.html) is a function that takes a lambda and returns an instance of `Lazy<T>` which can serve as a delegate for implementing a lazy property:
-the first call to `get()` executes the lambda passed to `lazy()` and remembers the result, 
-subsequent calls to `get()` simply return the remembered result. 
+Lazy ：惰性初始化，只在第一次調用時才執行初始化程序，後續都是取得快取
 
-<div class="sample" markdown="1" theme="idea">
+[`lazy()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/lazy.html) is a function that takes a lambda and returns an instance of `Lazy<T>` which can serve as a delegate for implementing a lazy property: the first call to `get()` executes the lambda passed to `lazy()` and remembers the result, subsequent calls to `get()` simply return the remembered result. 
+
+[`lazy()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/lazy.html) 是一個函數，參數為一個函數 `{}` ，函數帶一個 Lambda 表達式 `{...}` 並且在表達式 `{...}` 最後回傳一個 `Lazy<T>` 的實例，這個實例可以擔任為實作一個惰性屬性的委外：首次調用 `get()` 執行傳遞給 `lazy()` 的 Lambda `{}` 並記住這個結果，後續調用到 `get()` 只是回傳已記住的結果。
+
 ``` kotlin
 val lazyValue: String by lazy {
     println("computed!")
-    "Hello"
+    "Hello" // return Lazy<String>
 }
 
 fun main(args: Array<String>) {
     println(lazyValue)
     println(lazyValue)
 }
+//ans：
+//computed! 只在第一次執行
+//Hello //回傳值
+//Hello //回傳值
 ```
-</div>
 
-By default, the evaluation of lazy properties is **synchronized**: the value is computed only in one thread, and all threads
-will see the same value. If the synchronization of initialization delegate is not required, so that multiple threads
-can execute it simultaneously, pass `LazyThreadSafetyMode.PUBLICATION` as a parameter to the `lazy()` function. 
-And if you're sure that the initialization will always happen on a single thread, you can use `LazyThreadSafetyMode.NONE` mode, 
-which doesn't incur any thread-safety guarantees and the related overhead.
+By default, the evaluation of lazy properties is **synchronized**: the value is computed only in one thread, and all threads will see the same value. If the synchronization of initialization delegate is not required, so that multiple threads can execute it simultaneously, pass `LazyThreadSafetyMode.PUBLICATION` as a parameter to the `lazy()` function. And if you're sure that the initialization will always happen on a single thread, you can use `LazyThreadSafetyMode.NONE` mode, which doesn't incur any thread-safety guarantees and the related overhead.
 
+預設上，惰性屬性的執行結果是同步的：這個值是只在一個線程中計算，且所有的線程將看到相同的值。如果不需要初始化委外的同步，以便多線程同時執行它，傳遞 `LazyThreadSafetyMode.PUBLICATION` 為參數到 `lazy()` 函數。並且如果你是確定初始化將總是發生在單線程，你可以使用 `LazyThreadSafetyMode.NONE` 模式，此模式不會遭遇任何線程-安全保證和相關開銷。
+
+**原始碼，第一個參數可以設定線程處理**
+
+``` kotlin
+actual fun <T> lazy(
+    mode: LazyThreadSafetyMode, 
+    initializer: () -> T
+): Lazy<T> (source)
+
+// example : val lazyValue: String by lazy(LazyThreadSafetyMode.PUBLICATION){}
+```
 
 ### Observable
 
-[`Delegates.observable()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.properties/-delegates/observable.html) takes two arguments: the initial value and a handler for modifications.
-The handler gets called every time we assign to the property (_after_ the assignment has been performed). It has three
-parameters: a property being assigned to, the old value and the new one:
+Observable ：被觀察者，負責發送事件
 
-<div class="sample" markdown="1" theme="idea">
-​``` kotlin
+[`Delegates.observable()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.properties/-delegates/observable.html) takes two arguments: the initial value and a handler for modifications. The handler gets called every time we assign to the property (_after_ the assignment has been performed). It has three parameters: a property being assigned to, the old value and the new one:
+
+[`Delegates.observable()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.properties/-delegates/observable.html) 帶兩個參數：初始化值和修改後的處理程序表達式 `{}` 。每次我們分配值給屬性時都會調用處理程序 (在執行分配值之後) 。處理程序 `{prop, old, new -> ...}` 有三個參數：一個屬性被分配 (屬性本身) ，舊值和新值：
+
+``` kotlin
 import kotlin.properties.Delegates
-
 class User {
     var name: String by Delegates.observable("<no name>") {
         prop, old, new ->
@@ -139,11 +155,18 @@ fun main(args: Array<String>) {
     user.name = "first"
     user.name = "second"
 }
+//ans:
+//<no name> -> first
+//first -> second
 ```
-</div>
 
-If you want to be able to intercept an assignment and "veto" it, use [`vetoable()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.properties/-delegates/vetoable.html) instead of `observable()`.
-The handler passed to the `vetoable` is called _before_ the assignment of a new property value has been performed.
+If you want to be able to intercept an assignment and "veto" it, use [`vetoable()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.properties/-delegates/vetoable.html) instead of `observable()`. The handler passed to the `vetoable` is called _before_ the assignment of a new property value has been performed.
+
+如果我們想要能攔截分配並否決它，使用 [`vetoable()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.properties/-delegates/vetoable.html) 替代 `observable()` 。處理程序傳遞給 `vetoable` 在執行新的屬性值給值前調用。
+
+**`vetoable` 在分配值之「前」執行，可用於滿足某些條件才能分配值，例如：設定數量時要大於 1 否則就不執行**
+
+**`Observable`在分配值之「後」執行，用於通知接下來的處理，例如：數量輸入完計算總價**
 
 ## Storing Properties in a Map
 
@@ -152,7 +175,7 @@ This comes up often in applications like parsing JSON or doing other “dynamic�
 In this case, you can use the map instance itself as the delegate for a delegated property.
 
 <div class="sample" markdown="1" theme="idea" data-highlight-only>
-``` kotlin
+​``` kotlin
 class User(val map: Map<String, Any?>) {
     val name: String by map
     val age: Int     by map
