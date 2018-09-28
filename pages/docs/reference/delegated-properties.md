@@ -218,7 +218,7 @@ fun main(args: Array<String>) {
 
 This works also for *var*’s properties if you use a `MutableMap` instead of read-only `Map`:
 
-如果你使用一個可變的 `MutableMap` 代替 唯讀的 `Map`，這也適用 `var` 屬性：
+如果你使用一個可變的 `MutableMap` 代替唯讀的 `Map`，這也適用 `var` 屬性：
 
 ``` kotlin
 class MutableUser(val map: MutableMap<String, Any?>) {
