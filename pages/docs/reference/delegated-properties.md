@@ -174,7 +174,7 @@ Storing Properties in a Map ：儲存在映射的屬性
 
 One common use case is storing the values of properties in a map. This comes up often in applications like parsing JSON or doing other “dynamic” things. In this case, you can use the map instance itself as the delegate for a delegated property.
 
-一個常見的使用情況是存儲在 `Map` 中的屬性值。這通常出現在解析 JSON 或執行其他的 "動態" 事情的應用程序中。在這種情況，你可以為委外屬性使用 `Map`  實例本身為派外處理 `by map`。
+一個常見的使用情況是存儲在 `Map` 中的屬性值。這通常出現在解析 JSON 或執行其他的 "動態" 事情的應用程序中。在這種情況，你可以為委外屬性使用 `Map`  實例本身為委外處理 `by map`。
 
 ``` kotlin
 class User(val map: Map<String, Any?>) {
