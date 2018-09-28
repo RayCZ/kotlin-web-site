@@ -194,7 +194,7 @@ val user = User(mapOf(
 ))
 ```
 
-Delegated properties take values from this map (by the string keys --– names of properties):
+Delegated properties take values from this map (by the string keys – names of properties):
 
 委外屬性從這個 `Map` 帶值到屬性 (透過字串關鍵字對應到屬性的名稱) ：
 
