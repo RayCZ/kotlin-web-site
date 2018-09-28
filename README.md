@@ -41,8 +41,8 @@
 
 - [Objects](pages/docs/reference/object-declarations.md) (物件)
 
-- [Delegation](pages/docs/reference/delegation.md)
+- [Delegation](pages/docs/reference/delegation.md) (委外使用方式)
 
-- [Delegated Properties](pages/docs/reference/delegated-properties.md)
+- [Delegated Properties](pages/docs/reference/delegated-properties.md) (委外屬性生成)
 
 
