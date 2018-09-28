@@ -170,33 +170,34 @@ If you want to be able to intercept an assignment and "veto" it, use [`vetoable(
 
 ## Storing Properties in a Map
 
-One common use case is storing the values of properties in a map.
-This comes up often in applications like parsing JSON or doing other “dynamic” things.
-In this case, you can use the map instance itself as the delegate for a delegated property.
+Storing Properties in a Map ：儲存在映射的屬性
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
-​``` kotlin
+One common use case is storing the values of properties in a map. This comes up often in applications like parsing JSON or doing other “dynamic” things. In this case, you can use the map instance itself as the delegate for a delegated property.
+
+一個常見的使用情況是存儲在 `Map` 中的屬性值。這通常出現在解析 JSON 或執行其他的 "動態" 事情的應用程序中。在這種情況，你可以為委外屬性使用 `Map`  實例本身為派外處理 `by map`。
+
+``` kotlin
 class User(val map: Map<String, Any?>) {
     val name: String by map
     val age: Int     by map
 }
 ```
-</div>
 
 In this example, the constructor takes a map:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+在這範例，建構元帶一個 `Map` `mapof(..)`：
+
 ``` kotlin
 val user = User(mapOf(
     "name" to "John Doe",
     "age"  to 25
 ))
 ```
-</div>
 
 Delegated properties take values from this map (by the string keys --– names of properties):
 
-<div class="sample" markdown="1" theme="idea">
+委外屬性從這個 `Map` 帶值到屬性 (透過字串關鍵字對應到屬性的名稱) ：
+
 ``` kotlin
 class User(val map: Map<String, Any?>) {
     val name: String by map
@@ -214,18 +215,17 @@ fun main(args: Array<String>) {
 //sampleEnd
 }
 ```
-</div>
 
-This works also for *var*{:.keyword}’s properties if you use a `MutableMap` instead of read-only `Map`:
+This works also for *var*’s properties if you use a `MutableMap` instead of read-only `Map`:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
-​``` kotlin
+如果你使用一個可變的 `MutableMap` 代替 唯讀的 `Map`，這也適用 `var` 屬性：
+
+``` kotlin
 class MutableUser(val map: MutableMap<String, Any?>) {
     var name: String by map
     var age: Int     by map
 }
 ```
-</div>
 
 ## Local Delegated Properties (since 1.1)
 
