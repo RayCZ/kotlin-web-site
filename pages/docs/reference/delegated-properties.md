@@ -328,20 +328,25 @@ Kotlin 編譯器在參數中提供有關 `prop` 所有必要的資訊；第一�
 
 Note that the syntax `this::prop` to refer a [bound callable reference](reflection.md#bound-function-and-property-references-since-11) in the code directly is available only since Kotlin 1.1.  
 
-注意：直接在代碼中引用[受約束可調用參照](reflection.md#bound-function-and-property-references-since-11)的語法 `this::prop` 只在 Kotlin 1.1 版之後可用。
+注意：直接在代碼中引用[受約束的可調用參照](reflection.md#bound-function-and-property-references-since-11)的語法 `this::prop` 只在 Kotlin 1.1 版之後可用。
 
 ### Providing a delegate (since 1.1)
 
-By defining the `provideDelegate` operator you can extend the logic of creating the object to which the property implementation is delegated.
-If the object used on the right hand side of `by` defines `provideDelegate` as a member or extension function, that function will be
-called to create the property delegate instance.
+提供委外 (從 1.1 版)
+
+By defining the `provideDelegate` operator you can extend the logic of creating the object to which the property implementation is delegated. If the object used on the right hand side of `by` defines `provideDelegate` as a member or extension function, that function will be called to create the property delegate instance.
+
+透過定義 `provideDelegate` 運算符，你可以擴展創建委外屬性實作物件的邏輯。如果物件在 `by` 的右手邊定義為成員或擴展屬性，函數將調用創建委外屬性實例。
 
 One of the possible use cases of `provideDelegate` is to check property consistency when the property is created, not only in its getter or setter.
 
+`provideDelegate` 可能的使用情況之一是在屬性被建立時檢查屬性一致，不只在它的獲取屬性或設置屬性。
+
 For example, if you want to check the property name before binding, you can write something like this:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
-​``` kotlin
+例如，如果你想要在綁定前檢查屬性名稱，你可以寫像這樣：
+
+``` kotlin
 class ResourceDelegate<T> : ReadOnlyProperty<MyUI, T> {
     override fun getValue(thisRef: MyUI, property: KProperty<*>): T { ... }
 }
@@ -366,20 +371,26 @@ class MyUI {
     val text by bindResource(ResourceID.text_id)
 }
 ```
-</div>
 
 The parameters of `provideDelegate` are the same as for `getValue`:
 
+`provideDelegate`  的參數與 `getValue` 的參數相同
+
 * `thisRef` --- must be the same or a supertype of the _property owner_ (for extension properties --- the type being extended);
+  `thisRef` --- 必須是相同類型或屬性擁有者的超 (父) 類型 (對於擴展屬性 --- 被擴展的類型) ；
 * `property` --- must be of type `KProperty<*>` or its supertype.
+  `property` --- 必須是 `KProperty<*>` 或它的超類型。
 
 The `provideDelegate` method is called for each property during the creation of the `MyUI` instance, and it performs the necessary validation right away.
+
+在創建 `MyUI` 實例時對每個屬性調用 `provideDelegate` 方法，並立即執行必要的驗證。
 
 Without this ability to intercept the binding between the property and its delegate, to achieve the same functionality
 you'd have to pass the property name explicitly, which isn't very convenient:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
-​``` kotlin
+如果沒有攔截在屬性與它的委外之間的綁定，要實現相同功能，你可能必須明確傳遞屬性名稱，這不是很方便：
+
+``` kotlin
 // Checking the property name without "provideDelegate" functionality
 class MyUI {
     val image by bindResource(ResourceID.image_id, "image")
@@ -394,14 +405,10 @@ fun <T> MyUI.bindResource(
    // create delegate
 }
 ```
-</div>
 
-In the generated code, the `provideDelegate` method is called to initialize the auxiliary `prop$delegate` property.
-Compare the generated code for the property declaration `val prop: Type by MyDelegate()` with the generated code 
-[above](delegated-properties.html#translation-rules) (when the `provideDelegate` method is not present):
+In the generated code, the `provideDelegate` method is called to initialize the auxiliary `prop$delegate` property. Compare the generated code for the property declaration `val prop: Type by MyDelegate()` with the generated code [above](delegated-properties.html#translation-rules) (when the `provideDelegate` method is not present):
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only auto-indent="false">
-​``` kotlin
+``` kotlin
 class C {
     var prop: Type by MyDelegate()
 }
@@ -416,12 +423,5 @@ class C {
         set(value: Type) = prop$delegate.setValue(this, this::prop, value)
 }
 ```
-</div>
 
 Note that the `provideDelegate` method affects only the creation of the auxiliary property and doesn't affect the code generated for getter or setter.
-
-```
-
-```
-
-```
