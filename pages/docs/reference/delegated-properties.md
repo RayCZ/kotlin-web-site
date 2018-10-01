@@ -406,7 +406,9 @@ fun <T> MyUI.bindResource(
 }
 ```
 
-In the generated code, the `provideDelegate` method is called to initialize the auxiliary `prop$delegate` property. Compare the generated code for the property declaration `val prop: Type by MyDelegate()` with the generated code [above](delegated-properties.html#translation-rules) (when the `provideDelegate` method is not present):
+In the generated code, the `provideDelegate` method is called to initialize the auxiliary `prop$delegate` property. Compare the generated code for the property declaration `val prop: Type by MyDelegate()` with the generated code [above](delegated-properties.md#translation-rules) (when the `provideDelegate` method is not present):
+
+在生成的代碼中，`provideDelegate` 方法調用初始化輔助 `prop$delegate` 屬性。使用在[上面](delegated-properties.md#translation-rules)的生成代碼比較屬性宣告 `val prop: Type by MyDelegate()` 生成的代碼 (當沒有 `provideDelegate` 方法) ：
 
 ``` kotlin
 class C {
@@ -425,3 +427,5 @@ class C {
 ```
 
 Note that the `provideDelegate` method affects only the creation of the auxiliary property and doesn't affect the code generated for getter or setter.
+
+注意： `provideDelegate` 方法只影響輔助屬性的創建並不影響屬性設置或屬性獲取的生成代碼。
