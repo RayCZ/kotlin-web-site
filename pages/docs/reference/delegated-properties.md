@@ -347,10 +347,12 @@ For example, if you want to check the property name before binding, you can writ
 例如，如果你想要在綁定前檢查屬性名稱，你可以寫像這樣：
 
 ``` kotlin
+//負責當回傳類型
 class ResourceDelegate<T> : ReadOnlyProperty<MyUI, T> {
     override fun getValue(thisRef: MyUI, property: KProperty<*>): T { ... }
 }
 
+//依據參數 id 動態的產生委外屬性
 class ResourceLoader<T>(id: ResourceID<T>) {
     operator fun provideDelegate(
             thisRef: MyUI,
@@ -360,13 +362,14 @@ class ResourceLoader<T>(id: ResourceID<T>) {
         // create delegate
         return ResourceDelegate()
     }
-
+	//檢查屬性值
     private fun checkProperty(thisRef: MyUI, name: String) { ... }
 }
 
 class MyUI {
     fun <T> bindResource(id: ResourceID<T>): ResourceLoader<T> { ... }
 
+    //透過 bindResource 生成委外屬性
     val image by bindResource(ResourceID.image_id)
     val text by bindResource(ResourceID.text_id)
 }
