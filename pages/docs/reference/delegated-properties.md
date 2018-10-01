@@ -229,10 +229,12 @@ class MutableUser(val map: MutableMap<String, Any?>) {
 
 ## Local Delegated Properties (since 1.1)
 
-You can declare local variables as delegated properties.
-For instance, you can make a local variable lazy:
+Local Delegated Properties (since 1.1) ：區域委外函數 (從 1.1 版)
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+You can declare local variables as delegated properties. For instance, you can make a local variable lazy:
+
+你可以宣告區域變數為委外屬性。例如，你可以使一個區域變數為惰性：
+
 ``` kotlin
 fun example(computeFoo: () -> Foo) {
     val memoizedFoo by lazy(computeFoo)
@@ -242,37 +244,52 @@ fun example(computeFoo: () -> Foo) {
     }
 }
 ```
-</div>
 
-The `memoizedFoo` variable will be computed on the first access only.
-If `someCondition` fails, the variable won't be computed at all.
+The `memoizedFoo` variable will be computed on the first access only. If `someCondition` fails, the variable won't be computed at all.
+
+`memoizedFoo`  變數將只在第一次存取時計算。如果 `someCondition`  失敗，則根本不會計算變數。
 
 ## Property Delegate Requirements
 
+Property Delegate Requirements ：屬性委外要求
+
 Here we summarize requirements to delegate objects. 
 
-For a **read-only** property (i.e. a *val*{:.keyword}), a delegate has to provide a function named `getValue` that takes the following parameters:
+在這裡，我們總結委外物件的要求。
+
+For a **read-only** property (i.e. a *val*), a delegate has to provide a function named `getValue` that takes the following parameters:
+
+對於**只唯讀**屬性 (即是 `val`) ，委外必須提供名為 `getValue` 的函數帶以下參數：
 
 * `thisRef` --- must be the same or a supertype of the _property owner_ (for extension properties --- the type being extended);
+  `thisRef` --- 必須是相同類型或屬性擁有者的超 (父) 類型 (對於擴展屬性 --- 被擴展的類型) ；
 * `property` --- must be of type `KProperty<*>` or its supertype.
- 
+  `property` --- 必須是 `KProperty<*>` 或它的超類型。
+
 this function must return the same type as property (or its subtype).
 
-For a **mutable** property (a *var*{:.keyword}), a delegate has to _additionally_ provide a function named `setValue` that takes the following parameters:
- 
+這函數必須回傳與屬性相同的類型 (或它的子類型) 。
+
+For a **mutable** property (a *var*), a delegate has to _additionally_ provide a function named `setValue` that takes the following parameters:
+
+對於**可變的**屬性 (`var`) ，委外必需另外提供名為 `setValue` 的函數帶以下參數：
+
 * `thisRef` --- same as for `getValue()`;
+  `thisRef` --- 與 `getValue()` 相同；
 * `property` --- same as for `getValue()`;
+  `property` ---  與 `getValue()` 相同；
 * new value --- must be of the same type as a property or its supertype.
- 
-`getValue()` and/or `setValue()` functions may be provided either as member functions of the delegate class or extension functions.
-The latter is handy when you need to delegate property to an object which doesn't originally provide these functions.
-Both of the functions need to be marked with the `operator` keyword.
+  新值 --- 必須與屬性相同類型或它的超 (父) 類型。
 
-The delegate class may implement one of the interfaces `ReadOnlyProperty` and `ReadWriteProperty` containing the required `operator` methods.
-These interfaces are declared in the Kotlin standard library:
+`getValue()` and/or `setValue()` functions may be provided either as member functions of the delegate class or extension functions. The latter is handy when you need to delegate property to an object which doesn't originally provide these functions. Both of the functions need to be marked with the `operator` keyword.
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only auto-indent="false">
-​``` kotlin
+`getValue()` 且/或 `setValue()` 函數可以提供為委外類別的成員函數或擴展函數。當你需要委託屬性給物件，而物件本身不提供這些函數時，後者會很方便。這兩個函數需要使用 `operator` 關鍵字標記。
+
+The delegate class may implement one of the interfaces `ReadOnlyProperty` and `ReadWriteProperty` containing the required `operator` methods. These interfaces are declared in the Kotlin standard library:
+
+委外類別可以實作介面 `ReadOnlyProperty` 和 `ReadWriteProperty` 之一，包含所需的 `operator` 方法。這些介面在 Kotlin 標準函式庫宣告。
+
+``` kotlin
 interface ReadOnlyProperty<in R, out T> {
     operator fun getValue(thisRef: R, property: KProperty<*>): T
 }
@@ -282,14 +299,15 @@ interface ReadWriteProperty<in R, T> {
     operator fun setValue(thisRef: R, property: KProperty<*>, value: T)
 }
 ```
-</div>
 
 ### Translation Rules
 
-Under the hood for every delegated property the Kotlin compiler generates an auxiliary property and delegates to it.
-For instance, for the property `prop` the hidden property `prop$delegate` is generated, and the code of the accessors simply delegates to this additional property:
+Translation Rules ：編譯器翻譯規則
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only auto-indent="false">
+Under the hood for every delegated property the Kotlin compiler generates an auxiliary property and delegates to it. For instance, for the property `prop` the hidden property `prop$delegate` is generated, and the code of the accessors simply delegates to this additional property:
+
+每個委外屬性底層在 Kotlin 編譯器生成輔助屬性和委外屬性給它。例如，對於屬性 `prop` 生成隱藏屬性 `prop$delegate` ，存取器代碼只是委託給這個額外屬性 `get() = prop$delegate.getValue(this, this::prop)` 、 `set(value: Type) = prop$delegate.setValue(this, this::prop, value)` 。
+
 ``` kotlin
 class C {
     var prop: Type by MyDelegate()
@@ -303,11 +321,14 @@ class C {
         set(value: Type) = prop$delegate.setValue(this, this::prop, value)
 }
 ```
-</div>
 
 The Kotlin compiler provides all the necessary information about `prop` in the arguments: the first argument `this` refers to an instance of the outer class `C` and `this::prop` is a reflection object of the `KProperty` type describing `prop` itself.
 
-Note that the syntax `this::prop` to refer a [bound callable reference](reflection.html#bound-function-and-property-references-since-11) in the code directly is available only since Kotlin 1.1.  
+Kotlin 編譯器在參數中提供有關 `prop` 所有必要的資訊；第一個參數 `this` 引用外類別 `C` 的實例， `this::prop` 是描述 `prop` 本身 `KProperty` 類型的反射物件。 
+
+Note that the syntax `this::prop` to refer a [bound callable reference](reflection.md#bound-function-and-property-references-since-11) in the code directly is available only since Kotlin 1.1.  
+
+注意：直接在代碼中引用[受約束可調用參照](reflection.md#bound-function-and-property-references-since-11)的語法 `this::prop` 只在 Kotlin 1.1 版之後可用。
 
 ### Providing a delegate (since 1.1)
 
@@ -324,7 +345,7 @@ For example, if you want to check the property name before binding, you can writ
 class ResourceDelegate<T> : ReadOnlyProperty<MyUI, T> {
     override fun getValue(thisRef: MyUI, property: KProperty<*>): T { ... }
 }
-    
+
 class ResourceLoader<T>(id: ResourceID<T>) {
     operator fun provideDelegate(
             thisRef: MyUI,
@@ -358,7 +379,7 @@ Without this ability to intercept the binding between the property and its deleg
 you'd have to pass the property name explicitly, which isn't very convenient:
 
 <div class="sample" markdown="1" theme="idea" data-highlight-only>
-``` kotlin
+​``` kotlin
 // Checking the property name without "provideDelegate" functionality
 class MyUI {
     val image by bindResource(ResourceID.image_id, "image")
@@ -398,3 +419,9 @@ class C {
 </div>
 
 Note that the `provideDelegate` method affects only the creation of the auxiliary property and doesn't affect the code generated for getter or setter.
+
+```
+
+```
+
+```
