@@ -47,11 +47,11 @@
 
 ## functions and Lambdas (函數與 Lambdas 表示法)
 
-- [Functions](pages/docs/reference/functions.md) 
+- [Functions](pages/docs/reference/functions.md) (函數)
 
-- [Lambdas](pages/docs/reference/lambdas.md) 
+- [Lambdas](pages/docs/reference/lambdas.md) (Lambdas 表示法)
 
-- [Inline Functions](pages/docs/reference/inline-functions.md) 
+- [Inline Functions](pages/docs/reference/inline-functions.md) (置內函數)
 
-- [Coroutines](pages/docs/reference/coroutines.md) 
+- [Coroutines](pages/docs/reference/coroutines.md) (協同程序)
 

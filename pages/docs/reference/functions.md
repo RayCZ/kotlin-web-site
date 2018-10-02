@@ -9,93 +9,100 @@ title: "Functions: infix, vararg, tailrec"
 
 ## Function Declarations
 
-Functions in Kotlin are declared using the *fun*{: .keyword } keyword:
+Function Declarations ：函數宣告
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+Functions in Kotlin are declared using the *fun* keyword:
+
+在 Kotlin 中的函數使用 `fun` 關鍵字宣告：
+
 ``` kotlin
 fun double(x: Int): Int {
     return 2 * x
 }
 ```
-</div>
 
 ## Function Usage
 
+Function Usage ：函數用法
+
 Calling functions uses the traditional approach:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+調用函數使用傳統的方式：
+
 ``` kotlin
 val result = double(2)
 ```
-</div>
-
 
 Calling member functions uses the dot notation:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+調用成員函數使用點符號：
+
 ``` kotlin
 Sample().foo() // create instance of class Sample and call foo
 ```
-</div>
 
 ### Parameters
 
+Parameters ：參數
+
 Function parameters are defined using Pascal notation, i.e. *name*: *type*. Parameters are separated using commas. Each parameter must be explicitly typed:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+函數參數使用 Pascal 表示法定義，即是名稱 : 類型。參數使用逗號分隔。每個參數必須明確指定類型：
+
 ``` kotlin
 fun powerOf(number: Int, exponent: Int) { ... }
 ```
-</div>
 
 ### Default Arguments
 
-Function parameters can have default values, which are used when a corresponding argument is omitted. This allows for a reduced number of overloads compared to
-other languages:
+Default Arguments ：預設參數
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+Function parameters can have default values, which are used when a corresponding argument is omitted. This allows for a reduced number of overloads compared to other languages:
+
+函數參數可以有預設值，當對應參數被省略時使用預設值。與其他語言比較，這樣可以減少多載的數量。
+
 ``` kotlin
 fun read(b: Array<Byte>, off: Int = 0, len: Int = b.size) { ... }
 ```
-</div>
 
 Default values are defined using the **=** after type along with the value.
 
-Overriding methods always use the same default parameter values as the base method.
-When overriding a method with default parameters values, the default parameter values must be omitted from the signature:
+在類型之後使用 **=** 與值一起定義預設值。
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+Overriding methods always use the same default parameter values as the base method. When overriding a method with default parameters values, the default parameter values must be omitted from the signature:
+
+覆寫方法總是使用與基礎方法相同的預設參數值。當使用預設參數值覆寫方法時，必須從簽名省略預設參數值：
+
 ``` kotlin
 open class A {
     open fun foo(i: Int = 10) { ... }
 }
-
 class B : A() {
     override fun foo(i: Int) { ... }  // no default value allowed
 }
+
 ```
-</div>
 
 If a default parameter precedes a parameter with no default value, the default value can be used only by calling the function with [named arguments](#named-arguments):
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+如果預設參數在沒有預設值參數的前面，只能透過使用[命名參數](#named-arguments)調用函數來使用預設值：
+
 ``` kotlin
 fun foo(bar: Int = 0, baz: Int) { ... }
 
 foo(baz = 1) // The default value bar = 0 is used
 ```
-</div>
 
-But if a last argument [lambda](lambdas.html#lambda-expression-syntax) is passed to a function call outside the parentheses, passing no values for the default parameters is allowed:
+But if a last argument [lambda](lambdas.md#lambda-expression-syntax) is passed to a function call outside the parentheses, passing no values for the default parameters is allowed:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+但如果最後一個 [Lambda](lambdas.md#lambda-expression-syntax) 參數在括號外傳遞給函數調用，允許不傳遞預設參數的值。
+
 ``` kotlin
 fun foo(bar: Int = 0, baz: Int = 1, qux: () -> Unit) { ... }
 
 foo(1) { println("hello") } // Uses the default value baz = 1 
 foo { println("hello") }    // Uses both default values bar = 0 and baz = 1
 ```
-</div>
 
 ### Named Arguments
 
@@ -104,7 +111,7 @@ Function parameters can be named when calling functions. This is very convenient
 Given the following function:
 
 <div class="sample" markdown="1" theme="idea" data-highlight-only auto-indent="false">
-``` kotlin
+​``` kotlin
 fun reformat(str: String,
              normalizeCase: Boolean = true,
              upperCaseFirstLetter: Boolean = true,
@@ -173,7 +180,7 @@ If a function does not return any useful value, its return type is `Unit`. `Unit
 value does not have to be returned explicitly:
 
 <div class="sample" markdown="1" theme="idea" data-highlight-only>
-``` kotlin
+​``` kotlin
 fun printHello(name: String?): Unit {
     if (name != null)
         println("Hello ${name}")
@@ -294,7 +301,7 @@ calling a method on the current receiver using the infix notation, you need to u
 it cannot be omitted. This is required to ensure unambiguous parsing.
 
 <div class="sample" markdown="1" theme="idea" data-highlight-only>
-```kotlin
+​```kotlin
 class MyStringCollection {
     infix fun add(s: String) { ... }
     
@@ -334,7 +341,7 @@ fun dfs(graph: Graph) {
 Local function can access local variables of outer functions (i.e. the closure), so in the case above, the *visited* can be a local variable:
 
 <div class="sample" markdown="1" theme="idea" data-highlight-only auto-indent="false">
-``` kotlin
+​``` kotlin
 fun dfs(graph: Graph) {
     val visited = HashSet<Vertex>()
     fun dfs(current: Vertex) {
