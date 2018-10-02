@@ -45,4 +45,13 @@
 
 - [Delegated Properties](pages/docs/reference/delegated-properties.md) (委外屬性生成)
 
+## functions and Lambdas (函數與 Lambdas 表示法)
+
+- [Functions](pages/docs/reference/functions.md) 
+
+- [Lambdas](pages/docs/reference/lambdas.md) 
+
+- [Inline Functions](pages/docs/reference/inline-functions.md) 
+
+- [Coroutines](pages/docs/reference/coroutines.md) 
 
