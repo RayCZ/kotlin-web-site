@@ -85,7 +85,7 @@ class B : A() {
 
 If a default parameter precedes a parameter with no default value, the default value can be used only by calling the function with [named arguments](#named-arguments):
 
-如果預設參數在沒有預設值參數的前面，只能透過使用[命名參數](#named-arguments)調用函數來使用預設值：
+如果預設參數在沒有預設值參數的前面，只能透過使用[已命名的參數](#named-arguments)調用函數來使用預設值：
 
 ``` kotlin
 fun foo(bar: Int = 0, baz: Int) { ... }
@@ -106,12 +106,17 @@ foo { println("hello") }    // Uses both default values bar = 0 and baz = 1
 
 ### Named Arguments
 
+Named Arguments ：調用已命名的參數
+
 Function parameters can be named when calling functions. This is very convenient when a function has a high number of parameters or default ones.
+
+當調用函數時可以命名函數參數。當函數有大量參數或預設參數時，這非常方便。
 
 Given the following function:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only auto-indent="false">
-​``` kotlin
+給予以下函數：
+
+``` kotlin
 fun reformat(str: String,
              normalizeCase: Boolean = true,
              upperCaseFirstLetter: Boolean = true,
@@ -120,27 +125,27 @@ fun reformat(str: String,
 ...
 }
 ```
-</div>
 
 we could call this using default arguments:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+我們可以使用預設參數調用它：
+
 ``` kotlin
 reformat(str)
 ```
-</div>
 
 However, when calling it with non-default, the call would look something like:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+然後，當我們使用非預設值調用它時，調用看起來像：
+
 ``` kotlin
 reformat(str, true, true, false, '_')
 ```
-</div>
 
 With named arguments we can make the code much more readable:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+使用已命名參數，我們可以使代碼更可讀的：
+
 ``` kotlin
 reformat(str,
     normalizeCase = true,
@@ -149,30 +154,33 @@ reformat(str,
     wordSeparator = '_'
 )
 ```
-</div>
 
 and if we do not need all arguments:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+並且如果我們不需要所有參數：
+
 ``` kotlin
 reformat(str, wordSeparator = '_')
 ```
-</div>
 
 When a function is called with both positional and named arguments, all the positional arguments should be placed before the first named one. For example, the call `f(1, y = 2)` is allowed, but `f(x = 1, 2)` is not.
 
-[Variable number of arguments (*vararg*{: .keyword })](#variable-number-of-arguments-varargs) can be passed in the named form by using the **spread** operator:
+當使用位置和已命名參數調用函數時，所有位置參數應該放在第一個已命名參數之前。例如，允許調用 `f(1, y = 2)` ，但不允許 `f(x = 1, 2)` 。
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+[Variable number of arguments (*vararg*)](#variable-number-of-arguments-varargs) can be passed in the named form by using the **spread** operator:
+
+透過使用 `spread` 運算符在命名表單中傳遞[可變數量的參數 (`vararg`)](#variable-number-of-arguments-varargs) ：
+
 ``` kotlin
 fun foo(vararg strings: String) { ... }
 
 foo(strings = *arrayOf("a", "b", "c"))
 ```
-</div>
 
 Note that the named argument syntax cannot be used when calling Java functions, because Java bytecode does not
 always preserve names of function parameters.
+
+注意：當調用 Java 函數時不能使用已命名參數語法，因為 Java bytecode 總是不會保留函數參數的名稱。
 
 ### Unit-returning functions
 
