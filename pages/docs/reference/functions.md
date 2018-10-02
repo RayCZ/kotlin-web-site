@@ -171,6 +171,8 @@ When a function is called with both positional and named arguments, all the posi
 
 透過使用 `spread` 運算符在命名表單中傳遞[可變數量的參數 (`vararg`)](#variable-number-of-arguments-varargs) ：
 
+**`spread` (伸展) 運算符使用星號 `*` ，針對陣列做伸展，用於陣列的傳遞**
+
 ``` kotlin
 fun foo(vararg strings: String) { ... }
 
