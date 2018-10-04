@@ -454,30 +454,36 @@ Higher-Order functions and Lambdas are explained in [their own section](lambdas.
 
 ## Tail recursive functions
 
-Kotlin supports a style of functional programming known as [tail recursion](https://en.wikipedia.org/wiki/Tail_call).
-This allows some algorithms that would normally be written using loops to instead be written using a recursive function, but without the risk of stack overflow.
-When a function is marked with the `tailrec` modifier and meets the required form, the compiler optimises out the recursion, leaving behind a fast and efficient loop based version instead:
+Tail recursive functions ：尾段遞迴函數
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only auto-indent="false">
+Kotlin supports a style of functional programming known as [tail recursion](https://en.wikipedia.org/wiki/Tail_call). This allows some algorithms that would normally be written using loops to instead be written using a recursive function, but without the risk of stack overflow.  When a function is marked with the `tailrec` modifier and meets the required form, the compiler optimises out the recursion, leaving behind a fast and efficient loop based version instead:
+
+Kotlin 支援稱為[尾段遞迴](https://en.wikipedia.org/wiki/Tail_call)的函數式編碼風格。這允許一些通常使用循環編寫的演算法改為使用遞迴函數編寫，但沒有堆疊溢出的風險。當使用 `tailrec` 修飾符標記函數且滿足所需的形式，編譯器優化出遞迴，從而留下基本版本快速和有效的循環：
+
 ``` kotlin
+val eps = 1E-10 // "good enough", could be 10^-15
+
 tailrec fun findFixPoint(x: Double = 1.0): Double
-        = if (x == Math.cos(x)) x else findFixPoint(Math.cos(x))
+        = if (Math.abs(x - Math.cos(x)) < eps) x else findFixPoint(Math.cos(x))
 ```
-</div>
 
-This code calculates the fixpoint of cosine, which is a mathematical constant. It simply calls Math.cos repeatedly starting at 1.0 until the result doesn't change any more, yielding a result of 0.7390851332151607. The resulting code is equivalent to this more traditional style:
+This code calculates the fixpoint of cosine, which is a mathematical constant. It simply calls Math.cos repeatedly starting at 1.0 until the result doesn't change any more, yielding a result of 0.7390851332151607 for the specified `eps` precision. The resulting code is equivalent to this more traditional style:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+此代碼計算餘弦的定點，這是一個數學常數。它只是從 1.0 開始重覆調用 Math.cos，直到結果不再發生任何改變，為 eps精度產生 0.7390851332151607 的結果。生成的代碼相當於這種更傳統的風格：
+
 ``` kotlin
+val eps = 1E-10 // "good enough", could be 10^-15
+
 private fun findFixPoint(): Double {
     var x = 1.0
     while (true) {
         val y = Math.cos(x)
-        if (x == y) return x
-        x = y
+        if (Math.abs(x - y) < eps) return x
+        x = Math.cos(x)
     }
 }
 ```
-</div>
 
 To be eligible for the `tailrec` modifier, a function must call itself as the last operation it performs. You cannot use tail recursion when there is more code after the recursive call, and you cannot use it within try/catch/finally blocks. Currently tail recursion is only supported in the JVM backend.
+
+要獲得 `tailrec` 修飾符的資格，函數必須調用自己為它執行的最後一個操作。在遞迴調用之後當有更多代碼，你不可以使用尾段遞迴，並且你不可以使用它在 try/catch/finally 區域內，目前尾段遞迴只在 JVM 後端支援。
