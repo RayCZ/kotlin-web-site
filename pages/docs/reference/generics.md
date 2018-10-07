@@ -117,7 +117,6 @@ The key to understanding why this trick works is rather simple: if you can only 
 The latter is called **contravariance**, and you can only call methods that take String as an argument on `List<? super String>` (e.g., you can call `add(String)` or `set(int, String)`), while if you call something that returns `T` in `List<T>`, you don't get a `String`, but an `Object`.
 
 後者稱為逆變，並且你只可以在 `List<? super String>` 調用方法帶入 String 為一個參數 (例如：你可以調用 `add(String)` 或 `set(int, String)`)，而如果你在 `List<T>` 調用回傳 `T` 的東西，你不會獲到 `String` ，而是一個 `Object` 。
->>>>>>> ray
 
 Joshua Bloch calls those objects you only **read** from **Producers**, and those you only **write** to **Consumers**. He recommends: "*For maximum flexibility, use wildcard types on input parameters that represent producers or consumers*", and proposes the following mnemonic:
 

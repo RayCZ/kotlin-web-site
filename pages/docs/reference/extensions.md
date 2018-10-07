@@ -104,7 +104,7 @@ printFoo(D())
 
 **靜態代表程式程宣告的類型為主，而不是運作時實際的物件類型 (虛擬) ， `printFoo(D())` 實際物件是 D 類型，但印出是 c ，以參數的宣告類型為主 `fun printFoo(c: C)`，當參數時為靜態**
 
-This example will print "c", because the extension function being called depends only on the declared type of theparameter `c`, which is the `C` class.
+This example will print "c", because the extension function being called depends only on the declared type of the parameter `c`, which is the `C` class.
 
 這個範例將印出 "c" ，因為擴展函數只取決於參數 `c` 的宣告類型，就是 `C` 類別。
 

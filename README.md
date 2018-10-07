@@ -8,11 +8,11 @@
 
 ## Basics (基礎)
 
-- [Basic Types](pages/docs/reference/basic-types.md) (基本類型)
+- [Basic Types](pages/docs/reference/basic-types.md) (基本類型) *需補充、修正
 
 - [Packages and Imports](pages/docs/reference/packages.md) (package 和匯入)
 
-- [Control Flow](pages/docs/reference/control-flow.md) (控制流程)
+- [Control Flow](pages/docs/reference/control-flow.md) (控制流程) *需補充、修正
 
 - [Returns and Jumps](pages/docs/reference/returns.md) (回傳和區段跳轉)
 
