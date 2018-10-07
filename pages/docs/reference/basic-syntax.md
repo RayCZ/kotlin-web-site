@@ -9,9 +9,12 @@ title: "Basic Syntax"
 
 ## Defining packages
 
+**Package：在 Java 或 Kotlin 做檔案結構的分類或是打包**
+
 Package specification should be at the top of the source file:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+Package 規範應該在來源檔案的最上面：
+
 ``` kotlin
 package my.demo
 
@@ -19,17 +22,21 @@ import java.util.*
 
 // ...
 ```
-</div>
-
 It is not required to match directories and packages: source files can be placed arbitrarily in the file system.
 
-See [Packages](packages.html).
+package 需不要匹配目錄與 package ：在檔案系統中來源檔案可以隨意的放置。
+
+See [Packages](packages.md).
+
+參閱 [Packages](packages.md) 。
 
 ## Defining functions
 
+Defining functions ：定義函數
+
 Function having two `Int` parameters with `Int` return type:
 
-<div class="sample" markdown="1" theme="idea">
+以下函數有兩個 `Int` 參數與 `Int` 回傳類型：
 
 ``` kotlin
 //sampleStart
@@ -40,14 +47,15 @@ fun sum(a: Int, b: Int): Int {
 
 fun main(args: Array<String>) {
     print("sum of 3 and 5 is ")
-    println(sum(3, 5))
+    println(sum(3, 5))//ans:sum of 3 and 5 is 8
 }
 ```
-</div>
+
+----
 
 Function with an expression body and inferred return type:
 
-<div class="sample" markdown="1" theme="idea">
+使用表達式 (Lambda) 內文的函數或推斷回傳類型：
 
 ``` kotlin
 //sampleStart
@@ -55,14 +63,14 @@ fun sum(a: Int, b: Int) = a + b
 //sampleEnd
 
 fun main(args: Array<String>) {
-    println("sum of 19 and 23 is ${sum(19, 23)}")
+    println("sum of 19 and 23 is ${sum(19, 23)}")//ans:sum of 19 and 23 is 42
 }
 ```
-</div>
+----
 
 Function returning no meaningful value:
 
-<div class="sample" markdown="1" theme="idea">
+函數回傳無意義的值 (Unit) ：
 
 ``` kotlin
 //sampleStart
@@ -72,14 +80,14 @@ fun printSum(a: Int, b: Int): Unit {
 //sampleEnd
 
 fun main(args: Array<String>) {
-    printSum(-1, 8)
+    printSum(-1, 8)//ans:sum of -1 and 8 is 7
 }
 ```
-</div>
+----
 
 `Unit` return type can be omitted:
 
-<div class="sample" markdown="1" theme="idea">
+`Unit` 回傳類型可以被省略 (與上面比較Unit被省略) ：
 
 ``` kotlin
 //sampleStart
@@ -89,18 +97,20 @@ fun printSum(a: Int, b: Int) {
 //sampleEnd
 
 fun main(args: Array<String>) {
-    printSum(-1, 8)
+    printSum(-1, 8)//ans:sum of -1 and 8 is 7
 }
 ```
-</div>
+See [Functions](functions.md).
 
-See [Functions](functions.html).
+參閱 [Functions](functions.md)
 
 ## Defining variables
 
+Defining variables ：定義變數
+
 Assign-once (read-only) local variable:
 
-<div class="sample" markdown="1" theme="idea">
+分配一次性 (唯讀) 區域變數 (val) ：
 
 ``` kotlin
 fun main(args: Array<String>) {
@@ -110,14 +120,15 @@ fun main(args: Array<String>) {
     val c: Int  // Type required when no initializer is provided
     c = 3       // deferred assignment
 //sampleEnd
-    println("a = $a, b = $b, c = $c")
+    println("a = $a, b = $b, c = $c")//ans:a = 1, b = 2, c = 3
 }
 ```
-</div>
+
+---
 
 Mutable variable:
 
-<div class="sample" markdown="1" theme="idea">
+可變的變數 (var) ：
 
 ``` kotlin
 fun main(args: Array<String>) {
@@ -125,14 +136,15 @@ fun main(args: Array<String>) {
     var x = 5 // `Int` type is inferred
     x += 1
 //sampleEnd
-    println("x = $x")
+    println("x = $x")//ans:x = 6
 }
 ```
-</div>
+---
 
 Top-level variables:
 
-<div class="sample" markdown="1" theme="idea">
+最高層級的變數 (不在類別或是函數內) ：
+
 ``` kotlin
 //sampleStart
 val PI = 3.14
@@ -144,20 +156,24 @@ fun incrementX() {
 //sampleEnd
 
 fun main(args: Array<String>) {
-    println("x = $x; PI = $PI")
+    println("x = $x; PI = $PI")//ans:x = 0; PI = 3.14
     incrementX()
-    println("incrementX()")
-    println("x = $x; PI = $PI")
+    println("incrementX()")//ans:incrementX()
+    println("x = $x; PI = $PI")//ans:x = 1; PI = 3.14
 }
 ```
-</div>
+See also [Properties And Fields](properties.md).
 
-See also [Properties And Fields](properties.html).
+參閱 [Properties And Fields](properties.md) 。
 
 
 ## Comments
 
+Comments ：註解
+
 Just like Java and JavaScript, Kotlin supports end-of-line and block comments.
+
+就像 Java 或 JavaScript， Kotlin 支援行尾和區塊註解。
 
 ``` kotlin
 // This is an end-of-line comment
@@ -168,11 +184,17 @@ Just like Java and JavaScript, Kotlin supports end-of-line and block comments.
 
 Unlike Java, block comments in Kotlin can be nested.
 
-See [Documenting Kotlin Code](kotlin-doc.html) for information on the documentation comment syntax.
+不像 Java，在 Kotlin 區塊註解可以被內嵌。
+
+See [Documenting Kotlin Code](kotlin-doc.md) for information on the documentation comment syntax.
+
+有關文件註解語法，請看 [Documenting Kotlin Code](kotlin-doc.md) 。
 
 ## Using string templates
 
-<div class="sample" markdown="1" theme="idea">
+Using string templates ：字串模版
+
+**String templates：利用 `$` 或 `${}` 符號在字串內 `""` 使用變數或程式區塊**
 
 ``` kotlin
 fun main(args: Array<String>) {
@@ -185,17 +207,18 @@ fun main(args: Array<String>) {
     // arbitrary expression in template:
     val s2 = "${s1.replace("is", "was")}, but now is $a"
 //sampleEnd
-    println(s2)
+    println(s2)//ans:a was 1, but now is 2
 }
 ```
-</div>
+See [String templates](basic-types.md#string-templates).
 
-See [String templates](basic-types.html#string-templates).
+參閱  [String templates](basic-types.md#string-templates) 。
 
 ## Using conditional expressions
 
+Using conditional expressions ：使用條件表達式
 
-<div class="sample" markdown="1" theme="idea">
+**Conditional expressions：條件表達式，if、else**
 
 ``` kotlin
 //sampleStart
@@ -209,15 +232,12 @@ fun maxOf(a: Int, b: Int): Int {
 //sampleEnd
 
 fun main(args: Array<String>) {
-    println("max of 0 and 42 is ${maxOf(0, 42)}")
+    println("max of 0 and 42 is ${maxOf(0, 42)}")//ans:max of 0 and 42 is 42
 }
 ```
-</div>
+Using `if` as an expression:
 
-
-Using *if*{: .keyword } as an expression:
-
-<div class="sample" markdown="1" theme="idea">
+使用 `if` 為一個單行表達式 (Lambda) ，差別在於方法可以用 `=` 指定表達式：
 
 ``` kotlin
 //sampleStart
@@ -225,31 +245,33 @@ fun maxOf(a: Int, b: Int) = if (a > b) a else b
 //sampleEnd
 
 fun main(args: Array<String>) {
-    println("max of 0 and 42 is ${maxOf(0, 42)}")
+    println("max of 0 and 42 is ${maxOf(0, 42)}")//ans:max of 0 and 42 is 42
 }
 ```
-</div>
+See [*if*-expressions](control-flow.md#if-expression).
 
-See [*if*{: .keyword }-expressions](control-flow.html#if-expression).
+參閱 [*if*-expressions 。](control-flow.md#if-expression)
 
-## Using nullable values and checking for *null*{: .keyword }
+## Using nullable values and checking for `null`
 
-A reference must be explicitly marked as nullable when *null*{: .keyword } value is possible.
+Using nullable values and checking for `null` ：使用可空的變數和null檢查
 
-Return *null*{: .keyword } if `str` does not hold an integer:
+A reference must be explicitly marked as nullable when `null` value is possible.
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+當可能為 `null` 值時，一個參照必須明確標記為可空的。
+
+Return `null` if `str` does not hold an integer:
+
+如果 `str` 不為整數回傳 `null` (Int?)：
+
 ``` kotlin
 fun parseInt(str: String): Int? {
     // ...
 }
 ```
-</div>
-
 Use a function returning nullable value:
 
-
-<div class="sample" markdown="1" theme="idea">
+使用函數回傳可空的值：
 
 ``` kotlin
 fun parseInt(str: String): Int? {
@@ -274,17 +296,14 @@ fun printProduct(arg1: String, arg2: String) {
 
 
 fun main(args: Array<String>) {
-    printProduct("6", "7")
-    printProduct("a", "7")
-    printProduct("a", "b")
+    printProduct("6", "7")//ans:42
+    printProduct("a", "7")//ans:either 'a' or '7' is not a number
+    printProduct("a", "b")//ans:either 'a' or 'b' is not a number
 }
 ```
-</div>
-
 or
 
-
-<div class="sample" markdown="1" theme="idea">
+或
 
 ``` kotlin
 fun parseInt(str: String): Int? {
@@ -312,22 +331,25 @@ fun printProduct(arg1: String, arg2: String) {
 }
 
 fun main(args: Array<String>) {
-    printProduct("6", "7")
-    printProduct("a", "7")
-    printProduct("99", "b")
+    printProduct("6", "7")//ans:42
+    printProduct("a", "7")//ans:Wrong number format in arg1: 'a'
+    printProduct("99", "b")//ans:Wrong number format in arg2: 'b'
 }
 ```
-</div>
+See [Null-safety](null-safety.md).
 
-See [Null-safety](null-safety.html).
+參閱 [Null-safety](null-safety.md) 。
 
 ## Using type checks and automatic casts
 
-The *is*{: .keyword } operator checks if an expression is an instance of a type.
-If an immutable local variable or property is checked for a specific type, there's no need to cast it explicitly:
+Using type checks and automatic casts ：使用類型檢查與自動強轉
+
+The `is` operator checks if an expression is an instance of a type. If an immutable local variable or property is checked for a specific type, there's no need to cast it explicitly:
+
+`is` 運算符檢查是否為類型的實例。如果一個不可變的區域變數或屬或被檢查為特定類型，沒有明確強轉的必要：
 
 
-<div class="sample" markdown="1" theme="idea">
+**以下例子：```if (obj is String)``` 已經先檢查過自動強轉，所以在 ```{ return obj.length }``` 區塊內不再使用強轉 `as`**
 
 ``` kotlin
 //sampleStart
@@ -347,16 +369,12 @@ fun main(args: Array<String>) {
     fun printLength(obj: Any) {
         println("'$obj' string length is ${getStringLength(obj) ?: "... err, not a string"} ")
     }
-    printLength("Incomprehensibilities")
-    printLength(1000)
-    printLength(listOf(Any()))
+    printLength("Incomprehensibilities")//ans:'Incomprehensibilities' string length is 21 
+    printLength(1000)//ans:'1000' string length is ... err, not a string 
+    printLength(listOf(Any()))//ans:'[java.lang.Object@3af49f1c]' string length is ... err, not a string 
 }
 ```
-</div>
-
 or
-
-<div class="sample" markdown="1" theme="idea">
 
 ``` kotlin
 //sampleStart
@@ -373,16 +391,16 @@ fun main(args: Array<String>) {
     fun printLength(obj: Any) {
         println("'$obj' string length is ${getStringLength(obj) ?: "... err, not a string"} ")
     }
-    printLength("Incomprehensibilities")
-    printLength(1000)
-    printLength(listOf(Any()))
+    printLength("Incomprehensibilities")//ans:'Incomprehensibilities' string length is 21 
+    printLength(1000)//ans:'1000' string length is ... err, not a string 
+    printLength(listOf(Any()))//ans:'[java.lang.Object@3af49f1c]' string length is ... err, not a string 
 }
 ```
-</div>
-
 or even
 
-<div class="sample" markdown="1" theme="idea">
+甚至
+
+**```if (obj is String && obj.length > 0)``` 在判斷式的右手邊  ```obj.length > 0``` 自動轉為 String 不用強轉 `as`**
 
 ``` kotlin
 //sampleStart
@@ -401,18 +419,18 @@ fun main(args: Array<String>) {
     fun printLength(obj: Any) {
         println("'$obj' string length is ${getStringLength(obj) ?: "... err, is empty or not a string at all"} ")
     }
-    printLength("Incomprehensibilities")
-    printLength("")
-    printLength(1000)
+    printLength("Incomprehensibilities")//ans:'Incomprehensibilities' string length is 21 
+    printLength("")//ans:'' string length is ... err, is empty or not a string at all 
+    printLength(1000)//ans:'1000' string length is ... err, is empty or not a string at all 
 }
 ```
-</div>
+See [Classes](classes.md) and [Type casts](typecasts.md).
 
-See [Classes](classes.html) and [Type casts](typecasts.html).
+參閱 [Classes](classes.md) 和 [Type casts](typecasts.md) 。
 
 ## Using a `for` loop
 
-<div class="sample" markdown="1" theme="idea">
+Using a `for` loop ：使用 `for` 循環
 
 ``` kotlin
 fun main(args: Array<String>) {
@@ -423,12 +441,15 @@ fun main(args: Array<String>) {
     }
 //sampleEnd
 }
-```
-</div>
 
+//ans:
+//apple
+//banana
+//kiwifruit
+```
 or
 
-<div class="sample" markdown="1" theme="idea">
+或
 
 ``` kotlin
 fun main(args: Array<String>) {
@@ -439,15 +460,22 @@ fun main(args: Array<String>) {
     }
 //sampleEnd
 }
+
+//ans:
+//item at 0 is apple
+//item at 1 is banana
+//item at 2 is kiwifruit
 ```
-</div>
 
+See [for loop](control-flow.md#for-loops).
 
-See [for loop](control-flow.html#for-loops).
+參閱 [for loop](control-flow.md#for-loops) 。
 
 ## Using a `while` loop
 
-<div class="sample" markdown="1" theme="idea">
+Using a `while` loop ：
+
+使用 `while` 循環：
 
 ``` kotlin
 fun main(args: Array<String>) {
@@ -460,15 +488,22 @@ fun main(args: Array<String>) {
     }
 //sampleEnd
 }
+
+//ans:
+//item at 0 is apple
+//item at 1 is banana
+//item at 2 is kiwifruit
 ```
-</div>
 
+See [while loop](control-flow.md#while-loops).
 
-See [while loop](control-flow.html#while-loops).
+參閱 [while loop](control-flow.md#while-loops) 。
 
 ## Using `when` expression
 
-<div class="sample" markdown="1" theme="idea">
+Using `when` expression ：
+
+使用 `when` 表達式：
 
 ``` kotlin
 //sampleStart
@@ -489,17 +524,26 @@ fun main(args: Array<String>) {
     println(describe(2))
     println(describe("other"))
 }
+
+//ans:
+//One
+//Greeting
+//Long
+//Not a string
+//Unknown
 ```
-</div>
 
+See [when expression](control-flow.md#when-expression).
 
-See [when expression](control-flow.html#when-expression).
+參閱 [when expression](control-flow.md#when-expression) 。
 
 ## Using ranges
 
-Check if a number is within a range using *in*{: .keyword } operator:
+Using ranges ：使用範圍
 
-<div class="sample" markdown="1" theme="idea">
+Check if a number is within a range using `in` operator:
+
+使用 `in` 運算符檢查一個數值是否在範圍內：
 
 ``` kotlin
 fun main(args: Array<String>) {
@@ -511,13 +555,13 @@ fun main(args: Array<String>) {
     }
 //sampleEnd
 }
+//ans:fits in range
 ```
-</div>
-
+----
 
 Check if a number is out of range:
 
-<div class="sample" markdown="1" theme="idea">
+檢查一個數值是否超出範圍：
 
 ``` kotlin
 fun main(args: Array<String>) {
@@ -532,13 +576,16 @@ fun main(args: Array<String>) {
     }
 //sampleEnd
 }
-```
-</div>
 
+//ans:
+//-1 is out of range
+//list size is out of valid list indices range too
+```
+----
 
 Iterating over a range:
 
-<div class="sample" markdown="1" theme="idea">
+遍歷(走訪、循環)一個範圍：
 
 ``` kotlin
 fun main(args: Array<String>) {
@@ -548,35 +595,39 @@ fun main(args: Array<String>) {
     }
 //sampleEnd
 }
+
+//ans:12345
 ```
-</div>
+----
 
 or over a progression:
 
-<div class="sample" markdown="1" theme="idea">
+或超出進展(步數)：
 
 ``` kotlin
 fun main(args: Array<String>) {
 //sampleStart
     for (x in 1..10 step 2) {
-        print(x)
+        print(x)//ans:13579
     }
     println()
     for (x in 9 downTo 0 step 3) {
-        print(x)
+        print(x)//ans:9630
     }
 //sampleEnd
 }
 ```
-</div>
+See [Ranges](ranges.md).
 
-See [Ranges](ranges.html).
+參閱 [Ranges](ranges.md) 。
 
 ## Using collections
 
+Using collections ：使用集合
+
 Iterating over a collection:
 
-<div class="sample" markdown="1" theme="idea">
+遍歷(走訪、循環)集合：
 
 ``` kotlin
 fun main(args: Array<String>) {
@@ -587,13 +638,17 @@ fun main(args: Array<String>) {
     }
 //sampleEnd
 }
+
+//ans:
+//apple
+//banana
+//kiwifruit
 ```
-</div>
+----
 
+Checking if a collection contains an object using `in` operator:
 
-Checking if a collection contains an object using *in*{: .keyword } operator:
-
-<div class="sample" markdown="1" theme="idea">
+使用 `in` 運算符檢查集合是否包含物件：
 
 ``` kotlin
 fun main(args: Array<String>) {
@@ -605,34 +660,39 @@ fun main(args: Array<String>) {
     }
 //sampleEnd
 }
-```
-</div>
 
+//ans:apple is fine too
+```
+---
 
 Using lambda expressions to filter and map collections:
 
 
-<div class="sample" markdown="1" theme="idea" auto-indent="false" indent="2">
+使用表達式過濾和映射集合：
 
 ``` kotlin
 fun main(args: Array<String>) {
 //sampleStart
   val fruits = listOf("banana", "avocado", "apple", "kiwifruit")
   fruits
-      .filter { it.startsWith("a") }
-      .sortedBy { it }
-      .map { it.toUpperCase() }
+      .filter { it.startsWith("a") }//avocado,apple
+      .sortedBy { it }//apple,avocado
+      .map { it.toUpperCase() }//APPLE,AVOCADO
       .forEach { println(it) }
 //sampleEnd
 }
-```
-</div>
 
-See [Higher-order functions and Lambdas](lambdas.html).
+//ans:
+//APPLE
+//AVOCADO
+```
+See [Higher-order functions and Lambdas](lambdas.md).
+
+參閱 [Higher-order functions and Lambdas](lambdas.md) 。
 
 ## Creating basic classes and their instances:
 
-<div class="sample" markdown="1" theme="idea">
+Creating basic classes and their instances ：建立基本類別和它的實例
 
 ``` kotlin
 fun main(args: Array<String>) {
@@ -672,6 +732,6 @@ class Triangle(
     }
 }
 ```
-</div>
+See [classes](classes.md) and [objects and instances](object-declarations.md).
 
-See [classes](classes.html) and [objects and instances](object-declarations.html).
+參閱 [classes](classes.md) 和 [objects and instances](object-declarations.md) 。

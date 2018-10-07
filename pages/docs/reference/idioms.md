@@ -7,61 +7,76 @@ title: "Idioms"
 
 # Idioms
 
+Idioms ：慣用語法
+
 A collection of random and frequently used idioms in Kotlin. If you have a favorite idiom, contribute it by sending a pull request.
+
+在 Kotlin 中隨機和經常使用的慣語集合。如果你有最喜歡的慣語，請寄送 pull request 貢獻它。
+
+---
 
 ### Creating DTOs (POJOs/POCOs)
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
 ``` kotlin
 data class Customer(val name: String, val email: String)
 ```
-</div>
-
 provides a `Customer` class with the following functionality:
 
-* getters (and setters in case of *var*{: .keyword }s) for all properties
+為 `Customer` 類別自動提供以下函數：
+
+* getters (and setters in case of `var` ) for all properties
 * `equals()`
 * `hashCode()`
 * `toString()`
 * `copy()`
-* `component1()`, `component2()`, ..., for all properties (see [Data classes](data-classes.html))
+* `component1()`, `component2()`, ..., for all properties (see [Data classes](data-classes.md))
 
+---
 
 ### Default values for function parameters
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+Default values for function parameters ：函數參數的預設值
+
 ``` kotlin
 fun foo(a: Int = 0, b: String = "") { ... }
 ```
-</div>
+---
 
 ### Filtering a list
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+Filtering a list ：過濾列表
+
+**Lambda表達式 `{}` 可以依自己需求要不要加參數**
+
 ``` kotlin
 val positives = list.filter { x -> x > 0 }
 ```
-</div>
-
 Or alternatively, even shorter:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+或者，甚至更短：
+
 ``` kotlin
 val positives = list.filter { it > 0 }
 ```
-</div>
+---
 
 ### String Interpolation
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+String Interpolation ：字串插值
+
+**別名：String Templates**
+
 ``` kotlin
 println("Name $name")
 ```
-</div>
+---
 
 ### Instance Checks
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+Instance Checks ：實例檢查
+
+**實例檢查用 `is`**
+
 ``` kotlin
 when (x) {
     is Foo -> ...
@@ -69,23 +84,27 @@ when (x) {
     else   -> ...
 }
 ```
-</div>
+---
 
 ### Traversing a map/list of pairs
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+Traversing a map/list of pairs ：遍歷映射/結對的列表
+
 ``` kotlin
 for ((k, v) in map) {
     println("$k -> $v")
 }
 ```
-</div>
-
 `k`, `v` can be called anything.
+
+---
 
 ### Using ranges
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+Using ranges ：使用範圍
+
+**注意：until不包括最後一個**
+
 ``` kotlin
 for (i in 1..100) { ... }  // closed range: includes 100
 for (i in 1 until 100) { ... } // half-open range: does not include 100
@@ -93,104 +112,119 @@ for (x in 2..10 step 2) { ... }
 for (x in 10 downTo 1) { ... }
 if (x in 1..10) { ... }
 ```
-</div>
+---
 
 ### Read-only list
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+Read-only list ：唯讀列表
+
 ``` kotlin
 val list = listOf("a", "b", "c")
 ```
-</div>
+---
 
 ### Read-only map
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+Read-only map ：唯讀映射
+
 ``` kotlin
 val map = mapOf("a" to 1, "b" to 2, "c" to 3)
 ```
-</div>
+---
 
 ### Accessing a map
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+Accessing a map ：存取映射
+
 ``` kotlin
 println(map["key"])
 map["key"] = value
 ```
-</div>
+---
 
 ### Lazy property
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+Lazy property ：惰性/執行時才產生的屬性 `by lazy`
+
+**lazy：一定要宣告 `val`，當程式有調用屬性時才建構**
+
 ``` kotlin
 val p: String by lazy {
     // compute the string
 }
 ```
-</div>
+---
 
 ### Extension Functions
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+Extension Functions ：擴展函數
+
 ``` kotlin
 fun String.spaceToCamelCase() { ... }
 
 "Convert this to camelcase".spaceToCamelCase()
 ```
-</div>
+---
 
 ### Creating a singleton
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+Creating a singleton ：建立單例模式 `object`
+
+**object：與類別用法相同，差別多做了單例模式**
+
 ``` kotlin
 object Resource {
     val name = "Name"
 }
 ```
-</div>
+---
 
 ### If not null shorthand
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+If not null shorthand ：if not null的速記法 `?.`
+
 ``` kotlin
 val files = File("Test").listFiles()
 
 println(files?.size)
 ```
-</div>
+---
 
 ### If not null and else shorthand
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+If not null and else shorthand ：if not null 和 else 速記法 `?.` `?:`
+
 ``` kotlin
 val files = File("Test").listFiles()
 
 println(files?.size ?: "empty")
 ```
-</div>
+---
 
 ### Executing a statement if null
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+Executing a statement if null ：if null 的執行敘述 `?:`
+
 ``` kotlin
 val values = ...
 val email = values["email"] ?: throw IllegalStateException("Email is missing!")
 ```
-</div>
+---
 
 ### Get first item of a possibly empty collection
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+Get first item of a possibly empty collection ：取得集合第一個可能為空的項目
+
 ``` kotlin
 val emails = ... // might be empty
 val mainEmail = emails.firstOrNull() ?: ""
 ```
-</div>
+---
 
 ### Execute if not null
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+Execute if not null ：if not null的執行 `value?.let{}`
+
 ``` kotlin
 val value = ...
 
@@ -198,21 +232,23 @@ value?.let {
     ... // execute this block if not null
 }
 ```
-</div>
+---
 
 ### Map nullable value if not null
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+Map nullable value if not null ：if not null 處理映射可空的值 `value?.let { transformValue(it) }`
+
 ``` kotlin
 val value = ...
 
 val mapped = value?.let { transformValue(it) } ?: defaultValueIfValueIsNull
 ```
-</div>
+---
 
 ### Return on when statement
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+Return on when statement ：回傳 `when` 的敘述可由變數接收
+
 ``` kotlin
 fun transform(color: String): Int {
     return when (color) {
@@ -223,11 +259,12 @@ fun transform(color: String): Int {
     }
 }
 ```
-</div>
+---
 
 ### 'try/catch' expression
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+'try/catch' expression ：try/cache 表達式可由變數接收
+
 ``` kotlin
 fun test() {
     val result = try {
@@ -239,11 +276,12 @@ fun test() {
     // Working with result
 }
 ```
-</div>
+---
 
 ### 'if' expression
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+'if' expression ：'if' 表達式可由變數接收
+
 ``` kotlin
 fun foo(param: Int) {
     val result = if (param == 1) {
@@ -255,40 +293,38 @@ fun foo(param: Int) {
     }
 }
 ```
-</div>
+---
 
 ### Builder-style usage of methods that return `Unit`
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+Builder-style usage of methods that return `Unit` ：建構者風格用法的方法回傳 `Unit`
+
 ``` kotlin
 fun arrayOfMinusOnes(size: Int): IntArray {
     return IntArray(size).apply { fill(-1) }
 }
 ```
-</div>
-
+---
 
 ### Single-expression functions
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+Single-expression functions ：單行表達式函數
+
 ``` kotlin
 fun theAnswer() = 42
 ```
-</div>
-
 This is equivalent to
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+這相當於
+
 ``` kotlin
 fun theAnswer(): Int {
     return 42
 }
 ```
-</div>
+This can be effectively combined with other idioms, leading to shorter code. E.g. with the `when`-expression:
 
-This can be effectively combined with other idioms, leading to shorter code. E.g. with the *when*{: .keyword }-expression:
-
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+這可以有效的與其他慣語結合，從而縮短代碼。例如：使用 `when`表達式
 ``` kotlin
 fun transform(color: String): Int = when (color) {
     "Red" -> 0
@@ -297,11 +333,12 @@ fun transform(color: String): Int = when (color) {
     else -> throw IllegalArgumentException("Invalid color param value")
 }
 ```
-</div>
+---
 
 ### Calling multiple methods on an object instance ('with')
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+Calling multiple methods on an object instance ('with') ：在物件實例調用多個方法與 `with`
+
 ``` kotlin
 class Turtle {
     fun penDown()
@@ -320,22 +357,24 @@ with(myTurtle) { //draw a 100 pix square
     penUp()
 }
 ```
-</div>
+---
 
 ### Java 7's try with resources
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only auto-indent="false">
+Java 7's try with resources ：嘗試使用 java 7的資源
+
 ``` kotlin
 val stream = Files.newInputStream(Paths.get("/some/file.txt"))
 stream.buffered().reader().use { reader ->
     println(reader.readText())
 }
 ```
-</div>
+---
 
 ### Convenient form for a generic function that requires the generic type information
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+Convenient form for a generic function that requires the generic type information ：泛型函數的方便形式需要泛型相關的資訊
+
 ``` kotlin
 //  public final class Gson {
 //     ...
@@ -344,11 +383,12 @@ stream.buffered().reader().use { reader ->
 
 inline fun <reified T: Any> Gson.fromJson(json: JsonElement): T = this.fromJson(json, T::class.java)
 ```
-</div>
+---
 
 ### Consuming a nullable Boolean
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+Consuming a nullable Boolean ：使用可空的Boolean
+
 ``` kotlin
 val b: Boolean? = ...
 if (b == true) {
@@ -357,4 +397,4 @@ if (b == true) {
     // `b` is false or null
 }
 ```
-</div>
+
