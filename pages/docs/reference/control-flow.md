@@ -139,7 +139,9 @@ when {
 }
 ```
 
-Since Kotlin 1.3, it is possible to capture *when*{: .keyword} subject in a variable using following syntax:
+Since Kotlin 1.3, it is possible to capture *when* subject in a variable using following syntax:
+
+從 Kotlin 1.3 ，使用以下語法捕捉變數中 `when` 的主題 `when (val response = executeRequest())`：
 
 ``` kotlin
 fun Request.getBody() =
@@ -149,7 +151,9 @@ fun Request.getBody() =
         }
 ```
 
-Scope of variable, introduced in *when*{: .keyword} subject, is restricted to *when*{: .keyword} body.
+Scope of variable, introduced in *when* subject, is restricted to *when* body.
+
+變數的範圍，在 `when` 主題中引入，被限制在 `when` 的內文
 
 See the [grammar for *when*](https://kotlinlang.org/docs/reference/grammar.html#when).
 
