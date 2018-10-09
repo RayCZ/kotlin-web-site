@@ -11,7 +11,7 @@ Higher-Order Functions and Lambdas ：高階函數和 Lambda 表示法
 
 Kotlin functions are [*first-class*](https://en.wikipedia.org/wiki/First-class_function), which means that they can be stored in variables and data structures, passed as arguments to and returned from other [higher-order functions](#higher-order-functions). You can operate with functions in any way that is possible for other non-function values. 
 
-Kotlin 函數是頭等函數，意味著它們可以在變數和資料結構中儲存，作為參數傳遞和從其他的[高階函數](#higher-order-functions)回傳。針對其他非函數值你可在任何情況下操作函數。
+Kotlin 函數是頭等函數，意味著它們可以儲存在變數和資料結構中，作為參數傳遞和從其他的[高階函數](#higher-order-functions)回傳。針對其他非函數值你可在任何情況下操作函數。
 
 To facilitate this, Kotlin, as a statically typed programming language, uses a family of [function types](#function-types) to represent functions and provides a set of specialized language constructs, such as [lambda expressions](#lambda-expressions-and-anonymous-functions).
 
@@ -27,7 +27,7 @@ A higher-order function is a function that takes functions as parameters, or ret
 
 A good example is the [functional programming idiom `fold`](https://en.wikipedia.org/wiki/Fold_(higher-order_function)) for collections, which takes an initial accumulator value and a combining function and builds its return value by consecutively combining current accumulator value with each collection element, replacing the accumulator:
 
-一個很好的例子是 collections 的[函數程式慣語 `fold`](https://en.wikipedia.org/wiki/Fold_(higher-order_function)) ，帶入初始化累計值和一個結合函數並建立它的回傳值，回傳值透過每個集合元素連續結合目前累計值 (疊加) ，取代累計值。
+一個很好的例子是 collections 的[函數程式慣語 `fold`](https://en.wikipedia.org/wiki/Fold_(higher-order_function)) ，`fold`函數帶入一個初始化累計器的值和一個結合函數並建立它的回傳值，回傳值透過每個集合元素連續結合目前累計值 (疊加) ，取代累計值。
 
 ``` kotlin
 fun <T, R> Collection<T>.fold(
@@ -48,7 +48,7 @@ In the code above, the parameter `combine` has a [function type](#function-types
 
 To call `fold`, we need to pass it an [instance of the function type](#instantiating-a-function-type) as an argument, and lambda expressions ([described in more detail below](#lambda-expressions-and-anonymous-functions)) are widely used for this purpose at higher-order function call sites:
 
-要調用 `fold` ，我們需要傳給它一個[函數類型的實例](#instantiating-a-function-type)為參數，並且 Lambda表達式 ([更詳細的描述在下面](#lambda-expressions-and-anonymous-functions)) 在高階函數調用場景中被廣泛用於此目的：
+要調用 `fold` ，我們需要傳給它一個[函數類型的實例](#instantiating-a-function-type)為參數，並且 Lambda 表達式 ([更詳細的描述在下面](#lambda-expressions-and-anonymous-functions)) 在高階函數調用場景中被廣泛用於此目的：
 
 ```kotlin
 fun main(args: Array<String>) {
