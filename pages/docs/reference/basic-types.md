@@ -364,9 +364,14 @@ x[0] = x[1] + x[2]
 
 ## Unsigned integers
 
+Unsigned integers ：無符號 (正負號) 的整數
+
 > Unsigned types are available only since Kotlin 1.3 and currently are *experimental*. See details [below](#experimental-status-of-unsigned-integers) 
+> 無符號類型只在 Kotlin 1.3 之後可用並且目前是實驗性的。詳細見[下文](#experimental-status-of-unsigned-integers)
 
 Kotlin introduces following types for unsigned integers:
+
+Kotlin 為無符號整數引入以下類型：
 
 * `kotlin.UByte`: an unsigned 8-bit integer, ranges from 0 to 255
 * `kotlin.UShort`: an unsigned 16-bit integer, ranges from 0 to 65535
@@ -375,13 +380,22 @@ Kotlin introduces following types for unsigned integers:
 
 Unsigned types support most of the operations of their signed counterparts.
 
-> Note that changing type from unsigned type to signed counterpart (and vice versa) is a *binary incompatible* change
+無符號類型支援大多相對應有符號的操作。
 
-Unsigned types are implemented using another experimental feature, namely [inline classes](inline-classes.html).
+> Note that changing type from unsigned type to signed counterpart (and vice versa) is a *binary incompatible* change
+> 注意：改變類型從無符號到對應的有符號是二進制不兼容的改變
+
+Unsigned types are implemented using another experimental feature, namely [inline classes](inline-classes.md).
+
+使用另一個實驗性的功能實作無符號類型，即是[內置類別](inline-classes.md)
 
 ### Specialized classes 
 
+Specialized classes  ：專門的類別
+
 Same as for primitives, each of unsigned type has corresponding type that represents array, specialized for that unsigned type:
+
+與原生類型相同，每個無符號類型有對應的表示陣列類型，專用於無符號類型：
 
 * `kotlin.UByteArray`: an array of unsigned bytes
 * `kotlin.UShortArray`: an array of unsigned shorts
@@ -390,23 +404,36 @@ Same as for primitives, each of unsigned type has corresponding type that repres
 
 Same as for signed integer arrays, they provide similar API to `Array` class without boxing overhead. 
 
-Also, [ranges and progressions](ranges.html) supported for `UInt` and `ULong` by classes `kotlin.ranges.UIntRange`, `kotlin.ranges.UIntProgression`, `kotlin.ranges.ULongRange`, `kotlin.ranges.ULongProgression` 
+與有符號整數陣列相同，它們提供相類似的 API 給 `Array` 類別沒有自動裝箱的開銷。
+
+Also, [ranges and progressions](ranges.md) supported for `UInt` and `ULong` by classes `kotlin.ranges.UIntRange`, `kotlin.ranges.UIntProgression`, `kotlin.ranges.ULongRange`, `kotlin.ranges.ULongProgression` 
+
+而且，透過類別  `kotlin.ranges.UIntRange` 、 `kotlin.ranges.UIntProgression` 、 `kotlin.ranges.ULongRange` 、 `kotlin.ranges.ULongProgression` 支援 `UInt` 和 `ULong` 的範圍和進度。
 
 ### Literals
 
+Literals ：數值文字
+
 To make unsigned integers easier to use, Kotlin provides an ability to tag an integer literal with a suffix indicating a specific unsigned type (similarly to Float/Long):
+
+為了使無符號整數可容易使用， Kotlin 提供一個標記整數文字的功能，使用後綴表示一個專門無符號的類型 (類似 Float/Long) ：
+
 * suffixes `u` and `U` tag literal as unsigned. Exact type will be determined based on the expected type. If no expected type is provided, `UInt` or `ULong` will be chosen based on the size of literal 
+  後綴 `u` 和 `U` 標記文字為無符號，根據期望的類型決定確切的類型。如果沒有提供期望的類型，根據數值文字的大小選擇 `Uint` 或 `ULong`
 
 ``` kotlin
+//有提供期望的類型 : Type
 val b: UByte = 1u  // UByte, expected type provided
 val s: UShort = 1u // UShort, expected type provided
 val l: ULong = 1u  // ULong, expected type provided
 
+//沒提供期望的類型
 val a1 = 42u // UInt: no expected type provided, constant fits in UInt
 val a2 = 0xFFFF_FFFF_FFFFu // ULong: no expected type provided, constant doesn't fit in UInt
 ```
 
 * suffixes `uL` and `UL` explicitly tag literal as unsigned long.
+  後綴 `uL` 和 `UL` 明確標記數值文字為無符號的長整數。
 
 ``` kotlin
 val a = 1UL // ULong, even though no expected type provided and constant fits into UInt
