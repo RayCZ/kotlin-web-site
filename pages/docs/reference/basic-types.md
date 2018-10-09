@@ -441,20 +441,36 @@ val a = 1UL // ULong, even though no expected type provided and constant fits in
 
 ### Experimental status of unsigned integers
 
+Experimental status of unsigned integers ：無符號整數的實驗狀態
+
 The design of unsigned types is experimental, meaning that this feature is moving fast and no compatibility guarantees are given. When using unsigned arithmetics in Kotlin 1.3+, warning will be reported, indicating that this feature is experimental. To remove warning, you have to opt-in for experimental usage of unsigned types. 
+
+無符號類型的設計是實驗性的，意味著這功能是快速搬移和沒兼容性的保證。當在 Kotlin 1.3+ 使用無符號算術時，將報告警告，表明此功能是實驗性的。要刪除警告，你必須選擇加入無符號類型實驗的用法。
 
 There are two possible ways to opt-in for unsigned types: with marking your API as experimental too, or without doing that.
 
+選擇加入無符號類型有兩種可能的方式：標記你的 API 為實驗性的，或不這樣做。
+
 - to propagate experimentality, either annotate declarations which use unsigned integers with `@ExperimentalUnsignedTypes` or pass `-Xexperimental=kotlin.ExperimentalUnsignedTypes` to the compiler (note that the latter will make *all* declaration in compiled module experimental)
+  傳播實驗性，使用 `@ExperimentalUnsignedTypes` 標記宣告使用無符號的整數或傳遞 `-Xexperimental=kotlin.ExperimentalUnsignedTypes` 給編譯器 (注意：後者在編譯模組中將使所有宣告為實驗性的)
 - to opt-in without propagating experimentality, either annotate declarations with `@UseExperimental(ExperimentalUnsignedTypes::class)` or pass `-Xuse-experimental=kotlin.ExperimentalUnsignedTypes`
+  選擇加入而不傳播實驗，使用 `@UseExperimental(ExperimentalUnsignedTypes::class)` 標記宣告或傳遞 `-Xuse-experimental=kotlin.ExperimentalUnsignedTypes`
 
 It's up to you to decide if your clients have to explicitly opt-in into usage of your API, but bear in mind that unsigned types are an experimental feature, so API which uses them can be suddenly broken due to changes in language. 
 
+如果你的客戶端必須明確選擇加入到你的 API 用法，但請記住無符號類型是實驗性的功能，因此使用它們的 API 可能會因語言的變化而突然中斷。 
+
 See also or Experimental API [KEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/experimental.md) for technical details.
+
+請參閱有關技術細節實驗性 API [KEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/experimental.md) 。
 
 ### Further discussion
 
+Further discussion ：進一步討論
+
 See [language proposal for unsigned types](https://github.com/Kotlin/KEEP/blob/master/proposals/unsigned-types.md) for technical details and further discussion.
+
+有關技術細節和進一步討論請參閱 [language proposal for unsigned types](https://github.com/Kotlin/KEEP/blob/master/proposals/unsigned-types.md) 。
 
 ## Strings
 
