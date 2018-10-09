@@ -7,23 +7,28 @@ title: "Higher-Order Functions and Lambdas"
 
 # Higher-Order Functions and Lambdas
 
-Kotlin functions are [*first-class*](https://en.wikipedia.org/wiki/First-class_function), which means that they can 
-be stored in variables and data structures, passed as arguments to and returned from other 
-[higher-order functions](#higher-order-functions). You can operate with functions in any way that is possible for other 
-non-function values. 
+Higher-Order Functions and Lambdas ：高階函數和 Lambda 表示法
 
-To facilitate this, Kotlin, as a statically typed programming language, uses a family of 
-[function types](#function-types) to represent functions and provides a set of specialized language constructs, such as [lambda expressions](#lambda-expressions-and-anonymous-functions).
+Kotlin functions are [*first-class*](https://en.wikipedia.org/wiki/First-class_function), which means that they can be stored in variables and data structures, passed as arguments to and returned from other [higher-order functions](#higher-order-functions). You can operate with functions in any way that is possible for other non-function values. 
+
+Kotlin 函數是頭等函數，意味著它們可以在變數和資料結構中儲存，作為參數傳遞和從其他的[高階函數](#higher-order-functions)回傳。針對其他非函數值你可在任何情況下操作函數。
+
+To facilitate this, Kotlin, as a statically typed programming language, uses a family of [function types](#function-types) to represent functions and provides a set of specialized language constructs, such as [lambda expressions](#lambda-expressions-and-anonymous-functions).
+
+為了方便這點， Kotlin ，為靜態類型程式語言，使用一系列的函數類型來表達函數並提供一組專門語言結構，例如：[lambda 表示法](#lambda-expressions-and-anonymous-functions)。
 
 ## Higher-Order Functions
 
+Higher-Order Functions ：高階函數
+
 A higher-order function is a function that takes functions as parameters, or returns a function.
 
-A good example is the [functional programming idiom `fold`](https://en.wikipedia.org/wiki/Fold_(higher-order_function)) 
-for collections, which takes an initial accumulator value and a combining function and builds its return value by 
-consecutively combining current accumulator value with each collection element, replacing the accumulator:
+高階函數是一種函數，可帶入函數為參數，或回傳一個函數。
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+A good example is the [functional programming idiom `fold`](https://en.wikipedia.org/wiki/Fold_(higher-order_function)) for collections, which takes an initial accumulator value and a combining function and builds its return value by consecutively combining current accumulator value with each collection element, replacing the accumulator:
+
+一個很好的例子是 collections 的[函數程式慣語 `fold`](https://en.wikipedia.org/wiki/Fold_(higher-order_function)) ，帶入初始化累計值和一個結合函數並建立它的回傳值，回傳值透過每個集合元素連續結合目前累計值 (疊加) ，取代累計值。
+
 ``` kotlin
 fun <T, R> Collection<T>.fold(
     initial: R, 
@@ -36,17 +41,14 @@ fun <T, R> Collection<T>.fold(
     return accumulator
 }
 ```
-</div>
 
-In the code above, the parameter `combine` has a [function type](#function-types) `(R, T) -> R`, so it accepts a function that 
-takes two arguments of types `R` and `T` and returns a value of type `R`. 
-It is [invoked](#invoking-a-function-type-instance) inside the *for*{: .keyword }-loop, and the return value is 
-then assigned to `accumulator`.
+In the code above, the parameter `combine` has a [function type](#function-types) `(R, T) -> R`, so it accepts a function that takes two arguments of types `R` and `T` and returns a value of type `R`. It is [invoked](#invoking-a-function-type-instance) inside the *for*-loop, and the return value is then assigned to `accumulator`.
 
-To call `fold`, we need to pass it an [instance of the function type](#instantiating-a-function-type) as an argument, and lambda expressions ([described in more detail below](#lambda-expressions-and-anonymous-functions)) are widely used for 
-this purpose at higher-order function call sites:
+在上面的代碼中，參數 `combine` 有一個[函數類型](#function-types) `(R, T) -> R` ，因此它接受一個函數，函數帶有類型 `R` 和 `T` 的兩個參數並回傳一個 `R` 類型的值。在 for-循環內調用函數類型 `combine` ，接著分配給 `accumulator` 疊加當回傳值。
 
-<div class="sample" markdown="1" theme="idea">
+To call `fold`, we need to pass it an [instance of the function type](#instantiating-a-function-type) as an argument, and lambda expressions ([described in more detail below](#lambda-expressions-and-anonymous-functions)) are widely used for this purpose at higher-order function call sites:
+
+要調用 `fold` ，我們需要傳給它一個[函數類型的實例](#instantiating-a-function-type)為參數，並且 Lambda表達式 ([更詳細的描述在下面](#lambda-expressions-and-anonymous-functions)) 在高階函數調用場景中被廣泛用於此目的：
 
 ```kotlin
 fun main(args: Array<String>) {
@@ -74,9 +76,10 @@ fun main(args: Array<String>) {
     println("product = $product")
 }
 ```
-</div>
 
 The following sections explain in more detail the concepts mentioned so far.
+
+以下章節更詳細的解釋到目前為止提到的概念。
 
 ## Function types
 
@@ -88,15 +91,15 @@ These types have a special notation that corresponds to the signatures of the fu
  represents functions taking two arguments of types `A` and `B` and returning a value of type `C`. 
  The parameter types list may be empty, as in `() -> A`. The [`Unit` return type](functions.html#unit-returning-functions) 
  cannot be omitted. 
- 
+
 * Function types can optionally have an additional *receiver* type, which is specified before a dot in the notation:
  the type `A.(B) -> C` represents functions that can be called on a receiver object of `A` with a parameter of `B` and
  return a value of `C`.
  [Function literals with receiver](#function-literals-with-receiver) are often used along with these types.
- 
+
 * [Suspending functions](coroutines.html#suspending-functions) belong to function types of a special kind, which have a *suspend*{: .keyword} modifier in the 
  notation, such as `suspend () -> Unit` or `suspend A.(B) -> C`.
- 
+
 The function type notation can optionally include names for the function parameters: `(x: Int, y: Int) -> Point`.
 These names can be used for documenting the meaning of the parameters.
 
@@ -114,7 +117,7 @@ You can also give a function type an alternative name by using [a type alias](ty
 typealias ClickHandler = (Button, ClickEvent) -> Unit
 ```
 </div>
- 
+
 ### Instantiating a function type
 
 There are several ways to obtain an instance of a function type:
@@ -124,14 +127,14 @@ There are several ways to obtain an instance of a function type:
     * an [anonymous function](#anonymous-functions): `fun(s: String): Int { return s.toIntOrNull() ?: 0 }`
     
    [Function literals with receiver](#function-literals-with-receiver) can be used as values of function types with receiver.
-   
+
 * Using a callable reference to an existing declaration:
     * a top-level, local, member, or extension [function](reflection.html#function-references): `::isOdd`, `String::toInt`,
     * a top-level, member, or extension [property](reflection.html#property-references): `List<Int>::size`,
     * a [constructor](reflection.html#constructor-references): `::Regex`
     
    These include [bound callable references](reflection.html#bound-function-and-property-references-since-11) that point to a member of a particular instance: `foo::toString`.
-   
+
 * Using instances of a custom class that implements a function type as an interface: 
 
     <div class="sample" markdown="1" theme="idea" data-highlight-only>
@@ -139,10 +142,11 @@ There are several ways to obtain an instance of a function type:
     class IntTransformer: (Int) -> Int {
         override operator fun invoke(x: Int): Int = TODO()
     }
-    
+
     val intFunction: (Int) -> Int = IntTransformer() 
     ```
     </div>
+    ```
 
 The compiler can infer the function types for variables if there is enough information:
 
@@ -155,7 +159,7 @@ val a = { i: Int -> i + 1 } // The inferred type is (Int) -> Int
 *Non-literal* values of function types with and without receiver are interchangeable, so that the receiver can stand in 
 for the first parameter, and vice versa. For instance, a value of type `(A, B) -> C` can be passed or assigned 
  where a `A.(B) -> C` is expected and the other way around:
- 
+
 <div class="sample" markdown="1" theme="idea">
 
 ``` kotlin
@@ -312,7 +316,7 @@ This convention, along with [passing a lambda expression outside parentheses](#p
 [LINQ-style](http://msdn.microsoft.com/en-us/library/bb308959.aspx) code:
 
 <div class="sample" markdown="1" theme="idea" data-highlight-only>
-``` kotlin
+​``` kotlin
 strings.filter { it.length == 5 }.sortedBy { it }.map { it.toUpperCase() }
 ```
 </div>
@@ -401,7 +405,7 @@ As said above, Kotlin provides the ability [to call an instance](#invoking-a-fun
 Inside the body of the function literal, the receiver object passed to a call becomes an *implicit* *this*{: .keyword}, so that you 
 can access the members of that receiver object without any additional qualifiers, or access the receiver object 
 using a [`this` expression](this-expressions.html).
- 
+
 This behavior is similar to [extension functions](extensions.html), which also allow you to access the members of the receiver object 
 inside the body of the function.
 
@@ -443,3 +447,5 @@ html {       // lambda with receiver begins here
 }
 ```
 </div>
+
+```
