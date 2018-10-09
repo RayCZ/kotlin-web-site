@@ -389,6 +389,8 @@ Unsigned types are implemented using another experimental feature, namely [inlin
 
 使用另一個實驗性的功能實作無符號類型，即是[內置類別](inline-classes.md)
 
+---
+
 ### Specialized classes 
 
 Specialized classes  ：專門的類別
@@ -409,6 +411,8 @@ Same as for signed integer arrays, they provide similar API to `Array` class wit
 Also, [ranges and progressions](ranges.md) supported for `UInt` and `ULong` by classes `kotlin.ranges.UIntRange`, `kotlin.ranges.UIntProgression`, `kotlin.ranges.ULongRange`, `kotlin.ranges.ULongProgression` 
 
 而且，透過類別  `kotlin.ranges.UIntRange` 、 `kotlin.ranges.UIntProgression` 、 `kotlin.ranges.ULongRange` 、 `kotlin.ranges.ULongProgression` 支援 `UInt` 和 `ULong` 的範圍和進度。
+
+---
 
 ### Literals
 
@@ -439,6 +443,8 @@ val a2 = 0xFFFF_FFFF_FFFFu // ULong: no expected type provided, constant doesn't
 val a = 1UL // ULong, even though no expected type provided and constant fits into UInt
 ```
 
+---
+
 ### Experimental status of unsigned integers
 
 Experimental status of unsigned integers ：無符號整數的實驗狀態
@@ -463,6 +469,8 @@ It's up to you to decide if your clients have to explicitly opt-in into usage of
 See also or Experimental API [KEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/experimental.md) for technical details.
 
 請參閱有關技術細節實驗性 API [KEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/experimental.md) 。
+
+---
 
 ### Further discussion
 
