@@ -75,6 +75,14 @@ fun main(args: Array<String>) {
     println("joinedToString = $joinedToString")
     println("product = $product")
 }
+//ans:
+//acc = 0, i = 1, result = 1
+//acc = 1, i = 2, result = 3
+//acc = 3, i = 3, result = 6
+//acc = 6, i = 4, result = 10
+//acc = 10, i = 5, result = 15
+//joinedToString = Elements: 1 2 3 4 5
+//product = 120
 ```
 
 The following sections explain in more detail the concepts mentioned so far.
@@ -83,40 +91,49 @@ The following sections explain in more detail the concepts mentioned so far.
 
 ## Function types
 
+Function types ：函數類型
+
 Kotlin uses a family of function types like `(Int) -> String` for declarations that deal with functions: `val onClick: () -> Unit = ...`.
+
+Kotlin 使用一系列的函數類型像 `(Int) -> String` 處理函數宣告： `val onClick: () -> Unit = ...` 。
 
 These types have a special notation that corresponds to the signatures of the functions, i.e. their parameters and return values:
 
-* All function types have a parenthesized parameter types list and a return type: `(A, B) -> C` denotes a type that
- represents functions taking two arguments of types `A` and `B` and returning a value of type `C`. 
- The parameter types list may be empty, as in `() -> A`. The [`Unit` return type](functions.html#unit-returning-functions) 
- cannot be omitted. 
+這些類型有一個特殊符號對應到函數的簽名 `(para: Type) -> Unit` ，即是它們的參數和回傳：
 
-* Function types can optionally have an additional *receiver* type, which is specified before a dot in the notation:
- the type `A.(B) -> C` represents functions that can be called on a receiver object of `A` with a parameter of `B` and
- return a value of `C`.
- [Function literals with receiver](#function-literals-with-receiver) are often used along with these types.
+* All function types have a parenthesized parameter types list and a return type: `(A, B) -> C` denotes a type that represents functions taking two arguments of types `A` and `B` and returning a value of type `C`. The parameter types list may be empty, as in `() -> A`. The [`Unit` return type](functions.md#unit-returning-functions) cannot be omitted. 
+  所有函數類型都有一個帶括號的參數類型列表和一個回傳類型： `(A, B) -> C` 表示一個類型，代表函數帶有類型 `A` 和 `B` 兩個參數和回傳類型 `C` 的一個值。參數類型列表可以為空，如 `() -> A`。 [`Unit` 回傳類型](functions.md#unit-returning-functions) 不可以省略。
 
-* [Suspending functions](coroutines.html#suspending-functions) belong to function types of a special kind, which have a *suspend*{: .keyword} modifier in the 
- notation, such as `suspend () -> Unit` or `suspend A.(B) -> C`.
+* Function types can optionally have an additional *receiver* type, which is specified before a dot in the notation: the type `A.(B) -> C` represents functions that can be called on a receiver object of `A` with a parameter of `B` and return a value of `C`. [Function literals with receiver](#function-literals-with-receiver) are often used along with these types.
+  函數類型可以選擇有一個額外的 `receiver` 類型，它在符號中逗點前指定：類型 `A.(B) -> C` 代表函數可以在 `A` 的 `receiver` 物件調用和 `B` 的參數並回傳 `C` 的值。
 
-The function type notation can optionally include names for the function parameters: `(x: Int, y: Int) -> Point`.
-These names can be used for documenting the meaning of the parameters.
+* [Suspending functions](coroutines.md#suspending-functions) belong to function types of a special kind, which have a *suspend* modifier in the notation, such as `suspend () -> Unit` or `suspend A.(B) -> C`.
 
-> To specify that a function type is [nullable](null-safety.html#nullable-types-and-non-null-types), use parentheses: `((Int, Int) -> Int)?`.
-> 
+  [縣掛式函數](coroutines.md#suspending-functions) 屬於特殊種類的函數類型。它在符號中有一個 `suspend` 修飾符，例如 `suspend () -> Unit` 或 `suspend A.(B) -> C` 。
+
+The function type notation can optionally include names for the function parameters: `(x: Int, y: Int) -> Point`. These names can be used for documenting the meaning of the parameters.
+
+函數類型符號可以選擇包括函數參數的名稱： `(x: Int, y: Int) -> Point` 。這些名稱可以用於記錄參數的意義。
+
+> To specify that a function type is [nullable](null-safety.md#nullable-types-and-non-null-types), use parentheses: `((Int, Int) -> Int)?`.
+>
+> 指定函數類型是 [nullable](null-safety.md#nullable-types-and-non-null-types) ，使用括號： `((Int, Int) -> Int)?` 。把整個函數括起來並使用 `?` 符號。
+>
 > Function types can be combined using parentheses: `(Int) -> ((Int) -> Unit)`
 >
-> The arrow notation is right-associative, `(Int) -> (Int) -> Unit` is equivalent to the previous example, but not to 
-`((Int) -> (Int)) -> Unit`.
+> 函數類型使用括號結合： `(Int) -> ((Int) -> Unit)` ，參數 `(int)` ，回傳 `(Int)) -> Unit`
+>
+> The arrow notation is right-associative, `(Int) -> (Int) -> Unit` is equivalent to the previous example, but not to `((Int) -> (Int)) -> Unit`.
+>
+> 箭頭符號是右關聯的， `(Int) -> (Int) -> Unit` 等同前一個範例，但不是 `((Int) -> (Int)) -> Unit` 。
 
-You can also give a function type an alternative name by using [a type alias](type-aliases.html):
+You can also give a function type an alternative name by using [a type alias](type-aliases.md):
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+你也可以透過一個[類型別名](type-aliases.md)給一個函數類型備用名稱 `typealias ClickHandler`：
+
 ```kotlin
 typealias ClickHandler = (Button, ClickEvent) -> Unit
 ```
-</div>
 
 ### Instantiating a function type
 
