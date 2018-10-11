@@ -176,13 +176,13 @@ There are several ways to obtain an instance of a function type:
     }
     
     val intFunction: (Int) -> Int = IntTransformer() 
-```
+    ```
 
 The compiler can infer the function types for variables if there is enough information:
 
 如果有足夠的資訊，編譯器可以推斷變數的函數類型：
 
-```kotlin
+​```kotlin
 val a = { i: Int -> i + 1 } // The inferred type is (Int) -> Int
 ```
 
