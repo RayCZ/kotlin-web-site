@@ -187,6 +187,8 @@ val a = { i: Int -> i + 1 } // The inferred type is (Int) -> Int
 
 *Non-literal* values of function types with and without receiver are interchangeable, so that the receiver can stand in for the first parameter, and vice versa. For instance, a value of type `(A, B) -> C` can be passed or assigned where a `A.(B) -> C` is expected and the other way around:
 
+有和沒有 `receiver` 函數類型的非文字值是可以互換的，因此 `receiver` 可以代表第一個參數
+
 ``` kotlin
 fun main(args: Array<String>) {
     //sampleStart
@@ -246,7 +248,7 @@ Lambda expressions and anonymous functions are 'function literals', i.e. functio
 but passed immediately as an expression. Consider the following example:
 
 <div class="sample" markdown="1" theme="idea" data-highlight-only>
-``` kotlin
+​``` kotlin
 max(strings, { a, b -> a.length < b.length })
 ```
 </div>

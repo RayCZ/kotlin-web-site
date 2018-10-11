@@ -383,7 +383,7 @@ Unsigned types support most of the operations of their signed counterparts.
 無符號類型支援大多相對應有符號的操作。
 
 > Note that changing type from unsigned type to signed counterpart (and vice versa) is a *binary incompatible* change
-> 注意：改變類型從無符號到對應的有符號是二進制不兼容的改變
+> 注意：改變類型從無符號到對應 (反過來也是) 的有符號是二進制不兼容的改變
 
 Unsigned types are implemented using another experimental feature, namely [inline classes](inline-classes.md).
 
