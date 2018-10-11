@@ -95,7 +95,7 @@ Function types ：函數類型
 
 Kotlin uses a family of function types like `(Int) -> String` for declarations that deal with functions: `val onClick: () -> Unit = ...`.
 
-Kotlin 使用一系列的函數類型像 `(Int) -> String` 處理函數宣告： `val onClick: () -> Unit = ...` 。
+Kotlin 使用一系列的函數類型，像是 `(Int) -> String` 處理函數宣告： `val onClick: () -> Unit = ...` 。
 
 These types have a special notation that corresponds to the signatures of the functions, i.e. their parameters and return values:
 
@@ -155,7 +155,7 @@ There are several ways to obtain an instance of a function type:
    [使用 receiver 的函數文字](#function-literals-with-receiver)可以用作 `receiver` 函數類型的值。
 
 * Using a callable reference to an existing declaration:
-    使用一個可調用的參照到已存在的宣告：
+    使用一個可調用的參照引用到已存在的宣告：
     * a top-level, local, member, or extension [function](reflection.md#function-references): `::isOdd`, `String::toInt`,
       一個高階、區域、成員、或擴展[函數](reflection.md#function-references) ： `::isOdd` ， `String::toInt` ，
     * a top-level, member, or extension [property](reflection.md#property-references): `List<Int>::size`,
@@ -167,7 +167,7 @@ There are several ways to obtain an instance of a function type:
 這些包括受[約束可調用的參照](reflection.md#bound-function-and-property-references-since-11)指向一個特字實例的成員： `foo::toString`。
 
 * Using instances of a custom class that implements a function type as an interface: 
-    使函數類型為介面的自定義類別實例：
+    使函數類型為介面的自定義類別實例 `: (Int) -> Int` ：
 
 ```kotlin
 class IntTransformer: (Int) -> Int {
@@ -187,12 +187,16 @@ val a = { i: Int -> i + 1 } // The inferred type is (Int) -> Int
 
 *Non-literal* values of function types with and without receiver are interchangeable, so that the receiver can stand in for the first parameter, and vice versa. For instance, a value of type `(A, B) -> C` can be passed or assigned where a `A.(B) -> C` is expected and the other way around:
 
-有和沒有 `receiver` 函數類型的非文字值是可以互換的，因此 `receiver` 可以代表第一個參數
+有和沒有 `receiver` 函數類型的**非文字**值是可以互換的，這樣 `receiver` 可以位於第一個參數，反過來也是。例如：預期是 `A.(B) -> C` 函數類型可以傳遞或分配到類型 `(A, B) -> C` 的值並且反過來也可以：
 
 ``` kotlin
 fun main(args: Array<String>) {
     //sampleStart
+    
+    //A.(B) -> C
     val repeatFun: String.(Int) -> String = { times -> this.repeat(times) }
+    
+    //(A,B) -> C 函數類型 接收 A.(B) - > C 函數類型
     val twoParameters: (String, Int) -> String = repeatFun // OK
     
     fun runTransformation(f: (String, Int) -> String): String {
@@ -202,11 +206,13 @@ fun main(args: Array<String>) {
     //sampleEnd
     println("result = $result")
 }
+//ans: result = hellohellohello
 ```
 
 > Note that a function type with no receiver is inferred by default, even if a variable is initialized with a reference
-> to an extension function. 
-> To alter that, specify the variable type explicitly.
+> to an extension function. To alter that, specify the variable type explicitly.
+>
+> 注意：透過預設情況下, 會推斷沒有 `receiver` 的函數類型，即使使用參照引用到擴展函數來初始化變數。去改變它，請明確指定變數類型。
 
 ### Invoking a function type instance  
 
