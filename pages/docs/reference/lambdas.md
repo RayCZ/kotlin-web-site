@@ -170,25 +170,25 @@ There are several ways to obtain an instance of a function type:
 * Using instances of a custom class that implements a function type as an interface: 
     使函數類型為介面的自定義類別實例：
 
-    ```kotlin
-    class IntTransformer: (Int) -> Int {
-        override operator fun invoke(x: Int): Int = TODO()
-    }
-    
-    val intFunction: (Int) -> Int = IntTransformer() 
-    ```
+```kotlin
+class IntTransformer: (Int) -> Int {
+    override operator fun invoke(x: Int): Int = TODO()
+}
+
+val intFunction: (Int) -> Int = IntTransformer() 
+```
 
 The compiler can infer the function types for variables if there is enough information:
 
 如果有足夠的資訊，編譯器可以推斷變數的函數類型：
 
-​```kotlin
+```kotlin
 val a = { i: Int -> i + 1 } // The inferred type is (Int) -> Int
 ```
 
 *Non-literal* values of function types with and without receiver are interchangeable, so that the receiver can stand in for the first parameter, and vice versa. For instance, a value of type `(A, B) -> C` can be passed or assigned where a `A.(B) -> C` is expected and the other way around:
 
-``` kotlin
+​``` kotlin
 fun main(args: Array<String>) {
     //sampleStart
     val repeatFun: String.(Int) -> String = { times -> this.repeat(times) }
