@@ -164,7 +164,7 @@ There are several ways to obtain an instance of a function type:
       一個[建構元](reflection.md#constructor-references)： `::Regex`
 
    These include [bound callable references](reflection.md#bound-function-and-property-references-since-11) that point to a member of a particular instance: `foo::toString`.
-這些包括受[約束可調用的參照](reflection.md#bound-function-and-property-references-since-11)指向一個特字實例的成員： `foo::toString`。
+這些包括[受約束可調用的參照](reflection.md#bound-function-and-property-references-since-11)指向一個特定實例的成員： `foo::toString`。
 
 * Using instances of a custom class that implements a function type as an interface: 
     使函數類型為介面的自定義類別實例 `: (Int) -> Int` ：
