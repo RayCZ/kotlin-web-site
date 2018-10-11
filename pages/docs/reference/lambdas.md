@@ -105,7 +105,7 @@ These types have a special notation that corresponds to the signatures of the fu
   所有函數類型都有一個帶括號的參數類型列表和一個回傳類型： `(A, B) -> C` 表示一個類型，代表函數帶有類型 `A` 和 `B` 兩個參數和回傳類型 `C` 的一個值。參數類型列表可以為空，如 `() -> A`。 [`Unit` 回傳類型](functions.md#unit-returning-functions) 不可以省略。
 
 * Function types can optionally have an additional *receiver* type, which is specified before a dot in the notation: the type `A.(B) -> C` represents functions that can be called on a receiver object of `A` with a parameter of `B` and return a value of `C`. [Function literals with receiver](#function-literals-with-receiver) are often used along with these types.
-  函數類型可以選擇有一個額外的 `receiver` 類型，它在符號中逗點前指定：類型 `A.(B) -> C` 代表函數可以在 `A` 的 `receiver` 物件調用和 `B` 的參數並回傳 `C` 的值。
+  函數類型可以選擇有一個額外的 `receiver` 類型，它在符號中逗點前指定：類型 `A.(B) -> C` 代表函數可以在 `A` 的 `receiver` 物件調用和 `B` 的參數並回傳 `C` 的值。 [使用 receiver 的函數文字](#function-literals-with-receiver)通常與這些類型一起使用。
 
 * [Suspending functions](coroutines.md#suspending-functions) belong to function types of a special kind, which have a *suspend* modifier in the notation, such as `suspend () -> Unit` or `suspend A.(B) -> C`.
 
@@ -137,47 +137,56 @@ typealias ClickHandler = (Button, ClickEvent) -> Unit
 
 ### Instantiating a function type
 
+Instantiating a function type ：實例化一個函數類型
+
 There are several ways to obtain an instance of a function type:
 
+有幾種方式去獲取函數類型的實例：
+
 * Using a code block within a function literal, in one of the forms: 
+    在一個函數文字內使用一個代碼，使用其中一種形式：
     * a [lambda expression](#lambda-expressions-and-anonymous-functions): `{ a, b -> a + b }`,
+      一個 [lambda 表達式](#lambda-expressions-and-anonymous-functions)： `{ a, b -> a + b }` ，
     * an [anonymous function](#anonymous-functions): `fun(s: String): Int { return s.toIntOrNull() ?: 0 }`
-    
+      一個[匿名函數](#anonymous-functions)： `fun(s: String): Int { return s.toIntOrNull() ?: 0 }`
+
    [Function literals with receiver](#function-literals-with-receiver) can be used as values of function types with receiver.
 
+   [使用 receiver 的函數文字](#function-literals-with-receiver)可以用作 `receiver` 函數類型的值。
+
 * Using a callable reference to an existing declaration:
-    * a top-level, local, member, or extension [function](reflection.html#function-references): `::isOdd`, `String::toInt`,
-    * a top-level, member, or extension [property](reflection.html#property-references): `List<Int>::size`,
-    * a [constructor](reflection.html#constructor-references): `::Regex`
-    
-   These include [bound callable references](reflection.html#bound-function-and-property-references-since-11) that point to a member of a particular instance: `foo::toString`.
+    使用一個可調用的參照到已存在的宣告：
+    * a top-level, local, member, or extension [function](reflection.md#function-references): `::isOdd`, `String::toInt`,
+      一個高階、區域、成員、或擴展[函數](reflection.md#function-references) ： `::isOdd` ， `String::toInt` ，
+    * a top-level, member, or extension [property](reflection.md#property-references): `List<Int>::size`,
+      一個高階、成員、或擴展[屬性](reflection.md#property-references)： `List<Int>::size` ，
+    * a [constructor](reflection.md#constructor-references): `::Regex`
+      一個[建構元](reflection.md#constructor-references)： `::Regex`
+
+   These include [bound callable references](reflection.md#bound-function-and-property-references-since-11) that point to a member of a particular instance: `foo::toString`.
+
+這些包括受[約束可調用的參照](reflection.md#bound-function-and-property-references-since-11)指向一個特字實例的成員： `foo::toString`。
 
 * Using instances of a custom class that implements a function type as an interface: 
+    使函數類型為介面的自定義類別實例：
 
-    <div class="sample" markdown="1" theme="idea" data-highlight-only>
     ```kotlin
     class IntTransformer: (Int) -> Int {
         override operator fun invoke(x: Int): Int = TODO()
     }
-
+    
     val intFunction: (Int) -> Int = IntTransformer() 
-    ```
-    </div>
-    ```
+```
 
 The compiler can infer the function types for variables if there is enough information:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+如果有足夠的資訊，編譯器可以推斷變數的函數類型：
+
 ```kotlin
 val a = { i: Int -> i + 1 } // The inferred type is (Int) -> Int
 ```
-</div>
 
-*Non-literal* values of function types with and without receiver are interchangeable, so that the receiver can stand in 
-for the first parameter, and vice versa. For instance, a value of type `(A, B) -> C` can be passed or assigned 
- where a `A.(B) -> C` is expected and the other way around:
-
-<div class="sample" markdown="1" theme="idea">
+*Non-literal* values of function types with and without receiver are interchangeable, so that the receiver can stand in for the first parameter, and vice versa. For instance, a value of type `(A, B) -> C` can be passed or assigned where a `A.(B) -> C` is expected and the other way around:
 
 ``` kotlin
 fun main(args: Array<String>) {
@@ -193,7 +202,6 @@ fun main(args: Array<String>) {
     println("result = $result")
 }
 ```
-</div>
 
 > Note that a function type with no receiver is inferred by default, even if a variable is initialized with a reference
 > to an extension function. 
