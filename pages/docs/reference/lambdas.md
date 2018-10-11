@@ -121,7 +121,7 @@ The function type notation can optionally include names for the function paramet
 >
 > Function types can be combined using parentheses: `(Int) -> ((Int) -> Unit)`
 >
-> 函數類型使用括號結合： `(Int) -> ((Int) -> Unit)` ，參數 `(int)` ，回傳 `(Int)) -> Unit`
+> 函數類型使用括號結合： `(Int) -> ((Int) -> Unit)` ，參數 `(int)`，符號 `->` ，回傳 `((Int) -> Unit)`
 >
 > The arrow notation is right-associative, `(Int) -> (Int) -> Unit` is equivalent to the previous example, but not to `((Int) -> (Int)) -> Unit`.
 >
