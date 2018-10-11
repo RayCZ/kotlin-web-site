@@ -187,7 +187,7 @@ val a = { i: Int -> i + 1 } // The inferred type is (Int) -> Int
 
 *Non-literal* values of function types with and without receiver are interchangeable, so that the receiver can stand in for the first parameter, and vice versa. For instance, a value of type `(A, B) -> C` can be passed or assigned where a `A.(B) -> C` is expected and the other way around:
 
-​``` kotlin
+``` kotlin
 fun main(args: Array<String>) {
     //sampleStart
     val repeatFun: String.(Int) -> String = { times -> this.repeat(times) }
