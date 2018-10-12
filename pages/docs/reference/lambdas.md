@@ -216,37 +216,62 @@ fun main(args: Array<String>) {
 
 ### Invoking a function type instance  
 
-A value of a function type can be invoked by using its [`invoke(...)` operator](operator-overloading.html#invoke): `f.invoke(x)` or just `f(x)`.
+Invoking a function type instance  ：調用函數類型實例
 
-If the value has a receiver type, the receiver object should be passed as the first argument.
-Another way to invoke a value of a function type with receiver is to prepend it with the receiver object,
-as if the value were an [extension function](extensions.html): `1.foo(2)`,
+A value of a function type can be invoked by using its [`invoke(...)` operator](operator-overloading.md#invoke): `f.invoke(x)` or just `f(x)`.
+
+透過使用函數的 [`invoke(...)` 運算符](operator-overloading.md#invoke) 調用函數類型的值： `f.invoke(x)` 或只用 `f(x)` 。
+
+If the value has a receiver type, the receiver object should be passed as the first argument. Another way to invoke a value of a function type with receiver is to prepend it with the receiver object, as if the value were an [extension function](extensions.md): `1.foo(2)`,
+
+如果值有 `receiver` 類型， `receiver` 物件應該作為第一個參數傳遞，另一種方式調用 `receiver` 函數類型的值是使用 `receiver` 物件為前置，好像值是[擴展函數](extensions.md)： `1.foo(2)` ，
 
 Example:
 
-<div class="sample" markdown="1" theme="idea">
-
-​``` kotlin
+``` kotlin
 fun main(args: Array<String>) {
     //sampleStart
+    
+    //宣告函數類型到變數
     val stringPlus: (String, String) -> String = String::plus
+    
+    //幾種調用函數類型的方式
+    println(stringPlus.invoke("<-", "->"))//表示法：函數類型實例.invoke(...)
+    println(stringPlus("Hello, ", "world!")) //表示法：函數類型實例(...)
+    
+    //建立類似的擴展函數
+    val stringPlusExtension: String.(String) -> String = String::plus
+    println("Hello, ".stringPlusExtension("world!")) //表示法：receiver.函數類型實例(...)
+    //println(stringPlusExtension.invoke("<-", "->")) 也通用
+    //println(stringPlusExtension("Hello, ", "world!")) 也通用
+    
+    //宣告函數類型到變數，多了擴展函數
     val intPlus: Int.(Int) -> Int = Int::plus
-    
-    println(stringPlus.invoke("<-", "->"))
-    println(stringPlus("Hello, ", "world!")) 
-    
-    println(intPlus.invoke(1, 1))
-    println(intPlus(1, 2))
-    println(2.intPlus(3)) // extension-like call
+
+    //幾種調用函數類型的方式
+    println(intPlus.invoke(1, 1)) //表示法：函數類型實例.invoke(...)
+    println(intPlus(1, 2)) //上個章節兩種表示法通用，表示法：函數類型實例(...)
+    println(2.intPlus(3)) // extension-like call ，表示法：receiver.函數類型實例(...)
     //sampleEnd
 }
+
+//ans:
+//<-->
+//Hello, world!
+//Hello, world!
+//2
+//3
+//5
 ```
-</div>
 
 ### Inline functions
 
-Sometimes it is beneficial to use [inline functions](inline-functions.html), which provide flexible control flow,
-for higher-order functions.
+Inline functions ：內置函數
+
+Sometimes it is beneficial to use [inline functions](inline-functions.md), which provide flexible control flow, for higher-order functions.
+
+有時使用[內置函數](inline-functions.md)是有好處的，內置函數為高階函數提供靈活的控制流程。
+
 
 ## Lambda Expressions and Anonymous Functions
 
