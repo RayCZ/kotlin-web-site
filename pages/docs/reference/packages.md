@@ -65,7 +65,7 @@ Imports ：匯入
 Apart from the default imports, each file may contain its own import directives.
 Syntax for imports is described in the [grammar](https://kotlinlang.org/docs/reference/grammar.html#import).
 
-除了預設匯入，每個檔案可能包含自己直接的 import 。 imports 語言描述在 [grammar](https://kotlinlang.org/docs/reference/grammar.html#import) 。
+除了預設匯入，每個檔案可能包含自己直接的 import 。 imports 語法描述在 [grammar](https://kotlinlang.org/docs/reference/grammar.html#import) 。
 
 We can import either a single name, e.g.
 

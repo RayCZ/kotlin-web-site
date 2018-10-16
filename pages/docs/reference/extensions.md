@@ -284,7 +284,7 @@ class C {
 
 In case of a name conflict between the members of the dispatch receiver and the extension receiver, the extension receiver takes precedence. To refer to the member of the dispatch receiver you can use the [qualified `this` syntax](this-expressions.md#qualified).
 
-在 dispatch receiver 成員和 extension receiver 之間名稱衝突，extension receiver 優先。引用 dispatch receiver 成員，你可以使用[修飾符 `this` 句法](this-expressions.md#qualified)。
+在 dispatch receiver 成員和 extension receiver 之間名稱衝突，extension receiver 優先。引用 dispatch receiver 成員，你可以使用[修飾符 `this` 語法](this-expressions.md#qualified)。
 
 ``` kotlin
 class C {

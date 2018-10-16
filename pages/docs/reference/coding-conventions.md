@@ -559,7 +559,7 @@ If the function signature doesn't fit on a single line, use the following syntax
 
 **Function signature：函數簽名，包括函數的名稱、參數順序、參數類型、泛型欄位等資訊總稱**
 
-如果函數簽名不適合單行，使用以下句法：
+如果函數簽名不適合單行，使用以下語法：
 ``` kotlin
 fun longMethodName(
     argument: ArgumentType = defaultValue,

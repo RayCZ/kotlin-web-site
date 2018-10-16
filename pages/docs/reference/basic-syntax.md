@@ -7,6 +7,8 @@ title: "Basic Syntax"
 
 # Basic Syntax
 
+Basic Syntax ：基本語法
+
 ## Defining packages
 
 **Package：在 Java 或 Kotlin 做檔案結構的分類或是打包**

@@ -98,7 +98,7 @@ class Customer(name: String) {
 ```
 In fact, for declaring properties and initializing them from the primary constructor, Kotlin has a concise syntax:
 
-實際上，對於來自主建構元宣告屬性和初始化它們， Kotlin 有一個簡潔的句法：
+實際上，對於來自主建構元宣告屬性和初始化它們， Kotlin 有一個簡潔的語法：
 ``` kotlin
 class Person(val firstName: String, val lastName: String, var age: Int) { ... }
 ```
@@ -516,4 +516,4 @@ If you need to write a function that can be called without having a class instan
 
 Even more specifically, if you declare a [companion object](object-declarations.md#companion-objects) inside your class, you'll be able to call its members with the same syntax as calling static methods in Java/C#, using only the class name as a qualifier.
 
-更具體來說，如果在你的類別內宣告一個 [夥伴物件](object-declarations.md#companion-objects) ，你將能調用類別內的成員，與在 Java/C# 中調用靜態方法相同的句法，只使用類別名稱為修飾符。
+更具體來說，如果在你的類別內宣告一個 [夥伴物件](object-declarations.md#companion-objects) ，你將能調用類別內的成員，與在 Java/C# 中調用靜態方法相同的語法，只使用類別名稱為修飾符。

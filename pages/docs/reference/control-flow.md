@@ -165,7 +165,7 @@ For Loops ：For 循環
 
 *for* loop iterates through anything that provides an iterator. This is equivalent to the `foreach` loop in languages like C#. The syntax is as follows:
 
-`for` 循環遍歷通過提供 `iterator` 類的任何東西。這相當於像 C# 語言中的 `foreach` 環循。句法如下：
+`for` 循環遍歷通過提供 `iterator` 類的任何東西。這相當於像 C# 語言中的 `foreach` 環循。語法如下：
 ``` kotlin
 for (item in collection) print(item)
 ```

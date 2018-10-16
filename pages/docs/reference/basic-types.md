@@ -273,7 +273,7 @@ fun check(c: Char) {
 ```
 Character literals go in single quotes: `'1'`. Special characters can be escaped using a backslash. The following escape sequences are supported: `\t`, `\b`, `\n`, `\r`, `\'`, `\"`, `\\` and `\$`. To encode any other character, use the Unicode escape sequence syntax: `'\uFF00'`.
 
-字元進入單引號：`'1'` 。可以使用反斜線 `\` 轉義 (跳脫) 為特別字元。支援以下轉義 (跳脫) 序列： `\t` , `\b `, `\n` , `\r` , `\'` , `\"` , `\\` 和 `\$` 。對任何其他字元進行編碼請使用 Unicode 轉義 (跳脫) 序列 `\uFF00` 。
+字元進入單引號：`'1'` 。可以使用反斜線 `\` 轉義 (跳脫) 為特別字元。支援以下轉義 (跳脫) 序列： `\t` , `\b `, `\n` , `\r` , `\'` , `\"` , `\\` 和 `\$` 。對任何其他字元進行編碼請使用 Unicode 轉義 (跳脫) 序列語法： `\uFF00` 。
 
 We can explicitly convert a character to an `Int` number:
 
@@ -584,7 +584,7 @@ println("$s.length is ${s.length}") // prints "abc.length is 3"
 ```
 Templates are supported both inside raw strings and inside escaped strings.If you need to represent a literal `$` character in a raw string (which doesn't support backslash escaping), you can use the following syntax:
 
-模版支援在原始字串內和轉義 (跳脫) 字串內。如果你需要表示一個文字 `$` 字元在原始文字 (這不支援版斜線跳脫) ，你可以使用以下句法：
+模版支援在原始字串內和轉義 (跳脫) 字串內。如果你需要表示一個文字 `$` 字元在原始文字 (這不支援版斜線跳脫) ，你可以使用以下語法：
 
 ``` kotlin
 val price = """
