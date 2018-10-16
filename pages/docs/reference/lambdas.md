@@ -134,6 +134,7 @@ You can also give a function type an alternative name by using [a type alias](ty
 ```kotlin
 typealias ClickHandler = (Button, ClickEvent) -> Unit
 ```
+---
 
 ### Instantiating a function type
 
@@ -214,6 +215,8 @@ fun main(args: Array<String>) {
 >
 > 注意：透過預設情況下, 會推斷沒有 `receiver` 的函數類型，即使使用參照引用到擴展函數來初始化變數。去改變它，請明確指定變數類型。
 
+---
+
 ### Invoking a function type instance  
 
 Invoking a function type instance  ：調用函數類型實例
@@ -263,6 +266,7 @@ fun main(args: Array<String>) {
 //3
 //5
 ```
+---
 
 ### Inline functions
 
@@ -292,6 +296,7 @@ Function `max` is a higher-order function, it takes a function value as the seco
 ``` kotlin
 fun compare(a: String, b: String): Boolean = a.length < b.length
 ```
+---
 
 ### Lambda expression syntax
 
@@ -330,6 +335,7 @@ val sum = { x: Int, y: Int -> x + y }
 //3.回傳值：必須為 Int 類型的回傳值 val sum: (Int, Int) -> Int = ...
 val sum: (Int, Int) -> Int = { x, y -> x + y }
 ```
+---
 
 ### Passing a lambda to the last parameter
 
@@ -352,6 +358,7 @@ If the lambda is the only argument to that call, the parentheses can be omitted 
 ``` kotlin
 run { println("...") }
 ```
+---
 
 ### `it`: implicit name of a single parameter
 
@@ -368,6 +375,7 @@ If the compiler can figure the signature out itself, it is allowed not to declar
 ``` kotlin
 ints.filter { it > 0 } // this literal is of type '(it: Int) -> Boolean'
 ```
+---
 
 ### Returning a value from a lambda expression
 
