@@ -272,111 +272,134 @@ Sometimes it is beneficial to use [inline functions](inline-functions.md), which
 
 有時使用[內置函數](inline-functions.md)是有好處的，內置函數為高階函數提供靈活的控制流程。
 
-
 ## Lambda Expressions and Anonymous Functions
+
+Lambda Expressions and Anonymous Functions ： Lambda 表示法和匿名函數
 
 Lambda expressions and anonymous functions are 'function literals', i.e. functions that are not declared,
 but passed immediately as an expression. Consider the following example:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
-​``` kotlin
+Lambda 表示法和匿名函數是 "函數文字" ，即是未宣告的函數，而立即作為表達式傳遞。請考慮以下範例：
+
+``` kotlin
 max(strings, { a, b -> a.length < b.length })
 ```
-</div>
 
-Function `max` is a higher-order function, it takes a function value as the second argument.
-This second argument is an expression that is itself a function, i.e. a function literal, which is equivalent to
-the following named function:
+Function `max` is a higher-order function, it takes a function value as the second argument. This second argument is an expression that is itself a function, i.e. a function literal, which is equivalent to the following named function:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+函數 `max` 是一個高階函數，它帶入函數值為第二參數。第二個參數是一個表達式，表達式本身是一個函數，即是函數文字，函數文字相當以於以下已命名的函數：
+
 ``` kotlin
 fun compare(a: String, b: String): Boolean = a.length < b.length
 ```
-</div>
 
 ### Lambda expression syntax
 
+Lambda expression syntax ： Lambda 表達式語法
+
 The full syntactic form of lambda expressions is as follows:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+從 Lambda 表達式完整的語法為以下：
+
 ``` kotlin
 val sum = { x: Int, y: Int -> x + y }
 ```
-</div>
 
-A lambda expression is always surrounded by curly braces,
-parameter declarations in the full syntactic form go inside curly braces and have optional type annotations,
-the body goes after an `->` sign. If the inferred return type of the lambda is not `Unit`, the last (or possibly single) expression inside the lambda body is treated as the return value.
+A lambda expression is always surrounded by curly braces, parameter declarations in the full syntactic form go inside curly braces and have optional type annotations, the body goes after an `->` sign. If the inferred return type of the lambda is not `Unit`, the last (or possibly single) expression inside the lambda body is treated as the return value.
+
+Lambda 表達式總是透過大括號圍繞，完整語法形式的參數宣告進入大括號內並有可選的類型註釋，在 `->` 符號之後為程式的內文。如果 Lambda 回傳類型推斷不是 `Unit` ，最後 (或可能單行) 表達式在 Lambda 內文被視為回傳值。
 
 If we leave all the optional annotations out, what's left looks like this:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+如果我們省去所有可選的註釋，留下來代碼的看起來像這樣：
+
 ``` kotlin
 val sum: (Int, Int) -> Int = { x, y -> x + y }
 ```
-</div>
+
+**比較兩段程式的不同：**
+
+``` kotlin
+//1.參數類型 (參數宣告) ：在大括號內宣告參數並指定類型 { x: Int, y: Int -> ... }
+//2.表達式內文：在 -> 之後 { ... -> x + y }
+//3.回傳值：依最後一行程式決定 { ... -> x + y }
+val sum = { x: Int, y: Int -> x + y }
+
+//1.參數類型 (參數宣告) ：在宣告變數時指定函數類型 val sum: (Int, Int) -> Int = ...
+//2.表達式內文：在 -> 之後 { ... -> x + y }
+//3.回傳值：必須為 Int 類型的回傳值 val sum: (Int, Int) -> Int = ...
+val sum: (Int, Int) -> Int = { x, y -> x + y }
+```
 
 ### Passing a lambda to the last parameter
 
-In Kotlin, there is a convention that if the last parameter of a function accepts a function, a lambda expression that is 
-passed as the corresponding argument can be placed outside the parentheses:
+Passing a lambda to the last parameter ：傳遞 Lambda 表達式到最後一個參數
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+In Kotlin, there is a convention that if the last parameter of a function accepts a function, a lambda expression that is passed as the corresponding argument can be placed outside the parentheses:
+
+在 Kotlin 中，有一個慣用語法，如果函數的最後參數接受一個函數，Lambda 表達式傳遞為對應的參數可以被放置在括號外：
+
+**fold 的第一個參數是 (1) ，第二個參數是 { acc, e -> acc * e } ，所以可以在小括號外使用 Lambda 表達式**
+
 ``` kotlin
 val product = items.fold(1) { acc, e -> acc * e }
 ```
-</div>
 
 If the lambda is the only argument to that call, the parentheses can be omitted entirely: 
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+如果 Lambda 表達式是唯一調用的參數，可以完全省略括號：
+
 ``` kotlin
 run { println("...") }
 ```
-</div>
 
 ### `it`: implicit name of a single parameter
 
+`it`: implicit name of a single parameter ： `it`: 單一參數的隱性名稱
+
 It's very common that a lambda expression has only one parameter.
 
-If the compiler can figure the signature out itself, it is allowed not to declare the only parameter and omit `->`. 
-The parameter will be implicitly declared under the name `it`:
+Lambda 表達式只有一個參數是很常見的。
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+If the compiler can figure the signature out itself, it is allowed not to declare the only parameter and omit `->`. The parameter will be implicitly declared under the name `it`:
+
+如果編譯器可以計算出它本身的簽名，允許不宣告唯一的參數並省略 `->` 。參數將以 `it` 隱性宣告命名：
+
 ``` kotlin
 ints.filter { it > 0 } // this literal is of type '(it: Int) -> Boolean'
 ```
-</div>
 
 ### Returning a value from a lambda expression
 
-We can explicitly return a value from the lambda using the [qualified return](returns.html#return-at-labels) syntax. 
-Otherwise, the value of the last expression is implicitly returned. 
+Returning a value from a lambda expression ：從 Lambda 表達式回傳一個值
+
+We can explicitly return a value from the lambda using the [qualified return](returns.md#return-at-labels) syntax. Otherwise, the value of the last expression is implicitly returned. 
+
+我們可以使用[修飾符 return](returns.md#return-at-labels) 語法從 Lambda 回傳一個值。否則，隱性回傳最後表達式的值。
 
 Therefore, the two following snippets are equivalent:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+因此，以下兩個片段是相等的：
+
 ``` kotlin
 ints.filter {
     val shouldFilter = it > 0 
-    shouldFilter
+    shouldFilter //回傳值
 }
 
 ints.filter {
     val shouldFilter = it > 0 
-    return@filter shouldFilter
+    return@filter shouldFilter //回傳值
 }
 ```
-</div>
 
-This convention, along with [passing a lambda expression outside parentheses](#passing-a-lambda-to-the-last-parameter), allows for 
-[LINQ-style](http://msdn.microsoft.com/en-us/library/bb308959.aspx) code:
+This convention, along with [passing a lambda expression outside parentheses](#passing-a-lambda-to-the-last-parameter), allows for [LINQ-style](http://msdn.microsoft.com/en-us/library/bb308959.aspx) code:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
-​``` kotlin
+這是慣用語法，以及[在括號外傳遞 Lambda 表達式](#passing-a-lambda-to-the-last-parameter)，允許 [LINQ-style](http://msdn.microsoft.com/en-us/library/bb308959.aspx) 的代碼：
+
+``` kotlin
 strings.filter { it.length == 5 }.sortedBy { it }.map { it.toUpperCase() }
 ```
-</div>
 
 ### Underscore for unused variables (since 1.1)
 
