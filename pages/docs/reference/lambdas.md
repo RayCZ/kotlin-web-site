@@ -561,13 +561,15 @@ class HTML {
     fun body() { ... }
 }
 
-//init 是 receiver 類型
+//init 是 receiver 類型也是一個函數類型
 fun html(init: HTML.() -> Unit): HTML {
     val html = HTML()  // create the receiver object
     html.init()        // pass the receiver object to the lambda
     return html
 }
 
+//傳遞給 html() 一個函數類型 (小括號可以省略)
+//在 {...} 中有隱性的 this 代表 html 這個實例
 html {       // lambda with receiver begins here
     body()   // calling a method on the receiver object
 }
