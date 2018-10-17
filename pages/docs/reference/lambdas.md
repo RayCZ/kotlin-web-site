@@ -134,6 +134,7 @@ You can also give a function type an alternative name by using [a type alias](ty
 ```kotlin
 typealias ClickHandler = (Button, ClickEvent) -> Unit
 ```
+
 ---
 
 ### Instantiating a function type
@@ -266,6 +267,7 @@ fun main(args: Array<String>) {
 //3
 //5
 ```
+
 ---
 
 ### Inline functions
@@ -296,6 +298,7 @@ Function `max` is a higher-order function, it takes a function value as the seco
 ``` kotlin
 fun compare(a: String, b: String): Boolean = a.length < b.length
 ```
+
 ---
 
 ### Lambda expression syntax
@@ -335,6 +338,7 @@ val sum = { x: Int, y: Int -> x + y }
 //3.回傳值：必須為 Int 類型的回傳值 val sum: (Int, Int) -> Int = ...
 val sum: (Int, Int) -> Int = { x, y -> x + y }
 ```
+
 ---
 
 ### Passing a lambda to the last parameter
@@ -358,6 +362,7 @@ If the lambda is the only argument to that call, the parentheses can be omitted 
 ``` kotlin
 run { println("...") }
 ```
+
 ---
 
 ### `it`: implicit name of a single parameter
@@ -375,6 +380,7 @@ If the compiler can figure the signature out itself, it is allowed not to declar
 ``` kotlin
 ints.filter { it > 0 } // this literal is of type '(it: Int) -> Boolean'
 ```
+
 ---
 
 ### Returning a value from a lambda expression
@@ -383,7 +389,7 @@ Returning a value from a lambda expression ：從 Lambda 表達式回傳一個�
 
 We can explicitly return a value from the lambda using the [qualified return](returns.md#return-at-labels) syntax. Otherwise, the value of the last expression is implicitly returned. 
 
-我們可以使用[修飾符 return](returns.md#return-at-labels) 語法從 Lambda 回傳一個值。否則，隱性回傳最後表達式的值。
+我們可以使用[修飾符 return](returns.md#return-at-labels) 語法從 Lambda 回傳一個值。否則，隱性回傳最後一行表達式的值。
 
 Therefore, the two following snippets are equivalent:
 
@@ -409,71 +415,86 @@ This convention, along with [passing a lambda expression outside parentheses](#p
 strings.filter { it.length == 5 }.sortedBy { it }.map { it.toUpperCase() }
 ```
 
+---
+
 ### Underscore for unused variables (since 1.1)
+
+Underscore for unused variables (since 1.1) ：底線用於未使用的變數 (從 1.1 版)
 
 If the lambda parameter is unused, you can place an underscore instead of its name:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+如果 Lambda 參數是未使用的，你可以放置一個底線代替它的名稱：
+
 ``` kotlin
 map.forEach { _, value -> println("$value!") }
 ```
-</div>
+
+---
 
 ### Destructuring in lambdas (since 1.1)
 
-Destructuring in lambdas is described as a part of [destructuring declarations](multi-declarations.html#destructuring-in-lambdas-since-11).
+Destructuring in lambdas (since 1.1) ：在 Lambda 的解構 (從 1.1 版)
+
+Destructuring in lambdas is described as a part of [destructuring declarations](multi-declarations.md#destructuring-in-lambdas-since-11).
+
+在 Lambda的解構描述在解構宣告的一部份。
+
+---
 
 ### Anonymous functions
 
-One thing missing from the lambda expression syntax presented above is the ability to specify the return type of the
-function. In most cases, this is unnecessary because the return type can be inferred automatically. However, if you
-do need to specify it explicitly, you can use an alternative syntax: an _anonymous function_.
+Anonymous functions ：匿名函數
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+One thing missing from the lambda expression syntax presented above is the ability to specify the return type of the function. In most cases, this is unnecessary because the return type can be inferred automatically. However, if you do need to specify it explicitly, you can use an alternative syntax: an _anonymous function_.
+
+從上面提到的 Lambda 表示法語法缺少一件事是指定函數回傳類型的能力。大多情況下，這是不必要的，因為超以自動地推斷回傳類型。然而，如果你需要明確指定它，你可以使用替代語法：匿名函數。
+
 ``` kotlin
 fun(x: Int, y: Int): Int = x + y
 ```
-</div>
 
-An anonymous function looks very much like a regular function declaration, except that its name is omitted. Its body
-can be either an expression (as shown above) or a block:
+An anonymous function looks very much like a regular function declaration, except that its name is omitted. Its body can be either an expression (as shown above) or a block:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+匿名函數看起來非常像常規的函數宣告，只是省略了它的名稱。它的內文可以是表達式 (如上所述) 或一個區塊：
+
 ``` kotlin
 fun(x: Int, y: Int): Int {
     return x + y
 }
 ```
-</div>
 
-The parameters and the return type are specified in the same way as for regular functions, except that the parameter
-types can be omitted if they can be inferred from context:
+The parameters and the return type are specified in the same way as for regular functions, except that the parameter types can be omitted if they can be inferred from context:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+參數和回傳類型指定與常規函數相同，如果它們可以從程式的內容推斷，則可以省略參數類型：
+
 ``` kotlin
 ints.filter(fun(item) = item > 0)
 ```
-</div>
 
-The return type inference for anonymous functions works just like for normal functions: the return type is inferred
-automatically for anonymous functions with an expression body and has to be specified explicitly (or is assumed to be
-`Unit`) for anonymous functions with a block body.
+The return type inference for anonymous functions works just like for normal functions: the return type is inferred automatically for anonymous functions with an expression body and has to be specified explicitly (or is assumed to be `Unit`) for anonymous functions with a block body.
 
-Note that anonymous function parameters are always passed inside the parentheses. The shorthand syntax allowing
-to leave the function outside the parentheses works only for lambda expressions.
+匿名函數的回傳類型推斷工作就像一般的函數：匿名函數的表達式內文自動地推斷回傳類型並且匿名函數的區塊內文必須明確指定 (或假設為 `Unit`) 。
 
-One other difference between lambda expressions and anonymous functions is the behavior of
-[non-local returns](inline-functions.html#non-local-returns). A *return*{: .keyword }  statement without a label
-always returns from the function declared with the *fun*{: .keyword } keyword. This means that a *return*{: .keyword }
-inside a lambda expression will return from the enclosing function, whereas a *return*{: .keyword } inside
-an anonymous function will return from the anonymous function itself.
+Note that anonymous function parameters are always passed inside the parentheses. The shorthand syntax allowing to leave the function outside the parentheses works only for lambda expressions.
+
+注意：匿名函數參數總是在括號內傳遞。允許在括號外留下函數的簡短語法只用於 Lambda 表達式。
+
+One other difference between lambda expressions and anonymous functions is the behavior of [non-local returns](inline-functions.md#non-local-returns). A *return* statement without a label always returns from the function declared with the *fun* keyword. This means that a *return* inside a lambda expression will return from the enclosing function, whereas a *return* inside an anonymous function will return from the anonymous function itself.
+
+Lambda 表達式和函名函數之間的一個不同是[非區域回傳](inline-functions.md#non-local-returns)的行為。沒有標籤 `@xxx` 的 `return` 敘述總是從使用 `fun` 關鍵字宣告的函數回傳。這意味著在 Lambda 表達式回傳將從閉包函數回傳，而在匿名函數內的 `return` 將從匿名函數本身回傳。
+
+**Lambda 表達法的 `return` ，如果沒有使用標籤 `@xxx` 來指定跳出的地方會直接從整個函數回傳，而匿名函數不會**
+
+---
 
 ### Closures
 
-A lambda expression or anonymous function (as well as a [local function](functions.html#local-functions) and an [object expression](object-declarations.html#object-expressions))
-can access its _closure_, i.e. the variables declared in the outer scope. Unlike Java, the variables captured in the closure can be modified:
+Closures ：閉包
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+A lambda expression or anonymous function (as well as a [local function](functions.md#local-functions) and an [object expression](object-declarations.md#object-expressions)) can access its _closure_, i.e. the variables declared in the outer scope. Unlike Java, the variables captured in the closure can be modified:
+
+Lambda 表達式或匿名函數 (以及[區域函數](functions.md#local-functions)和[物件表達式](object-declarations.md#object-expressions)) 可以存取它的閉包，即是在外部範圍宣告的變數。不像 Java ，可以修改在閉包中捕獲的變數：
+
 ``` kotlin
 var sum = 0
 ints.filter { it > 0 }.forEach {
@@ -481,49 +502,66 @@ ints.filter { it > 0 }.forEach {
 }
 print(sum)
 ```
-</div>
+
+---
 
 ### Function literals with receiver
 
-[Function types](#function-types) with receiver, such as `A.(B) -> C`, can be instantiated with a special form of function literals – 
-function literals with receiver.
+Function literals with receiver ：使用 `receiver` 的函數文字
+
+[Function types](#function-types) with receiver, such as `A.(B) -> C`, can be instantiated with a special form of function literals – function literals with receiver.
+
+使用 `receiver` 的[函數類型](#function-types) ，例如： `A.(B) -> C` ，可以使用函數文字的特定形式初始化 - 使用 `receiver` 函數文字
 
 As said above, Kotlin provides the ability [to call an instance](#invoking-a-function-type-instance) of a function type with receiver providing the _receiver object_.
 
-Inside the body of the function literal, the receiver object passed to a call becomes an *implicit* *this*{: .keyword}, so that you 
-can access the members of that receiver object without any additional qualifiers, or access the receiver object 
-using a [`this` expression](this-expressions.html).
+如上所述， Kotlin 提供使用 `receiver` 提供 `receiver` 物件來[調用實例](#invoking-a-function-type-instance)函數類型實例的能力。
 
-This behavior is similar to [extension functions](extensions.html), which also allow you to access the members of the receiver object 
-inside the body of the function.
+Inside the body of the function literal, the receiver object passed to a call becomes an *implicit* *this*, so that you can access the members of that receiver object without any additional qualifiers, or access the receiver object using a [`this` expression](this-expressions.md).
 
-Here is an example of a function literal with receiver along with its type, where `plus` is called on the 
-receiver object:
+在函數文字的內文中， 傳遞給調用的 `receiver` 物件變成隱式的 `this` ，因此你可以沒有額外的修飾符存取 `receiver` 物件的成員，或存取 `receiver` 物件使用 [`this` 表達式](this-expressions.md) 。
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+This behavior is similar to [extension functions](extensions.md), which also allow you to access the members of the receiver object inside the body of the function.
+
+這個行為類似於[擴展函數](extensions.md) ，也允許你在函數的內文中存取 `receiver` 的成員。
+
+Here is an example of a function literal with receiver along with its type, where `plus` is called on the receiver object:
+
+下面是一個使用 `receiver` 與它的類型一起的函數文字範例，當中 `plus` 在 `receiver` 物件被調用：
+
 ``` kotlin
+//在 Kotlin 的 Int 類別已提供 plus 方法
+//以下可以看成 { other -> this.plus(other) } ， receiver 就是 int 實例本身 this 
 val sum: Int.(Int) -> Int = { other -> plus(other) } 
+
+//實際調用： 200.sum(100)
+//在函數內顯示 { other(代表參數 100) -> 200.plus(other) } 
+//ans: 300
 ```
-</div>
 
-The anonymous function syntax allows you to specify the receiver type of a function literal directly.
-This can be useful if you need to declare a variable of a function type with receiver, and to use it later.
+The anonymous function syntax allows you to specify the receiver type of a function literal directly. This can be useful if you need to declare a variable of a function type with receiver, and to use it later.
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+匿名函數語法允許你直接指定函式文字的 `receiver` 類型。如果你需要宣告一個使用 `receiver` 函數類型的變數，這將非常有用。
+
 ``` kotlin
+//匿名函數以fun開頭 fun Int.(other: Int): Int
 val sum = fun Int.(other: Int): Int = this + other
+
+//實際調用： 200.sum(100)
+//在函數內顯示 this(200) + other(100)
+//ans: 300
 ```
-</div>
 
-Lambda expressions can be used as function literals with receiver when the receiver type can be inferred from context.
-One of the most important examples of their usage is [type-safe builders](type-safe-builders.html):
+Lambda expressions can be used as function literals with receiver when the receiver type can be inferred from context. One of the most important examples of their usage is [type-safe builders](type-safe-builders.md):
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+當 `receiver` 類型可以從代碼的內容中推斷， Lambda 表示法可以用作使用 `receiver` 的函數文字。它們的用法最重要的一個例子是[類型安全的建構者](type-safe-builders.md)：
+
 ``` kotlin
 class HTML {
     fun body() { ... }
 }
 
+//init 是 receiver 類型
 fun html(init: HTML.() -> Unit): HTML {
     val html = HTML()  // create the receiver object
     html.init()        // pass the receiver object to the lambda
@@ -533,7 +571,4 @@ fun html(init: HTML.() -> Unit): HTML {
 html {       // lambda with receiver begins here
     body()   // calling a method on the receiver object
 }
-```
-</div>
-
 ```
