@@ -7,24 +7,26 @@ title: "Inline classes"
 
 # Inline classes
 
+Inline classes ：內置類別
+
 > Inline classes are available only since Kotlin 1.3 and currently are *experimental*. See details [below](#experimental-status-of-inline-classes)
-{:.note}
+>
+> 內置類別只從 Kotlin 1.3 之後可用並且目前是實驗性的。請參閱[以下](#experimental-status-of-inline-classes)
 
 Sometimes it is necessary for business logic to create a wrapper around some type. However, it introduces runtime overhead due to additional heap allocations. Moreover, if wrapped type was primitive, performance hit is terrible, because primitive types usually are heavily optimized by runtime, while their wrappers don't get any special treatment. 
 
+有時商業邏輯需要在某些類型週圍建立包裝器。但是由於額外的 heap 分配，它會引入運行時開銷，如果包裝類型是原生的，性能損失是可怕的，因為原生類型通常由運行時重要的優化，而它們的包裝器不會得到任何特殊處理。
+
 To solve such kind of issues, Kotlin introduces special kind of classes called `inline classes`, which are introduced by placing modifier `inline` before the name of the class:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
 
 ```kotlin
 inline class Password(val value: String)
-```  
+```
 
-</div>
 
 Inline class must have a single property initialized in the primary constructor. At runtime, instances of the inline class will be represented using this single property (see details about runtime representation [below](#representation)):
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
 
 ```kotlin
 // No actual instantiation of class 'Password' happens
@@ -32,7 +34,6 @@ Inline class must have a single property initialized in the primary constructor.
 val securePassword = Password("Don't try this in production") 
 ```
 
-</div>
 
 This is the primary property of inline classes, which inspired name "inline": data of the class is "inlined" into its usages (similar to how content of [inline functions](inline-functions.html) is inlined to call sites)
 
@@ -87,7 +88,7 @@ fun main() {
     val name = Name("Kotlin")
     println(name.prettyPrint()) // Still called as a static method
 }
-```  
+```
 
 </div>
 
@@ -125,7 +126,7 @@ fun main() {
     // In the end, 'c' contains unboxed representation (just '42'), as 'f' 
     val c = id(f)  
 }
-```  
+```
 
 </div>
 
