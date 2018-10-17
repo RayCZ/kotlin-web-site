@@ -41,7 +41,7 @@
 
 - [Objects](pages/docs/reference/object-declarations.md) (物件)
 
-- [Inline Classes](pages/docs/reference/inline-classes.md) (內置類別)
+- [Inline Classes](pages/docs/reference/inline-classes.md) (行內置入類別)
 
 - [Delegation](pages/docs/reference/delegation.md) (委外使用方式)
 
@@ -53,7 +53,7 @@
 
 - [Lambdas](pages/docs/reference/lambdas.md) (Lambdas 表示法)
 
-- [Inline Functions](pages/docs/reference/inline-functions.md) (內置函數)
+- [Inline Functions](pages/docs/reference/inline-functions.md) (行內置入函數)
 
 - [Coroutines](pages/docs/reference/coroutines.md) (協同程序)
 

@@ -430,11 +430,11 @@ For more information on generic functions see [Generics](generics.md).
 
 ## Inline Functions
 
-Inline Functions ：內置函數
+Inline Functions ：行內置入函數
 
 Inline functions are explained [here](inline-functions.md).
 
-內置函數解譯[在這裡](inline-functions.md)。
+行內置入函數解譯[在這裡](inline-functions.md)。
 
 ## Extension Functions
 

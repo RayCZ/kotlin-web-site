@@ -272,11 +272,11 @@ fun main(args: Array<String>) {
 
 ### Inline functions
 
-Inline functions ：內置函數
+Inline functions ：行內置入函數
 
 Sometimes it is beneficial to use [inline functions](inline-functions.md), which provide flexible control flow, for higher-order functions.
 
-有時使用[內置函數](inline-functions.md)是有好處的，內置函數為高階函數提供靈活的控制流程。
+有時使用[行內置入函數](inline-functions.md)是有好處的，行內置入函數為高階函數提供靈活的控制流程。
 
 ## Lambda Expressions and Anonymous Functions
 

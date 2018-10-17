@@ -387,7 +387,7 @@ Unsigned types support most of the operations of their signed counterparts.
 
 Unsigned types are implemented using another experimental feature, namely [inline classes](inline-classes.md).
 
-使用另一個實驗性的功能實作無符號類型，即是[內置類別](inline-classes.md)
+使用另一個實驗性的功能實作無符號類型，即是[行內置入類別](inline-classes.md)
 
 ---
 
