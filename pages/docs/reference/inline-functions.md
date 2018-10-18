@@ -11,7 +11,7 @@ Inline Functions ：行內置入函數
 
 Using [higher-order functions](lambdas.md) imposes certain runtime penalties: each function is an object, and it captures a closure, i.e. those variables that are accessed in the body of the function. Memory allocations (both for function objects and classes) and virtual calls introduce runtime overhead.
 
-使用高階函數會強加於某部分運行時的損失：每個函數都是一個物件，並且它捕獲一個閉包，即是在函數內文中存取的那些變數。記憶體配置 (用於函數物件和類別) 並且虛擬的調用都會引入運行時的開銷。
+使用高階函數會強加於某部分運行時的損失：每個函數都是一個物件，並且物件捕獲一個閉包，即是在函數內文中存取的那些變數。記憶體配置 (用於函數物件和類別) 並且虛擬的調用都會引入運行時的開銷。
 
 But it appears that in many cases this kind of overhead can be eliminated by inlining the lambda expressions. The functions shown below are good examples of this situation. I.e., the `lock()` function could be easily inlined at call-sites. Consider the following case:
 
@@ -71,7 +71,7 @@ inline fun foo(inlined: () -> Unit, noinline notInlined: () -> Unit) { ... }
 
 Inlinable lambdas can only be called inside the inline functions or passed as inlinable arguments, but `noinline` ones can be manipulated in any way we like: stored in fields, passed around etc.
 
-可行內置入的 Lambda 表達式只可以在行內置入的函數或傳遞作為可行內置入參數內調用，但 `noinline` 可以在任何我們想要的方式操作：在欄位儲存、周圍傳遞等等。
+可行內置入的 Lambda 表達式只可以在行內置入的函數或作為可行內置入參數傳遞內調用，但 `noinline` 可以在任何我們想要的方式操作：在欄位儲存、周圍傳遞等等。
 
 Note that if an inline function has no inlinable function parameters and no [reified type parameters](#reified-type-parameters), the compiler will issue a warning, since inlining such functions is very unlikely to be beneficial (you can suppress the warning if you are sure the inlining is needed using the annotation `@Suppress("NOTHING_TO_INLINE")`).
 
@@ -81,11 +81,11 @@ Note that if an inline function has no inlinable function parameters and no [rei
 
 ## Non-local returns
 
-Non-local returns ：非區域回傳
+Non-local returns ：非-區域回傳
 
 In Kotlin, we can only use a normal, unqualified `return` to exit a named function or an anonymous function. This means that to exit a lambda, we have to use a [label](returns.md#return-at-labels), and a bare `return` is forbidden inside a lambda, because a lambda cannot make the enclosing function return:
 
-在 Kotlin 中，我們只可以使用一般的、不合格的 `return` 來離開已命名的函數或匿名函數。這意味著離開 Lambda 表達式，我們必須使用 [label](returns.md#return-at-labels) `@...`，和在 Lambda 表達式中
+在 Kotlin 中，我們只可以使用常規、沒有修飾符的 `return` 來離開已命名的函數或匿名函數。這意味著離開 Lambda 表達式，我們必須使用 [label](returns.md#return-at-labels) `@...`，和在 Lambda 表達式內禁止赤裸的 `return` ，因為 Lambda 表達式不可以使封閉的函數回傳：
 
 ``` kotlin
 fun ordinaryFunction(block: () -> Unit) {
@@ -94,6 +94,7 @@ fun ordinaryFunction(block: () -> Unit) {
 //sampleStart
 fun foo() {
     ordinaryFunction {
+        //這裡是 Lambda 表達式中，所以不可以直接使用 return
         return // ERROR: cannot make `foo` return here
     }
 }
@@ -101,17 +102,22 @@ fun foo() {
 fun main(args: Array<String>) {
     foo()
 }
+
+//ans: 'return' is not allowed here
 ```
 
 But if the function the lambda is passed to is inlined, the return can be inlined as well, so it is allowed:
 
+但如果 Lambda 函數傳遞給以下的 `inlined` ，回傳也可以為 `inlined` ，因此被允許：
+``` kotlin
 inline fun inlined(block: () -> Unit) {
     println("hi!")
 }
-``` kotlin
+
 //sampleStart
 fun foo() {
     inlined {
+        //這裡是 Lambda 表達式中， inlined 函數有加 inline 所以可以 return
         return // OK: the lambda is inlined
     }
 }
@@ -123,8 +129,11 @@ fun main(args: Array<String>) {
 
 Such returns (located in a lambda, but exiting the enclosing function) are called *non-local* returns. We are used to this sort of construct in loops, which inline functions often enclose:
 
+這樣的回傳 (位置 Lambda 中，但離開封閉的函數) 被稱為非-區域回傳。我們習慣於循環中這種構造的排序，行內置入函數通常包含：
+
 ``` kotlin
 fun hasZeros(ints: List<Int>): Boolean {
+    //foreach 是 inline 函數
     ints.forEach {
         if (it == 0) return true // returns from hasZeros
     }
@@ -134,7 +143,10 @@ fun hasZeros(ints: List<Int>): Boolean {
 
 Note that some inline functions may call the lambdas passed to them as parameters not directly from the function body, but from another execution context, such as a local object or a nested function. In such cases, non-local control flow is also not allowed in the lambdas. To indicate that, the lambda parameter needs to be marked with the `crossinline` modifier:
 
+注意：一些行內置入函數可能調用傳遞給函數作為參數的 Lambda 表達式不直接從函數內文，而從另一個執行內容，例如一個區域物件或一個內嵌函數。在這樣的情況，非-區域控制流程在 Lambda 表達式也是不允許。為了指明這種情況， Lambda 參數需要使用 `crossinline` 修飾符標記：
+
 ``` kotlin
+//在 inline 函數中
 inline fun f(crossinline body: () -> Unit) {
     val f = object: Runnable {
         override fun run() = body()
@@ -144,6 +156,8 @@ inline fun f(crossinline body: () -> Unit) {
 ```
 
 > `break` and `continue` are not yet available in inlined lambdas, but we are planning to support them too.
+>
+> `break` 和 `continue` 在行內置入 Lambda 表達式中不可以使用，但我們正在計劃支援它們。
 
 ## Reified type parameters
 
