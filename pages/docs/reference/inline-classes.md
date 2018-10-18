@@ -15,7 +15,7 @@ Inline classes ：內置類別
 
 Sometimes it is necessary for business logic to create a wrapper around some type. However, it introduces runtime overhead due to additional heap allocations. Moreover, if wrapped type was primitive, performance hit is terrible, because primitive types usually are heavily optimized by runtime, while their wrappers don't get any special treatment. 
 
-有時商業邏輯需要在某些類型週圍建立包裝器。但是由於額外的 heap 分配，它會引入運行時開銷，如果包裝類型是原生的，性能損失是可怕的，因為原生類型通常由運行時重要的優化，而它們的包裝器不會得到任何特殊處理。
+有時商業邏輯需要在某些類型周圍建立包裝器。但是由於額外的 heap 分配，它會引入運行時開銷，如果包裝類型是原生的，性能損失是可怕的，因為原生類型通常由運行時重要的優化，而它們的包裝器不會得到任何特殊處理。
 
 To solve such kind of issues, Kotlin introduces special kind of classes called `inline classes`, which are introduced by placing modifier `inline` before the name of the class:
 

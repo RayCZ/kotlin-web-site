@@ -59,9 +59,11 @@ Inlining may cause the generated code to grow; however, if we do it in a reasona
 
 ## noinline
 
-noinline ：非行內置入
+noinline ：非行內置入，保留函數原本的特性，而不會取代置入代碼
 
 In case you want only some of the lambdas passed to an inline function to be inlined, you can mark some of your function parameters with the `noinline` modifier:
+
+假使你只想要部份的 Lambda 表達式傳遞給行內置入函數為以下的 `inlined: () -> Unit` ，你可以使用 `noinline` 修飾符標些部份你的函數參數 `noinline notInlined: () -> Unit`：
 
 ``` kotlin
 inline fun foo(inlined: () -> Unit, noinline notInlined: () -> Unit) { ... }
@@ -69,15 +71,22 @@ inline fun foo(inlined: () -> Unit, noinline notInlined: () -> Unit) { ... }
 
 Inlinable lambdas can only be called inside the inline functions or passed as inlinable arguments, but `noinline` ones can be manipulated in any way we like: stored in fields, passed around etc.
 
+可行內置入的 Lambda 表達式只可以在行內置入的函數或傳遞作為可行內置入參數內調用，但 `noinline` 可以在任何我們想要的方式操作：在欄位儲存、周圍傳遞等等。
+
 Note that if an inline function has no inlinable function parameters and no [reified type parameters](#reified-type-parameters), the compiler will issue a warning, since inlining such functions is very unlikely to be beneficial (you can suppress the warning if you are sure the inlining is needed using the annotation `@Suppress("NOTHING_TO_INLINE")`).
+
+注意：如果行內置入函數沒有標記 `inline` 的參數和 [`reified` 類型的參數](#reified-type-parameters) ，編譯器將發出警告，因為行內置入這樣函數是不太有益的 (如果你確定需要行內置入，使用註釋 `@Suppress("NOTHING_TO_INLINE")` ，你可以壓制警告) 。
+
+**用 `inline` 的函數會在編譯時期，複製並取代整段代碼到調用的地方，而 `noinline` 則不會，變成是正常的函數調用方式，保該原本函數的特性**
 
 ## Non-local returns
 
-In Kotlin, we can only use a normal, unqualified `return` to exit a named function or an anonymous function.
-This means that to exit a lambda, we have to use a [label](returns.html#return-at-labels), and a bare `return` is forbidden
-inside a lambda, because a lambda cannot make the enclosing function return:
+Non-local returns ：非區域回傳
 
-<div class="sample" markdown="1" theme="idea">
+In Kotlin, we can only use a normal, unqualified `return` to exit a named function or an anonymous function. This means that to exit a lambda, we have to use a [label](returns.md#return-at-labels), and a bare `return` is forbidden inside a lambda, because a lambda cannot make the enclosing function return:
+
+在 Kotlin 中，我們只可以使用一般的、不合格的 `return` 來離開已命名的函數或匿名函數。這意味著離開 Lambda 表達式，我們必須使用 [label](returns.md#return-at-labels) `@...`，和在 Lambda 表達式中
+
 ``` kotlin
 fun ordinaryFunction(block: () -> Unit) {
     println("hi!")
@@ -93,11 +102,9 @@ fun main(args: Array<String>) {
     foo()
 }
 ```
-</div>
 
 But if the function the lambda is passed to is inlined, the return can be inlined as well, so it is allowed:
 
-<div class="sample" markdown="1" theme="idea">
 inline fun inlined(block: () -> Unit) {
     println("hi!")
 }
@@ -113,12 +120,9 @@ fun main(args: Array<String>) {
     foo()
 }
 ```
-</div>
 
-Such returns (located in a lambda, but exiting the enclosing function) are called *non-local* returns. We are used to
-this sort of construct in loops, which inline functions often enclose:
+Such returns (located in a lambda, but exiting the enclosing function) are called *non-local* returns. We are used to this sort of construct in loops, which inline functions often enclose:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
 ``` kotlin
 fun hasZeros(ints: List<Int>): Boolean {
     ints.forEach {
@@ -127,14 +131,9 @@ fun hasZeros(ints: List<Int>): Boolean {
     return false
 }
 ```
-</div>
 
-Note that some inline functions may call the lambdas passed to them as parameters not directly from the function body,
-but from another execution context, such as a local object or a nested function. In such cases, non-local control flow
-is also not allowed in the lambdas. To indicate that, the lambda parameter needs to be marked with
-the `crossinline` modifier:
+Note that some inline functions may call the lambdas passed to them as parameters not directly from the function body, but from another execution context, such as a local object or a nested function. In such cases, non-local control flow is also not allowed in the lambdas. To indicate that, the lambda parameter needs to be marked with the `crossinline` modifier:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
 ``` kotlin
 inline fun f(crossinline body: () -> Unit) {
     val f = object: Runnable {
@@ -143,7 +142,6 @@ inline fun f(crossinline body: () -> Unit) {
     // ...
 }
 ```
-</div>
 
 > `break` and `continue` are not yet available in inlined lambdas, but we are planning to support them too.
 
