@@ -7,23 +7,24 @@ title: "Inline Functions and Reified Type Parameters"
 
 # Inline Functions
 
-Using [higher-order functions](lambdas.html) imposes certain runtime penalties: each function is an object, and it captures a closure,
-i.e. those variables that are accessed in the body of the function.
-Memory allocations (both for function objects and classes) and virtual calls introduce runtime overhead.
+Inline Functions ：行內置入函數
 
-But it appears that in many cases this kind of overhead can be eliminated by inlining the lambda expressions.
-The functions shown below are good examples of this situation. I.e., the `lock()` function could be easily inlined at call-sites.
-Consider the following case:
+Using [higher-order functions](lambdas.md) imposes certain runtime penalties: each function is an object, and it captures a closure, i.e. those variables that are accessed in the body of the function. Memory allocations (both for function objects and classes) and virtual calls introduce runtime overhead.
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+使用高階函數會強加於某部分運行時的損失：每個函數都是一個物件，並且它捕獲一個閉包，即是在函數內文中存取的那些變數。記憶體配置 (用於函數物件和類別) 並且虛擬的調用都會引入運行時的開銷。
+
+But it appears that in many cases this kind of overhead can be eliminated by inlining the lambda expressions. The functions shown below are good examples of this situation. I.e., the `lock()` function could be easily inlined at call-sites. Consider the following case:
+
+但似乎在很多情況下透過行內置入 Lambda 表達可以消除這種開銷。下面顯示的功能是這種情況的好範例。即是 `lock()` 函數可以在調用場景容易的行內置入。考慮以下情況：
+
 ``` kotlin
 lock(l) { foo() }
 ```
-</div>
 
 Instead of creating a function object for the parameter and generating a call, the compiler could emit the following code:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+編譯器可以發送以下代碼，而不是為參數建立函數物件並生成調用：
+
 ``` kotlin
 l.lock()
 try {
@@ -33,40 +34,42 @@ finally {
     l.unlock()
 }
 ```
-</div>
 
 Isn't it what we wanted from the very beginning?
 
+從一開始就不是我們想要的嗎？
+
 To make the compiler do this, we need to mark the `lock()` function with the `inline` modifier:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+為了使編譯器做到這件事，我們需要使用 `inline` 修飾符標記 `lock` 函數：
+
 ``` kotlin
 inline fun <T> lock(lock: Lock, body: () -> T): T { ... }
 ```
-</div>
 
-The `inline` modifier affects both the function itself and the lambdas passed to it: all of those will be inlined
-into the call site.
+The `inline` modifier affects both the function itself and the lambdas passed to it: all of those will be inlined into the call site.
+
+`inline` 修飾符影響函數本身和傳遞給它的 Lambda 表達法：所有這些將行內置入到調用場景。
 
 Inlining may cause the generated code to grow; however, if we do it in a reasonable way (i.e. avoiding inlining large functions), it will pay off in performance, especially at "megamorphic" call-sites inside loops.
 
+行內置入可能會造成生成代碼的增長；然而，如果我們在合理的方式進行 (即是避免行內置入大量函數) ，它將在性能上回報，特別是在循環內的 "變形" 調用場景。
+
+**凡是標記 `inline` 的函數，會在編譯時期，在調用的地方由函數內的代碼直接轉換**
+
 ## noinline
 
-In case you want only some of the lambdas passed to an inline function to be inlined, you can mark some of your function
-parameters with the `noinline` modifier:
+noinline ：非行內置入
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+In case you want only some of the lambdas passed to an inline function to be inlined, you can mark some of your function parameters with the `noinline` modifier:
+
 ``` kotlin
 inline fun foo(inlined: () -> Unit, noinline notInlined: () -> Unit) { ... }
 ```
-</div>
 
-Inlinable lambdas can only be called inside the inline functions or passed as inlinable arguments,
-but `noinline` ones can be manipulated in any way we like: stored in fields, passed around etc.
+Inlinable lambdas can only be called inside the inline functions or passed as inlinable arguments, but `noinline` ones can be manipulated in any way we like: stored in fields, passed around etc.
 
-Note that if an inline function has no inlinable function parameters and no
-[reified type parameters](#reified-type-parameters), the compiler will issue a warning, since inlining such functions is
- very unlikely to be beneficial (you can suppress the warning if you are sure the inlining is needed using the annotation `@Suppress("NOTHING_TO_INLINE")`).
+Note that if an inline function has no inlinable function parameters and no [reified type parameters](#reified-type-parameters), the compiler will issue a warning, since inlining such functions is very unlikely to be beneficial (you can suppress the warning if you are sure the inlining is needed using the annotation `@Suppress("NOTHING_TO_INLINE")`).
 
 ## Non-local returns
 
@@ -222,7 +225,7 @@ The `inline` modifier can be used on accessors of properties that don't have a b
 You can annotate individual property accessors:
 
 <div class="sample" markdown="1" theme="idea" data-highlight-only auto-indent="false">
-``` kotlin
+​``` kotlin
 val foo: Foo
     inline get() = Foo()
 
@@ -255,4 +258,4 @@ This imposes certain risks of binary incompatibility caused by changes in the mo
 To eliminate the risk of such incompatibility being introduced by a change in **non**-public API of a module, the public API inline functions are not allowed to use non-public-API declarations, i.e. `private` and `internal` declarations and their parts, in their bodies.
 
 An `internal` declaration can be annotated with `@PublishedApi`, which allows its use in public API inline functions. When an `internal` inline function is marked as `@PublishedApi`, its body is checked too, as if it were public.
- 
+
