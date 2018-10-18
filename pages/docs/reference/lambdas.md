@@ -7,7 +7,7 @@ title: "Higher-Order Functions and Lambdas"
 
 # Higher-Order Functions and Lambdas
 
-Higher-Order Functions and Lambdas ：高階函數和 Lambda 表示法
+Higher-Order Functions and Lambdas ：高階函數和 Lambda 表達式
 
 Kotlin functions are [*first-class*](https://en.wikipedia.org/wiki/First-class_function), which means that they can be stored in variables and data structures, passed as arguments to and returned from other [higher-order functions](#higher-order-functions). You can operate with functions in any way that is possible for other non-function values. 
 
@@ -15,7 +15,7 @@ Kotlin 函數是頭等函數，意味著它們可以儲存在變數和資料結�
 
 To facilitate this, Kotlin, as a statically typed programming language, uses a family of [function types](#function-types) to represent functions and provides a set of specialized language constructs, such as [lambda expressions](#lambda-expressions-and-anonymous-functions).
 
-為了方便這點， Kotlin ，為靜態類型程式語言，使用一系列的函數類型來表達函數並提供一組專門語言結構，例如：[lambda 表示法](#lambda-expressions-and-anonymous-functions)。
+為了方便這點， Kotlin ，為靜態類型程式語言，使用一系列的函數類型來表達函數並提供一組專門語言結構，例如：[Lambda 表達式](#lambda-expressions-and-anonymous-functions)。
 
 ## Higher-Order Functions
 
@@ -280,12 +280,12 @@ Sometimes it is beneficial to use [inline functions](inline-functions.md), which
 
 ## Lambda Expressions and Anonymous Functions
 
-Lambda Expressions and Anonymous Functions ： Lambda 表示法和匿名函數
+Lambda Expressions and Anonymous Functions ： Lambda 表達式和匿名函數
 
 Lambda expressions and anonymous functions are 'function literals', i.e. functions that are not declared,
 but passed immediately as an expression. Consider the following example:
 
-Lambda 表示法和匿名函數是 "函數文字" ，即是未宣告的函數，而立即作為表達式傳遞。請考慮以下範例：
+Lambda 表達式和匿名函數是 "函數文字" ，即是未宣告的函數，而立即作為表達式傳遞。請考慮以下範例：
 
 ``` kotlin
 max(strings, { a, b -> a.length < b.length })
@@ -447,7 +447,7 @@ Anonymous functions ：匿名函數
 
 One thing missing from the lambda expression syntax presented above is the ability to specify the return type of the function. In most cases, this is unnecessary because the return type can be inferred automatically. However, if you do need to specify it explicitly, you can use an alternative syntax: an _anonymous function_.
 
-從上面提到的 Lambda 表示法語法缺少一件事是指定函數回傳類型的能力。大多情況下，這是不必要的，因為超以自動地推斷回傳類型。然而，如果你需要明確指定它，你可以使用替代語法：匿名函數。
+從上面提到的 Lambda 表達式語法缺少一件事是指定函數回傳類型的能力。大多情況下，這是不必要的，因為超以自動地推斷回傳類型。然而，如果你需要明確指定它，你可以使用替代語法：匿名函數。
 
 ``` kotlin
 fun(x: Int, y: Int): Int = x + y
@@ -554,7 +554,7 @@ val sum = fun Int.(other: Int): Int = this + other
 
 Lambda expressions can be used as function literals with receiver when the receiver type can be inferred from context. One of the most important examples of their usage is [type-safe builders](type-safe-builders.md):
 
-當 `receiver` 類型可以從代碼的內容中推斷， Lambda 表示法可以用作使用 `receiver` 的函數文字。它們的用法最重要的一個例子是[類型安全的建構者](type-safe-builders.md)：
+當 `receiver` 類型可以從代碼的內容中推斷， Lambda 表達式可以用作使用 `receiver` 的函數文字。它們的用法最重要的一個例子是[類型安全的建構者](type-safe-builders.md)：
 
 ``` kotlin
 class HTML {
