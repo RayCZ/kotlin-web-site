@@ -15,7 +15,7 @@ Using [higher-order functions](lambdas.md) imposes certain runtime penalties: ea
 
 But it appears that in many cases this kind of overhead can be eliminated by inlining the lambda expressions. The functions shown below are good examples of this situation. I.e., the `lock()` function could be easily inlined at call-sites. Consider the following case:
 
-但似乎在很多情況下透過行內置入 Lambda 表達可以消除這種開銷。下面顯示的功能是這種情況的好範例。即是 `lock()` 函數可以在調用場景容易的行內置入。考慮以下情況：
+但似乎在很多情況下透過行內置入 Lambda 表達式可以消除這種開銷。下面顯示的功能是這種情況的好範例。即是 `lock()` 函數可以在調用場景容易的行內置入。考慮以下情況：
 
 ``` kotlin
 lock(l) { foo() }
@@ -161,10 +161,14 @@ inline fun f(crossinline body: () -> Unit) {
 
 ## Reified type parameters
 
+Reified type parameters ：具體化類型參數
+
 Sometimes we need to access a type passed to us as a parameter:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+有時我們需要存取傳遞給我們為參數的類型：
+
 ``` kotlin
+//存取具體的 Class<T> 類型
 fun <T> TreeNode.findParentOfType(clazz: Class<T>): T? {
     var p = parent
     while (p != null && !clazz.isInstance(p)) {
@@ -174,28 +178,27 @@ fun <T> TreeNode.findParentOfType(clazz: Class<T>): T? {
     return p as T?
 }
 ```
-</div>
 
-Here, we walk up a tree and use reflection to check if a node has a certain type.
-It’s all fine, but the call site is not very pretty:
+Here, we walk up a tree and use reflection to check if a node has a certain type. It’s all fine, but the call site is not very pretty:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+在這裡，我們走訪樹的演算法並且使用反射去檢查節點是否有某種類型，一切都很好，但調用場景不是很漂亮：
+
 ``` kotlin
 treeNode.findParentOfType(MyTreeNode::class.java)
 ```
-</div>
 
 What we actually want is simply pass a type to this function, i.e. call it like this:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+我們真正想要的只是傳遞類型給函數，就是調用它像這樣：
+
 ``` kotlin
 treeNode.findParentOfType<MyTreeNode>()
 ```
-</div>
 
 To enable this, inline functions support *reified type parameters*, so we can write something like this:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+要啟用此功能，行內置入函數支援 `reified` 類型參數，所以我們可以寫入內容像這樣：
+
 ``` kotlin
 inline fun <reified T> TreeNode.findParentOfType(): T? {
     var p = parent
@@ -205,15 +208,15 @@ inline fun <reified T> TreeNode.findParentOfType(): T? {
     return p as T?
 }
 ```
-</div>
 
-We qualified the type parameter with the `reified` modifier, now it’s accessible inside the function,
-almost as if it were a normal class. Since the function is inlined, no reflection is needed, normal operators like `!is`
-and `as` are working now. Also, we can call it as mentioned above: `myTree.findParentOfType<MyTreeNodeType>()`.
+We qualified the type parameter with the `reified` modifier, now it’s accessible inside the function, almost as if it were a normal class. Since the function is inlined, no reflection is needed, normal operators like `!is` and `as` are working now. Also, we can call it as mentioned above: `myTree.findParentOfType<MyTreeNodeType>()`.
+
+我們使用 `reified` 修飾符來修飾類型參數，現在它可以在函數內存取，就像是一般的函數。因為函數是行內置入的，不需要反射，一般的運算符 `!is` 和 `as` 像現在一樣工作。另外，我們可以如上所述的調用它： `myTree.findParentOfType<MyTreeNodeType>()`
 
 Though reflection may not be needed in many cases, we can still use it with a reified type parameter:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+雖然在很多情況下可能不需要反射，我們還是可以使用 `reified` 類型參數來使用它：
+
 ``` kotlin
 inline fun <reified T> membersOf() = T::class.members
 
@@ -221,23 +224,24 @@ fun main(s: Array<String>) {
     println(membersOf<StringBuilder>().joinToString("\n"))
 }
 ```
-</div>
 
-Normal functions (not marked as inline) cannot have reified parameters.
-A type that does not have a run-time representation (e.g. a non-reified type parameter or a fictitious type like `Nothing`)
-cannot be used as an argument for a reified type parameter.
+Normal functions (not marked as inline) cannot have reified parameters. A type that does not have a run-time representation (e.g. a non-reified type parameter or a fictitious type like `Nothing`) cannot be used as an argument for a reified type parameter.
+
+一般函數 (沒有標記 `inline`) 不可以有 `reified` 修飾符的參數。沒有運行時表示的類型，不能用作具體化類型參數 (例如：非-具體化類型參數或像 `Nothing` 虛構的類型) 。
 
 For a low-level description, see the [spec document](https://github.com/JetBrains/kotlin/blob/master/spec-docs/reified-type-parameters.md).
 
-{:#inline-properties}
+有關低階的描述，請參閱[規格文件](https://github.com/JetBrains/kotlin/blob/master/spec-docs/reified-type-parameters.md)。
 
 ## Inline properties (since 1.1)
 
-The `inline` modifier can be used on accessors of properties that don't have a backing field.
-You can annotate individual property accessors:
+Inline properties (since 1.1) ：行內置入屬性 (從 1.1 版)
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only auto-indent="false">
-​``` kotlin
+The `inline` modifier can be used on accessors of properties that don't have a backing field. You can annotate individual property accessors:
+
+`inline` 修飾符可以在屬性的存取器使用，但不會有支援欄位。你可以註釋私人屬性存取器：
+
+``` kotlin
 val foo: Foo
     inline get() = Foo()
 
@@ -245,29 +249,38 @@ var bar: Bar
     get() = ...
     inline set(v) { ... }
 ```
-</div>
 
 You can also annotate an entire property, which marks both of its accessors as inline:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only auto-indent="false">
+你也可以註釋整個屬性，標記兩個它的存取器 (setter/getter) 為 `inline` ：
+
 ``` kotlin
 inline var bar: Bar
     get() = ...
     set(v) { ... }
 ```
-</div>
 
 At the call site, inline accessors are inlined as regular inline functions.
 
-{:#public-inline-restrictions}
+在調用場殘，行內置入存取器被置入為常規行內置入函數。
 
 ## Restrictions for public API inline functions
 
-When an inline function is `public` or `protected` and is not a part of a `private` or `internal` declaration, it is considered a [module](visibility-modifiers.html#modules)'s public API. It can be called in other modules and is inlined at such call sites as well.
+Restrictions for public API inline functions ：公開 API 行內置入函數的限制
+
+When an inline function is `public` or `protected` and is not a part of a `private` or `internal` declaration, it is considered a [module](visibility-modifiers.md#modules)'s public API. It can be called in other modules and is inlined at such call sites as well.
+
+當行內置入函數是 `public` 或 `protected` 並且不是 `private` 或 `internal` 宣告的一部分，它被視為[模組](visibility-modifiers.md#modules)的公開 API 。它可以在其他模組調用，並且也在這樣的調用場景置入。
 
 This imposes certain risks of binary incompatibility caused by changes in the module that declares an inline function in case the calling module is not re-compiled after the change.
 
+假使在更改之後未重新編譯調用模組，在模組宣告行內置入函數中，更改會導致二進制不兼容的某些風險。
+
 To eliminate the risk of such incompatibility being introduced by a change in **non**-public API of a module, the public API inline functions are not allowed to use non-public-API declarations, i.e. `private` and `internal` declarations and their parts, in their bodies.
 
+為了消除由模組的非-公開 API 更改導致這樣不兼容的風險，公開 API 行內置入函數不允許在非-公開-API 宣告使用，即是 `private` 和 `internal` 宣告和它們的部份，以及內文中。
+
 An `internal` declaration can be annotated with `@PublishedApi`, which allows its use in public API inline functions. When an `internal` inline function is marked as `@PublishedApi`, its body is checked too, as if it were public.
+
+`internal` 宣告可以使用 `@PublishedApi` 註釋，註釋允許它在公開 API 行內置入函數使用。當 `internal` 行內置入函數標記為 `@PublishedApi` ，也會檢查它的內文，就像它是公開的。
 
