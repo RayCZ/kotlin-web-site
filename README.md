@@ -8,11 +8,11 @@
 
 ## Basics (基礎)
 
-- [Basic Types](pages/docs/reference/basic-types.md) (基本類型) *需補充、修正
+- [Basic Types](pages/docs/reference/basic-types.md) (基本類型)
 
 - [Packages and Imports](pages/docs/reference/packages.md) (package 和匯入)
 
-- [Control Flow](pages/docs/reference/control-flow.md) (控制流程) *需補充、修正
+- [Control Flow](pages/docs/reference/control-flow.md) (控制流程)
 
 - [Returns and Jumps](pages/docs/reference/returns.md) (回傳和區段跳轉)
 
@@ -41,7 +41,7 @@
 
 - [Objects](pages/docs/reference/object-declarations.md) (物件)
 
-- [Inline Classes](pages/docs/reference/inline-classes.md) (行內置入類別)
+- [Inline Classes](pages/docs/reference/inline-classes.md) (行內置入類別) *需補充、修正
 
 - [Delegation](pages/docs/reference/delegation.md) (委外使用方式)
 
@@ -56,4 +56,64 @@
 - [Inline Functions](pages/docs/reference/inline-functions.md) (行內置入函數)
 
 - [Coroutines](pages/docs/reference/coroutines.md) (協同程序)
+
+## Multiplatform Programming
+
+- [Platform-Specific Declarations](pages/docs/reference/platform-specific-declarations.md)  *需補充、修正
+
+- [Building with Gradle](pages/docs/reference/building-mpp-with-gradle.md)  *需補充、修正
+
+## Other
+
+- [Destructuring Declarations](pages/docs/reference/multi-declarations.md) 
+
+- [Collections](pages/docs/reference/collections.md) 
+
+- [Ranges](pages/docs/reference/ranges.md) 
+
+- [Type Checks and Casts](pages/docs/reference/typecasts.md) 
+
+- [This expressions](pages/docs/reference/this-expressions.md) 
+
+- [Equality](pages/docs/reference/equality.md) 
+
+- [Operator overloading](pages/docs/reference/operator-overloading.md) 
+
+- [Null Safety](pages/docs/reference/null-safety.md) 
+
+- [Exceptions](pages/docs/reference/exceptions.md) 
+
+- [Annotations](pages/docs/reference/annotations.md) 
+
+- [Reflection](pages/docs/reference/reflection.md) 
+
+- [Type-Safe Builders](pages/docs/reference/type-safe-builders.md) 
+
+- [Type Aliases](pages/docs/reference/type-aliases.md) 
+
+## Java Interop
+
+- [Calling Java from Kotlin](pages/docs/reference/java-interop.md) (從 Kotlin 調用 Java)
+
+- [Calling Kotlin from Java](pages/docs/reference/java-to-kotlin-interop.md) (從 Java 調用 Kotlin)
+
+## Coroutines
+
+- [Coroutines Guide](pages/docs/reference/.md) 
+
+- [Basics](pages/docs/reference/.md) 
+
+- [Cancellation and Timeouts](pages/docs/reference/.md) 
+
+- [Channels](pages/docs/reference/.md) 
+
+- [Composing Suspending Functions](pages/docs/reference/.md) 
+
+- [Coroutine Context and Dispatchers](pages/docs/reference/.md) 
+
+- [Exception Handling](pages/docs/reference/.md) 
+
+- [Select Expression](pages/docs/reference/.md) 
+
+- [Shared Mutable State and Concurrency](pages/docs/reference/.md) 
 
