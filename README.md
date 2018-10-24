@@ -65,7 +65,7 @@
 
 ## Other
 
-- [Destructuring Declarations](pages/docs/reference/multi-declarations.md) 
+- [Destructuring Declarations](pages/docs/reference/multi-declarations.md)  (解構宣告)
 
 - [Collections](pages/docs/reference/collections.md) 
 
