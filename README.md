@@ -55,8 +55,6 @@
 
 - [Inline Functions](pages/docs/reference/inline-functions.md) (行內置入函數)
 
-- [Coroutines](pages/docs/reference/coroutines.md) (協同程序)
-
 ## Multiplatform Programming
 
 - [Platform-Specific Declarations](pages/docs/reference/platform-specific-declarations.md)  *需補充、修正
