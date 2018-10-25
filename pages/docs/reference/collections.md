@@ -26,12 +26,12 @@ We can see basic usage of the list and set types below:
 我可以在下面看到 list 和 set 的基本用法：
 
 ``` kotlin
-val numbers: MutableList<Int> = mutableListOf(1, 2, 3)
-val readOnlyView: List<Int> = numbers
+val numbers: MutableList<Int> = mutableListOf(1, 2, 3) //可變的集合
+val readOnlyView: List<Int> = numbers //不可變的集合
 println(numbers)        // prints "[1, 2, 3]"
 numbers.add(4)
 println(readOnlyView)   // prints "[1, 2, 3, 4]"
-readOnlyView.clear()    // -> does not compile
+readOnlyView.clear()    // -> does not compile ， 因為不可變的集合不能改變
 
 val strings = hashSetOf("a", "b", "c", "c")
 assert(strings.size == 3)
@@ -43,13 +43,19 @@ Kotlin 不會有建立 list 和 set 專門的語法結構。從標準函式庫�
 
 Note that the `readOnlyView` variable points to the same list and changes as the underlying list changes. If the only references that exist to a list are of the read-only variety, we can consider the collection fully immutable. A simple way to create such a collection is like this:
 
+注意： `readOnlyView` 變數指到相同的 list 並且因為底層的改變而改變 (改變底層 `numbers` 影響 `readOnlyView`)。如果只引用到存在的 list 為唯讀的類型，我們可以考慮完全不可變的集合類型。一個簡單的方式去創建像這樣的集合：
+
 ``` kotlin
 val items = listOf(1, 2, 3)
 ```
 
 Currently, the `listOf` method is implemented using an array list, but in future more memory-efficient fully immutable collection types could be returned that exploit the fact that they know they can't change.
 
-Note that the read-only types are [covariant](generics.html#variance). That means, you can take a `List<Rectangle>` and assign it to `List<Shape>` assuming `Rectangle` inherits from `Shape` (the collection types have the same inheritance relationship as the element types). This wouldn't be allowed with the mutable collection types because it would allow for failures at runtime: you might add a `Circle` into the `List<Shape>`, creating a `List<Rectangle>` with a `Circle` in it somewhere else in the program.
+目前， `listOf`  方法使用 array list 實作，但在未來可以回傳更高效記憶體完全不可變的集合類型，利用他們已知不可改變的事實。
+
+Note that the read-only types are [covariant](generics.md#variance). That means, you can take a `List<Rectangle>` and assign it to `List<Shape>` assuming `Rectangle` inherits from `Shape` (the collection types have the same inheritance relationship as the element types). This wouldn't be allowed with the mutable collection types because it would allow for failures at runtime: you might add a `Circle` into the `List<Shape>`, creating a `List<Rectangle>` with a `Circle` in it somewhere else in the program.
+
+注意：唯讀類型是[協變的](generics.md#variance)，意味著，假設 `Rectangle` 繼承自 `Shape` ，你可以帶入 `List<Rectangle>` 並分配它給 `List<Shape>` (集合類型與元素類型有相同的繼承關係) 。使用可變集合類型不允許這樣做，因為允許它會在運行時期失敗：你或許新增 `Circle` 到 `List<Shape>` ，在程式的其他地方使用的 `Circle` 放到創建的 `List<Rectangle>` 。
 
 Sometimes you want to return to the caller a snapshot of a collection at a particular point in time, one that's guaranteed to not change:
 
