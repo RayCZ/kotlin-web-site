@@ -55,7 +55,7 @@ Currently, the `listOf` method is implemented using an array list, but in future
 
 Note that the read-only types are [covariant](generics.md#variance). That means, you can take a `List<Rectangle>` and assign it to `List<Shape>` assuming `Rectangle` inherits from `Shape` (the collection types have the same inheritance relationship as the element types). This wouldn't be allowed with the mutable collection types because it would allow for failures at runtime: you might add a `Circle` into the `List<Shape>`, creating a `List<Rectangle>` with a `Circle` in it somewhere else in the program.
 
-注意：唯讀類型是[協變的](generics.md#variance)，意味著，假設 `Rectangle` 繼承自 `Shape` ，你可以帶入 `List<Rectangle>` 並分配它給 `List<Shape>` (集合類型與元素類型有相同的繼承關係) 。使用可變集合類型不允許這樣做，因為允許它會在運行時期失敗：你或許新增 `Circle` 到 `List<Shape>` ，在程式的其他地方使用的 `Circle` 放到創建的 `List<Rectangle>` 。
+注意：唯讀類型是[協變的](generics.md#variance)，意味著，假設 `Rectangle` 繼承自 `Shape` ，你可以帶入 `List<Rectangle>` 並分配它給 `List<Shape>` (集合類型與元素類型有相同的繼承關係) 。使用可變集合類型不允許這樣做，因為允許它會在運行時期失敗：你或許新增 `Circle` 到 `List<Shape>` ，在程式使用的 `Circle` 放到創建的 `List<Rectangle>` 的其他地方。
 
 Sometimes you want to return to the caller a snapshot of a collection at a particular point in time, one that's guaranteed to not change:
 
