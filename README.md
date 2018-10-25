@@ -65,7 +65,7 @@
 
 - [Destructuring Declarations](pages/docs/reference/multi-declarations.md)  (解構宣告)
 
-- [Collections](pages/docs/reference/collections.md) 
+- [Collections](pages/docs/reference/collections.md) (集合)
 
 - [Ranges](pages/docs/reference/ranges.md) 
 
