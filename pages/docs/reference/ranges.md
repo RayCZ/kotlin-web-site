@@ -194,7 +194,7 @@ fun IntProgression.reversed(): IntProgression {
 
 `step()` extension functions are defined for `*Progression` classes, all of them return progressions with modified `step` values (function parameter). The step value is required to be always positive, therefore this function never changes the direction of iteration:
 
-`step()` 擴展函數定義在 `*Progression` 類別，它們所有回傳使用修飾符 `step` 的值 (函數參數) 。進展值必須為正，因此這個函數從不會改變迭代的方向：
+`step()` 擴展函數定義在 `*Progression` 類別，它們所有回傳使用修飾符 `step` 的值 (函數參數) 。 `step` 值必須為正，因此這個函數從不會改變迭代的方向：
 
 ``` kotlin
 fun IntProgression.step(step: Int): IntProgression {
