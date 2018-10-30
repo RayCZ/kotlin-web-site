@@ -67,7 +67,7 @@
 
 - [Collections](pages/docs/reference/collections.md) (集合)
 
-- [Ranges](pages/docs/reference/ranges.md) 
+- [Ranges](pages/docs/reference/ranges.md) (範圍)
 
 - [Type Checks and Casts](pages/docs/reference/typecasts.md) 
 
