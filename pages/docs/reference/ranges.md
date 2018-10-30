@@ -11,7 +11,7 @@ Ranges ：範圍
 
 Range expressions are formed with `rangeTo` functions that have the operator form `..` which is complemented by *in* and *!in*. Range is defined for any comparable type, but for integral primitive types it has an optimized implementation. Here are some examples of using ranges:
 
-範圍表達式使用 `rangeTo` 構成，函數有運算符形式 `..` 由 `in` 和 `!in` 補充。範圍是定可為任何可比較的類型。但對於整數原生類型它有優化實作。以下是使用範圍的一些範例：
+範圍表達式使用 `rangeTo` 構成，函數有運算符形式 `..` 由 `in` 和 `!in` 補充。範圍是定義為任何可比較的類型。但對於整數原生類型它有優化實作。以下是使用範圍的一些範例：
 
 ``` kotlin
 if (i in 1..10) { // equivalent of 1 <= i && i <= 10
