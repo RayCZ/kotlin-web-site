@@ -94,38 +94,35 @@ Note that smart casts do not work when the compiler cannot guarantee that the va
   * *var* properties - never (because the variable can be modified at any time by other code).
     `var` 屬性 - 從不 (因為變數可以透過其他的程式碼在任何時間修改) 。
 
-
-
 ## "Unsafe" cast operator
 
-Usually, the cast operator throws an exception if the cast is not possible. Thus, we call it *unsafe*.
-The unsafe cast in Kotlin is done by the infix operator *as*{: .keyword } (see [operator precedence](grammar.html#precedence)):
+"Unsafe" cast operator ： 「不安全的」強制轉行運算符
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+Usually, the cast operator throws an exception if the cast is not possible. Thus, we call it *unsafe*. The unsafe cast in Kotlin is done by the infix operator *as* (see [operator precedence](https://kotlinlang.org/docs/reference/grammar.html#precedence)):
+
+通常，如果不能強制轉型，強制轉型丟出異常。因此，我們稱它「不安全」。在 Kotlin 的不安全強制轉型透過中綴運算符 `as` 完成 (參閱 [operator precedence](https://kotlinlang.org/docs/reference/grammar.html#precedence)) 。
+
 ``` kotlin
 val x: String = y as String
 ```
-</div>
 
-Note that *null*{: .keyword } cannot be cast to `String` as this type is not [nullable](null-safety.html),
-i.e. if `y` is null, the code above throws an exception.
-In order to match Java cast semantics we have to have nullable type at cast right hand side, like:
+Note that *null* cannot be cast to `String` as this type is not [nullable](null-safety.md), i.e. if `y` is null, the code above throws an exception. In order to match Java cast semantics we have to have nullable type at cast right hand side, like:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+注意：「null」不可以強制轉型為 `String` ，因為此類型不能是[可空的](null-safety.md)，換句話說，如果 `y` 是 null ，上面的代碼丟出異常。為了匹配 Java 強制轉型語義，我們必須在強制轉型的右手邊有可空的類型，像：
+
 ``` kotlin
 val x: String? = y as String?
 ```
-</div>
 
 ## "Safe" (nullable) cast operator
 
+"Safe" (nullable) cast operator ： 「安全的」 (可空的) 強制轉型運算符
+
 To avoid an exception being thrown, one can use a *safe* cast operator *as?*{: .keyword } that returns *null*{: .keyword } on failure:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
 ``` kotlin
 val x: String? = y as? String
 ```
-</div>
 
 Note that despite the fact that the right-hand side of *as?*{: .keyword } is a non-null type `String` the result of the cast is nullable.
 
