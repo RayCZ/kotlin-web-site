@@ -83,12 +83,12 @@ when (x) {
 
 Note that smart casts do not work when the compiler cannot guarantee that the variable cannot change between the check and the usage. More specifically, smart casts are applicable according to the following rules:
 
-注意：當編譯器不保證變數在檢查和使用之間不可更改時，智能型強轉無法使用，更具體，智能型強制根據以下規則適用：
+注意：當編譯器不保證變數在檢查和使用之間不可更改時，智能型強制轉型無法使用，更具體，智能型強制根據以下規則適用：
 
   * *val* local variables - always except for [local delegated properties](delegated-properties.md#local-delegated-properties-since-11);
     `val` 區域變數 - 總是除了[區域派外屬性](delegated-properties.md#local-delegated-properties-since-11)；
   * *val* properties - if the property is private or internal or the check is performed in the same module where the property is declared. Smart casts aren't applicable to open properties or properties that have custom getters;
-    `val` 屬性 - 如果屬性是私有的或內部的或在相同模組宣告屬性執行檢查。智能型強轉不適用開放屬性或有自定義設置器的屬性；
+    `val` 屬性 - 如果屬性是私有的或內部的或在相同模組宣告屬性執行檢查。智能型強制轉型不適用開放屬性或有自定義設置器的屬性；
   * *var* local variables - if the variable is not modified between the check and the usage, is not captured in a lambda that modifies it, and is not a local delegated property;
     `var` 區域變數 - 如果變數在檢查和使用之間不被更改，修改它在 Lambda 不會補獲，並且不是區域派外屬性；
   * *var* properties - never (because the variable can be modified at any time by other code).
@@ -118,13 +118,17 @@ val x: String? = y as String?
 
 "Safe" (nullable) cast operator ： 「安全的」 (可空的) 強制轉型運算符
 
-To avoid an exception being thrown, one can use a *safe* cast operator *as?*{: .keyword } that returns *null*{: .keyword } on failure:
+To avoid an exception being thrown, one can use a *safe* cast operator *as?* that returns *null* on failure:
+
+為了避免丟出異常，可以使用「安全的」強制轉型運算符 `as?` 在失敗時回傳「null」： 
 
 ``` kotlin
 val x: String? = y as? String
 ```
 
-Note that despite the fact that the right-hand side of *as?*{: .keyword } is a non-null type `String` the result of the cast is nullable.
+Note that despite the fact that the right-hand side of *as?* is a non-null type `String` the result of the cast is nullable.
+
+注意：雖然事實上 `as?` 的右手邊是非-可空的類型 `String` 強制轉型的結果是可空的。
 
 ## Type erasure and generic type checks
 
