@@ -87,9 +87,13 @@ Note that smart casts do not work when the compiler cannot guarantee that the va
 
   * *val* local variables - always except for [local delegated properties](delegated-properties.md#local-delegated-properties-since-11);
     `val` 區域變數 - 總是除了[區域派外屬性](delegated-properties.md#local-delegated-properties-since-11)；
-  * *val*{: .keyword } properties - if the property is private or internal or the check is performed in the same module where the property is declared. Smart casts aren't applicable to open properties or properties that have custom getters;
-  * *var*{: .keyword } local variables - if the variable is not modified between the check and the usage, is not captured in a lambda that modifies it, and is not a local delegated property;
-  * *var*{: .keyword } properties - never (because the variable can be modified at any time by other code).
+  * *val* properties - if the property is private or internal or the check is performed in the same module where the property is declared. Smart casts aren't applicable to open properties or properties that have custom getters;
+    `val` 屬性 - 如果屬性是私有的或內部的或在相同模組宣告屬性執行檢查。智能型強轉不適用開放屬性或有自定義設置器的屬性；
+  * *var* local variables - if the variable is not modified between the check and the usage, is not captured in a lambda that modifies it, and is not a local delegated property;
+    `var` 區域變數 - 如果變數在檢查和使用之間不被更改，修改它在 Lambda 不會補獲，並且不是區域派外屬性；
+  * *var* properties - never (because the variable can be modified at any time by other code).
+    `var` 屬性 - 從不 (因為變數可以透過其他的程式碼在任何時間修改) 。
+
 
 
 ## "Unsafe" cast operator
