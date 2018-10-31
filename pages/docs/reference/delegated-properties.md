@@ -229,7 +229,7 @@ class MutableUser(val map: MutableMap<String, Any?>) {
 
 ## Local Delegated Properties (since 1.1)
 
-Local Delegated Properties (since 1.1) ：區域委外函數 (從 1.1 版)
+Local Delegated Properties (since 1.1) ：區域委外屬性 (從 1.1 版)
 
 You can declare local variables as delegated properties. For instance, you can make a local variable lazy:
 
