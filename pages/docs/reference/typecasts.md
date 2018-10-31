@@ -7,11 +7,16 @@ title: "Type Checks and Casts: 'is' and 'as'"
 
 # Type Checks and Casts: 'is' and 'as'
 
+Type Checks and Casts: 'is' and 'as' ：類型檢查和強制轉型： `is` 和 `as`
+
 ## `is` and `!is` Operators
+
+`is` 和 `!is` 運算符 
 
 We can check whether an object conforms to a given type at runtime by using the `is` operator or its negated form `!is`:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+我們可以透過使用 `is` 運算符或它的否定形式 `!is` 檢查物件是否在運行時符合已給定的類型：
+
 ``` kotlin
 if (obj is String) {
     print(obj.length)
@@ -24,35 +29,36 @@ else {
     print(obj.length)
 }
 ```
-</div>
 
 ## Smart Casts
 
-In many cases, one does not need to use explicit cast operators in Kotlin, because the compiler tracks the
-`is`-checks and [explicit casts](#unsafe-cast-operator) for immutable values and inserts (safe) casts automatically when needed:
+Smart Casts ：智能型強制轉型
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+In many cases, one does not need to use explicit cast operators in Kotlin, because the compiler tracks the `is`-checks and [explicit casts](#unsafe-cast-operator) for immutable values and inserts (safe) casts automatically when needed:
+
+在很多情況，在 Kotlin 不需要使用明顯的強制轉型運算符，因為編譯器會追蹤不可變的值做 `is`-檢查和[明顯的強制轉型](#unsafe-cast-operator)並在需要時自動插入 (安全) 強制轉型：
+
 ``` kotlin
 fun demo(x: Any) {
-    if (x is String) {
+    if (x is String) { //已經做過 is 判斷，系統自己做智能型強制轉型
         print(x.length) // x is automatically cast to String
     }
 }
 ```
-</div>
 
 The compiler is smart enough to know a cast to be safe if a negative check leads to a return:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+如果否定檢查導致回傳，編譯器是足夠聰明，知道強制轉型是安全的：
+
 ``` kotlin
     if (x !is String) return
     print(x.length) // x is automatically cast to String
 ```
-</div>
 
 or in the right-hand side of `&&` and `||`:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+或在 `&&` 和 `||` 的右手邊：
+
 ``` kotlin
     // x is automatically cast to string on the right-hand side of `||`
     if (x !is String || x.length == 0) return
@@ -62,12 +68,11 @@ or in the right-hand side of `&&` and `||`:
         print(x.length) // x is automatically cast to String
     }
 ```
-</div>
 
-Such _smart casts_ work for [*when*{: .keyword }-expressions](control-flow.html#when-expression)
-and [*while*{: .keyword }-loops](control-flow.html#while-loops) as well:
+Such _smart casts_ work for [*when*-expressions](control-flow.md#when-expression) and [*while*-loops](control-flow.md#while-loops) as well:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+這樣的智能型強轉也適用於 [`when`-表達式](control-flow.md#when-expression) 和 [*while*-loops](control-flow.md#while-loops) ：
+
 ``` kotlin
 when (x) {
     is Int -> print(x + 1)
@@ -75,12 +80,13 @@ when (x) {
     is IntArray -> print(x.sum())
 }
 ```
-</div>
 
-Note that smart casts do not work when the compiler cannot guarantee that the variable cannot change between the check and the usage.
-More specifically, smart casts are applicable according to the following rules:
+Note that smart casts do not work when the compiler cannot guarantee that the variable cannot change between the check and the usage. More specifically, smart casts are applicable according to the following rules:
 
-  * *val*{: .keyword } local variables - always except for [local delegated properties](delegated-properties.html#local-delegated-properties-since-11);
+注意：當編譯器不保證變數在檢查和使用之間不可更改時，智能型強轉無法使用，更具體，智能型強制根據以下規則適用：
+
+  * *val* local variables - always except for [local delegated properties](delegated-properties.md#local-delegated-properties-since-11);
+    `val` 區域變數 - 總是除了[區域派外屬性](delegated-properties.md#local-delegated-properties-since-11)；
   * *val*{: .keyword } properties - if the property is private or internal or the check is performed in the same module where the property is declared. Smart casts aren't applicable to open properties or properties that have custom getters;
   * *var*{: .keyword } local variables - if the variable is not modified between the check and the usage, is not captured in a lambda that modifies it, and is not a local delegated property;
   * *var*{: .keyword } properties - never (because the variable can be modified at any time by other code).
@@ -220,7 +226,7 @@ An unchecked cast warning can be suppressed by [annotating](annotations.html#ann
 declaration where it occurs with `@Suppress("UNCHECKED_CAST")`:
 
 <div class="sample" markdown="1" theme="idea" data-highlight-only auto-indent="false">
-```kotlin
+​```kotlin
 inline fun <reified T> List<*>.asListOfType(): List<T>? =
     if (all { it is T })
         @Suppress("UNCHECKED_CAST")
