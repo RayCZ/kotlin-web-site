@@ -15,7 +15,7 @@ Type Checks and Casts: 'is' and 'as' ：類型檢查和強制轉型： `is` 和 
 
 We can check whether an object conforms to a given type at runtime by using the `is` operator or its negated form `!is`:
 
-我們可以透過使用 `is` 運算符或它的否定形式 `!is` 檢查物件是否在運行時符合已給定的類型：
+我們可以透過使用 `is` 運算符或它的否定形式 `!is` 檢查物件是否在運行時符合特定的類型：
 
 ``` kotlin
 if (obj is String) {
