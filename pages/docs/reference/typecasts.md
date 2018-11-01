@@ -132,27 +132,26 @@ Note that despite the fact that the right-hand side of *as?* is a non-null type 
 
 ## Type erasure and generic type checks
 
-Kotlin ensures type safety of operations involving [generics](generics.html) at compile time,
-while, at runtime, instances of generic types hold no information about their actual type arguments. For example, 
-`List<Foo>` is erased to just `List<*>`. In general, there is no way to check whether an instance belongs to a generic 
-type with certain type arguments at runtime. 
+Type erasure and generic type checks ：類型消除和泛型檢查
 
-Given that, the compiler prohibits *is*{: .keyword }-checks that cannot be performed at runtime due to type erasure, such as 
-`ints is List<Int>` or `list is T` (type parameter). You can, however, check an instance against a [star-projected type](generics.html#star-projections):
+Kotlin ensures type safety of operations involving [generics](generics.md) at compile time, while, at runtime, instances of generic types hold no information about their actual type arguments. For example, `List<Foo>` is erased to just `List<*>`. In general, there is no way to check whether an instance belongs to a generic type with certain type arguments at runtime. 
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+Kotlin 在編譯時期確保涉及[泛型](generics.md)操作的類型安全，然而，在運行時，泛型類型的實例沒有保存關於真實類型參數的資訊。例如： `List<Foo>` 被消除為 `List<*>` 。通常，在運行時沒有方法檢查實例是否使用某類型參數的泛型類型。
+
+Given that, the compiler prohibits *is*-checks that cannot be performed at runtime due to type erasure, such as `ints is List<Int>` or `list is T` (type parameter). You can, however, check an instance against a [star-projected type](generics.md#star-projections):
+
+以上所知，編譯器由於類型消除在運行時禁止不可以執行 `is`-檢查，例如： `ints is List<Int>` 或 `list is T` (類型參數) 。然而，你可以針對[星號 - 投射類型](generics.md#star-projections)檢查實例：
+
 ```kotlin
 if (something is List<*>) {
     something.forEach { println(it) } // The items are typed as `Any?`
 }
 ```
-</div>
 
-Similarly, when you already have the type arguments of an instance checked statically (at compile time),
-you can make an *is*{: .keyword }-check or a cast that involves the non-generic part of the type. Note that 
-angle brackets are omitted in this case:
+Similarly, when you already have the type arguments of an instance checked statically (at compile time), you can make an *is*-check or a cast that involves the non-generic part of the type. Note that angle brackets are omitted in this case:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+類似的，當你已經有靜態檢查類型參數的實例 (在編譯時) ，你可以進行 `is`-檢查或涉及類型的非-泛型部份的強制轉型。注意：在這情況省略尖括號 `<String>` 。
+
 ```kotlin
 fun handleStrings(list: List<String>) {
     if (list is ArrayList) {
@@ -160,15 +159,15 @@ fun handleStrings(list: List<String>) {
     }
 }
 ```
-</div>
 
 The same syntax with omitted type arguments can be used for casts that do not take type arguments into account: `list as ArrayList`. 
 
-Inline functions with [reified type parameters](inline-functions.html#reified-type-parameters) have their actual type arguments
- inlined at each call site, which enables `arg is T` checks for the type parameters, but if `arg` is an instance of a 
-generic type itself, *its* type arguments are still erased. Example:
+使用省略類型參數的相同語法可以用於不考慮類型參數的強制轉型： `list as ArrayList` 。
 
-<div class="sample" markdown="1" theme="idea">
+Inline functions with [reified type parameters](inline-functions.md#reified-type-parameters) have their actual type arguments inlined at each call site, which enables `arg is T` checks for the type parameters, but if `arg` is an instance of a generic type itself, *its* type arguments are still erased. Example:
+
+使用[具體類型參數](inline-functions.md#reified-type-parameters)的行內置入函數，在每個調用場景置入它們真實類型參數，使得 `arg is T` 對類型參數做檢查，但如果 `arg` 泛型類型本身的實例，它的類型參數還是會被消失，例如： 
+
 
 ``` kotlin
 //sampleStart
@@ -191,19 +190,21 @@ fun main(args: Array<String>) {
     println("stringToList = " + stringToList)
     println("stringToStringList = " + stringToStringList)
 }
+
+//ans:
+//stringToSomething = (items, [1, 2, 3])
+//stringToInt = null
+//stringToList = (items, [1, 2, 3])
+//stringToStringList = (items, [1, 2, 3])
 ```
-</div>
 
 ## Unchecked casts
 
-As said above, type erasure makes checking actual type arguments of a generic type instance impossible at runtime, and 
-generic types in the code might be connected to each other not closely enough for the compiler to ensure 
-type safety. 
+As said above, type erasure makes checking actual type arguments of a generic type instance impossible at runtime, and generic types in the code might be connected to each other not closely enough for the compiler to ensure type safety. 
 
 Even so, sometimes we have high-level program logic that implies type safety instead. For example:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
-```kotlin 
+``` kotlin 
 fun readDictionary(file: File): Map<String, *> = file.inputStream().use { 
     TODO("Read a mapping of strings to arbitrary elements.")
 }
@@ -214,16 +215,14 @@ val intsFile = File("ints.dictionary")
 // Warning: Unchecked cast: `Map<String, *>` to `Map<String, Int>`
 val intsDictionary: Map<String, Int> = readDictionary(intsFile) as Map<String, Int>
 ```
-</div>
 
-The compiler produces a warning for the cast in the last line. The cast cannot be fully checked at runtime and provides 
-no guarantee that the values in the map are `Int`.
+The compiler produces a warning for the cast in the last line. The cast cannot be fully checked at runtime and provides no guarantee that the values in the map are `Int`.
 
 To avoid unchecked casts, you can redesign the program structure: in the example above, there could be interfaces
  `DictionaryReader<T>` and `DictionaryWriter<T>` with type-safe implementations for different types. 
  You can introduce reasonable abstractions to move unchecked casts from calling code to the implementation details.
  Proper use of [generic variance](generics.html#variance) can also help. 
- 
+
 For generic functions, using [reified type parameters](inline-functions.html#reified-type-parameters) makes the casts 
 such as `arg as T` checked, unless `arg`'s type has *its own* type arguments that are erased.
 
