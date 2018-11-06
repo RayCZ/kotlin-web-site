@@ -69,11 +69,11 @@
 
 - [Ranges](pages/docs/reference/ranges.md) (範圍)
 
-- [Type Checks and Casts](pages/docs/reference/typecasts.md) 
+- [Type Checks and Casts](pages/docs/reference/typecasts.md) (類型檢查與強制轉型)
 
-- [This expressions](pages/docs/reference/this-expressions.md) 
+- [This expressions](pages/docs/reference/this-expressions.md) (`this` 表達式)
 
-- [Equality](pages/docs/reference/equality.md) 
+- [Equality](pages/docs/reference/equality.md) (相等)
 
 - [Operator overloading](pages/docs/reference/operator-overloading.md) 
 
