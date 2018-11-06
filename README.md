@@ -75,7 +75,7 @@
 
 - [Equality](pages/docs/reference/equality.md) (相等)
 
-- [Operator overloading](pages/docs/reference/operator-overloading.md) 
+- [Operator overloading](pages/docs/reference/operator-overloading.md) (運算符多載)
 
 - [Null Safety](pages/docs/reference/null-safety.md) 
 

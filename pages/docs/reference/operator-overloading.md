@@ -7,18 +7,25 @@ category: "Syntax"
 
 # Operator overloading
 
-Kotlin allows us to provide implementations for a predefined set of operators on our types. These operators have fixed symbolic representation
-(like `+` or `*`) and fixed [precedence](grammar.html#precedence). To implement an operator, we provide a [member function](functions.html#member-functions)
-or an [extension function](extensions.html) with a fixed name, for the corresponding type, i.e. left-hand side type for binary operations and argument type for unary ones.
-Functions that overload operators need to be marked with the `operator` modifier.
+Operator overloading ：運算符多載
+
+Kotlin allows us to provide implementations for a predefined set of operators on our types. These operators have fixed symbolic representation (like `+` or `*`) and fixed [precedence](https://kotlinlang.org/docs/reference/grammar.html#precedence). To implement an operator, we provide a [member function](functions.md#member-functions) or an [extension function](extensions.md) with a fixed name, for the corresponding type, i.e. left-hand side type for binary operations and argument type for unary ones. Functions that overload operators need to be marked with the `operator` modifier.
+
+Kotlin 允許我們在我們的類型提供一組預先定義的運算符實作。這些運算符有固定的符號表示 (像 `+` 或 `*`) 和固定的[優先順序](https://kotlinlang.org/docs/reference/grammar.html#precedence)。實作運算符，我們為相應的類型，提供使用固定名稱的[成員函數](functions.md#member-functions)和[擴展函數](extensions.md)，即是二元運算符的左手邊和一元運算符的參數類型。函數多載運算符需要使用 `operator` 修飾符標記。
 
 Further we describe the conventions that regulate operator overloading for different operators.
 
+此外，我們描述規定對不同運算符的運算符多載的慣例。
+
 ## Unary operations
+
+Unary operations ：一元運算符
 
 ### Unary prefix operators
 
-| Expression | Translated to |
+Unary prefix operators ：一元前綴運算符
+
+| Expression (表達式) | Translated to (轉換為) |
 |------------|---------------|
 | `+a` | `a.unaryPlus()` |
 | `-a` | `a.unaryMinus()` |
@@ -26,12 +33,20 @@ Further we describe the conventions that regulate operator overloading for diffe
 
 This table says that when the compiler processes, for example, an expression `+a`, it performs the following steps:
 
-* Determines the type of `a`, let it be `T`;
-* Looks up a function `unaryPlus()` with the `operator` modifier and no parameters for the receiver `T`, i.e. a member function or an extension function;
-* If the function is absent or ambiguous, it is a compilation error;
-* If the function is present and its return type is `R`, the expression `+a` has type `R`;
+這張表說明當編譯器處理，例如：表達式 `+a` 時，它執行以下步驟：
 
-*Note* that these operations, as well as all the others, are optimized for [Basic types](basic-types.html) and do not introduce overhead of function calls for them.
+* Determines the type of `a`, let it be `T`;
+  確定 `a` 的類型，讓它為 `T` ；
+* Looks up a function `unaryPlus()` with the `operator` modifier and no parameters for the receiver `T`, i.e. a member function or an extension function;
+  使用 `operator` 修飾符查找函數 `unaryPlus()` 並且 receiver `T` 沒有參數，即是成員函數或擴展函數；
+* If the function is absent or ambiguous, it is a compilation error;
+  如果函數是不存在或不明確，它編譯會錯誤；
+* If the function is present and its return type is `R`, the expression `+a` has type `R`;
+  如果函數存在並且它回傳類型是 `R` ，表達式 `+a` 有類型 `R` ；
+
+*Note* that these operations, as well as all the others, are optimized for [Basic types](basic-types.md) and do not introduce overhead of function calls for them.
+
+注意：這些操作，以及所有其他操作，都針對[基本類型](basic-types.md)進行優化並不會為它們引入調用函數的開銷。
 
 As an example, here's how you can overload the unary minus operator:
 
@@ -104,7 +119,7 @@ in Kotlin 1.1.
 
 Below is an example Counter class that starts at a given value and can be incremented using the overloaded `+` operator:
 
-``` kotlin
+​``` kotlin
 data class Counter(val dayIndex: Int) {
     operator fun plus(increment: Int): Counter {
         return Counter(dayIndex + increment)
