@@ -48,7 +48,7 @@ Kotlin 的檔案系統的目的是消除從我們代碼中產生的 `NullPointer
   * Generic types used for Java interoperation with incorrect nullability, e.g. a piece of Java code might add `null` into a Kotlin `MutableList<String>`, meaning that `MutableList<String?>` should be used for working with it;
     泛型類型使用不正確的可空性來與 Java 互操作，例如：一段 Java 代碼可能新增 `null` 到 Kotlin 的 `MutableList<String>` ，意味著應該使用 `MutableList<String?>` 來工作；
   * Other issues caused by external Java code.
-    外路的 Java 代碼引起其他問題。
+    外部的 Java 代碼引起其他問題。
 
 In Kotlin, the type system distinguishes between references that can hold *null* (nullable references) and those that can not (non-null references). For example, a regular variable of type `String` can not hold *null*:
 
@@ -67,7 +67,7 @@ fun main(args: Array<String>) {
 
 To allow nulls, we can declare a variable as nullable string, written `String?`:
 
-為了允許 `null` ，我們可以宣告變數為可空的 `String` ，寫 `String?` ：
+為了允許空值 ，我們可以宣告變數為可空的 `String` ，寫 `String?` ：
 
 ``` kotlin
 fun main(args: Array<String>) {
@@ -155,7 +155,7 @@ fun main(args: Array<String>) {
 
 This returns `b.length` if `b` is not null, and *null* otherwise. The type of this expression is `Int?`.
 
-如果 `b` 不是 `null` 回傳 `b.length` ，否則回傳 `null`。這個表達式的類型是 `Int?` 。
+如果 `b` 不是空值回傳 `b.length` ，否則回傳 `null`。這個表達式的類型是 `Int?` 。
 
 Safe calls are useful in chains. For example, if Bob, an Employee, may be assigned to a Department (or not), that in turn may have another Employee as a department head, then to obtain the name of Bob's department head (if any), we write the following:
 
@@ -167,7 +167,7 @@ bob?.department?.head?.name
 
 Such a chain returns *null* if any of the properties in it is null.
 
-如果其中的任何屬性是 `null` ，這樣要鏈式回傳空值。
+如果其中的任何屬性是空值，這樣要鏈式回傳 `null`。
 
 To perform a certain operation only for non-null values, you can use the safe call operator together with [`let`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/let.html):
 
