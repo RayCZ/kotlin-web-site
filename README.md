@@ -77,7 +77,7 @@
 
 - [Operator overloading](pages/docs/reference/operator-overloading.md) (運算符多載)
 
-- [Null Safety](pages/docs/reference/null-safety.md) 
+- [Null Safety](pages/docs/reference/null-safety.md) (空值的安全性)
 
 - [Exceptions](pages/docs/reference/exceptions.md) 
 

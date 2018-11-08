@@ -7,7 +7,7 @@ title: "Null Safety"
 
 # Null Safety
 
-Null Safety ：空引用的安全性
+Null Safety ：空值的安全性
 
 ## Nullable types and Non-Null Types
 
