@@ -79,7 +79,7 @@
 
 - [Null Safety](pages/docs/reference/null-safety.md) (空值的安全性)
 
-- [Exceptions](pages/docs/reference/exceptions.md) 
+- [Exceptions](pages/docs/reference/exceptions.md) (異常)
 
 - [Annotations](pages/docs/reference/annotations.md) 
 
