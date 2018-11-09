@@ -81,7 +81,7 @@
 
 - [Exceptions](pages/docs/reference/exceptions.md) (異常)
 
-- [Annotations](pages/docs/reference/annotations.md) 
+- [Annotations](pages/docs/reference/annotations.md) (註釋)
 
 - [Reflection](pages/docs/reference/reflection.md) 
 
