@@ -88,7 +88,7 @@ fun isOdd(x: Int) = x % 2 != 0
 fun main(args: Array<String>) {
 //sampleStart
     val numbers = listOf(1, 2, 3)
-    println(numbers.filter(::isOdd)) //調用函教參照
+    println(numbers.filter(::isOdd)) //調用函數參照
 //sampleEnd
 }
 ```
