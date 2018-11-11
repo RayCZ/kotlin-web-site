@@ -148,20 +148,22 @@ val isEmptyStringList: List<String>.() -> Boolean = List::isEmpty //List 是 rec
 
 ### Example: Function Composition
 
+Example: Function Composition ：範例：函數組合
+
 Consider the following function:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+考慮以下函數：
+
 ``` kotlin
 fun <A, B, C> compose(f: (B) -> C, g: (A) -> B): (A) -> C {
     return { x -> f(g(x)) }
 }
 ```
-</div>
 
-It returns a composition of two functions passed to it: `compose(f, g) = f(g(*))`.
-Now, you can apply it to callable references:
+It returns a composition of two functions passed to it: `compose(f, g) = f(g(*))`. Now, you can apply it to callable references:
 
-<div class="sample" markdown="1" theme="idea">
+它回傳傳遞給它的兩個函數組合： `compose(f, g) = f(g(*))` 。現在，你可以應用於可調用的參照：
+
 ``` kotlin
 fun <A, B, C> compose(f: (B) -> C, g: (A) -> B): (A) -> C {
     return { x -> f(g(x)) }
@@ -171,18 +173,19 @@ fun isOdd(x: Int) = x % 2 != 0
 
 fun main(args: Array<String>) {
 //sampleStart
-​    fun length(s: String) = s.length
-​    
-​    val oddLength = compose(::isOdd, ::length)
-​    val strings = listOf("a", "ab", "abc")
-​    
-​    println(strings.filter(oddLength))
+    fun length(s: String) = s.length
+    
+    val oddLength = compose(::isOdd, ::length) //先調用 ::length 再調用 ::isOdd
+    val strings = listOf("a", "ab", "abc")
+    
+    println(strings.filter(oddLength)) //filter 用調用參照 oddLength = compose(...)
 //sampleEnd
 }
 ```
-</div>
 
 ### Property References
+
+Property References ：屬性參照 (引用)
 
 To access properties as first-class objects in Kotlin, we can also use the `::` operator:
 
@@ -191,8 +194,8 @@ To access properties as first-class objects in Kotlin, we can also use the `::` 
 val x = 1
 
 fun main(args: Array<String>) {
-    println(::x.get())
-    println(::x.name) 
+​    println(::x.get())
+​    println(::x.name) 
 }
 ```
 </div>
@@ -205,14 +208,14 @@ For a mutable property, e.g. `var y = 1`, `::y` returns a value of type [`KMutab
 which has a `set()` method:
 
 <div class="sample" markdown="1" theme="idea">
-``` kotlin
+​``` kotlin
 var y = 1
 
 fun main(args: Array<String>) {
 ​    ::y.set(2)
 ​    println(y)
 }
-```       
+```
 </div>            
 
 A property reference can be used where a function with one parameter is expected:
