@@ -88,7 +88,7 @@ fun isOdd(x: Int) = x % 2 != 0
 fun main(args: Array<String>) {
 //sampleStart
     val numbers = listOf(1, 2, 3)
-    println(numbers.filter(::isOdd)) //調用函數參照
+    println(numbers.filter(::isOdd)) // 調用函數參照
 //sampleEnd
 }
 ```
@@ -109,7 +109,7 @@ For example:
 ``` kotlin
 fun main(args: Array<String>) {
     //sampleStart
-    //多載函數
+    // 多載函數
     fun isOdd(x: Int) = x % 2 != 0
     fun isOdd(s: String) = s == "brillig" || s == "slithy" || s == "tove"
     
@@ -143,7 +143,7 @@ Note that even if you initialize a variable with a reference to an extension fun
 注意：即使你使用擴展函數的參照初始化變數，推斷函數類型將沒有 receiver (它將接收 receiver 物件有額外的參數) 。反而 receiver 有函數類型，明確的指定類型：
 
 ``` kotlin
-val isEmptyStringList: List<String>.() -> Boolean = List::isEmpty //List 是 receiver 類型，直接指定
+val isEmptyStringList: List<String>.() -> Boolean = List::isEmpty // List 是 receiver 類型，直接指定
 ```
 
 ### Example: Function Composition
@@ -162,7 +162,7 @@ fun <A, B, C> compose(f: (B) -> C, g: (A) -> B): (A) -> C {
 
 It returns a composition of two functions passed to it: `compose(f, g) = f(g(*))`. Now, you can apply it to callable references:
 
-它回傳傳遞給它的兩個函數組合： `compose(f, g) = f(g(*))` 。現在，你可以應用於可調用的參照：
+它回傳已傳遞給它的兩個函數組合： `compose(f, g) = f(g(*))` 。現在，你可以應用於可調用的參照：
 
 ``` kotlin
 fun <A, B, C> compose(f: (B) -> C, g: (A) -> B): (A) -> C {
@@ -175,12 +175,14 @@ fun main(args: Array<String>) {
 //sampleStart
     fun length(s: String) = s.length
     
-    val oddLength = compose(::isOdd, ::length) //先調用 ::length 再調用 ::isOdd
+    val oddLength = compose(::isOdd, ::length) // 先調用 ::length 再調用 ::isOdd
     val strings = listOf("a", "ab", "abc")
     
-    println(strings.filter(oddLength)) //filter 用調用參照 oddLength = compose(...)
+    println(strings.filter(oddLength)) // filter 用調用參照 oddLength = compose(...)
 //sampleEnd
 }
+
+//ans:[a, abc]
 ```
 
 ### Property References
@@ -189,101 +191,113 @@ Property References ：屬性參照 (引用)
 
 To access properties as first-class objects in Kotlin, we can also use the `::` operator:
 
-<div class="sample" markdown="1" theme="idea">
-​``` kotlin
+在 Kotlin 中存取屬性作為頭等物件，我們也可以使用 `::` 運算符：
+
+**first-class ：這裡意味著不用在類別內才能調用的屬性、函數...等**
+
+``` kotlin
 val x = 1
-
 fun main(args: Array<String>) {
-​    println(::x.get())
-​    println(::x.name) 
+    println(::x.get())
+    println(::x.name) 
 }
+
+//ans:
+//1
+//x
 ```
-</div>
 
-The expression `::x` evaluates to a property object of type `KProperty<Int>`, which allows us to read its
-value using `get()` or retrieve the property name using the `name` property. For more information, please refer to
-the [docs on the `KProperty` class](/api/latest/jvm/stdlib/kotlin.reflect/-k-property/index.html).
+The expression `::x` evaluates to a property object of type `KProperty<Int>`, which allows us to read its value using `get()` or retrieve the property name using the `name` property. For more information, please refer to the [docs on the `KProperty` class](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-property/index.html).
 
-For a mutable property, e.g. `var y = 1`, `::y` returns a value of type [`KMutableProperty<Int>`](/api/latest/jvm/stdlib/kotlin.reflect/-k-mutable-property/index.html),
-which has a `set()` method:
+表示法 `::x` 執行類型 `KProperty<Int>` 的屬性物件結果， `KProperty<Int>` 允許我們使用 `get()` 讀取它的值或使用 `name` 屬性獲取屬性名稱。更多資訊，請參閱 [`KProperty` 類別文件](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-property/index.html)。
 
-<div class="sample" markdown="1" theme="idea">
-​``` kotlin
+For a mutable property, e.g. `var y = 1`, `::y` returns a value of type [`KMutableProperty<Int>`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-mutable-property/index.html), which has a `set()` method:
+
+對於可變的屬性。例如 `var y = 1` ， `::y` 回傳類型 [`KMutableProperty<Int>`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-mutable-property/index.html) 的值 ，`KMutableProperty<Int>` 有 `set()` 方法：
+
+``` kotlin
 var y = 1
 
 fun main(args: Array<String>) {
-​    ::y.set(2)
-​    println(y)
+    ::y.set(2)
+    println(y)
 }
+
+//ans:2
 ```
-</div>            
 
 A property reference can be used where a function with one parameter is expected:
 
-<div class="sample" markdown="1" theme="idea">
-​``` kotlin
+預期在使用一個參數的函數地方使用屬性參照：
+
+``` kotlin
 fun main(args: Array<String>) {
 //sampleStart
     val strs = listOf("a", "bc", "def")
-    println(strs.map(String::length))
+    println(strs.map(String::length)) // 一個參數的函數，使用屬性參照
 //sampleEnd
 }
+
+//ans:[1, 2, 3]
 ```
-</div>
 
 To access a property that is a member of a class, we qualify it:
 
-<div class="sample" markdown="1" theme="idea">
+存取是類別成員的屬性，我們修飾它：
+
 ``` kotlin
 fun main(args: Array<String>) {
 //sampleStart
     class A(val p: Int)
-    val prop = A::p
+    val prop = A::p // 存取類別成員的屬性
     println(prop.get(A(1)))
 //sampleEnd
 }
+
+//ans:1
 ```
-</div>
 
 For an extension property:
 
-<div class="sample" markdown="1" theme="idea" auto-indent="false">
+對於擴展屬函：
+
 ``` kotlin
-val String.lastChar: Char
-    get() = this[length - 1]
+val String.lastChar: Char // 擴展屬性
+    get() = this[length - 1] // getter 函數
 
 fun main(args: Array<String>) {
-​    println(String::lastChar.get("abc"))
+    println(String::lastChar.get("abc"))
 }
+
+//ans:c
 ```
-</div>
 
 ### Interoperability With Java Reflection
 
-On the Java platform, standard library contains extensions for reflection classes that provide a mapping to and from Java
-  reflection objects (see package `kotlin.reflect.jvm`).
-For example, to find a backing field or a Java method that serves as a getter for a Kotlin property, you can say something like this:
+Interoperability With Java Reflection ：使用 Java 反射的互操作
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
-​``` kotlin
+On the Java platform, standard library contains extensions for reflection classes that provide a mapping to and from Java reflection objects (see package `kotlin.reflect.jvm`). For example, to find a backing field or a Java method that serves as a getter for a Kotlin property, you can say something like this:
+
+在 Java 平台上，標準函式庫包含反射類別的擴展，反射類別擴展提供與 Java 反射物件之間的的映射 (參閱 `kotlin.reflect.jvm` ) 。例如：找支援欄位或 Java 方法作為 Kotlin 屬性的設置器，你可以像這樣說：
+
+``` kotlin
 import kotlin.reflect.jvm.*
- 
+
 class A(val p: Int)
- 
+
 fun main(args: Array<String>) {
     println(A::p.javaGetter) // prints "public final int A.getP()"
     println(A::p.javaField)  // prints "private final int A.p"
 }
 ```
-</div>
 
 To get the Kotlin class corresponding to a Java class, use the `.kotlin` extension property:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+取得與 Java 類別對應的 Kotlin 類別，使用 `.kotlin` 擴展屬性：
+
 ``` kotlin
 fun getKClass(o: Any): KClass<Any> = o.javaClass.kotlin
 ```
-</div>
 
 ### Constructor References
 
