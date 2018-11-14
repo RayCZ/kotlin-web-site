@@ -301,108 +301,116 @@ fun getKClass(o: Any): KClass<Any> = o.javaClass.kotlin
 
 ### Constructor References
 
-Constructors can be referenced just like methods and properties. They can be used wherever an object of function type 
-is expected that takes the same parameters as the constructor and returns an object of the appropriate type. 
-Constructors are referenced by using the `::` operator and adding the class name. Consider the following function 
-that expects a function parameter with no parameters and return type `Foo`:
+Constructor References ：建構元參照 (引用)
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+Constructors can be referenced just like methods and properties. They can be used wherever an object of function type is expected that takes the same parameters as the constructor and returns an object of the appropriate type. Constructors are referenced by using the `::` operator and adding the class name. Consider the following function that expects a function parameter with no parameters and return type `Foo`:
+
+就像方法與屬性一樣可以引用建構元。他們可以用在預期函數類型的物件，物件帶有相同參數的建構元以及回傳適當類型的物件。透過使用 `::` 運算符和添加類別名稱引用建構元。考慮以下函數，函數沒有帶參數給函數參數以及回傳類型 `Foo` ：
+
 ``` kotlin
 class Foo
 
 fun function(factory: () -> Foo) {
-​    val x: Foo = factory()
+    val x: Foo = factory()
 }
 ```
-</div>
 
 Using `::Foo`, the zero-argument constructor of the class Foo, we can simply call it like this:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
-​``` kotlin
+使用 `::Foo` ，類別 `Foo` 的零參數建構元，我們可以簡單地調用它像這樣：
+
+``` kotlin
 function(::Foo)
 ```
-</div>
 
-Callable references to constructors are typed as one of the 
-[`KFunction<out R>`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-function/index.html) subtypes
-, depending on the parameter count.
+Callable references to constructors are typed as one of the [`KFunction<out R>`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-function/index.html) subtypes , depending on the parameter count.
+
+建構元可調用參照是 [`KFunction<out R>`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-function/index.html) 子類型之一的類型，取決於參數的數量。
 
 ## Bound Function and Property References (since 1.1)
 
+Bound Function and Property References (since 1.1) ：受約束的函數以及屬性參照 (引用) (從 1.1 )
+
 You can refer to an instance method of a particular object:
 
-<div class="sample" markdown="1" theme="idea">
+你可以引用特定物件的實例方法：
+
+**受約束的：意味著必需依賴著某種實例或是 receiver 才可以調用，不是直接調用的方式**
+
 ``` kotlin 
 fun main(args: Array<String>) {
 //sampleStart
     val numberRegex = "\\d+".toRegex()
-    println(numberRegex.matches("29"))
+    println(numberRegex.matches("29")) // 直接調用
 
-    val isNumber = numberRegex::matches
+    val isNumber = numberRegex::matches // 受約束的函數 numberRegex::matches ， isNumber 屬性參照
     println(isNumber("29"))
 //sampleEnd
 }
+
+//ans:
+//true
+//true
 ```
-</div>
 
-Instead of calling the method `matches` directly we are storing a reference to it.
-Such reference is bound to its receiver.
-It can be called directly (like in the example above) or used whenever an expression of function type is expected:
+Instead of calling the method `matches` directly we are storing a reference to it. Such reference is bound to its receiver. It can be called directly (like in the example above) or used whenever an expression of function type is expected:
 
-<div class="sample" markdown="1" theme="idea">
-​``` kotlin 
+我們不是直接調用方法 `matches` 而是存儲它的參照。這種參照受到它的 receiver 約束。它可以直接被調用 (像上面的例子) ，或在預期函數類型的表達式時使用：
+
+``` kotlin 
 fun main(args: Array<String>) {
 //sampleStart
     val numberRegex = "\\d+".toRegex()
     val strings = listOf("abc", "124", "a70")
-    println(strings.filter(numberRegex::matches))
+    println(strings.filter(numberRegex::matches)) // filter 需要函數類型的表達式，丟參照過去引用
 //sampleEnd
 }
+
+//ans:[124]
 ```
-</div>
 
-Compare the types of bound and the corresponding unbound references.
-Bound callable reference has its receiver "attached" to it, so the type of the receiver is no longer a parameter:
+Compare the types of bound and the corresponding unbound references. Bound callable reference has its receiver "attached" to it, so the type of the receiver is no longer a parameter:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+比較受約束的類型與對應的未受約束參照。受約束可調用參照有它的 receiver `附加`給它，因此 `receiver` 的類型不再是參數：
+
 ``` kotlin
-val isNumber: (CharSequence) -> Boolean = numberRegex::matches
+val isNumber: (CharSequence) -> Boolean = numberRegex::matches // 受約束
 
-val matches: (Regex, CharSequence) -> Boolean = Regex::matches
+val matches: (Regex, CharSequence) -> Boolean = Regex::matches // 未受約束
 ```
-</div>
 
 Property reference can be bound as well:
 
-<div class="sample" markdown="1" theme="idea">
-​``` kotlin 
+屬性參照也可以被受約束：
+
+``` kotlin 
 fun main(args: Array<String>) {
 //sampleStart
     val prop = "abc"::length
-    println(prop.get())
+    println(prop.get()) // prop 受約束的屬性
 //sampleEnd
 }
+
+//ans:3
 ```
-</div>
 
 Since Kotlin 1.2, explicitly specifying `this` as the receiver is not necessary: `this::foo` and `::foo` are equivalent.
 
+從 Kotlin 1.2 ，明確指定 `this` 為 receiver 是不必要的： `this::foo` 和 `::foo` 相等。
+
 ### Bound constructor references
 
-A bound callable reference to a constructor of an [*inner*{: .keyword} class](nested-classes.html#inner-classes) can 
-be obtained by providing an instance of the outer class:
+Bound constructor references ：受約束的建構元參照 (引用)
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+A bound callable reference to a constructor of an [*inner* class](nested-classes.md#inner-classes) can be obtained by providing an instance of the outer class:
+
+透過提供外部類別的實例獲取[*內部*類別](nested-classes.md#inner-classes)受約束可調用建構元的參照：
+
 ```kotlin
 class Outer {
     inner class Inner
 }
 
 val o = Outer()
-val boundInnerCtor = o::Inner
-```
-</div>
-
-
+val boundInnerCtor = o::Inner // o 是外部類別的實例， o::Inner 受約束可調用建構元的參照
 ```
