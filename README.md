@@ -83,7 +83,7 @@
 
 - [Annotations](pages/docs/reference/annotations.md) (註釋)
 
-- [Reflection](pages/docs/reference/reflection.md) 
+- [Reflection](pages/docs/reference/reflection.md) (反射)
 
 - [Type-Safe Builders](pages/docs/reference/type-safe-builders.md) 
 
