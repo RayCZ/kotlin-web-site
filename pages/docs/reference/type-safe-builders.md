@@ -156,7 +156,7 @@ fun body(init: Body.() -> Unit) : Body {
 
 Actually these two functions do just the same thing, so we can have a generic version, `initTag`:
 
-實際上那兩個函數做相同的事情，所以我們可以有泛型版本，  `initTag` ：
+實際上那兩個函數做相同的事情，所以我們可以有泛型版本， `initTag` ：
 
 ``` kotlin
 protected fun <T : Element> initTag(tag: T, init: T.() -> Unit): T {
@@ -168,6 +168,8 @@ protected fun <T : Element> initTag(tag: T, init: T.() -> Unit): T {
 
 So, now our functions are very simple:
 
+所以，現在我們的功能非常簡單：
+
 ``` kotlin
 fun head(init: Head.() -> Unit) = initTag(Head(), init)
 
@@ -176,8 +178,11 @@ fun body(init: Body.() -> Unit) = initTag(Body(), init)
 
 And we can use them to build `<head>` and `<body>` tags. 
 
+以及我們可以使用它們來建造 `<head>` 和 `<body>` 標籤。
 
 One other thing to be discussed here is how we add text to tag bodies. In the example above we say something like:
+
+這裡討論的另一件事是我們如何添加文字給標籤內文。在上面的例子中，我們說的是：
 
 ``` kotlin
 html {
@@ -188,9 +193,9 @@ html {
 }
 ```
 
-So basically, we just put a string inside a tag body, but there is this little `+` in front of it,
-so it is a function call that invokes a prefix `unaryPlus()` operation.
-That operation is actually defined by an extension function `unaryPlus()` that is a member of the `TagWithText` abstract class (a parent of `Title`):
+So basically, we just put a string inside a tag body, but there is this little `+` in front of it, so it is a function call that invokes a prefix `unaryPlus()` operation. That operation is actually defined by an extension function `unaryPlus()` that is a member of the `TagWithText` abstract class (a parent of `Title`):
+
+所以基本上，我們只是在一個標籤內文中放一個字串，但它前面有一個小 `+` ，所以它是調用前綴 `unaryPlus()` 操作的函數調用。該操作實際上透過擴展函數 `unaryPlus()` 定義，該函數是 `TagWithText` 抽象類別 ( `Title` 的父親) 的成員。
 
 ``` kotlin
 operator fun String.unaryPlus() {
@@ -200,7 +205,11 @@ operator fun String.unaryPlus() {
 
 So, what the prefix `+` does here is wrapping a string into an instance of `TextElement` and adding it to the `children` collection, so that it becomes a proper part of the tag tree.
 
+所以，前綴 `+` 在這裡做包裝字串給 `TextElement` 的實例並添加它到 `children` 集合，以便它變成標籤樹的適當部分。
+
 All this is defined in a package `com.example.html` that is imported at the top of the builder example above. In the last section you can read through the full definition of this package.
+
+所有這些被定義在 package `com.example.html` ，在建造者上面範例的最上面匯入。在上一個章節你可以閱讀此 `package` 的完整定義。
 
 ## Scope control: @DslMarker (since 1.1)
 
