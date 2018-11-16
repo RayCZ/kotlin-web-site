@@ -213,103 +213,115 @@ All this is defined in a package `com.example.html` that is imported at the top 
 
 ## Scope control: @DslMarker (since 1.1)
 
-When using DSLs, one might have come across the problem that too many functions can be called in the context. 
-We can call methods of every available implicit receiver inside a lambda and therefore get an inconsistent result, like the tag `head` inside another `head`: 
+Scope control: @DslMarker (since 1.1) ：範圍控制：@DslMarker (從 1.1)，利用我們類別的繼承關係變成 DSL 使用的階層
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+>**Tag ：標籤，用於 HTML 的語法 <...>**
+
+> **Marker ：記號，用於在程式碼做 DSL 的記號**
+
+> **Annotation ：註釋，用於程式碼做帶有 @ 符號的註釋**
+
+When using DSLs, one might have come across the problem that too many functions can be called in the context. We can call methods of every available implicit receiver inside a lambda and therefore get an inconsistent result, like the tag `head` inside another `head`: 
+
+當使用 DSL 時，可能會碰到在內文中調用太多函數的問題。我們可以在 Lambda 內調用每個可用隱性 receiver 的方法 (沒有階層的限制)，因此取得不一致的結果，像是另一個 `head` 內的標籤 `head` ：
+
 ``` kotlin
 html {
     head {
-        head {} // should be forbidden
+        head {} // should be forbidden , 因為 head 沒有做階層的限制，例如： html > head or body
     }
     // ...
 }
 ```
-</div>
 
 In this example only members of the nearest implicit receiver `this@head` must be available; `head()` is a member of the outer receiver `this@html`, so it must be illegal to call it.
 
+在這個範例中，只有在 `html{...}` 內最近隱性 receiver `this@head` 的成員必須可用的； `head()` 是外部 receiver `this@html` 的成員，所以上面範例它一定是非法調用它。
+
 To address this problem, in Kotlin 1.1 a special mechanism to control receiver scope was introduced.
 
-To make the compiler start controlling scopes we only have to annotate the types of all receivers used in the DSL with the same marker annotation.
-For instance, for HTML Builders we declare an annotation `@HTMLTagMarker`:
+為了解決這個問題，在 Kotlin 1.1 引入一個特別機制去控制 receiver 範圍。
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+To make the compiler start controlling scopes we only have to annotate the types of all receivers used in the DSL with the same marker annotation. For instance, for HTML Builders we declare an annotation `@HTMLTagMarker`:
+
+為了使編譯器開始控制範圍，我們只需要在使用相同標記註釋的 DSL 中註記所有 receiver 類型。例如 ：對於 HTML 建造者，我們宣告註釋 `@HTMLTagMarker` ：
+
 ``` kotlin
 @DslMarker
-annotation class HtmlTagMarker
+annotation class HtmlTagMarker // 宣告一個新的註釋 @HtmlTagMarker (DSL 記號) 用來區分 HTML 的階層
 ```
-</div>
 
 An annotation class is called a DSL marker if it is annotated with the `@DslMarker` annotation.
 
-In our DSL all the tag classes extend the same superclass `Tag`.
-It's enough to annotate only the superclass with `@HtmlTagMarker` and after that the Kotlin compiler will treat all the inherited classes as annotated:
+如果使用 `@DslMarker` 註釋註記類別，註釋類別被稱為 DSL 記號。
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+In our DSL all the tag classes extend the same superclass `Tag`. It's enough to annotate only the superclass with `@HtmlTagMarker` and after that the Kotlin compiler will treat all the inherited classes as annotated:
+
+在我們的 DSL 中，所有的標籤類別 (html 、 head 、  body) 繼承相同的超 (父) 類別 `Tag`。只註記超 (父) 類別使用 `@HtmltagMarker` 就足夠了，以及之後在 Kotlin 編譯器將視所有的繼承類別為註釋：
+
 ``` kotlin
 @HtmlTagMarker
 abstract class Tag(val name: String) { ... }
 ```
-</div>
 
 We don't have to annotate the `HTML` or `Head` classes with `@HtmlTagMarker` because their superclass is already annotated:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+我們不必使用 `@HtmlTagMarker` 註記 `HTML` 或 `Head` ，因為它們的超 (父) 類別已經是被註記的 (類別的繼承關係來建立)：
+
 ```
 class HTML() : Tag("html") { ... }
 class Head() : Tag("head") { ... }
 ```
-</div>
 
 After we've added this annotation, the Kotlin compiler knows which implicit receivers are part of the same DSL and allows to call members of the nearest receivers only: 
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+在我們已經添加這個註釋後， Kotlin 編譯器知道隱性的 receiver 是相同 DSL 的一部分以及只允許調用最近 receiver 的成員：
+
 ``` kotlin
-html {
-    head {
-        head { } // error: a member of outer receiver
+html { // Tag("html")
+    head { // Tag("head")
+        head { } // error: a member of outer receiver , 只能調用 head 的成員
     }
     // ...
 }
 ```
-</div>
 
 Note that it's still possible to call the members of the outer receiver, but to do that you have to specify this receiver explicitly:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+注意：它仍然可以調用外部的 receiver 成員，但要做到這點，你必須明確指定 `this` 的 receiver ：
+
 ``` kotlin
 html {
     head {
-        this@html.head { } // possible
+        this@html.head { } // possible , @html.head 明確指定是在 html 下的 head 實例
     }
     // ...
 }
 ```
-</div>
 
 ## Full definition of the `com.example.html` package
 
-This is how the package `com.example.html` is defined (only the elements used in the example above).
-It builds an HTML tree. It makes heavy use of [extension functions](extensions.html) and
-[lambdas with receiver](lambdas.html#function-literals-with-receiver).
+Full definition of the `com.example.html` package ： `com.example.html` package 的完整定義
+
+This is how the package `com.example.html` is defined (only the elements used in the example above). It builds an HTML tree. It makes heavy use of [extension functions](extensions.md) and [lambdas with receiver](lambdas.md#function-literals-with-receiver).
+
+這是如何定義 `com.example.html` package (只限上面範例中使用的元素) 。 它建立 HTML 樹。它大量使用 [擴展函數](extensions.md) 和 [使用 receiver 的 Lambda 表示法](lambdas.md#function-literals-with-receiver) 。
 
 Note that the `@DslMarker` annotation is available only since Kotlin 1.1.
 
-<a name='declarations'></a>
+註意： `@DslMarker` 註釋只從 Kotlin 1.1 版可用。
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
 ``` kotlin
 package com.example.html
 
 interface Element {
-​    fun render(builder: StringBuilder, indent: String)
+    fun render(builder: StringBuilder, indent: String)
 }
 
 class TextElement(val text: String) : Element {
-​    override fun render(builder: StringBuilder, indent: String) {
-​        builder.append("$indent$text\n")
-​    }
+    override fun render(builder: StringBuilder, indent: String) {
+        builder.append("$indent$text\n")
+    }
 }
 
 @DslMarker
@@ -317,8 +329,8 @@ annotation class HtmlTagMarker
 
 @HtmlTagMarker
 abstract class Tag(val name: String) : Element {
-​    val children = arrayListOf<Element>()
-​    val attributes = hashMapOf<String, String>()
+    val children = arrayListOf<Element>()
+    val attributes = hashMapOf<String, String>()
 
     protected fun <T : Element> initTag(tag: T, init: T.() -> Unit): T {
         tag.init()
@@ -350,31 +362,31 @@ abstract class Tag(val name: String) : Element {
 }
 
 abstract class TagWithText(name: String) : Tag(name) {
-​    operator fun String.unaryPlus() {
-​        children.add(TextElement(this))
-​    }
+    operator fun String.unaryPlus() {
+        children.add(TextElement(this))
+    }
 }
 
 class HTML : TagWithText("html") {
-​    fun head(init: Head.() -> Unit) = initTag(Head(), init)
+    fun head(init: Head.() -> Unit) = initTag(Head(), init)
 
     fun body(init: Body.() -> Unit) = initTag(Body(), init)
 }
 
 class Head : TagWithText("head") {
-​    fun title(init: Title.() -> Unit) = initTag(Title(), init)
+    fun title(init: Title.() -> Unit) = initTag(Title(), init)
 }
 
 class Title : TagWithText("title")
 
 abstract class BodyTag(name: String) : TagWithText(name) {
-​    fun b(init: B.() -> Unit) = initTag(B(), init)
-​    fun p(init: P.() -> Unit) = initTag(P(), init)
-​    fun h1(init: H1.() -> Unit) = initTag(H1(), init)
-​    fun a(href: String, init: A.() -> Unit) {
-​        val a = initTag(A(), init)
-​        a.href = href
-​    }
+    fun b(init: B.() -> Unit) = initTag(B(), init)
+    fun p(init: P.() -> Unit) = initTag(P(), init)
+    fun h1(init: H1.() -> Unit) = initTag(H1(), init)
+    fun a(href: String, init: A.() -> Unit) {
+        val a = initTag(A(), init)
+        a.href = href
+    }
 }
 
 class Body : BodyTag("body")
@@ -383,19 +395,16 @@ class P : BodyTag("p")
 class H1 : BodyTag("h1")
 
 class A : BodyTag("a") {
-​    var href: String
-​        get() = attributes["href"]!!
-​        set(value) {
-​            attributes["href"] = value
-​        }
+    var href: String
+        get() = attributes["href"]!!
+        set(value) {
+            attributes["href"] = value
+        }
 }
 
 fun html(init: HTML.() -> Unit): HTML {
-​    val html = HTML()
-​    html.init()
-​    return html
+    val html = HTML()
+    html.init()
+    return html
 }
-```
-</div>
-
 ```
