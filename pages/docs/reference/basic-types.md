@@ -572,7 +572,7 @@ println("i = $i") // prints "i = 10"
 ```
 or an arbitrary expression in curly braces:
 
-或在大括號中放一個隨意表示法 `${....}`：
+或在大括號中一個隨意的表示法 `${....}`：
 
 ``` kotlin
 fun main(args: Array<String>) {
