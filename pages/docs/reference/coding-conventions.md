@@ -113,7 +113,7 @@ Generally, the contents of a class is sorted in the following order:
 
 Do not sort the method declarations alphabetically or by visibility, and do not separate regular methods from extension methods. Instead, put related stuff together, so that someone reading the class from top to bottom would be able to follow the logic of what's happening. Choose an order (either higher-level stuff first, or vice versa) and stick to it.
 
-不會依字母或可見性排序方法的宣告，也不會分開從擴展方法中的常規方法。相反，放置相關的資料在一起，以便某人從上而下的閱讀類別，能循著正在發生事情的邏輯。選擇一個排序 (首要的高階資料，反之亦然) 和堅持下去。
+不會依字母或可見性排序方法的宣告，也不會從擴展方法中分開常規方法。相反，放置相關的資料在一起，以便某人從上而下的閱讀類別，能循著正在發生事情的邏輯。選擇一個排序 (為首要高階的資料，或反過來) 和堅持下去。
 
 Put nested classes next to the code that uses those classes. If the classes are intended to be used externally and aren't referenced inside the class, put them in the end, after the companion object.
 
@@ -196,7 +196,7 @@ Names for test methods ：測式方法的命名
 In tests (and only in tests), it's acceptable to use method names with spaces enclosed in backticks.
 (Note that such method names are currently not supported by the Android runtime.) Underscores in method names are also allowed in test code.
 
-在測試中 (並只在測試中) ，可以接受在反引號 \`\`中使用空格的方法名稱。 (注意：這樣命名的方法名稱目前不支援Android運行時期。) 在測試代碼中允許方法名稱使用底線。
+在測試中 (並只在測試中) ，可以接受在反引號 \`\` 中使用空格的方法名稱。 (注意：這樣命名的方法名稱目前不支援Android運行時期。) 在測試代碼中允許方法名稱使用底線。
 
 ``` kotlin
 class MyTestCase {
@@ -243,7 +243,7 @@ Names for backing properties ：支援屬性命名
 
 If a class has two properties which are conceptually the same but one is part of a public API and another is an implementation detail, use an underscore as the prefix for the name of the private property:
 
-如果類別有兩個屬性在概念上相同，但一個為對外公開API的一部份，並且另一個為實作細節，使用底線為前綴 (開頭) 為私有屬性的命名：
+如果類別有兩個屬性在概念上相同，但一個為對外公開 API 的一部份，並且另一個為實作細節，使用底線為前綴 (開頭) 為私有屬性的命名：
 
 ``` kotlin
 class C {
@@ -269,7 +269,7 @@ The name of a method is usually a verb or a verb phrase saying what the method _
 
 The name should also suggest if the method is mutating the object or returning a new one. For instance `sort` is sorting a collection in place, while `sorted` is returning a sorted copy of the collection.
 
-命名也表名方法是目前正在改變的物件或回傳新的物件。比如 `sort` 是排序執行中讓集合到位，而 `sorted` 回傳已排序集合的副本。
+命名也表示方法是目前正在改變的物件或回傳新的物件。比如 `sort` 是排序執行中讓集合到位，而 `sorted` 回傳已排序集合的副本。
 
 The names should make it clear what the purpose of the entity is, so it's best to avoid using meaningless words (`Manager`, `Wrapper` etc.) in names.
 
@@ -1384,8 +1384,8 @@ When writing libraries, it's recommended to follow an additional set of rules to
 當在寫函式庫代碼，推薦遵循以下額外規則組來確保 API 穩定性：
 
  * Always explicitly specify member visibility (to avoid accidentally exposing declarations as public API)
- * 總是明確指定成員的可見性 (為了避免，意外揭露宣告為公開 API)
+   總是明確指定成員的可見性 (為了避免，意外揭露宣告為公開 API)
  * Always explicitly specify function return types and property types (to avoid accidentally changing the return type when the implementation changes)
- * 總是明確指定函數回傳類型和屬性回傳類型 (為了避免當實作改變時，意外改變回傳類型)
+   總是明確指定函數回傳類型和屬性回傳類型 (為了避免當實作改變時，意外改變回傳類型)
  * Provide KDoc comments for all public members, with the exception of overrides that do not require any new documentation (to support generating documentation for the library)
- * 為所有公開成員提供 KDoc 註解，除了不需要任何文件覆寫之外 (支持產生函式庫文件)
+   為所有公開成員提供 KDoc 註解，除了不需要任何文件覆寫之外 (支持產生函式庫文件)
