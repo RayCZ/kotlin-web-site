@@ -215,11 +215,11 @@ All this is defined in a package `com.example.html` that is imported at the top 
 
 Scope control: @DslMarker (since 1.1) ：範圍控制：@DslMarker (從 1.1)，利用我們類別的繼承關係變成 DSL 使用的階層
 
->**Tag ：標籤，用於 HTML 的語法 <...>**
+- **Tag ：標籤，用於 HTML 的語法 <...>**
 
-> **Marker ：記號，用於在程式碼做 DSL 的記號**
+- **Marker ：記號，用於在程式碼做 DSL 的記號**
 
-> **Annotation ：註釋，用於程式碼做帶有 @ 符號的註釋**
+- **Annotation ：註釋，用於程式碼做帶有 @ 符號的註釋**
 
 When using DSLs, one might have come across the problem that too many functions can be called in the context. We can call methods of every available implicit receiver inside a lambda and therefore get an inconsistent result, like the tag `head` inside another `head`: 
 

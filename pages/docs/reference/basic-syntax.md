@@ -26,7 +26,7 @@ import java.util.*
 ```
 It is not required to match directories and packages: source files can be placed arbitrarily in the file system.
 
-package 需不要匹配目錄與 package ：在檔案系統中來源檔案可以隨意的放置。
+package 不需要匹配目錄與 package ：在檔案系統中來源檔案可以隨意的放置。
 
 See [Packages](packages.md).
 
@@ -348,7 +348,7 @@ Using type checks and automatic casts ：使用類型檢查與自動強轉
 
 The `is` operator checks if an expression is an instance of a type. If an immutable local variable or property is checked for a specific type, there's no need to cast it explicitly:
 
-`is` 運算符檢查是否為類型的實例。如果一個不可變的區域變數或屬或被檢查為特定類型，沒有明確強轉的必要：
+`is` 運算符檢查是否為類型的實例。如果一個不可變的區域變數或屬性被檢查為特定類型，沒有明確強轉的必要：
 
 
 **以下例子：```if (obj is String)``` 已經先檢查過自動強轉，所以在 ```{ return obj.length }``` 區塊內不再使用強轉 `as`**

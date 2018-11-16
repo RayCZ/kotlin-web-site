@@ -52,7 +52,7 @@ In mixed-language projects, Kotlin source files should reside in the same source
 In pure Kotlin projects, the recommended directory structure is to follow the package structure with
 the common root package omitted
 
-在單一 (純) Kotlin 專案中，推薦目錄結構是遵循 package 結構，使用上通用的起始 (根) package 被省略
+在單一 (純) Kotlin 專案中，**推薦目錄結構是遵循 package 結構**，省略通用的起始 (根) package 
 
 (e.g. if all the code in the project is in the "org.example.kotlin" package and its subpackages, files with the "org.example.kotlin" package should be placed directly under the source root, and files in "org.example.kotlin.foo.bar" should be in the "foo/bar" subdirectory of the source root).
 
@@ -64,17 +64,19 @@ the common root package omitted
 
 Source file names ：來源檔案命名
 
+**top-level：代表檔案中可以直接宣告函數或屬性，不像 Java 只能在類別內才能宣告**
+
 If a Kotlin file contains a single class (potentially with related top-level declarations), its name should be the same as the name of the class, with the .kt extension appended.
 
-如果 Kotlin 檔案內包含單個類別 (可能使用有關 top-level 宣告)，檔案的名稱應該與類別名稱相同，檔名附加 .kt 擴展。
+如果 Kotlin 檔案內包含單個類別 (可能使用有關 top-level 宣告)，**檔案的名稱應該與類別名稱相同，檔名附加 .kt 擴展**。
 
  If a file contains multiple classes, or only top-level declarations, choose a name describing what the file contains, and name the file accordingly. Use camel humps with an uppercase first letter (e.g. `ProcessDeclarations.kt`).
 
-如果檔案包含多個類別，或只是 top-level 宣告，選擇檔案內包含的名稱描述，並相應地命名該檔案。使用駝峰式與開頭大寫 (例如 `ProcessDeclarations.kt`)
+如果檔案包含多個類別，或只是 top-level 宣告，選擇名稱描述檔案內包含什麼，並相應地命名該檔案。**使用駝峰式與開頭大寫 (例如 `ProcessDeclarations.kt`)** 。
 
 The name of the file should describe what the code in the file does. Therefore, you should avoid using meaningless words such as "Util" in file names.
 
-檔案名稱描述檔案內代碼做的事。因此，你應該避免使用無意義的單字在檔案名稱，例如 "Util"。
+檔案名稱應該描述檔案內代碼做的事。因此，**你應該避免使用無意義的單字在檔案名稱，例如 "Util"**。
 
 ---
 
@@ -84,11 +86,11 @@ Source file organization ：來源檔案組織
 
 Placing multiple declarations (classes, top-level functions or properties) in the same Kotlin source file is encouraged as long as these declarations are closely related to each other semantically and the file size remains reasonable (not exceeding a few hundred lines).
 
-在相同 Kotlin 來源檔案放置多個宣告 (classes, top-level functions or properties ) 是被鼓勵支持的，只要這些宣告彼此緊密相關的語義並且檔案大小保持合理 (不超過幾百行)。
+**在相同 Kotlin 來源檔案放置多個宣告 (classes, top-level functions or properties ) 是被鼓勵支持的，只要這些宣告彼此緊密相關的語義並且檔案大小保持合理 (不超過幾百行)**。
 
 In particular, when defining extension functions for a class which are relevant for all clients of this class, put them in the same file where the class itself is defined. When defining extension functions that make sense only for a specific client, put them next to the code of that client. Do not create files just to hold "all extensions of Foo".
 
-特別地，為所有客戶端相關的類別定義擴展函數，放置它們在相同檔案內並定義類別本身。當只為特別客戶端定義有意義的擴展函數時，放它們在客戶端代碼的旁邊。不要建立檔案只為了保存 "Foo所有擴展"。
+特別地，為這個類別所有的客戶端定義相關的擴展函數，放它在相同檔案並定義類別本身。只為特殊客戶端有意義的定義擴展函數時，放它們在該客戶端的代碼旁邊。不要建立檔案只為了持有 "Foo所有擴展"。
 
 ---
 

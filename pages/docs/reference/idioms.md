@@ -11,7 +11,7 @@ Idioms ：慣用語法
 
 A collection of random and frequently used idioms in Kotlin. If you have a favorite idiom, contribute it by sending a pull request.
 
-在 Kotlin 中隨機和經常使用的慣語集合。如果你有最喜歡的慣語，請寄送 pull request 貢獻它。
+在 Kotlin 中隨機的集合和經常使用慣語。如果你有最喜歡的慣語，請寄送 pull request 貢獻它。
 
 ---
 
@@ -181,7 +181,7 @@ object Resource {
 
 ### If not null shorthand
 
-If not null shorthand ：if not null的速記法 `?.`
+If not null shorthand ：if not null 的速記法 `?.`
 
 ``` kotlin
 val files = File("Test").listFiles()
@@ -297,7 +297,7 @@ fun foo(param: Int) {
 
 ### Builder-style usage of methods that return `Unit`
 
-Builder-style usage of methods that return `Unit` ：建構者風格用法的方法回傳 `Unit`
+Builder-style usage of methods that return `Unit` ：建造者風格用法的方法回傳 `Unit`
 
 ``` kotlin
 fun arrayOfMinusOnes(size: Int): IntArray {
