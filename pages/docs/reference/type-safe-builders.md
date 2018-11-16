@@ -305,11 +305,11 @@ Full definition of the `com.example.html` package ： `com.example.html` package
 
 This is how the package `com.example.html` is defined (only the elements used in the example above). It builds an HTML tree. It makes heavy use of [extension functions](extensions.md) and [lambdas with receiver](lambdas.md#function-literals-with-receiver).
 
-這是如何定義 `com.example.html` package (只限上面範例中使用的元素) 。 它建立 HTML 樹。它大量使用 [擴展函數](extensions.md) 和 [使用 receiver 的 Lambda 表示法](lambdas.md#function-literals-with-receiver) 。
+這是如何定義 `com.example.html` package (只限上面範例中使用的元素) 。 它建立 HTML 樹。它大量使用[擴展函數](extensions.md)和[使用 receiver 的 Lambda 表示法](lambdas.md#function-literals-with-receiver)。
 
 Note that the `@DslMarker` annotation is available only since Kotlin 1.1.
 
-註意： `@DslMarker` 註釋只從 Kotlin 1.1 版可用。
+注意： `@DslMarker` 註釋只從 Kotlin 1.1 版可用。
 
 ``` kotlin
 package com.example.html
