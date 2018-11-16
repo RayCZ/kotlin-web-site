@@ -125,8 +125,8 @@ Now, *this* can be omitted, as usual, and we get something that looks very much 
 
 ``` kotlin
 html {
-    head { ... } //省略 this
-    body { ... } //省略 this
+    head { ... } // 省略 this
+    body { ... } // 省略 this
 }
 ```
 
