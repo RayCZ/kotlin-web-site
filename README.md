@@ -85,9 +85,9 @@
 
 - [Reflection](pages/docs/reference/reflection.md) (反射)
 
-- [Type-Safe Builders](pages/docs/reference/type-safe-builders.md) 
+- [Type-Safe Builders](pages/docs/reference/type-safe-builders.md) (類型安全的建造者)
 
-- [Type Aliases](pages/docs/reference/type-aliases.md) 
+- [Type Aliases](pages/docs/reference/type-aliases.md) (類型別名)
 
 ## Java Interop
 
