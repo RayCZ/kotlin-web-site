@@ -7,12 +7,16 @@ title: "Calling Java from Kotlin"
 
 # Calling Java code from Kotlin
 
-Kotlin is designed with Java Interoperability in mind. Existing Java code can be called from Kotlin in a natural way, and Kotlin code can be used from
-Java rather smoothly as well. In this section we describe some details about calling Java code from Kotlin.
+Calling Java code from Kotlin ：從 Kotlin 調用 Java 代碼
+
+Kotlin is designed with Java Interoperability in mind. Existing Java code can be called from Kotlin in a natural way, and Kotlin code can be used from Java rather smoothly as well. In this section we describe some details about calling Java code from Kotlin.
+
+Kotlin 在設計時考慮 Java 的互操作性。現存的 Java 代碼可以透過自然的方式從 Kotlin 調用， 並且 Kotlin 代碼也可以從 Java 使用相當順暢。在這章節我們描述關於 Kotlin 調用 Java 代碼的一些細節。
 
 Pretty much all Java code can be used without any issues:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+幾乎所有 Java 代碼可以使用且沒有任何問題：
+
 ``` kotlin
 import java.util.*
 
@@ -28,18 +32,21 @@ fun demo(source: List<Int>) {
     }
 }
 ```
-</div>
 
 ## Getters and Setters
 
-Methods that follow the Java conventions for getters and setters (no-argument methods with names starting with `get`
-and single-argument methods with names starting with `set`) are represented as properties in Kotlin.
-`Boolean` accessor methods (where the name of the getter starts with `is` and the name of the setter starts with `set`)
-are represented as properties which have the same name as the getter method.
+Getters and Setters ：獲取屬性和設置屬性
+
+Methods that follow the Java conventions for getters and setters (no-argument methods with names starting with `get` and single-argument methods with names starting with `set`) are represented as properties in Kotlin. `Boolean` accessor methods (where the name of the getter starts with `is` and the name of the setter starts with `set`) are represented as properties which have the same name as the getter method.
+
+遵循 Java 獲取屬性與設置屬性的慣例 (使用名稱以 `get` 開頭沒有參數的方法以及使用名稱以 `set` 開頭單個參數的方法) 在 Kotlin 中表示為屬性。 `Boolean` 存取器方法 (其中獲取屬性的名稱以 `is` 開頭以及設置屬性的名稱以 `set` 開頭) 表示作為設置屬性的方法有相同的命名方式。 
+
+**在 Kotlin 調用屬性，在 Java 會調用 setXXX 和 getXXX 方法**
 
 For example:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+範例：
+
 ``` kotlin
 import java.util.Calendar
 
@@ -53,70 +60,64 @@ fun calendarDemo() {
     }
 }
 ```
-</div>
 
 Note that, if the Java class only has a setter, it will not be visible as a property in Kotlin, because Kotlin does not support set-only properties at this time.
 
+**注意：如果 Java 類別只有設置屬性，在 Kotlin 中它將不會顯示為屬性，因為 Kotlin 此時不支援只有設置屬性的方式。**
+
 ## Methods returning void
 
-If a Java method returns void, it will return `Unit` when called from Kotlin.
-If, by any chance, someone uses that return value, it will be assigned at the call site by the Kotlin compiler,
-since the value itself is known in advance (being `Unit`).
+Methods returning void ：方法回傳 void
+
+If a Java method returns void, it will return `Unit` when called from Kotlin. If, by any chance, someone uses that return value, it will be assigned at the call site by the Kotlin compiler, since the value itself is known in advance (being `Unit`).
+
+如果 Java 方法回傳 void 類型，當從 Kotlin 調用時，它將回傳 `Unit` 。如果萬一有人使用回傳值，由編譯器在調用場景給值，因為值本身是事先已知的 (為 `Unit`)。
 
 ## Escaping for Java identifiers that are keywords in Kotlin
 
-Some of the Kotlin keywords are valid identifiers in Java: *in*{: .keyword }, *object*{: .keyword }, *is*{: .keyword }, etc.
-If a Java library uses a Kotlin keyword for a method, you can still call the method
-escaping it with the backtick (`) character:
+Escaping for Java identifiers that are keywords in Kotlin ： Java 識別符轉義在 Kotlin 是關鍵字
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+Some of the Kotlin keywords are valid identifiers in Java: *in*, *object*, *is*, etc. If a Java library uses a Kotlin keyword for a method, you can still call the method escaping it with the backtick (`) character:
+
+一些 Kotlin 的關鍵字在 Java 是有效的識別符： `in` 、 `object` 、 `is` 等等。如果 Java 函式庫對方法使用 Kotlin 關鍵字，你也可以使用使用反引號 `` 字元轉義它：
+
 ``` kotlin
 foo.`is`(bar)
 ```
-</div>
 
 ## Null-Safety and Platform Types
 
-Any reference in Java may be *null*{: .keyword }, which makes Kotlin's requirements of strict null-safety impractical for objects coming from Java.
-Types of Java declarations are treated specially in Kotlin and called *platform types*. Null-checks are relaxed for such types,
-so that safety guarantees for them are the same as in Java (see more [below](#mapped-types)).
+Null-Safety and Platform Types ：空值的安全性和平台類型
+
+Any reference in Java may be *null*, which makes Kotlin's requirements of strict null-safety impractical for objects coming from Java. Types of Java declarations are treated specially in Kotlin and called *platform types*. Null-checks are relaxed for such types, so that safety guarantees for them are the same as in Java (see more [below](#mapped-types)).
+
+在 Java 任何的參照可能會變成 `null` ，使得 Kotlin  對於來自 Java 的物件嚴格要求空值的安全性是不切實際的。 Java 宣告的類型在 Kotlin 被視為特別的並且被稱為平台類型。對於這些類型放寬空值的檢查，以便對它們與 Java 相同的安全性保證 (參閱[以下](#mapped-types))。
 
 Consider the following examples:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+考慮以下範例：
+
 ``` kotlin
 val list = ArrayList<String>() // non-null (constructor result)
 list.add("Item")
 val size = list.size // non-null (primitive int)
 val item = list[0] // platform type inferred (ordinary Java object)
 ```
-</div>
 
-When we call methods on variables of platform types, Kotlin does not issue nullability errors at compile time,
-but the call may fail at runtime, because of a null-pointer exception or an assertion that Kotlin generates to
-prevent nulls from propagating:
+When we call methods on variables of platform types, Kotlin does not issue nullability errors at compile time, but the call may fail at runtime, because of a null-pointer exception or an assertion that Kotlin generates to prevent nulls from propagating:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
 ``` kotlin
 item.substring(1) // allowed, may throw an exception if item == null
 ```
-</div>
 
-Platform types are *non-denotable*, meaning that one can not write them down explicitly in the language.
-When a platform value is assigned to a Kotlin variable, we can rely on type inference (the variable will have an inferred platform type then,
- as `item` has in the example above), or we can choose the type that we expect (both nullable and non-null types are allowed):
+Platform types are *non-denotable*, meaning that one can not write them down explicitly in the language. When a platform value is assigned to a Kotlin variable, we can rely on type inference (the variable will have an inferred platform type then, as `item` has in the example above), or we can choose the type that we expect (both nullable and non-null types are allowed):
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
 ``` kotlin
 val nullable: String? = item // allowed, always works
 val notNull: String = item // allowed, may fail at runtime
 ```
-</div>
 
-If we choose a non-null type, the compiler will emit an assertion upon assignment. This prevents Kotlin's non-null variables from holding
-nulls. Assertions are also emitted when we pass platform values to Kotlin functions expecting non-null values etc.
-Overall, the compiler does its best to prevent nulls from propagating far through the program (although sometimes this is
-impossible to eliminate entirely, because of generics).
+If we choose a non-null type, the compiler will emit an assertion upon assignment. This prevents Kotlin's non-null variables from holding nulls. Assertions are also emitted when we pass platform values to Kotlin functions expecting non-null values etc. Overall, the compiler does its best to prevent nulls from propagating far through the program (although sometimes this is impossible to eliminate entirely, because of generics).
 
 ### Notation for Platform Types
 
@@ -210,11 +211,11 @@ public @interface MyNullable {
 }
 
 interface A {
-    @MyNullable String foo(@MyNonnull String x); 
-    // in Kotlin (strict mode): `fun foo(x: String): String?`
-    
-    String bar(List<@MyNonnull String> x);       
-    // in Kotlin (strict mode): `fun bar(x: List<String>!): String!`
+​    @MyNullable String foo(@MyNonnull String x); 
+​    // in Kotlin (strict mode): `fun foo(x: String): String?`
+​    
+​    String bar(List<@MyNonnull String> x);       
+​    // in Kotlin (strict mode): `fun bar(x: List<String>!): String!`
 }
 ```
 </div>
@@ -238,7 +239,7 @@ determined by the innermost enclosing element annotated with a type qualifier de
 `ElementType` matching the type usage.
 
 <div class="sample" markdown="1" theme="idea" data-highlight-only>
-```java
+​```java
 @Nonnull
 @TypeQualifierDefault({ElementType.METHOD, ElementType.PARAMETER})
 public @interface NonNullApi {
@@ -440,7 +441,7 @@ This makes it impossible to perform *is*{: .keyword }-checks that take generics 
 Kotlin only allows *is*{: .keyword }-checks for star-projected generic types:
 
 <div class="sample" markdown="1" theme="idea" data-highlight-only>
-``` kotlin
+​``` kotlin
 if (a is List<Int>) // Error: cannot check if it is really a List of Ints
 // but
 if (a is List<*>) // OK: no guarantees about the contents of the list
@@ -474,7 +475,7 @@ public class JavaArrayExample {
 To pass an array of primitive values you can do the following in Kotlin:
 
 <div class="sample" markdown="1" theme="idea" data-highlight-only>
-``` kotlin
+​``` kotlin
 val javaObj = JavaArrayExample()
 val array = intArrayOf(0, 1, 2, 3)
 javaObj.removeIndices(array)  // passes int[] to method
@@ -531,7 +532,7 @@ public class JavaArrayExample {
 In that case you need to use the spread operator `*` to pass the `IntArray`:
 
 <div class="sample" markdown="1" theme="idea" data-highlight-only>
-``` kotlin
+​``` kotlin
 val javaObj = JavaArrayExample()
 val array = intArrayOf(0, 1, 2, 3)
 javaObj.removeIndicesVarArg(*array)
