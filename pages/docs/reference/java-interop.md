@@ -106,11 +106,15 @@ val item = list[0] // platform type inferred (ordinary Java object)
 
 When we call methods on variables of platform types, Kotlin does not issue nullability errors at compile time, but the call may fail at runtime, because of a null-pointer exception or an assertion that Kotlin generates to prevent nulls from propagating:
 
+當我們在平台類型的變數調用方法時， Kotlin 在編譯時期不會發出可空性的錯誤，但在運行時期調用可能會失敗，因為空指針的異常或 Kotlin 從傳播中生成的斷言防止空值：
+
 ``` kotlin
 item.substring(1) // allowed, may throw an exception if item == null
 ```
 
 Platform types are *non-denotable*, meaning that one can not write them down explicitly in the language. When a platform value is assigned to a Kotlin variable, we can rely on type inference (the variable will have an inferred platform type then, as `item` has in the example above), or we can choose the type that we expect (both nullable and non-null types are allowed):
+
+平台類型是不可指示，意思著它在語言中不可能明確的寫下它們。當平台的值被分配給 Kotlin 的變數時，我們可以依賴於類型推斷 (變數將推斷平台類型，如上面的範例作為 `item`) ，或者我們可以選擇我們期望的類型 (允許可空的或非空值的類型) ：
 
 ``` kotlin
 val nullable: String? = item // allowed, always works
@@ -119,20 +123,32 @@ val notNull: String = item // allowed, may fail at runtime
 
 If we choose a non-null type, the compiler will emit an assertion upon assignment. This prevents Kotlin's non-null variables from holding nulls. Assertions are also emitted when we pass platform values to Kotlin functions expecting non-null values etc. Overall, the compiler does its best to prevent nulls from propagating far through the program (although sometimes this is impossible to eliminate entirely, because of generics).
 
+如果我們選擇非空值的類型，編譯器將在給值時發出斷言。這可以從保存空值中保護 Kotlin 的非空值變數，當我們傳遞平台值給期望非空值的 Kotlin 函數時，也會發出斷言。總體來說，編譯器透過程式傳播很遠做它最大防護空值 (儘管有時這是不可能完全消全，因為泛型) 。
+
 ### Notation for Platform Types
 
-As mentioned above, platform types cannot be mentioned explicitly in the program, so there's no syntax for them in the language.
-Nevertheless, the compiler and IDE need to display them sometimes (in error messages, parameter info etc), so we have a
-mnemonic notation for them:
+Notation for Platform Types ：平台類型的符號
+
+As mentioned above, platform types cannot be mentioned explicitly in the program, so there's no syntax for them in the language. Nevertheless, the compiler and IDE need to display them sometimes (in error messages, parameter info etc), so we have a mnemonic notation for them:
+
+如上所述，平台類型不可以在程式中明確提及，所以在語言中沒有它們的語法。除非，編譯器或 IDE 有時需要顯示它們 (在錯誤訊息、參數資訊等等) ，所以我們有它們的助記符號：
 
 * `T!` means "`T` or `T?`",
+  `T!` 意味著 "`T` 或 `T?`" ，
 * `(Mutable)Collection<T>!` means "Java collection of `T` may be mutable or not, may be nullable or not",
+  `(Mutable)Collection<T>!` 意味著 "Java的 `T` 集合可能為可變的或不可變的，可能為可空的或非可空的" ，
 * `Array<(out) T>!` means "Java array of `T` (or a subtype of `T`), nullable or not"
+
+  `Array<(out) T>!` 意味著 "Java 的 `T` 陣列 (或 `T` 的子類型) ，可空的或非可空的"
 
 ### Nullability annotations
 
+Nullability annotations ：可空性的註釋
+
 Java types which have nullability annotations are represented not as platform types, but as actual nullable or non-null
 Kotlin types. The compiler supports several flavors of nullability annotations, including:
+
+Java 類型有可空性的註釋表示不會平台類型，而作為實際可空的或非空值的 Kotlin 類型。編譯器支援幾種可空性註釋的風格，包括：
 
   * [JetBrains](https://www.jetbrains.com/idea/help/nullable-and-notnull-annotations.html)
 (`@Nullable` and `@NotNull` from the `org.jetbrains.annotations` package)
@@ -144,102 +160,112 @@ Kotlin types. The compiler supports several flavors of nullability annotations, 
 
 You can find the full list in the [Kotlin compiler source code](https://github.com/JetBrains/kotlin/blob/master/core/descriptors.jvm/src/org/jetbrains/kotlin/load/java/JvmAnnotationNames.kt).
 
+你可以在 [Kotlin 編譯器原始碼](https://github.com/JetBrains/kotlin/blob/master/core/descriptors.jvm/src/org/jetbrains/kotlin/load/java/JvmAnnotationNames.kt)中找到完整的列表。
+
 ### Annotating type parameters
+
+Annotating type parameters ：註釋類型參數
 
 It is possible to annotate type arguments of generic types to provide nullability information for them as well. For example, consider these annotations on a Java declaration:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+註記泛型類型的類型參照也可以為它們提供可空性的資訊。例如，考慮這些在 Java 宣告中的註釋：
+
 ```java
 @NotNull
 Set<@NotNull String> toSet(@NotNull Collection<@NotNull String> elements) { ... }
 ```
-</div>
 
 It leads to the following signature seen in Kotlin:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+它導致在 Kotlin 中看到以下簽名：
+
 ```kotlin
 fun toSet(elements: (Mutable)Collection<String>) : (Mutable)Set<String> { ... }
 ```
-</div>
 
 Note the `@NotNull` annotations on `String` type arguments. Without them, we get platform types in the type arguments:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+注意： 在 String 類型參數的 `@NotNull` 註釋。沒有它們，我們在類型參數取得平台類型：
+
 ```kotlin
 fun toSet(elements: (Mutable)Collection<String!>) : (Mutable)Set<String!> { ... }
 ```
-</div>
 
 Annotating type arguments works with Java 8 target or higher and requires the nullability annotations to support the `TYPE_USE` target (`org.jetbrains.annotations` supports this in version 15 and above).
 
+註記類型參數適用於 Java 8 目標或更高的版本，並且需要可空性註釋來支援 `TYPE_USE` 目標 (`org.jetbrains.annotations` 在版本 15 及更高版本中支援這功能)。
+
 ### JSR-305 Support
 
-The [`@Nonnull`](https://aalmiray.github.io/jsr-305/apidocs/javax/annotation/Nonnull.html) annotation defined 
-in [JSR-305](https://jcp.org/en/jsr/detail?id=305) is supported for denoting nullability of Java types.
+JSR-305 Support ： JSR-305 支援
 
-If the `@Nonnull(when = ...)` value is `When.ALWAYS`, the annotated type is treated as non-null; `When.MAYBE` and 
-`When.NEVER` denote a nullable type; and `When.UNKNOWN` forces the type to be [platform one](#null-safety-and-platform-types).
+The [`@Nonnull`](https://aalmiray.github.io/jsr-305/apidocs/javax/annotation/Nonnull.html) annotation defined in [JSR-305](https://jcp.org/en/jsr/detail?id=305) is supported for denoting nullability of Java types.
 
-A library can be compiled against the JSR-305 annotations, but there's no need to make the annotations artifact (e.g. `jsr305.jar`)
-a compile dependency for the library consumers. The Kotlin compiler can read the JSR-305 annotations from a library without the annotations 
-present on the classpath.
+在 [JSR-305](https://jcp.org/en/jsr/detail?id=305) 中定義[`@Nonnull`](https://aalmiray.github.io/jsr-305/apidocs/javax/annotation/Nonnull.html) 註釋表示 Java 類型的可空性支援。
 
-Since Kotlin 1.1.50, 
-[custom nullability qualifiers (KEEP-79)](https://github.com/Kotlin/KEEP/blob/41091f1cc7045142181d8c89645059f4a15cc91a/proposals/jsr-305-custom-nullability-qualifiers.md) 
-are also supported (see below).
+If the `@Nonnull(when = ...)` value is `When.ALWAYS`, the annotated type is treated as non-null; `When.MAYBE` and `When.NEVER` denote a nullable type; and `When.UNKNOWN` forces the type to be [platform one](#null-safety-and-platform-types).
+
+如果 `@Nonnull(when = ...)` 的值是 `When.ALWAYS` ，被註記類型被視為非空值；`When.MAYBE` 和 `When.NEVER` 表示可空的類型；以及 `When.UNKNOWN` 強制類型為 [平台類型](#null-safety-and-platform-types) 。
+
+A library can be compiled against the JSR-305 annotations, but there's no need to make the annotations artifact (e.g. `jsr305.jar`) a compile dependency for the library consumers. The Kotlin compiler can read the JSR-305 annotations from a library without the annotations present on the classpath.
+
+針對 JSR-305 註釋可以編譯成函式庫。但沒有需要使註釋的手工品 (例如：`jsr305.jar`) 成為函式庫的使用者編譯的依賴。 Kotlin 編譯器可以從函式庫在沒有註釋出現在類別路徑中去讀取 JSR-305 註釋。
+
+Since Kotlin 1.1.50, [custom nullability qualifiers (KEEP-79)](https://github.com/Kotlin/KEEP/blob/41091f1cc7045142181d8c89645059f4a15cc91a/proposals/jsr-305-custom-nullability-qualifiers.md) are also supported (see below).
+
+從 Kotlin 1.1.50 版，也支援[自定義可空性的修飾符 (KEEP-79)](https://github.com/Kotlin/KEEP/blob/41091f1cc7045142181d8c89645059f4a15cc91a/proposals/jsr-305-custom-nullability-qualifiers.md) (見下文) 。
 
 #### Type qualifier nicknames (since 1.1.50)
 
-If an annotation type is annotated with both
-[`@TypeQualifierNickname`](https://aalmiray.github.io/jsr-305/apidocs/javax/annotation/meta/TypeQualifierNickname.html) 
-and JSR-305 `@Nonnull` (or its another nickname, such as `@CheckForNull`), then the annotation type is itself used for 
-retrieving precise nullability and has the same meaning as that nullability annotation:
+Type qualifier nicknames (since 1.1.50) ：類型修飾符暱名 (從 1.1.50 版)
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+If an annotation type is annotated with both [`@TypeQualifierNickname`](https://aalmiray.github.io/jsr-305/apidocs/javax/annotation/meta/TypeQualifierNickname.html) and JSR-305 `@Nonnull` (or its another nickname, such as `@CheckForNull`), then the annotation type is itself used for retrieving precise nullability and has the same meaning as that nullability annotation:
+
+如果註釋類型使用 [`@TypeQualifierNickname`](https://aalmiray.github.io/jsr-305/apidocs/javax/annotation/meta/TypeQualifierNickname.html) 和 JSR-305 `@Nonnull` 進行註記 (或它的其他暱名，例如：`@CheckForNull`) ，然後新的註釋類型本身用為檢索精準可空性以及與可空性的註釋相同意義：
+
+**`@TypeQualifierNickname` 代表建立一個新的註譯包括其他的註釋特性**
+
 ``` java
+// 新的暱名註釋 @MyNonnull 將包含兩個特性：
+// @Nonnull(when = When.ALWAYS) 、 @Retention(RetentionPolicy.RUNTIME)
 @TypeQualifierNickname
-@Nonnull(when = When.ALWAYS)
-@Retention(RetentionPolicy.RUNTIME)
-public @interface MyNonnull {
+@Nonnull(when = When.ALWAYS) // 總是為非空值，代表一定要有值
+@Retention(RetentionPolicy.RUNTIME) // 保留到運行時處理
+public @interface MyNonnull { 
 }
 
+// 新的暱名註釋 @MyNullable 將包含兩個特性：
+// @CheckForNull 、 @Retention(RetentionPolicy.RUNTIME)
 @TypeQualifierNickname
-@CheckForNull // a nickname to another type qualifier nickname
+@CheckForNull // a nickname to another type qualifier nickname ，為其他類型修飾符的暱名
 @Retention(RetentionPolicy.RUNTIME)
 public @interface MyNullable {
 }
 
 interface A {
-​    @MyNullable String foo(@MyNonnull String x); 
-​    // in Kotlin (strict mode): `fun foo(x: String): String?`
-​    
-​    String bar(List<@MyNonnull String> x);       
-​    // in Kotlin (strict mode): `fun bar(x: List<String>!): String!`
+    @MyNullable String foo(@MyNonnull String x); 
+    // in Kotlin (strict mode): `fun foo(x: String): String?`
+    
+    String bar(List<@MyNonnull String> x);       
+    // in Kotlin (strict mode): `fun bar(x: List<String>!): String!`
 }
 ```
-</div>
+
 
 #### Type qualifier defaults (since 1.1.50)
 
-[`@TypeQualifierDefault`](https://aalmiray.github.io/jsr-305/apidocs/javax/annotation/meta/TypeQualifierDefault.html) 
-allows introducing annotations that, when being applied, define the default nullability within the scope of the annotated 
-element.
+[`@TypeQualifierDefault`](https://aalmiray.github.io/jsr-305/apidocs/javax/annotation/meta/TypeQualifierDefault.html) allows introducing annotations that, when being applied, define the default nullability within the scope of the annotated element.
 
-Such annotation type should itself be annotated with both `@Nonnull` (or its nickname) and `@TypeQualifierDefault(...)` 
-with one or more `ElementType` values:
+Such annotation type should itself be annotated with both `@Nonnull` (or its nickname) and `@TypeQualifierDefault(...)` with one or more `ElementType` values:
 * `ElementType.METHOD` for return types of methods;
 * `ElementType.PARAMETER` for value parameters;
 * `ElementType.FIELD` for fields; and
 * `ElementType.TYPE_USE` (since 1.1.60) for any type including type arguments, upper bounds of type parameters and wildcard types.
 
 
-The default nullability is used when a type itself is not annotated by a nullability annotation, and the default is
-determined by the innermost enclosing element annotated with a type qualifier default annotation with the 
-`ElementType` matching the type usage.
+The default nullability is used when a type itself is not annotated by a nullability annotation, and the default is determined by the innermost enclosing element annotated with a type qualifier default annotation with the `ElementType` matching the type usage.
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
-​```java
+```java
 @Nonnull
 @TypeQualifierDefault({ElementType.METHOD, ElementType.PARAMETER})
 public @interface NonNullApi {
@@ -253,32 +279,29 @@ public @interface NullableApi {
 @NullableApi
 interface A {
     String foo(String x); // fun foo(x: String?): String?
- 
+
     @NotNullApi // overriding default from the interface
     String bar(String x, @Nullable String y); // fun bar(x: String, y: String?): String 
     
     // The List<String> type argument is seen as nullable because of `@NullableApi`
     // having the `TYPE_USE` element type: 
     String baz(List<String> x); // fun baz(List<String?>?): String?
-
+    
     // The type of `x` parameter remains platform because there's an explicit
     // UNKNOWN-marked nullability annotation:
     String qux(@Nonnull(when = When.UNKNOWN) String x); // fun baz(x: String!): String?
 }
 ```
-</div>
 
 > Note: the types in this example only take place with the strict mode enabled, otherwise, the platform types remain. See the [`@UnderMigration` annotation](#undermigration-annotation-since-1160) and [Compiler configuration](#compiler-configuration) sections.
 
 Package-level default nullability is also supported:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
 ```java
 // FILE: test/package-info.java
 @NonNullApi // declaring all types in package 'test' as non-nullable by default
 package test;
 ```
-</div>
 
 #### `@UnderMigration` annotation (since 1.1.60)
 
