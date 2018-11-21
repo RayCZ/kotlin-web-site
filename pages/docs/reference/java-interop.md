@@ -251,42 +251,63 @@ interface A {
 }
 ```
 
-
 #### Type qualifier defaults (since 1.1.50)
+
+Type qualifier defaults (since 1.1.50) ：類型修飾符預設值 (從 1.1.50 版) ，預設值套用的範圍
 
 [`@TypeQualifierDefault`](https://aalmiray.github.io/jsr-305/apidocs/javax/annotation/meta/TypeQualifierDefault.html) allows introducing annotations that, when being applied, define the default nullability within the scope of the annotated element.
 
-Such annotation type should itself be annotated with both `@Nonnull` (or its nickname) and `@TypeQualifierDefault(...)` with one or more `ElementType` values:
-* `ElementType.METHOD` for return types of methods;
-* `ElementType.PARAMETER` for value parameters;
-* `ElementType.FIELD` for fields; and
-* `ElementType.TYPE_USE` (since 1.1.60) for any type including type arguments, upper bounds of type parameters and wildcard types.
+[`@TypeQualifierDefault`](https://aalmiray.github.io/jsr-305/apidocs/javax/annotation/meta/TypeQualifierDefault.html) 允許引入註譯，當註釋開始應用時，在已註釋元素的範圍內定義預設值的可空性。
 
+Such annotation type should itself be annotated with both `@Nonnull` (or its nickname) and `@TypeQualifierDefault(...)` with one or more `ElementType` values:
+
+這樣註釋類型應該使用 `@Nonnull` (或它的暱名) 和 `@TypeQualifierDefault(...)` 帶有一個或多個的 `ElementType` 值註記本身：
+
+* `ElementType.METHOD` for return types of methods;
+  `ElementType.METHOD` 用於回傳方法的類型；
+* `ElementType.PARAMETER` for value parameters;
+  `ElementType.PARAMETER` 用於參數值；
+* `ElementType.FIELD` for fields; and
+  `ElementType.FIELD` 用於欄位；以及
+* `ElementType.TYPE_USE` (since 1.1.60) for any type including type arguments, upper bounds of type parameters and wildcard types.
+  `ElementType.TYPE_USE` (從 1.1.60 版) 用於任何類型包括類型參數、類型參數的上限和通配符類型。
 
 The default nullability is used when a type itself is not annotated by a nullability annotation, and the default is determined by the innermost enclosing element annotated with a type qualifier default annotation with the `ElementType` matching the type usage.
+
+當透過可空性的註釋不能註記類型本身時，使用預設值的可空性，並且預設由最內層封閉元素決定，使用類型修飾符預設值註記元素，使用 `ElementType` 與類型用法匹配。
+
+**使用 `ElementType` 來決定預設值套用的圍範是方法、參數、欄位、通用等**
 
 ```java
 @Nonnull
 @TypeQualifierDefault({ElementType.METHOD, ElementType.PARAMETER})
-public @interface NonNullApi {
+public @interface NonNullApi { // 非可空、用於方法、參數
 }
 
 @Nonnull(when = When.MAYBE)
 @TypeQualifierDefault({ElementType.METHOD, ElementType.PARAMETER, ElementType.TYPE_USE})
-public @interface NullableApi {
+public @interface NullableApi { // 可空、用於方法、參數、通用
 }
 
-@NullableApi
+@NullableApi // 作為預設，以下的內層預設為 @NullableApi 特性套用到方法、參數、通用
 interface A {
+    // 由以下最內層封閉元素再次決定
+    
+    // 預設是 @NullableApi 所以會變成 String? 可空的類型
     String foo(String x); // fun foo(x: String?): String?
 
+    // @NotNullApi 蓋過原本預設是 @NullableApi 
+    // 第一個參數是 @NotNullApi 特性， String 不可空的類型
+    // 第二個參數是 @Nullable 特性， String? 可空的類型
     @NotNullApi // overriding default from the interface
     String bar(String x, @Nullable String y); // fun bar(x: String, y: String?): String 
     
+    // 預設是 @NullableApi 有 ElementType.TYPE_USE 所以類型參數也是可空的 List<String?>?
     // The List<String> type argument is seen as nullable because of `@NullableApi`
     // having the `TYPE_USE` element type: 
     String baz(List<String> x); // fun baz(List<String?>?): String?
     
+    // 參數 x 套用 @Nonnull(when = When.UNKNOWN) ，明確的指定由平台類型決定，所以為 String? 可空的類型
     // The type of `x` parameter remains platform because there's an explicit
     // UNKNOWN-marked nullability annotation:
     String qux(@Nonnull(when = When.UNKNOWN) String x); // fun baz(x: String!): String?
@@ -294,8 +315,12 @@ interface A {
 ```
 
 > Note: the types in this example only take place with the strict mode enabled, otherwise, the platform types remain. See the [`@UnderMigration` annotation](#undermigration-annotation-since-1160) and [Compiler configuration](#compiler-configuration) sections.
+>
+> 注意：在這個例子中只有發生在啟動嚴格模式，否則，平台類型保留。參閱 [`@UnderMigration` annotation](#undermigration-annotation-since-1160) 和[Compiler configuration](#compiler-configuration) 章節。
 
 Package-level default nullability is also supported:
+
+也支援 Package-level 預設可空性：
 
 ```java
 // FILE: test/package-info.java
@@ -305,28 +330,34 @@ package test;
 
 #### `@UnderMigration` annotation (since 1.1.60)
 
-The `@UnderMigration` annotation (provided in a separate artifact `kotlin-annotations-jvm`) can be used by library 
-maintainers to define the migration status for the nullability type qualifiers.
+`@UnderMigration` annotation (since 1.1.60) ： `@UnderMigration` 註釋 (從 1.1.60 版)
 
-The status value in `@UnderMigration(status = ...)` specifies how the compiler treats inappropriate usages of the 
-annotated types in Kotlin (e.g. using a `@MyNullable`-annotated type value as non-null):
+The `@UnderMigration` annotation (provided in a separate artifact `kotlin-annotations-jvm`) can be used by library maintainers to define the migration status for the nullability type qualifiers.
 
-* `MigrationStatus.STRICT` makes annotation work as any plain nullability annotation, i.e. report errors for 
-the inappropriate usages and affect the types in the annotated declarations as they are seen in Kotlin;
+函式庫維護者可以使用 `@UnderMigration` 註釋 (在單獨的手工品 `kotlin-annotations-jvm` 提供) ，去定義遷移狀態用於可空性類型修飾符。
 
-* with `MigrationStatus.WARN`, the inappropriate usages are reported as compilation warnings instead of errors, 
-but the types in the annotated declarations remain platform; and
+The status value in `@UnderMigration(status = ...)` specifies how the compiler treats inappropriate usages of the annotated types in Kotlin (e.g. using a `@MyNullable`-annotated type value as non-null):
+
+在 `@UnderMigration(status = ...)` 中的狀態值，指定編譯器如何處理在 Kotlin 中註記類型的不適當用法 (例如，使用 `@MyNullable` 註記類型值為非空值) ：
+
+* `MigrationStatus.STRICT` makes annotation work as any plain nullability annotation, i.e. report errors for the inappropriate usages and affect the types in the annotated declarations as they are seen in Kotlin;
+  `MigrationStatus.STRICT` 使註釋作為任何原始可空性註釋，例如，對不適當的用法報告錯誤，並且影響在 Kotlin 中看到的已註記宣告的類型；
+
+* with `MigrationStatus.WARN`, the inappropriate usages are reported as compilation warnings instead of errors, but the types in the annotated declarations remain platform; and
+  使用 `MigrationStatus.WARN` ，不適告的用法被報告為編譯警告代替錯誤，但在已註記宣告的類型仍然保留平台；以及
 
 * `MigrationStatus.IGNORE` makes the compiler ignore the nullability annotation completely.
+  `MigrationStatus.IGNORE` 使編譯器完全略過可空性的註釋。
 
 A library maintainer can add `@UnderMigration` status to both type qualifier nicknames and type qualifier defaults:  
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+函式庫維護者可以添加 `@UnderMigration` 狀態給類型修飾符匿名和類型修飾符預設值：
+
 ```java
 @Nonnull(when = When.ALWAYS)
 @TypeQualifierDefault({ElementType.METHOD, ElementType.PARAMETER})
 @UnderMigration(status = MigrationStatus.WARN)
-public @interface NonNullApi {
+public @interface NonNullApi { //非空值、用於方法、參數、編譯器跳出警告
 }
 
 // The types in the class are non-null, but only warnings are reported
@@ -334,13 +365,14 @@ public @interface NonNullApi {
 @NonNullApi 
 public class Test {}
 ```
-</div>
 
-Note: the migration status of a nullability annotation is not inherited by its type qualifier nicknames but is applied
-to its usages in default type qualifiers.
+Note: the migration status of a nullability annotation is not inherited by its type qualifier nicknames but is applied to its usages in default type qualifiers.
 
-If a default type qualifier uses a type qualifier nickname and they are both `@UnderMigration`, the status
-from the default type qualifier is used. 
+注意：可空性註釋的遷移狀態不可以透過它的類型修飾符暱名繼承，而是在預設類型修飾符應用於它的用法。
+
+If a default type qualifier uses a type qualifier nickname and they are both `@UnderMigration`, the status from the default type qualifier is used. 
+
+如果預設類型修飾符使用類型修飾符暱名和它是 `@UnderMigration` ，則使用預設類型修飾符的狀態。
 
 #### Compiler configuration
 
