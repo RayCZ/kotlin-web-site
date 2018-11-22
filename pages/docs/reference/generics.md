@@ -415,9 +415,9 @@ Type casts to generic types with concrete type arguments, e.g. `foo as List<Stri
 
 使用具體類型參數使類型強制轉換到泛型類型，例如： `foo as List<String>` ，在運行時不可以檢查。
 
-These [unchecked casts](typecasts.mc#unchecked-casts) can be used when type safety is implied by the high-level program logic but cannot be inferred directly by the compiler. The compiler issues a warning on unchecked casts, and at runtime, only the non-generic part is checked (equivalent to `foo as List<*>`).
+These [unchecked casts](typecasts.md#unchecked-casts) can be used when type safety is implied by the high-level program logic but cannot be inferred directly by the compiler. The compiler issues a warning on unchecked casts, and at runtime, only the non-generic part is checked (equivalent to `foo as List<*>`).
 
-當由高階程式邏輯隱性知道類型安全性，但透過編譯器不可以直接推斷時，可以使用那些[未檢查的強制轉型](typecasts.mc#unchecked-casts)。編譯器在未檢查的強制轉型發出警告，並只在運行時期，只有檢查非泛型部份 (相當於  `foo as List<*>`) 。
+當由高階程式邏輯隱性知道類型安全性，但透過編譯器不可以直接推斷時，可以使用那些[未檢查的強制轉型](typecasts.md#unchecked-casts)。編譯器在未檢查的強制轉型發出警告，並只在運行時期，只有檢查非泛型部份 (相當於  `foo as List<*>`) 。
 
 The type arguments of generic function calls are also only checked at compile time. Inside the function bodies, the type parameters cannot be used for type checks, and type casts to type parameters (`foo as T`) are unchecked. However, [reified type parameters](inline-functions.md#reified-type-parameters) of inline functions are substituted by the actual type arguments in the inlined function body at the call sites and thus can be used for type checks and casts, with the same restrictions for instances of generic types as described above.
 
