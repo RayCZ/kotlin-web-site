@@ -405,8 +405,20 @@ Type erasure ：類型消除
 
 The type safety checks that Kotlin performs for generic declaration usages are only done at compile time. At runtime, the instances of generic types do not hold any information about their actual type arguments. The type information is said to be *erased*. For example, the instances of `Foo<Bar>` and `Foo<Baz?>` are erased to just `Foo<*>`.
 
-Therefore, there is no general way to check whether an instance of a generic type was created with certain type arguments at runtime, and the compiler [prohibits such *is*{: .keyword }-checks](typecasts.html#type-erasure-and-generic-type-checks).
+Kotlin 為泛型宣告用法執行類型安全性檢查只在編譯時期完成。在運行時期，泛型類型的實例不會保留有關它們的實際類型參數的任何資訊。據說類型資訊被消除了。例如， `Foo<Bar>` 和 `Foo<Baz?>` 的實例被消除為 `Foo<*>` 。
 
-Type casts to generic types with concrete type arguments, e.g. `foo as List<String>`, cannot be checked at runtime. These [unchecked casts](typecasts.html#unchecked-casts) can be used when type safety is implied by the high-level program logic but cannot be inferred directly by the compiler. The compiler issues a warning on unchecked casts, and at runtime, only the non-generic part is checked (equivalent to `foo as List<*>`).
+Therefore, there is no general way to check whether an instance of a generic type was created with certain type arguments at runtime, and the compiler [prohibits such *is*-checks](typecasts.md#type-erasure-and-generic-type-checks).
 
-The type arguments of generic function calls are also only checked at compile time. Inside the function bodies, the type parameters cannot be used for type checks, and type casts to type parameters (`foo as T`) are unchecked. However, [reified type parameters](inline-functions.html#reified-type-parameters) of inline functions are substituted by the actual type arguments in the inlined function body at the call sites and thus can be used for type checks and casts, with the same restrictions for instances of generic types as described above.
+因此沒有通用的方式，去檢查在運行時期使用某些類型參數是否建立泛型類型的實例，以及編譯器[禁止這種 `is` 檢查](typecasts.md#type-erasure-and-generic-type-checks)。
+
+Type casts to generic types with concrete type arguments, e.g. `foo as List<String>`, cannot be checked at runtime. 
+
+使用具體類型參數使類型強制轉換到泛型類型，例如： `foo as List<String>` ，在運行時不可以檢查。
+
+These [unchecked casts](typecasts.mc#unchecked-casts) can be used when type safety is implied by the high-level program logic but cannot be inferred directly by the compiler. The compiler issues a warning on unchecked casts, and at runtime, only the non-generic part is checked (equivalent to `foo as List<*>`).
+
+當由高階程式邏輯隱性知道類型安全性，但透過編譯器不可以直接推斷時，可以使用那些[未檢查的強制轉型](typecasts.mc#unchecked-casts)。編譯器在未檢查的強制轉型發出警告，並只在運行時期，只有檢查非泛型部份 (相當於  `foo as List<*>`) 。
+
+The type arguments of generic function calls are also only checked at compile time. Inside the function bodies, the type parameters cannot be used for type checks, and type casts to type parameters (`foo as T`) are unchecked. However, [reified type parameters](inline-functions.md#reified-type-parameters) of inline functions are substituted by the actual type arguments in the inlined function body at the call sites and thus can be used for type checks and casts, with the same restrictions for instances of generic types as described above.
+
+泛型函數調用的類型參數也只在編譯時期檢查。在函數內文中，類型參數不可以用於類型檢查，並未檢查將類型強制轉型為類型參數 (`foo as T`) 。然而，由調用場景中置入函數內文實際類型參數取代行內置入的[具體化類型參數](inline-functions.md#reified-type-parameters)，因此可以被用於類型檢查和強制轉型，與上述相同泛型類型實例的限制。
