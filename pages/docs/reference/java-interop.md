@@ -253,7 +253,7 @@ interface A {
 
 #### Type qualifier defaults (since 1.1.50)
 
-Type qualifier defaults (since 1.1.50) ：類型修飾符預設值 (從 1.1.50 版) ，預設值套用的範圍
+Type qualifier defaults (since 1.1.50) ：類型修飾符預設值 (從 1.1.50 版) 
 
 [`@TypeQualifierDefault`](https://aalmiray.github.io/jsr-305/apidocs/javax/annotation/meta/TypeQualifierDefault.html) allows introducing annotations that, when being applied, define the default nullability within the scope of the annotated element.
 
@@ -341,7 +341,7 @@ The status value in `@UnderMigration(status = ...)` specifies how the compiler t
 在 `@UnderMigration(status = ...)` 中的狀態值，指定編譯器如何處理在 Kotlin 中註記類型的不適當用法 (例如，使用 `@MyNullable` 註記類型值為非空值) ：
 
 * `MigrationStatus.STRICT` makes annotation work as any plain nullability annotation, i.e. report errors for the inappropriate usages and affect the types in the annotated declarations as they are seen in Kotlin;
-  `MigrationStatus.STRICT` 使註釋作為任何原始可空性註釋，例如，對不適當的用法報告錯誤，並且影響在 Kotlin 中看到的已註記宣告的類型；
+  `MigrationStatus.STRICT` 使註釋作為任何原始可空性註釋，即是，對不適當的用法報告錯誤，並且影響在 Kotlin 中看到的已註記宣告的類型；
 
 * with `MigrationStatus.WARN`, the inappropriate usages are reported as compilation warnings instead of errors, but the types in the annotated declarations remain platform; and
   使用 `MigrationStatus.WARN` ，不適告的用法被報告為編譯警告代替錯誤，但在已註記宣告的類型仍然保留平台；以及
@@ -376,38 +376,43 @@ If a default type qualifier uses a type qualifier nickname and they are both `@U
 
 #### Compiler configuration
 
+Compiler configuration ：編譯器配置
+
 The JSR-305 checks can be configured by adding the `-Xjsr305` compiler flag with the following options (and their combination):
 
-* `-Xjsr305={strict|warn|ignore}` to set up the behavior for non-`@UnderMigration` annotations.
-Custom nullability qualifiers, especially 
-`@TypeQualifierDefault`, are already spread among many well-known libraries, and users may need to migrate smoothly when 
-updating to the Kotlin version containing JSR-305 support. Since Kotlin 1.1.60, this flag only affects non-`@UnderMigration` annotations.
+透過添加 `-Xjsr305` 編譯器標誌配置 JSR-305 檢查，使用以下選項 (以及它們的組合) ：
 
-* `-Xjsr305=under-migration:{strict|warn|ignore}` (since 1.1.60) to override the behavior for the `@UnderMigration` annotations.
-Users may have different view on the migration status for the libraries: 
-they may want to have errors while the official migration status is `WARN`, or vice versa, 
-they may wish to postpone errors reporting for some until they complete their migration.
+* `-Xjsr305={strict|warn|ignore}` to set up the behavior for non-`@UnderMigration` annotations. Custom nullability qualifiers, especially `@TypeQualifierDefault`, are already spread among many well-known libraries, and users may need to migrate smoothly when updating to the Kotlin version containing JSR-305 support. Since Kotlin 1.1.60, this flag only affects non-`@UnderMigration` annotations.
+  `-Xjsr305={strict|warn|ignore}` 用於非 `@UnderMigration` 註釋的設置行為。自定義可空性的修飾符，特別是 `@TypeQualifierDefault` ，已經在許多知名的函式庫中傳播，使用者可能需要當更新包含 JSR-305 支援的 Kotlin 版本時順利遷移。自從 Kotlin 1.1.60 ，這個標誌只影響非 `@UnderMigration` 註釋。
 
-* `-Xjsr305=@<fq.name>:{strict|warn|ignore}` (since 1.1.60) to override the behavior for a single annotation, where `<fq.name>` 
-is the fully qualified class name of the annotation. May appear several times for different annotations. This is useful
-for managing the migration state for a particular library.
+* `-Xjsr305=under-migration:{strict|warn|ignore}` (since 1.1.60) to override the behavior for the `@UnderMigration` annotations. Users may have different view on the migration status for the libraries: they may want to have errors while the official migration status is `WARN`, or vice versa, they may wish to postpone errors reporting for some until they complete their migration.
+  `-Xjsr305=under-migration:{strict|warn|ignore}` (從 1.1.60) 覆寫的行為用於 `@UnderMigration` 註釋。使用者可能在函式庫的遷移狀態有不同的看法：它們可能當官方遷移狀態是 `WARN` 有錯誤訊息，或反過來，它們可能希望延遲錯誤報告，直到它們完成遷移。
+* `-Xjsr305=@<fq.name>:{strict|warn|ignore}` (since 1.1.60) to override the behavior for a single annotation, where `<fq.name>` is the fully qualified class name of the annotation. May appear several times for different annotations. This is useful for managing the migration state for a particular library.
+  `-Xjsr305=@<fq.name>:{strict|warn|ignore}` (從 1.1.60) 覆寫行為用於單個註釋，在 `<fq.name>` 註釋完整修飾的類型名稱。對於不同的註釋可能出現多次。用於管理特定函式庫遷移狀態，這是非常有用的。
 
 The `strict`, `warn` and `ignore` values have the same meaning as those of `MigrationStatus`, and only the `strict` mode affects the types in the annotated declarations as they are seen in Kotlin.
 
+`strict` 、 `warn` 、 `ignore` 值與那些 `MigrationStatus` 有相同意義，並只有 `strict` 影響在 Kotlin 中看到的已註記宣告的類型。
+
 > Note: the built-in JSR-305 annotations [`@Nonnull`](https://aalmiray.github.io/jsr-305/apidocs/javax/annotation/Nonnull.html), [`@Nullable`](https://aalmiray.github.io/jsr-305/apidocs/javax/annotation/Nullable.html) and [`@CheckForNull`](https://aalmiray.github.io/jsr-305/apidocs/javax/annotation/CheckForNull.html) are always enabled and affect the types of the annotated declarations in Kotlin, regardless of compiler configuration with the `-Xjsr305` flag.
+>
+> 注意： JSR-305 內建的註釋 [`@Nonnull`](https://aalmiray.github.io/jsr-305/apidocs/javax/annotation/Nonnull.html) 、 [`@Nullable`](https://aalmiray.github.io/jsr-305/apidocs/javax/annotation/Nullable.html) 、 [`@CheckForNull`](https://aalmiray.github.io/jsr-305/apidocs/javax/annotation/CheckForNull.html) 總是被啟動並影響在 Kotlin 已註釋宣告的類型，無論編譯器使用 `-Xjsr305` 標誌配置如何。
 
-For example, adding `-Xjsr305=ignore -Xjsr305=under-migration:ignore -Xjsr305=@org.library.MyNullable:warn` to the 
-compiler arguments makes the compiler generate warnings for inappropriate usages of types annotated by 
-`@org.library.MyNullable` and ignore all other JSR-305 annotations. 
+For example, adding `-Xjsr305=ignore -Xjsr305=under-migration:ignore -Xjsr305=@org.library.MyNullable:warn` to the compiler arguments makes the compiler generate warnings for inappropriate usages of types annotated by `@org.library.MyNullable` and ignore all other JSR-305 annotations. 
 
-For kotlin versions 1.1.50+/1.2, the default behavior is the same to `-Xjsr305=warn`. The
-`strict` value should be considered experimental (more checks may be added to it in the future).
+例如，添加 `-Xjsr305=ignore -Xjsr305=under-migration:ignore -Xjsr305=@org.library.MyNullable:warn` 給編譯器的參數，使編譯器透過 `@org.library.MyNullable` 註記類型不適當的用法生成警告，以及忽略所有 JSR-305 註釋。
+
+For kotlin versions 1.1.50+/1.2, the default behavior is the same to `-Xjsr305=warn`. The `strict` value should be considered experimental (more checks may be added to it in the future).
+
+對於 Kotlin 版本 1.1.50+/1.2 ，預設行為與 `-Xjsr305=warn` 相同。 `strict` 值應該被視為實驗性的 (在未來可能添加更多檢查) 。
 
 ## Mapped types
 
-Kotlin treats some Java types specially. Such types are not loaded from Java "as is", but are _mapped_ to corresponding Kotlin types.
-The mapping only matters at compile time, the runtime representation remains unchanged.
- Java's primitive types are mapped to corresponding Kotlin types (keeping [platform types](#null-safety-and-platform-types) in mind):
+Mapped types ：映射類型
+
+Kotlin treats some Java types specially. Such types are not loaded from Java "as is", but are _mapped_ to corresponding Kotlin types. The mapping only matters at compile time, the runtime representation remains unchanged. Java's primitive types are mapped to corresponding Kotlin types (keeping [platform types](#null-safety-and-platform-types) in mind):
+
+Kotlin 特別處理 Java 類型。這些類型不需要從 Java "as is" 載入，而是被映射到相對應的 Kotlin 類型。映射只是編譯時期事情，運行時期表示保持不改變。 Java 的原生類型被映射到相對應的 Kotlin 類型 (記住保持[平台類型](#null-safety-and-platform-types)) ：
 
 | **Java type** | **Kotlin type**  |
 |---------------|------------------|
@@ -419,9 +424,11 @@ The mapping only matters at compile time, the runtime representation remains unc
 | `float`       | `kotlin.Float`   |
 | `double`      | `kotlin.Double`  |
 | `boolean`     | `kotlin.Boolean` |
-{:.zebra}
-
 Some non-primitive built-in classes are also mapped:
+
+有些非原生內建類型也被映射：
+
+**注意平台類型符號 `!` 代表 Nullable (可空的) 或 Non-Null (非空值)**
 
 | **Java type** | **Kotlin type**  |
 |---------------|------------------|
@@ -435,9 +442,9 @@ Some non-primitive built-in classes are also mapped:
 | `java.lang.String`       | `kotlin.String!`   |
 | `java.lang.Number`       | `kotlin.Number!`     |
 | `java.lang.Throwable`    | `kotlin.Throwable!`    |
-{:.zebra}
-
 Java's boxed primitive types are mapped to nullable Kotlin types:
+
+Java 自動裝箱原生類型也被映射到可空的 Kotlin 類型：
 
 | **Java type**           | **Kotlin type**  |
 |-------------------------|------------------|
@@ -449,13 +456,13 @@ Java's boxed primitive types are mapped to nullable Kotlin types:
 | `java.lang.Float`       | `kotlin.Float?`  |
 | `java.lang.Double`      | `kotlin.Double?`  |
 | `java.lang.Boolean`     | `kotlin.Boolean?` |
-{:.zebra}
+Note that a boxed primitive type used as a type parameter is mapped to a platform type: for example, `List<java.lang.Integer>` becomes a `List<Int!>` in Kotlin.
 
-Note that a boxed primitive type used as a type parameter is mapped to a platform type:
-for example, `List<java.lang.Integer>` becomes a `List<Int!>` in Kotlin.
+注意：自動裝箱原生類型用作類型參數被映射到平台類型：例如， `List<java.lang.Integer>` 變成在 Kotlin 的 `List<Int!>` 。
 
-Collection types may be read-only or mutable in Kotlin, so Java's collections are mapped as follows
-(all Kotlin types in this table reside in the package `kotlin.collections`):
+Collection types may be read-only or mutable in Kotlin, so Java's collections are mapped as follows (all Kotlin types in this table reside in the package `kotlin.collections`):
+
+集合類型在 Kotlin 中可以只讀或可變的，所以 Java 的集合被映射為以下 (在這表中所有 Kotlin 類型存在 package `kotlin.collections` ) ：
 
 | **Java type** | **Kotlin read-only type**  | **Kotlin mutable type** | **Loaded platform type** |
 |---------------|------------------|----|----|
@@ -467,41 +474,47 @@ Collection types may be read-only or mutable in Kotlin, so Java's collections ar
 | `ListIterator<T>`    | `ListIterator<T>`    | `MutableListIterator<T>`        | `(Mutable)ListIterator<T>!`        |
 | `Map<K, V>`          | `Map<K, V>`          | `MutableMap<K, V>`              | `(Mutable)Map<K, V>!`              |
 | `Map.Entry<K, V>`    | `Map.Entry<K, V>`    | `MutableMap.MutableEntry<K,V>` | `(Mutable)Map.(Mutable)Entry<K, V>!` |
-{:.zebra}
+Java's arrays are mapped as mentioned [below](#java-arrays):
 
-Java's arrays are mapped as mentioned [below](java-interop.html#java-arrays):
+Java 的陣列被映射為[以下敘述](#java-arrays) ：
 
 | **Java type** | **Kotlin type**  |
 |---------------|------------------|
 | `int[]`       | `kotlin.IntArray!` |
 | `String[]`    | `kotlin.Array<(out) String>!` |
-{:.zebra}
+Note: the static members of these Java types are not directly accessible on the [companion objects](object-declarations.md#companion-objects) of the Kotlin types. To call them, use the full qualified names of the Java types, e.g. `java.lang.Integer.toHexString(foo)`.
 
-Note: the static members of these Java types are not directly accessible on the [companion objects](object-declarations.html#companion-objects) of the Kotlin types. To call them, use the full qualified names of the Java types, e.g. `java.lang.Integer.toHexString(foo)`.
+注意：這些 Java 類型的靜態成員不能直接在 Kotlin 類型的[夥伴物件](object-declarations.md#companion-objects)上存取。去調用它們，使用 Java 類型的完整修飾名稱，例如： `java.lang.Integer.toHexString(foo)` 。
 
 ## Java generics in Kotlin
 
-Kotlin's generics are a little different from Java's (see [Generics](generics.html)). When importing Java types to Kotlin we perform some conversions:
+Java generics in Kotlin ：在 Kotlin 中 Java 泛型
+
+Kotlin's generics are a little different from Java's (see [Generics](generics.md)). When importing Java types to Kotlin we perform some conversions:
+
+Kotlin 的泛型與 Java 有些不同 ([泛型](generics.md)) 。當引入 Java 類型給 Kotlin 時，我們執行某些轉換：
 
 * Java's wildcards are converted into type projections,
+  Java 的通配符被轉換到類型投射，
   * `Foo<? extends Bar>` becomes `Foo<out Bar!>!`,
+    `Foo<? extends Bar>` 變成 `Foo<out Bar!>!` ，
   * `Foo<? super Bar>` becomes `Foo<in Bar!>!`;
+    `Foo<? super Bar>` 變成 `Foo<in Bar!>!`;
 
 * Java's raw types are converted into star projections,
+  Java 的原始類型被轉換到類型投射，
   * `List` becomes `List<*>!`, i.e. `List<out Any?>!`.
+    `List` 變成 `List<*>!` ，即是 `List<out Any?>!` 。
 
-Like Java's, Kotlin's generics are not retained at runtime, i.e. objects do not carry information about actual type arguments passed to their constructors,
-i.e. `ArrayList<Integer>()` is indistinguishable from `ArrayList<Character>()`.
-This makes it impossible to perform *is*{: .keyword }-checks that take generics into account.
-Kotlin only allows *is*{: .keyword }-checks for star-projected generic types:
+Like Java's, Kotlin's generics are not retained at runtime, i.e. objects do not carry information about actual type arguments passed to their constructors, i.e. `ArrayList<Integer>()` is indistinguishable from `ArrayList<Character>()`. This makes it impossible to perform *is*-checks that take generics into account. Kotlin only allows *is*-checks for star-projected generic types:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
-​``` kotlin
+像 Java ， Kotlin 的泛型在運行時期不保留，即是，物件不會攜帶有關實際類型參數的資訊傳遞給它的建構元，即是， `ArrayList<Integer>()` 難以區分 `ArrayList<Character>()`。這使它無法執行帶有泛型考慮的 `is` 檢查。 Kotlin 只允許對於星號-投射泛型類型的 `is` 檢查。
+
+``` kotlin
 if (a is List<Int>) // Error: cannot check if it is really a List of Ints
 // but
 if (a is List<*>) // OK: no guarantees about the contents of the list
 ```
-</div>
 
 ## Java Arrays
 
