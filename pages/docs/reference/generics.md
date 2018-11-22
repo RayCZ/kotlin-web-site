@@ -421,4 +421,4 @@ These [unchecked casts](typecasts.md#unchecked-casts) can be used when type safe
 
 The type arguments of generic function calls are also only checked at compile time. Inside the function bodies, the type parameters cannot be used for type checks, and type casts to type parameters (`foo as T`) are unchecked. However, [reified type parameters](inline-functions.md#reified-type-parameters) of inline functions are substituted by the actual type arguments in the inlined function body at the call sites and thus can be used for type checks and casts, with the same restrictions for instances of generic types as described above.
 
-泛型函數調用的類型參數也只在編譯時期檢查。在函數內文中，類型參數不可以用於類型檢查，並未檢查將類型強制轉型為類型參數 (`foo as T`) 。然而，被置入函數內文中的調用場景中，，實際類型參數取代行內置入函數的[具體化類型參數](inline-functions.md#reified-type-parameters)，因此可以被用於類型檢查和強制轉型，與上述相同泛型類型實例的限制。
+泛型函數調用的類型參數也只在編譯時期檢查。在函數內文中，類型參數不可以用於類型檢查，並未檢查將類型強制轉型為類型參數 (`foo as T`) 。然而，被置入函數內文中的調用場景，實際類型參數取代行內置入函數的[具體化類型參數](inline-functions.md#reified-type-parameters)，因此可以被用於類型檢查和強制轉型，與上述相同泛型類型實例的限制。
