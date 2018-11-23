@@ -7,19 +7,31 @@ title: "Calling Kotlin from Java"
 
 # Calling Kotlin from Java
 
+Calling Kotlin from Java ：從 Java 調用 Kotlin
+
 Kotlin code can be called from Java easily.
+
+可以輕鬆從 Java 可以調用 Kotlin 代碼。 
 
 ## Properties
 
+Properties ：屬性
+
 A Kotlin property is compiled to the following Java elements:
 
+Kotlin 的屬性被編譯到以下 Java 元素：
+
  * A getter method, with the name calculated by prepending the `get` prefix;
+   一個獲取屬性的方法，使用名稱透過前面加上 `get` 前綴執行；
  * A setter method, with the name calculated by prepending the `set` prefix (only for `var` properties);
+   一個設置屬性的方法，使用名稱透過前面加上 `set` 前綴執行 (只用於 `var` 屬性)；
  * A private field, with the same name as the property name (only for properties with backing fields).
+   一個私有欄位，使用與屬性相同的名稱 (只用於使用支援欄位的屬性) 。
 
 For example, `var firstName: String` gets compiled to the following Java declarations:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+例如， `var firstName: String` 被編譯為以下 Java 宣告：
+
 ``` java
 private String firstName;
 
@@ -31,18 +43,21 @@ public void setFirstName(String firstName) {
     this.firstName = firstName;
 }
 ```
-</div>
 
-If the name of the property starts with `is`, a different name mapping rule is used: the name of the getter will be
-the same as the property name, and the name of the setter will be obtained by replacing `is` with `set`.
-For example, for a property `isOpen`, the getter will be called `isOpen()` and the setter will be called `setOpen()`.
-This rule applies for properties of any type, not just `Boolean`.
+If the name of the property starts with `is`, a different name mapping rule is used: the name of the getter will be the same as the property name, and the name of the setter will be obtained by replacing `is` with `set`. For example, for a property `isOpen`, the getter will be called `isOpen()` and the setter will be called `setOpen()`. This rule applies for properties of any type, not just `Boolean`.
+
+如果屬性的名稱使用 `is` 開頭，使用不同名稱的映射規則：獲取屬性的名稱將與屬性名稱相同，並且設置屬性的名稱將透過 `set` 代替 `is` 獲得，例如，對於屬性 `isOpen` ，獲取屬性將調用 `isOpen()` 並且設置屬性將調用 `setOpen()` 。這個規則適用於任何類型的屬性，不只 `Boolean` 。 
 
 ## Package-Level Functions
 
-All the functions and properties declared in a file `example.kt` inside a package `org.foo.bar`, including extension functions,
-are compiled into static methods of a Java class named `org.foo.bar.ExampleKt`.
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+Package-Level Functions ： Package-Level 函數
+
+All the functions and properties declared in a file `example.kt` inside a package `org.foo.bar`, including extension functions, are compiled into static methods of a Java class named `org.foo.bar.ExampleKt`.
+
+在 package `org.foo.bar` 內的 `example.kt` 檔案宣告所有函數和屬性，包括擴展函數，被編譯到被命名為 `org.foo.bar.ExampleKt`  Java 類別的靜態方法。
+
+**Package-Level 讓 Kotlin 檔案 (.kt) 生成一個類別 XxxxKt，而檔案內宣告的類別將生成另一個類別檔，以下會有兩個類別檔： ExampleKt.class 、 Foo.class**
+
 ``` kotlin
 // example.kt
 package demo
@@ -52,21 +67,19 @@ class Foo
 fun bar() { ... }
 
 ```
-</div>
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
 ``` java
 // Java
 new demo.Foo();
-demo.ExampleKt.bar();
+demo.ExampleKt.bar(); // Java 類別 ExampleKt 的 bar 靜態方法
 ```
-</div>
 
 The name of the generated Java class can be changed using the `@JvmName` annotation:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+可以使用 `@JvmName` 註釋改變生成 Java 類別的名稱：
+
 ``` kotlin
-@file:JvmName("DemoUtils")
+@file:JvmName("DemoUtils") // 本來是依 .kt 檔來生成類別 XxxxKt 改成 DemoUtils
 
 package demo
 
@@ -75,161 +88,149 @@ class Foo
 fun bar() { ... }
 
 ```
-</div>
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
 ``` java
 // Java
 new demo.Foo();
-demo.DemoUtils.bar();
+demo.DemoUtils.bar(); //使用類別 DemoUtils 的 bar 靜態方法
 ```
-</div>
 
-Having multiple files which have the same generated Java class name (the same package and the same name or the same
-@JvmName annotation) is normally an error. However, the compiler has the ability to generate a single Java facade
-class which has the specified name and contains all the declarations from all the files which have that name.
-To enable the generation of such a facade, use the @JvmMultifileClass annotation in all of the files.
+Having multiple files which have the same generated Java class name (the same package and the same name or the same @JvmName annotation) is normally an error. However, the compiler has the ability to generate a single Java facade class which has the specified name and contains all the declarations from all the files which have that name. To enable the generation of such a facade, use the @JvmMultifileClass annotation in all of the files.
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+有多個檔案生成相同的 Java 類別名稱 (相同 package 及相同名稱或相同 `@JvmName` 註釋) 通常是錯誤的。然而，編譯器能夠生成有指定名稱的單個 Java 外觀類別，並包含從有該名稱所有檔案的所有宣告。啟用這樣的外觀生成方式，在所有的檔案使用 `@JvmMultifileClass` 註釋。
+
 ``` kotlin
 // oldutils.kt
-@file:JvmName("Utils")
-@file:JvmMultifileClass
+@file:JvmName("Utils") // 生成的 Java 類別名
+@file:JvmMultifileClass // 啟用多檔案相同名稱
 
 package demo
 
 fun foo() { ... }
 ```
-</div>
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
 ``` kotlin
 // newutils.kt
-@file:JvmName("Utils")
-@file:JvmMultifileClass
+@file:JvmName("Utils") // 生成的 Java 類別名
+@file:JvmMultifileClass // 啟用多檔案相同名稱
 
 package demo
 
 fun bar() { ... }
 ```
-</div>
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
 ``` java
 // Java
 demo.Utils.foo();
-demo.Utils.bar();
+demo.Utils.bar(); // 同個 Utils 類別包含靜態的 foo() 、 bar() 方法
 ```
-</div>
 
 ## Instance Fields
 
-If you need to expose a Kotlin property as a field in Java, you need to annotate it with the `@JvmField` annotation.
-The field will have the same visibility as the underlying property. You can annotate a property with `@JvmField`
-if it has a backing field, is not private, does not have `open`, `override` or `const` modifiers, and is not a delegated property.
+Instance Fields ：實例欄位
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+If you need to expose a Kotlin property as a field in Java, you need to annotate it with the `@JvmField` annotation. The field will have the same visibility as the underlying property. You can annotate a property with `@JvmField` if it has a backing field, is not private, does not have `open`, `override` or `const` modifiers, and is not a delegated property.
+
+如果你需要揭露 Kotlin 的屬性為 Java 的欄位，你需要使用 `@JvmField` 註釋註記它。欄位將有與底層屬性相同的可見性。如果屬性有支援欄位，不是私有的，不會有 `open` 、 `override` 、 `const` 修飾符並且不是委外屬性，你可以使用 `@JvmField` 註記屬性。
+
 ``` kotlin
 class C(id: String) {
-    @JvmField val ID = id
+    @JvmField val ID = id // 註記屬性 @JvmField
 }
 ```
-</div>
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
 ``` java
 // Java
 class JavaClient {
     public String getID(C c) {
-        return c.ID;
+        return c.ID; // 調用屬性
     }
 }
 ```
-</div>
 
-[Late-Initialized](properties.html#late-initialized-properties-and-variables) properties are also exposed as fields. 
-The visibility of the field will be the same as the visibility of `lateinit` property setter.
+[Late-Initialized](properties.md#late-initialized-properties-and-variables) properties are also exposed as fields. The visibility of the field will be the same as the visibility of `lateinit` property setter.
+
+[延遲初始化](properties.md#late-initialized-properties-and-variables)屬性也被揭露為欄位。欄位的可見性將與 `lateinit` 屬性的設置屬性方法可見性相同。
 
 ## Static Fields
+
+Static Fields ：靜態欄位
 
 Kotlin properties declared in a named object or a companion object will have static backing fields
 either in that named object or in the class containing the companion object.
 
+在已命名物件或夥伴物件中宣告 Kotlin 的屬性，將在已命名的物件或在包含夥伴物件的類別中有靜態支援欄位。
+
 Usually these fields are private but they can be exposed in one of the following ways:
+
+通常這些欄位是私有的，但可以在以下方式之一揭露他們：
 
  - `@JvmField` annotation;
  - `lateinit` modifier;
  - `const` modifier.
- 
+
 Annotating such a property with `@JvmField` makes it a static field with the same visibility as the property itself.
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+使用 `@JvmField` 註記這樣的屬性，讓它變為靜態欄位，與屬性本身相同的可見性。
+
 ``` kotlin
 class Key(val value: Int) {
     companion object {
         @JvmField
-        val COMPARATOR: Comparator<Key> = compareBy<Key> { it.value }
+        val COMPARATOR: Comparator<Key> = compareBy<Key> { it.value } // 為靜態的欄位
     }
 }
 ```
-</div>
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
 ``` java
 // Java
-Key.COMPARATOR.compare(key1, key2);
+Key.COMPARATOR.compare(key1, key2); // 為靜態的欄位所以可以直接調用屬性
 // public static final field in Key class
 ```
-</div>
 
-A [late-initialized](properties.html#late-initialized-properties-and-variables) property in an object or a companion object
-has a static backing field with the same visibility as the property setter.
+A [late-initialized](properties.html#late-initialized-properties-and-variables) property in an object or a companion object has a static backing field with the same visibility as the property setter.
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+在物件或夥伴物件的[延遲初始化](properties.md#late-initialized-properties-and-variables)屬性有靜態支援欄位與屬性的設置屬性方法相同可見性。
+
 ``` kotlin
 object Singleton {
-    lateinit var provider: Provider
+    lateinit var provider: Provider // 延遲初始化的屬性，為靜態支援欄位
 }
 ```
-</div>
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
 ``` java
 // Java
-Singleton.provider = new Provider();
+Singleton.provider = new Provider(); // 為靜態的欄位所以可以直接調用屬性
 // public static non-final field in Singleton class
 ```
-</div>
 
 Properties annotated with `const` (in classes as well as at the top level) are turned into static fields in Java:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+使用 `const` 註記屬性 (在類別中以及最高層級) 被轉換到 Java 的靜態欄位：
+
 ``` kotlin
 // file example.kt
 
 object Obj {
-    const val CONST = 1
+    const val CONST = 1 // 物件內使用 const 註記
 }
 
 class C {
     companion object {
-        const val VERSION = 9
+        const val VERSION = 9 // 夥伴物件內 const 註記
     }
 }
 
-const val MAX = 239
+const val MAX = 239 // 最高層級 const 註記
 ```
-</div>
 
 In Java:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
 ``` java
 int c = Obj.CONST;
 int d = ExampleKt.MAX;
 int v = C.VERSION;
 ```
-</div>
 
 ## Static Methods
 
@@ -339,7 +340,7 @@ From Kotlin they will be accessible by the same name `filterValid`, but from Jav
 The same trick applies when we need to have a property `x` alongside with a function `getX()`:
 
 <div class="sample" markdown="1" theme="idea" data-highlight-only auto-indent="false">
-``` kotlin
+​``` kotlin
 val x: Int
     @JvmName("getX_prop")
     get() = 15
@@ -404,7 +405,7 @@ So, normally, the Java signatures of Kotlin functions do not declare exceptions 
 Thus if we have a function in Kotlin like this:
 
 <div class="sample" markdown="1" theme="idea" data-highlight-only>
-``` kotlin
+​``` kotlin
 // example.kt
 package demo
 
@@ -466,7 +467,7 @@ fun unboxBase(box: Box<Base>): Base = box.value
 A naive way of translating these functions into Java would be this:
 
 <div class="sample" markdown="1" theme="idea" data-highlight-only>
-``` java
+​``` java
 Box<Derived> boxDerived(Derived value) { ... }
 Base unboxBase(Box<Base> box) { ... }
 ```
@@ -494,7 +495,7 @@ Java coding style). Therefore, the functions from our example are actually trans
 ``` java
 // return type - no wildcards
 Box<Derived> boxDerived(Derived value) { ... }
- 
+
 // parameter - wildcards 
 Base unboxBase(Box<? extends Base> box) { ... }
 ```
@@ -506,7 +507,7 @@ NOTE: when the argument type is final, there's usually no point in generating th
 If we need wildcards where they are not generated by default, we can use the `@JvmWildcard` annotation:
 
 <div class="sample" markdown="1" theme="idea" data-highlight-only>
-``` kotlin
+​``` kotlin
 fun boxDerived(value: Derived): Box<@JvmWildcard Derived> = Box(value)
 // is translated to 
 // Box<? extends Derived> boxDerived(Derived value) { ... }
@@ -527,7 +528,7 @@ NOTE: `@JvmSuppressWildcards` can be used not only on individual type arguments,
 functions or classes, causing all wildcards inside them to be suppressed.
 
 ### Translation of type Nothing
- 
+
 The type [`Nothing`](exceptions.html#the-nothing-type) is special, because it has no natural counterpart in Java. Indeed, every Java reference type, including
 `java.lang.Void`, accepts `null` as a value, and `Nothing` doesn't accept even that. So, this type cannot be accurately
 represented in the Java world. This is why Kotlin generates a raw type where an argument of type `Nothing` is used:
