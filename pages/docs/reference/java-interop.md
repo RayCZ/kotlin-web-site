@@ -750,7 +750,7 @@ SAM Conversions ：單一抽像方法 (Single Abstract Method) 轉換
 
 Just like Java 8, Kotlin supports SAM conversions. This means that Kotlin function literals can be automatically converted into implementations of Java interfaces with a single non-default method, as long as the parameter types of the interface method match the parameter types of the Kotlin function.
 
-就像 Java 8 ， Kotlin 支援 SAM 轉換。這意味著只要介面方法的參數與 Kotlin 函數的參數類型匹配， Kotlin 函數文字可以使用單一非預設方法自動轉換到 Java 介面的實作。
+就像 Java 8 ， Kotlin 支援 SAM 轉換。這意味著只要介面方法的參數類型與 Kotlin 函數的參數類型匹配， Kotlin 函數文字可以使用單一非預設方法自動轉換到 Java 介面的實作。
 
 You can use this for creating instances of SAM interfaces:
 
@@ -784,7 +784,7 @@ Note that SAM conversions only work for interfaces, not for abstract classes, ev
 
 Also note that this feature works only for Java interop; since Kotlin has proper function types, automatic conversion of functions into implementations of Kotlin interfaces is unnecessary and therefore unsupported.
 
-另外注意：這些功能只適用於 Java 互操作；由於 Kotlin 有適當的函數類型，不需要自動轉換函數到 Kotlin 介面的實作，因此不支援。
+另外注意：這些功能只適用於 Java 互操作；由於 Kotlin 有適當的函數類型 `() -> Unit` ，不需要自動轉換函數到 Kotlin 介面的實作，因此不支援。
 
 ## Using JNI with Kotlin
 
@@ -792,7 +792,7 @@ Using JNI with Kotlin ： JNI 與 Kotlin 一起使用
 
 To declare a function that is implemented in native (C or C++) code, you need to mark it with the `external` modifier:
 
-在原生代碼 (C 或 C++) 實作宣告函數，你需要使用 `external` 修飾符標記它：
+在原生代碼 (C 或 C++) 中實作宣告函數，你需要使用 `external` 修飾符標記它：
 
 ``` kotlin
 external fun foo(x: Int): Double
