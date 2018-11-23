@@ -502,7 +502,7 @@ Kotlin 的泛型與 Java 有些不同 ([泛型](generics.md)) 。當引入 Java 
     `Foo<? super Bar>` 變成 `Foo<in Bar!>!`;
 
 * Java's raw types are converted into star projections,
-  Java 的原始類型被轉換到類型投射，
+  Java 的原始類型被轉換到星號投射，
   * `List` becomes `List<*>!`, i.e. `List<out Any?>!`.
     `List` 變成 `List<*>!` ，即是 `List<out Any?>!` 。
 
@@ -518,18 +518,18 @@ if (a is List<*>) // OK: no guarantees about the contents of the list
 
 ## Java Arrays
 
-Arrays in Kotlin are invariant, unlike Java. This means that Kotlin does not let us assign an `Array<String>` to an `Array<Any>`,
-which prevents a possible runtime failure. Passing an array of a subclass as an array of superclass to a Kotlin method is also prohibited,
-but for Java methods this is allowed (through [platform types](#null-safety-and-platform-types) of the form `Array<(out) String>!`).
+Arrays in Kotlin are invariant, unlike Java. This means that Kotlin does not let us assign an `Array<String>` to an `Array<Any>`, which prevents a possible runtime failure. Passing an array of a subclass as an array of superclass to a Kotlin method is also prohibited, but for Java methods this is allowed (through [platform types](#null-safety-and-platform-types) of the form `Array<(out) String>!`).
 
-Arrays are used with primitive datatypes on the Java platform to avoid the cost of boxing/unboxing operations.
-As Kotlin hides those implementation details, a workaround is required to interface with Java code.
-There are specialized classes for every type of primitive array (`IntArray`, `DoubleArray`, `CharArray`, and so on) to handle this case.
-They are not related to the `Array` class and are compiled down to Java's primitive arrays for maximum performance.
+在 Kotlin 中的陣列是不可變的，不像 Java 。這意味著 Kotlin 不會讓我們分配 `Array<String>` 給 `Array<Any>` ，這樣可以防止運行時的失敗。也禁止傳遞子類型的陣列作為超 (父) 類別的陣列給 Kotlin 方法，但對於 Java 方法這是被允許的 (通過形式 `Array<(out) String>!` 的[平台類型](#null-safety-and-platform-types)) 。
+
+Arrays are used with primitive datatypes on the Java platform to avoid the cost of boxing/unboxing operations. As Kotlin hides those implementation details, a workaround is required to interface with Java code. There are specialized classes for every type of primitive array (`IntArray`, `DoubleArray`, `CharArray`, and so on) to handle this case. They are not related to the `Array` class and are compiled down to Java's primitive arrays for maximum performance.
+
+陣列在 Java 中與原始資料類型一起使用，避免自動裝箱 / 拆箱操作的成本。由於 Kotlin 隱藏那些實作細節，變通的辦法需要使用 Java 代碼的介面。有專門類別用於原生陣列的每個類型來處理這些情況 (`IntArray` 、 `DoubleArray` 、 `CharArray` 等等)。它們與 `Array` 類別無關並編譯給 Java 原生陣列獲得最佳性能。
 
 Suppose there is a Java method that accepts an int array of indices:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+假設有一個 Java 方法，接受命名為 indices 的 int 陣列：
+
 ``` java
 public class JavaArrayExample {
 
@@ -538,21 +538,21 @@ public class JavaArrayExample {
     }
 }
 ```
-</div>
 
 To pass an array of primitive values you can do the following in Kotlin:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
-​``` kotlin
+傳遞原生數值的陣列，你可以在 Kotlin 做以下事情：
+
+``` kotlin
 val javaObj = JavaArrayExample()
-val array = intArrayOf(0, 1, 2, 3)
+val array = intArrayOf(0, 1, 2, 3) // 使用 Kotlin 的方法生成 int 陣列
 javaObj.removeIndices(array)  // passes int[] to method
 ```
-</div>
 
 When compiling to JVM byte codes, the compiler optimizes access to arrays so that there's no overhead introduced:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+當編譯給 JVM byte codes 時，編譯器優化存取陣列，以便沒有引入開銷。
+
 ``` kotlin
 val array = arrayOf(1, 2, 3, 4)
 array[1] = array[1] * 2 // no actual calls to get() and set() generated
@@ -560,68 +560,76 @@ for (x in array) { // no iterator created
     print(x)
 }
 ```
-</div>
 
 Even when we navigate with an index, it does not introduce any overhead:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+即使當我們使用索引導覽時，它不會引入任何開銷：
+
 ``` kotlin
 for (i in array.indices) { // no iterator created
     array[i] += 2
 }
 ```
-</div>
 
-Finally, *in*{: .keyword }-checks have no overhead either:
+Finally, *in*-checks have no overhead either:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+最後， `in` 檢查也沒有任何開銷：
+
 ``` kotlin
 if (i in array.indices) { // same as (i >= 0 && i < array.size)
     print(array[i])
 }
 ```
-</div>
 
 ## Java Varargs
 
+Java Varargs ： Java 可變參數
+
 Java classes sometimes use a method declaration for the indices with a variable number of arguments (varargs):
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+Java 類別有時使用可變數量參數 (varargs) 命名為 indices 參數的方法宣告：
+
 ``` java
 public class JavaArrayExample {
 
-    public void removeIndicesVarArg(int... indices) {
+    public void removeIndicesVarArg(int... indices) { // 可變數量參數
         // code here...
     }
 }
 ```
-</div>
 
 In that case you need to use the spread operator `*` to pass the `IntArray`:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
-​``` kotlin
+在這種情況下，你需要使用擴展運算符 `*` 來傳遞 `IntArray` ：
+
+``` kotlin
 val javaObj = JavaArrayExample()
 val array = intArrayOf(0, 1, 2, 3)
 javaObj.removeIndicesVarArg(*array)
 ```
-</div>
 
-It's currently not possible to pass *null*{: .keyword } to a method that is declared as varargs.
+It's currently not possible to pass *null* to a method that is declared as varargs.
+
+目前無法傳遞 `null`  給宣告為 `varargs` 的方法。
 
 ## Operators
+
+Operators ： `operator` 運算符
 
 Since Java has no way of marking methods for which it makes sense to use the operator syntax, Kotlin allows using any
 Java methods with the right name and signature as operator overloads and other conventions (`invoke()` etc.)
 Calling Java methods using the infix call syntax is not allowed.
 
+由於 Java 無法有意義的使用 `operator` 語法標記方法， Kotlin 允許使用任何正確名稱或函數簽名的 Java 方法，作為運算符負載及其他慣語 (`invoke()` 等等。) 不允許使用中綴調用語法來調用 Java 方法。
 
 ## Checked Exceptions
 
-In Kotlin, all exceptions are unchecked, meaning that the compiler does not force you to catch any of them.
-So, when you call a Java method that declares a checked exception, Kotlin does not force you to do anything:
+Checked Exceptions ：已檢查的異常， Java 方法的後面有加 throws Exception 等
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+In Kotlin, all exceptions are unchecked, meaning that the compiler does not force you to catch any of them. So, when you call a Java method that declares a checked exception, Kotlin does not force you to do anything:
+
+在 Kotlin 中，未檢查所有異常，意味著編譯器不會強制你去捕獲任何的異常。因此，當你調用 Java 已檢查異常的方法時， Kotlin 不會強制你做任何事。
+
 ``` kotlin
 fun render(list: List<*>, to: Appendable) {
     for (item in list) {
@@ -629,63 +637,65 @@ fun render(list: List<*>, to: Appendable) {
     }
 }
 ```
-</div>
 
 ## Object Methods
 
-When Java types are imported into Kotlin, all the references of the type `java.lang.Object` are turned into `Any`.
-Since `Any` is not platform-specific, it only declares `toString()`, `hashCode()` and `equals()` as its members,
-so to make other members of `java.lang.Object` available, Kotlin uses [extension functions](extensions.html).
+Object Methods ：物件方法
+
+When Java types are imported into Kotlin, all the references of the type `java.lang.Object` are turned into `Any`. Since `Any` is not platform-specific, it only declares `toString()`, `hashCode()` and `equals()` as its members, so to make other members of `java.lang.Object` available, Kotlin uses [extension functions](extensions.md).
+
+當 Java 類型被匯入到 Kotlin 時，類型 `java.lang.Object` 的所有引用被轉成 `Any` 。因此 [`Any`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html) 不是特定平台， `Any` 只宣告 `toString()` 、 `hashCode()` 、 `equals()` 為它的成員，所以使 `java.lang.Object` 的其他成員可用， Kotlin 使用[擴展函數](extensions.md) 。
 
 ### wait()/notify()
 
-Methods `wait()` and `notify()` are not available on references of type `Any`. Their usage is generally discouraged in favor of `java.utl.concurrent`.
+Methods `wait()` and `notify()` are not available on references of type `Any`. Their usage is generally discouraged in favor of `java.utl.concurrent`. If you really need to call these methods, you can cast to `java.lang.Object`:
 
-If you really need to call these methods, you can cast to `java.lang.Object`:
+方法 `wait()` 和 `notify()` 在類型 `Any` 的引用上不可用。在支援 `java.utl.concurrent` 下通常不鼓勵它們的用法。如果你真的需要調用這些方法，你可以強制轉型為 `java.lang.Object` ：
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
 ```kotlin
 (foo as java.lang.Object).wait()
 ```
-</div>
 
 ### getClass()
 
-To retrieve the Java class of an object, use the `java` extension property on a [class reference](reflection.html#class-references):
+To retrieve the Java class of an object, use the `java` extension property on a [class reference](reflection.md#class-references):
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+去獲取物件的 Java 類別，在[類別參照](reflection.md#class-references)使用 `java` 擴展屬性：
+
 ``` kotlin
 val fooClass = foo::class.java
 ```
-</div>
 
-The code above uses a [bound class reference](reflection.html#bound-class-references-since-11), which is supported since Kotlin 1.1. You can also use the `javaClass` extension property:
+The code above uses a [bound class reference](reflection.md#bound-class-references-since-11), which is supported since Kotlin 1.1. You can also use the `javaClass` extension property:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+上面的代碼使用[受約束的類別參照](reflection.md#bound-class-references-since-11)，它從 Kotlin 1.1 版支援。你也可以使用 `javaClass` 擴展屬性：
+
 ``` kotlin
 val fooClass = foo.javaClass
 ```
-</div>
 
 ### clone()
 
 To override `clone()`, your class needs to extend `kotlin.Cloneable`:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+去覆寫 `clone()` 方法，你的類別需要去繼承 `kotlin.Cloneable` ：
+
 ```kotlin
 class Example : Cloneable {
     override fun clone(): Any { ... }
 }
 ```
-</div>
 
  Do not forget about [Effective Java, 3rd Edition](http://www.oracle.com/technetwork/java/effectivejava-136174.html), Item 13: *Override clone judiciously*.
 
+不要忘記有關 [Effective Java, 3rd Edition](http://www.oracle.com/technetwork/java/effectivejava-136174.html), Item 13: *Override clone judiciously* 。
+
 ### finalize()
 
-To override `finalize()`, all you need to do is simply declare it, without using the *override*{:.keyword} keyword:
+To override `finalize()`, all you need to do is simply declare it, without using the *override* keyword:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+去覆寫 `finalize()` ，你需要做的只是宣告它，沒有使用 `override` 關鍵字：
+
 ```kotlin
 class C {
     protected fun finalize() {
@@ -693,82 +703,101 @@ class C {
     }
 }
 ```
-</div>
 
-According to Java's rules, `finalize()` must not be *private*{: .keyword }.
+According to Java's rules, `finalize()` must not be *private*.
+
+根據 Java 的規則， `finalize()` 必須不是 `private` 。
 
 ## Inheritance from Java classes
 
+Inheritance from Java classes ：從 Java 類別繼承
+
 At most one Java class (and as many Java interfaces as you like) can be a supertype for a class in Kotlin.
+
+最多一個 Java 類別 (以及和你喜歡的  Java 介面一樣多) 可以是超類別用於在 Kotlin 的類別。
 
 ## Accessing static members
 
-Static members of Java classes form "companion objects" for these classes. We cannot pass such a "companion object" around as a value,
-but can access the members explicitly, for example:
+Accessing static members ：存取靜態成員
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+Static members of Java classes form "companion objects" for these classes. We cannot pass such a "companion object" around as a value, but can access the members explicitly, for example:
+
+Java 類別的靜態成員為這些類別形成的 "夥伴物件" 。我們不可以傳遞這樣的 "夥伴物件" 作為值，但可以明確存取成員，例如：
+
 ``` kotlin
 if (Character.isLetter(a)) { ... }
 ```
-</div>
 
 To access static members of a Java type that is [mapped](#mapped-types) to a Kotlin type, use the full qualified name of the Java type: `java.lang.Integer.bitCount(foo)`.
 
+存取 Kotlin 類型映射的 Java 類型靜態成員，使用 Java 類型的完整修飾符名稱： `java.lang.Integer.bitCount(foo)` 。
+
 ## Java Reflection
 
-Java reflection works on Kotlin classes and vice versa. As mentioned above, you can use `instance::class.java`,
-`ClassName::class.java` or `instance.javaClass` to enter Java reflection through `java.lang.Class`.
+Java Reflection ： Java 反射
+
+Java reflection works on Kotlin classes and vice versa. As mentioned above, you can use `instance::class.java`, `ClassName::class.java` or `instance.javaClass` to enter Java reflection through `java.lang.Class`.
+
+Java 反射適用於 Kotlin 並且反過來也是。如上所述，你可以使用 `instance::class.java` 、 `ClassName::class.java`  、 `instance.javaClass` 透過 `java.lang.Class` 進入到 Java 反射的物件。
 
 Other supported cases include acquiring a Java getter/setter method or a backing field for a Kotlin property, a `KProperty` for a Java field, a Java method or constructor for a `KFunction` and vice versa.
 
+其他已支援的情況，包括獲取 Java setter/getter 方法，或 Kotlin 屬性的支援欄位，  Java 欄位的 `KProperty` ， `KFunction` 的 Java 方法或建構元，反過來也是。
+
 ## SAM Conversions
 
-Just like Java 8, Kotlin supports SAM conversions. This means that Kotlin function literals can be automatically converted
-into implementations of Java interfaces with a single non-default method, as long as the parameter types of the interface
-method match the parameter types of the Kotlin function.
+SAM Conversions ：單一抽像方法 (Single Abstract Method) 轉換
+
+Just like Java 8, Kotlin supports SAM conversions. This means that Kotlin function literals can be automatically converted into implementations of Java interfaces with a single non-default method, as long as the parameter types of the interface method match the parameter types of the Kotlin function.
+
+就像 Java 8 ， Kotlin 支援 SAM 轉換。這意味著只要介面方法的參數與 Kotlin 函數的參數類型匹配， Kotlin 函數文字可以使用單一非預設方法自動轉換到 Java 介面的實作。
 
 You can use this for creating instances of SAM interfaces:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+你可以使用這樣用於建立 SAM 介面的實例：
+
 ``` kotlin
 val runnable = Runnable { println("This runs in a runnable") }
 ```
-</div>
 
 ...and in method calls:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+並在方法調用：
+
 ``` kotlin
 val executor = ThreadPoolExecutor()
 // Java signature: void execute(Runnable command)
 executor.execute { println("This runs in a thread pool") }
 ```
-</div>
 
-If the Java class has multiple methods taking functional interfaces, you can choose the one you need to call by
-using an adapter function that converts a lambda to a specific SAM type. Those adapter functions are also generated
-by the compiler when needed:
+If the Java class has multiple methods taking functional interfaces, you can choose the one you need to call by using an adapter function that converts a lambda to a specific SAM type. Those adapter functions are also generated by the compiler when needed:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+如果 Java 類別有多個方法帶函數化介面的參數，你可以使用一個適配器函數來轉換 Lambda 到特定 SAM 類型，選擇你需要的那個函數。當需要時透過編譯器也可以生成那些適配器函數：
+
 ``` kotlin
 executor.execute(Runnable { println("This runs in a thread pool") })
 ```
-</div>
 
-Note that SAM conversions only work for interfaces, not for abstract classes, even if those also have just a single
-abstract method.
+Note that SAM conversions only work for interfaces, not for abstract classes, even if those also have just a single abstract method.
 
-Also note that this feature works only for Java interop; since Kotlin has proper function types, automatic conversion
-of functions into implementations of Kotlin interfaces is unnecessary and therefore unsupported.
+注意： SAM 轉換只適用於介面，不適用抽象類別，即使，如果那些也只有單一抽象方法。
+
+Also note that this feature works only for Java interop; since Kotlin has proper function types, automatic conversion of functions into implementations of Kotlin interfaces is unnecessary and therefore unsupported.
+
+另外注意：這些功能只適用於 Java 互操作；由於 Kotlin 有適當的函數類型，不需要自動轉換函數到 Kotlin 介面的實作，因此不支援。
 
 ## Using JNI with Kotlin
 
+Using JNI with Kotlin ： JNI 與 Kotlin 一起使用
+
 To declare a function that is implemented in native (C or C++) code, you need to mark it with the `external` modifier:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+在原生代碼 (C 或 C++) 實作宣告函數，你需要使用 `external` 修飾符標記它：
+
 ``` kotlin
 external fun foo(x: Int): Double
 ```
-</div>
 
 The rest of the procedure works in exactly the same way as in Java.
+
+其餘的過程與 Java 完全相同的方法。
