@@ -234,12 +234,12 @@ int v = C.VERSION;
 
 ## Static Methods
 
-As mentioned above, Kotlin represents package-level functions as static methods.
-Kotlin can also generate static methods for functions defined in named objects or companion objects if you annotate those functions as `@JvmStatic`.
-If you use this annotation, the compiler will generate both a static method in the enclosing class of the object and an instance method in the object itself.
-For example:
+Static Methods ：靜態方法
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+As mentioned above, Kotlin represents package-level functions as static methods. Kotlin can also generate static methods for functions defined in named objects or companion objects if you annotate those functions as `@JvmStatic`. If you use this annotation, the compiler will generate both a static method in the enclosing class of the object and an instance method in the object itself. For example:
+
+如上所述， Kolin 表示 package-level 函數為靜態方法。 如果你可以註記那些函數為 `@JvmStatic` ， Kotlin 也可以在已命名的物件或夥伴物件中定義函數生成靜態方法。如果你使用這樣的註釋，編譯器將在物件的封閉類別中生成靜態方法，並在物件本身生成實例。例如：
+
 ``` kotlin
 class C {
     companion object {
@@ -248,116 +248,124 @@ class C {
     }
 }
 ```
-</div>
 
 Now, `foo()` is static in Java, while `bar()` is not:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+現在， `foo()` 在 Java 中是靜態，而 `bar()` 不是：
+
 ``` java
-C.foo(); // works fine
-C.bar(); // error: not a static method
-C.Companion.foo(); // instance method remains
-C.Companion.bar(); // the only way it works
+C.foo(); // works fine , 在物件的封閉類別中生成靜態方法
+C.bar(); // error: not a static method , 不是靜態無法靜類別直接調用，必須透過實例調用
+C.Companion.foo(); // instance method remains , 在物件本身生成實例，來調用
+C.Companion.bar(); // the only way it works , 唯一的調用方式
 ```
-</div>
 
 Same for named objects:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+已命名的物件也是相同方式：
+
 ``` kotlin
 object Obj {
     @JvmStatic fun foo() {}
     fun bar() {}
 }
 ```
-</div>
 
 In Java:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
-``` java
-Obj.foo(); // works fine
-Obj.bar(); // error
-Obj.INSTANCE.bar(); // works, a call through the singleton instance
-Obj.INSTANCE.foo(); // works too
-```
-</div>
+在 Java ：
 
-`@JvmStatic` annotation can also be applied on a property of an object or a companion object
-making its getter and setter methods be static members in that object or the class containing the companion object.
+``` java
+Obj.foo(); // works fine , 物件類型直接調用，而非實例
+Obj.bar(); // error , 不是靜態無法物件直接調用，必須透過實例調用
+Obj.INSTANCE.bar(); // works, a call through the singleton instance , 在物件本身生成實例，來調用
+Obj.INSTANCE.foo(); // works too , 透過實例調用
+```
+
+`@JvmStatic` annotation can also be applied on a property of an object or a companion object making its getter and setter methods be static members in that object or the class containing the companion object.
+
+`@JvmStatic` 註釋也可以在物件或夥伴物件的屬性應用，使它的獲取屬性和設置屬性方法在物件或類別包含的夥伴物件成為靜態成員。
 
 ## Visibility
 
+Visibility ：可見性
+
 The Kotlin visibilities are mapped to Java in the following way:
 
+Kotlin 可性見在以下方法映射到 Java ：
+
 * `private` members are compiled to `private` members;
+  `private` 成員被編譯到 `private` 成員；
 * `private` top-level declarations are compiled to package-local declarations;
-* `protected` remains `protected` (note that Java allows accessing protected members from other classes in the same package
-and Kotlin doesn't, so Java classes will have broader access to the code);
-* `internal` declarations become `public` in Java. Members of `internal` classes go through name mangling, to make
-it harder to accidentally use them from Java and to allow overloading for members with the same signature that don't see
-each other according to Kotlin rules;
+  `private` 最高層級宣告被編譯為 package-local 宣告；
+* `protected` remains `protected` (note that Java allows accessing protected members from other classes in the same package and Kotlin doesn't, so Java classes will have broader access to the code);
+  `protected` 保留 `protected` (注意： Java 允許從相同 package 其他的類別存取 `protected` 成員，而 Kotlin 不會，所以 Java 類別將更廣泛的存取代碼) ；
+* `internal` declarations become `public` in Java. Members of `internal` classes go through name mangling, to make it harder to accidentally use them from Java and to allow overloading for members with the same signature that don't see each other according to Kotlin rules;
+  `internal` 宣告在 Java 變成 `public` 。 `internal` 類別的成員經歷名稱粉碎，使它更困難的從 Java 意外使用到它們，並且根據 Kotlin 規則允許使用相同簽名的成員多載，這些成員不會彼此看到。
 * `public` remains `public`.
+  `public` 保留 `public` 。
 
 ## KClass
 
-Sometimes you need to call a Kotlin method with a parameter of type `KClass`.
-There is no automatic conversion from `Class` to `KClass`, so you have to do it manually by invoking the equivalent of
-the `Class<T>.kotlin` extension property:
+KClass ：KClass 在 Kotlin 的類別
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+Sometimes you need to call a Kotlin method with a parameter of type `KClass`. There is no automatic conversion from `Class` to `KClass`, so you have to do it manually by invoking the equivalent of the `Class<T>.kotlin` extension property:
+
+有時你可能需要使用 `KClass` 類型的參數來調用 Kotlin 的方法。沒有任何從 `Class` 到 `KClass` 的自動轉換，所以你必須透過調用 `Class<T>.kotlin` 擴展屬性的對等物手動完成。
+
 ```kotlin
 kotlin.jvm.JvmClassMappingKt.getKotlinClass(MainView.class)
 ```
-</div>
 
 ## Handling signature clashes with @JvmName
 
-Sometimes we have a named function in Kotlin, for which we need a different JVM name the byte code.
-The most prominent example happens due to *type erasure*:
+Handling signature clashes with @JvmName ：使用 `@JvmName` 處理簽名的衝突
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+Sometimes we have a named function in Kotlin, for which we need a different JVM name the byte code. The most prominent example happens due to *type erasure*:
+
+有時我們在 Kotlin 中有已命名的函數，我們為何需要不同 JVM 名稱的 byte code 。最突出的例子由於**類型消除**的發生：
+
 ``` kotlin
-fun List<String>.filterValid(): List<String>
+fun List<String>.filterValid(): List<String> // 泛型經過編譯後不會保留它的類型資訊
 fun List<Int>.filterValid(): List<Int>
 ```
-</div>
 
-These two functions can not be defined side-by-side, because their JVM signatures are the same: `filterValid(Ljava/util/List;)Ljava/util/List;`.
-If we really want them to have the same name in Kotlin, we can annotate one (or both) of them with `@JvmName` and specify a different name as an argument:
+These two functions can not be defined side-by-side, because their JVM signatures are the same: `filterValid(Ljava/util/List;)Ljava/util/List;`. If we really want them to have the same name in Kotlin, we can annotate one (or both) of them with `@JvmName` and specify a different name as an argument:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+這裡有兩個函數不可以一起定義，因為它們的 JVM 簽名是相同： `filterValid(Ljava/util/List;)Ljava/util/List;` 。如果我們真的想要它們在 Kotlin 有相同名稱，我們可以使用 `@JvmName` 註記它們的一個 (或兩個) 並指定不同的名稱作為參數：
+
 ``` kotlin
 fun List<String>.filterValid(): List<String>
 
-@JvmName("filterValidInt")
+@JvmName("filterValidInt") // 使用註記表示不同名稱
 fun List<Int>.filterValid(): List<Int>
 ```
-</div>
 
 From Kotlin they will be accessible by the same name `filterValid`, but from Java it will be `filterValid` and `filterValidInt`.
 
+從 Kotlin 透過相同名稱 `filterValid` 存取它們，但從 Java 它將是 `filterValid` 和 `filterValidInt` 。
+
 The same trick applies when we need to have a property `x` alongside with a function `getX()`:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only auto-indent="false">
-​``` kotlin
+當你們需要有屬性 `x` 與函數 `getX()` 一起使用時，相同的技巧也適用：
+
+``` kotlin
 val x: Int
-    @JvmName("getX_prop")
+    @JvmName("getX_prop") // 定義新的 getX_prop 名稱來取得值
     get() = 15
 
-fun getX() = 10
+fun getX() = 10 //在 Java 會有名稱衝突，所以上面的改為新名稱
 ```
-</div>
 
 To change the names of generated accessor methods for properties without explicitly implemented getters and setters, you can use `@get:JvmName` and `@set:JvmName`:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+沒有明確已實作獲取屬性和設置屬性的情況下，改變生成屬性存取器方法 (getter/setter) 的名稱，你可以使用 `@get:JvmName` 和 `@set:JvmName` ：
+
 ``` kotlin
 @get:JvmName("x")
 @set:JvmName("changeX")
 var x: Int = 23
 ```
-</div>
 
 ## Overloads Generation
 
