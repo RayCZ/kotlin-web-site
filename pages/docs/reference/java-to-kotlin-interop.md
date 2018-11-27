@@ -369,137 +369,135 @@ var x: Int = 23
 
 ## Overloads Generation
 
-Normally, if you write a Kotlin function with default parameter values, it will be visible in Java only as a full
-signature, with all parameters present. If you wish to expose multiple overloads to Java callers, you can use the
-`@JvmOverloads` annotation.
+Overloads Generation ：多載生成
 
-The annotation also works for constructors, static methods etc. It can't be used on abstract methods, including methods
-defined in interfaces.
+Normally, if you write a Kotlin function with default parameter values, it will be visible in Java only as a full signature, with all parameters present. If you wish to expose multiple overloads to Java callers, you can use the `@JvmOverloads` annotation.
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+通常，如果你使用預設值寫 Kotlin 函數，它只在 Java 作為完整簽名顯示，使用所有參數表示。如果你希望向 Java 調用者公開多個超載，你可以使用 `@JvmOverloads` 註釋。
+
+The annotation also works for constructors, static methods etc. It can't be used on abstract methods, including methods defined in interfaces.
+
+這個註釋也適用於建構元、靜態方法等等。它不可以用在抽象方法，包括在介面中定義的方法。
+
 ``` kotlin
 class Foo @JvmOverloads constructor(x: Int, y: Double = 0.0) {
     @JvmOverloads fun f(a: String, b: Int = 0, c: String = "abc") { ... }
 }
 ```
-</div>
 
-For every parameter with a default value, this will generate one additional overload, which has this parameter and
-all parameters to the right of it in the parameter list removed. In this example, the following will be
-generated:
+For every parameter with a default value, this will generate one additional overload, which has this parameter and all parameters to the right of it in the parameter list removed. In this example, the following will be generated:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+對於使用預設值的每個函數，這將生成一個額外的超載 (沒有預設值的)，額外的超載有這個參數，並且參數列表中額外超載右側的所有預設參數被刪除。在這個例子中，生成以下：
+
 ``` java
-// Constructors:
-Foo(int x, double y)
-Foo(int x)
+// Constructors: 以上 Foo (x: Int, y: Double = 0.0) 
+Foo(int x, double y) // 正常的參數
+Foo(int x) // 額外自動生成，刪掉右邊的預設參數 y: Double = 0.0
 
-// Methods
-void f(String a, int b, String c) { }
-void f(String a, int b) { }
-void f(String a) { }
+// Methods: 以上 f(a: String, b: Int = 0, c: String = "abc")
+void f(String a, int b, String c) { } // 正常的參數
+void f(String a, int b) { } // 額外自動生成，刪掉右邊的預設參數 c: String = "abc" 
+void f(String a) { } // 額外自動生成，刪掉右邊的預設參數 b: Int = 0, c: String = "abc" 有
 ```
-</div>
 
-Note that, as described in [Secondary Constructors](classes.html#secondary-constructors), if a class has default
-values for all constructor parameters, a public no-argument constructor will be generated for it. This works even
-if the `@JvmOverloads` annotation is not specified.
+Note that, as described in [Secondary Constructors](classes.md#secondary-constructors), if a class has default values for all constructor parameters, a public no-argument constructor will be generated for it. This works even if the `@JvmOverloads` annotation is not specified.
 
+注意：像是[第二建構元](classes.md#secondary-constructors)的描述，如果類別對於所有建構元參數有預設值，建構元將生成公開無參數的建構元，即使沒有指定 `@JvmOverloads` 註釋，這也有效。
 
 ## Checked Exceptions
 
-As we mentioned above, Kotlin does not have checked exceptions.
-So, normally, the Java signatures of Kotlin functions do not declare exceptions thrown.
-Thus if we have a function in Kotlin like this:
+Checked Exceptions ：已檢查的異常
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
-​``` kotlin
+As we mentioned above, Kotlin does not have checked exceptions. So, normally, the Java signatures of Kotlin functions do not declare exceptions thrown. Thus if we have a function in Kotlin like this:
+
+如上所述， Kotlin 不會有已檢查的異常。所以，通常， Kotlin 函數的 Java 簽名不會宣告拋出的異常。因此，如果我們在 Kotlin 有函數像這樣：
+
+``` kotlin
 // example.kt
 package demo
 
 fun foo() {
-    throw IOException()
+    throw IOException() //丟出異常
 }
 ```
-</div>
 
 And we want to call it from Java and catch the exception:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+並且我們想要從 Java 調用它以及捕獲異常：
+
 ``` java
 // Java
 try {
-  demo.Example.foo();
+  demo.Example.foo(); // 透過 try-catch 捕獲異常
 }
 catch (IOException e) { // error: foo() does not declare IOException in the throws list
   // ...
 }
 ```
-</div>
 
-we get an error message from the Java compiler, because `foo()` does not declare `IOException`.
-To work around this problem, use the `@Throws` annotation in Kotlin:
+we get an error message from the Java compiler, because `foo()` does not declare `IOException`. To work around this problem, use the `@Throws` annotation in Kotlin:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+我們從 Java 編譯器獲得錯誤訊息，因為 `foo()` 沒有宣告 `IOException` 。解決這個問題，在 Kotlin 中使用 `@Throws` 註釋： 
+
 ``` kotlin
-@Throws(IOException::class)
+@Throws(IOException::class) // 給 Java 編譯器用的
 fun foo() {
     throw IOException()
 }
 ```
-</div>
 
 ## Null-safety
 
-When calling Kotlin functions from Java, nobody prevents us from passing *null*{: .keyword } as a non-null parameter.
-That's why Kotlin generates runtime checks for all public functions that expect non-nulls.
-This way we get a `NullPointerException` in the Java code immediately.
+Null-safety ：空值的安全性
+
+When calling Kotlin functions from Java, nobody prevents us from passing *null* as a non-null parameter. That's why Kotlin generates runtime checks for all public functions that expect non-nulls. This way we get a `NullPointerException` in the Java code immediately.
+
+當從 Java 調用 Kotlin 函數時，沒有人防止我們傳遞 `null` 作為非空值的參數。這就是 Kotlin 期望非空值的所有公開函數生成運行時檢查的原因。這樣的方式，我們在 Java 代碼中即刻獲得 `NullPointerException` 。
 
 ## Variant generics
 
-When Kotlin classes make use of [declaration-site variance](generics.html#declaration-site-variance), there are two 
-options of how their usages are seen from the Java code. Let's say we have the following class and two functions that use it:
+Variant generics ：變量元素的泛型
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+When Kotlin classes make use of [declaration-site variance](generics.md#declaration-site-variance), there are two options of how their usages are seen from the Java code. Let's say we have the following class and two functions that use it:
+
+當 Kotlin 類別利用[宣告場量的變量元素](generics.md#declaration-site-variance)，有兩個選擇有關如何從 Java 代碼看到它們的用法，比如說，我們有以下類別以及使用類別的兩個函數：
+
 ``` kotlin
 class Box<out T>(val value: T)
 
 interface Base
 class Derived : Base
 
-fun boxDerived(value: Derived): Box<Derived> = Box(value)
+//兩個函數使用 Box 類別
+fun boxDerived(value: Derived): Box<Derived> = Box(value) 
 fun unboxBase(box: Box<Base>): Base = box.value
 ```
-</div>
 
 A naive way of translating these functions into Java would be this:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
-​``` java
+轉換這些函數到 Java 簡單的方式是這樣：
+
+``` java
 Box<Derived> boxDerived(Derived value) { ... }
-Base unboxBase(Box<Base> box) { ... }
+Base unboxBase(Box<Base> box) { ... } // 傳遞 Box<Derived>() 當參數會發生問題
 ```
-</div>
 
-The problem is that in Kotlin we can say `unboxBase(boxDerived("s"))`, but in Java that would be impossible, because in Java 
-  the class `Box` is *invariant* in its parameter `T`, and thus `Box<Derived>` is not a subtype of `Box<Base>`. 
-  To make it work in Java we'd have to define `unboxBase` as follows:
+The problem is that in Kotlin we can say `unboxBase(boxDerived("s"))`, but in Java that would be impossible, because in Java the class `Box` is *invariant* in its parameter `T`, and thus `Box<Derived>` is not a subtype of `Box<Base>`. To make it work in Java we'd have to define `unboxBase` as follows:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+在 Kotlin 中的問題是我們可以說 `unboxBase(boxDerived("s"))` ，但在 Java 中是不可能的，因為在 Java 中，類別 `Box` 在它的參數 `T` 是不可變的元素，因此 `Box<Derived>` 不是 `Box<Base>` 的子類型。為了使它在 Java 中運作，我們必須按以下定義 `unboxBase` ：
+
 ``` java
 Base unboxBase(Box<? extends Base> box) { ... }  
 ```
-</div>
 
-Here we make use of Java's *wildcards types* (`? extends Base`) to emulate declaration-site variance through use-site 
-variance, because it is all Java has.
+Here we make use of Java's *wildcards types* (`? extends Base`) to emulate declaration-site variance through use-site variance, because it is all Java has.
 
-To make Kotlin APIs work in Java we generate `Box<Super>` as `Box<? extends Super>` for covariantly defined `Box` 
-(or `Foo<? super Bar>` for contravariantly defined `Foo`) when it appears *as a parameter*. When it's a return value,
-we don't generate wildcards, because otherwise Java clients will have to deal with them (and it's against the common 
-Java coding style). Therefore, the functions from our example are actually translated as follows:
+這裡我們利用 Java 的通配符類型 (`? extends Base`) 透過使用場景的變量元素模擬宣告場景的變量元素，因為它是 Java 所擁有：
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+To make Kotlin APIs work in Java we generate `Box<Super>` as `Box<? extends Super>` for covariantly defined `Box` (or `Foo<? super Bar>` for contravariantly defined `Foo`) when it appears *as a parameter*. When it's a return value, we don't generate wildcards, because otherwise Java clients will have to deal with them (and it's against the common Java coding style). Therefore, the functions from our example are actually translated as follows:
+
+為了使 Kotlin API 在 Java 中工作，當它作為**參數**出現時，我們生成  `Box<Super>` 為 `Box<? extends Super>` 用於 `Box` 定義協變性 (或 `Foo<? super Bar>` 用於 `Foo` 定義逆變性 ) 。當它是一個回傳值時，我們不會生成通配符，因為否則 Java 客戶端將不得不處理它們 (並且它違反了常見的 Java 編碼風格) 。因此，從我們範例的函數實際上翻譯如下：
+
 ``` java
 // return type - no wildcards
 Box<Derived> boxDerived(Derived value) { ... }
@@ -507,33 +505,26 @@ Box<Derived> boxDerived(Derived value) { ... }
 // parameter - wildcards 
 Base unboxBase(Box<? extends Base> box) { ... }
 ```
-</div>
 
-NOTE: when the argument type is final, there's usually no point in generating the wildcard, so `Box<String>` is always
-  `Box<String>`, no matter what position it takes.
+NOTE: when the argument type is final, there's usually no point in generating the wildcard, so `Box<String>` is always `Box<String>`, no matter what position it takes.
 
 If we need wildcards where they are not generated by default, we can use the `@JvmWildcard` annotation:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
-​``` kotlin
+``` kotlin
 fun boxDerived(value: Derived): Box<@JvmWildcard Derived> = Box(value)
 // is translated to 
 // Box<? extends Derived> boxDerived(Derived value) { ... }
 ```
-</div>
 
 On the other hand, if we don't need wildcards where they are generated, we can use `@JvmSuppressWildcards`:
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
 ``` kotlin
 fun unboxBase(box: Box<@JvmSuppressWildcards Base>): Base = box.value
 // is translated to 
 // Base unboxBase(Box<Base> box) { ... }
 ```
-</div>
 
-NOTE: `@JvmSuppressWildcards` can be used not only on individual type arguments, but on entire declarations, such as 
-functions or classes, causing all wildcards inside them to be suppressed.
+NOTE: `@JvmSuppressWildcards` can be used not only on individual type arguments, but on entire declarations, such as functions or classes, causing all wildcards inside them to be suppressed.
 
 ### Translation of type Nothing
 
