@@ -91,21 +91,21 @@
 
 ## Coroutines
 
-- [Coroutines Guide](pages/docs/reference/.md) 
+- [Coroutines Guide](https://github.com/RayCZ/kotlinx.coroutines/blob/ray/docs/coroutines-guide.md) 
 
-- [Basics](pages/docs/reference/.md) 
+- [Basics](https://github.com/RayCZ/kotlinx.coroutines/blob/ray/docs/basics.md) 
 
-- [Cancellation and Timeouts](pages/docs/reference/.md) 
+- [Cancellation and Timeouts](https://github.com/RayCZ/kotlinx.coroutines/blob/ray/docs/cancellation-and-timeouts.md) 
 
-- [Channels](pages/docs/reference/.md) 
+- [Channels](https://github.com/RayCZ/kotlinx.coroutines/blob/ray/docs/channels.md) 
 
-- [Composing Suspending Functions](pages/docs/reference/.md) 
+- [Composing Suspending Functions](https://github.com/RayCZ/kotlinx.coroutines/blob/ray/docs/composing-suspending-functions.md) 
 
-- [Coroutine Context and Dispatchers](pages/docs/reference/.md) 
+- [Coroutine Context and Dispatchers](https://github.com/RayCZ/kotlinx.coroutines/blob/ray/docs/coroutine-context-and-dispatchers.md) 
 
-- [Exception Handling](pages/docs/reference/.md) 
+- [Exception Handling](https://github.com/RayCZ/kotlinx.coroutines/blob/ray/docs/exception-handling.md) 
 
-- [Select Expression](pages/docs/reference/.md) 
+- [Select Expression](https://github.com/RayCZ/kotlinx.coroutines/blob/ray/docs/select-expression.md) 
 
-- [Shared Mutable State and Concurrency](pages/docs/reference/.md) 
+- [Shared Mutable State and Concurrency](https://github.com/RayCZ/kotlinx.coroutines/blob/ray/docs/shared-mutable-state-and-concurrency.md) 
 
