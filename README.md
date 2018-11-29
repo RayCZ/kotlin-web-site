@@ -55,12 +55,6 @@
 
 - [Inline Functions](pages/docs/reference/inline-functions.md) (行內置入函數)
 
-## Multiplatform Programming
-
-- [Platform-Specific Declarations](pages/docs/reference/platform-specific-declarations.md)  *需補充、修正
-
-- [Building with Gradle](pages/docs/reference/building-mpp-with-gradle.md)  *需補充、修正
-
 ## Other
 
 - [Destructuring Declarations](pages/docs/reference/multi-declarations.md)  (解構宣告)
