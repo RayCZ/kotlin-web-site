@@ -6,26 +6,35 @@ title: "Building Multiplatform Projects with Gradle"
 
 # Building Multiplatform Projects with Gradle
 
+Building Multiplatform Projects with Gradle ：使用 Gradle 建立多平台的專案
+
 > Multiplatform projects are an experimental feature in Kotlin 1.2 and 1.3. All of the language
-and tooling features described in this document are subject to change in future Kotlin versions.
-{:.note}
+> and tooling features described in this document are subject to change in future Kotlin versions.
+>
+> 多平台專案在 Kotlin 1.2 和 1.3 是實驗性功能。在這份文件中描述所有語言和工具，將來的 Kotlin 版本中可能會有所變化。
 
-This document describes how [Kotlin multiplatform projects](multiplatform.html) are configured and built using 
-Gradle. Only Gradle versions 4.7 and above can be used, older Gradle versions are not supported.
+This document describes how [Kotlin multiplatform projects](https://kotlinlang.org/docs/reference/multiplatform.html) are configured and built using Gradle. Only Gradle versions 4.7 and above can be used, older Gradle versions are not supported.
 
-Gradle Kotlin DSL support has not been implemented yet for multiplatform projects, it will be added in the future 
-updates. Please use the Groovy DSL in the build scripts.
+這份文件描述如何使用 Gradle 配置和建構 [Kotlin 多平台專案](https://kotlinlang.org/docs/reference/multiplatform.html)。只能使用 Gradle 版本 4.7 和之上，不支援舊的 Gradle 版本。
+
+Gradle Kotlin DSL support has not been implemented yet for multiplatform projects, it will be added in the future updates. Please use the Groovy DSL in the build scripts.
+
+Gradle Kotlin DSL 支援尚未針對多平台專案實作，它將在未來的更新中添加。請在建構腳本中使用 Groovy DSL 。
 
 ## Setting up a Multiplatform Project
 
+Setting up a Multiplatform Project ：設置多平台專案
+
 You can create a new multiplatform project in the IDE by selecting one of the multiplatform project templates in the 
 New Project dialog under the "Kotlin" section. 
+
+你可以在 IDE 中建立新的多平台專案，在 IDE 的新建立專案對話框中， Kotlin 部分下，選擇一個多平台專案模版。
 
 For example, if you choose "Kotlin (Multiplatform Library)", a library project is created that has three [targets](#setting-up-targets), one 
 for the JVM, one for JS, and one for the Native platform that you are using. These are configured in the `build.gradle`
 script in the following way:
 
-<div class="sample" markdown="1" theme="idea" mode='groovy'>
+例如，如果你選擇 "Kotlin (Multiplatform Library)" ，則會建立包含三個[目標](#setting-up-targets)的一個函式庫，一個用於 JVM ，一個用於 JS ，一個你正在使用的原生平台。這些在 `build.gradle` 腳本中按以下方式配置：
 
 ```groovy
 plugins {
@@ -47,14 +56,13 @@ kotlin {
 }
 ```
 
-</div>
+The three targets are created from the presets that provide some [default configuration](#default-project-layout). There are presets for each of the [supported platforms](#supported-platforms).
 
-The three targets are created from the presets that provide some [default configuration](#default-project-layout). 
-There are presets for each of the [supported platforms](#supported-platforms).
+這三個目標從提供[預設配置](#default-project-layout)的預設裝置建立。每個[被支援平台](#supported-platforms)都有預設裝置。
 
 The [source sets](#configuring-source-sets) and their [dependencies](#adding-dependencies) are then configured as follows:
 
-<div class="sample" markdown="1" theme="idea" mode='groovy'>
+然後配置[來源集合和](#configuring-source-sets)它們的[依賴函式庫](#adding-dependencies)，如下所示：
 
 ```groovy
 plugins { /* ... */ }
@@ -63,6 +71,7 @@ kotlin {
     targets { /* ... */ }
 
     sourceSets { 
+        //common 主要與測試
         commonMain {
             dependencies {
                 implementation 'org.jetbrains.kotlin:kotlin-stdlib-common'
@@ -74,6 +83,8 @@ kotlin {
                 implementation 'org.jetbrains.kotlin:kotlin-test-annotations-common'
             }
         }
+        
+        //jvm 主要與測試
         jvmMain {
             dependencies {
                 implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8'
@@ -85,20 +96,21 @@ kotlin {
                 implementation 'org.jetbrains.kotlin:kotlin-test-junit'
             }
         }
+        
+        //js 主要與測試
         jsMain { /* ... */ }
         jsTest { /* ... */ }
+        
+        //其他平台 主要與測試
         mingwMain { /* ... */ }
         mingwTest { /* ... */ }
     }
 }
 ```
 
-</div>
+These are the [default source set names](#default-project-layout) for the production and test sources for the targets configured above. The source sets `commonMain` and `commonTest` are included into production and test compilations, respectively, of all targets. Note that the dependencies for common source sets `commonMain` and `commonTest` are the common artifacts, and the platform libraries go to the source sets of the specific targets.
 
-These are the [default source set names](#default-project-layout) for the production and test sources for the targets configured above. The source 
-sets `commonMain` and `commonTest` are included into production and test compilations, respectively, of all targets. 
-Note that the dependencies for common source sets `commonMain` and `commonTest` are the common artifacts, and the 
-platform libraries go to the source sets of the specific targets.
+這些上面[預設來源集合命名](#default-project-layout)用於目標配置的生產與測試來源。來源集合 `commonMain` 和 `commonTest` 分別納入生產和測試編譯，所有目標的都有配置。注意
 
 The details on project structure and the DSL can be found in the following sections.
 
@@ -143,7 +155,7 @@ kotlin {
         } 
     }
 }
-``` 
+```
 </div>
 
 Building a target requires compiling Kotlin once or multiple times. Each Kotlin compilation of a target may serve a 
@@ -211,7 +223,7 @@ kotlin {
         bar { /* ... */ }
     }
 }
-``` 
+```
 </div>
 
 > Note: creating a source set does not link it to any target. Some source sets are [predefined](#default-project-layout) 
@@ -236,7 +248,7 @@ kotlin {
         } 
     }
 }
-``` 
+```
 
 </div>
 
@@ -420,7 +432,7 @@ set participates in the compilation, and thus it should be used for the platform
 targets `jvm6` (JVM) and `nodeJs` (JS) will have source sets: `commonMain`, `commonTest`, `jvm6Main`, `jvm6Test`, `nodeJsMain`, `nodeJsTest`.
 
 Numerous use cases are covered by just the default source sets and don't require custom source sets.
- 
+
 Each source set by default has its Kotlin sources under `src/<sourceSetName>/kotlin` directory and the resources under `src/<sourceSetName>/resources`.
 
 In Android projects, additional Kotlin source sets are created for each Android source set. If the Android target has a name `foo`, the Android source set `bar` gets a Kotlin source set counterpart `fooBar`. The Kotlin compilations, however, are able to consume Kotlin sources from all of the directories `src/bar/java`, `src/bar/kotlin`, and `src/fooBar/kotlin`. Java sources are only read from the first of these directories.
@@ -498,18 +510,18 @@ An experimental publishing and dependency consumption mode can be enabled by add
 `enableFeaturePreview('GRADLE_METADATA')` to the `settings.gradle` file. With Gradle metadata enabled,
  an additional publication is added which references the target publications as its variants. The artifact ID of this publication
  matches the project name.
- 
+
 > Gradle metadata publishing is an experimental Gradle feature which is not guaranteed to be backward-compatible. 
 Future Gradle versions may fail to resolve a dependency to a library published with current versions of Gradle metadata.
 Library authors are recommended to use it to publish experimental versions of the library alongside with the stable publishing mechanism
 until the feature is considered stable. 
 {:.note}
- 
+
 If a library is published with Gradle metadata enabled and a consumer enables the metadata as well, the consumer may specify a
  single dependency on the library in a common source set, and a corresponding platform-specific variant will be chosen, if available, 
  for each of the compilations. Consider a `sample-lib` library built for the JVM and JS and published with experimental Gradle metadata.
  Then it is enough for the consumers to add `enableFeaturePreview('GRADLE_METADATA)` and specify a single dependency:
- 
+
 <div class="sample" markdown="1" theme="idea" mode='groovy'>
 
 ```groovy
@@ -547,12 +559,12 @@ However, dependencies on such a multiplatform library may be ambiguous and may t
   
 * In both of the cases above, another solution is to mark the targets with a custom attribute. This, however, must be done on both the library author
  and the consumer sides, and it's the library author's responsibility to communicate the attribute and its values to the consumers;
- 
+
      Add the following symmetrically, to both the library and the consumer projects. The consumer may only need to mark 
      a single target with the attribute:
-     
+   
      <div class="sample" markdown="1" theme="idea" mode='groovy'>
-     
+   
      ```groovy
      def testFrameworkAttribte = Attribute.of('com.example.testFramework', String)
       
@@ -571,7 +583,7 @@ However, dependencies on such a multiplatform library may be ambiguous and may t
          }
      }
      ```
-     
+   
      </div>
 
 ## Using Kotlin/Native Targets
