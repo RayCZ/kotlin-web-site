@@ -8,18 +8,21 @@ title: "Extensions"
 本章節開始之前先定義 receiver 所代表的意思： 
 
 ``` kotlin
+class Section
+
+// Java 像是 static void append(Section receiver,String name)
 fun Section.append(name: String)
 
-//caller
+// 譞用方式
 val realObject: Section = Section()
 realObject.append("Section 1")
 ```
 
 Receiver Type = Extension Type : Section
 
-從以上這個擴展方法可以看出為 `Section` 類別擴展一個 append 方法，當我們在產生物件並且調用方法時， receiver 代表的就是這個物件本身 `realObject`。
+從以上這個擴展方法可以看出為 `Section` 類別擴展一個 append 方法，當我們在產生物件並且調用方法時， receiver 代表的就是這個物件本身 `realObject`，這只是一個語法糖， append 實際上是一個帶有 Section 參數的靜態的函數。
 
-
+Receiver ：以英文來說是接收器或接收者等被動方的意思，後續使用上可以解釋為**被動物件**。
 
 # Extensions
 
