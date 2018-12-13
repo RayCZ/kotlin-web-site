@@ -91,17 +91,17 @@
 
 ## Coroutines
 
-- [Coroutines Guide](https://github.com/RayCZ/kotlinx.coroutines/blob/ray/docs/coroutines-guide.md) 
+- [Coroutines Guide](https://github.com/RayCZ/kotlinx.coroutines/blob/ray/docs/coroutines-guide.md) (協程指導)
 
-- [Basics](https://github.com/RayCZ/kotlinx.coroutines/blob/ray/docs/basics.md) 
+- [Basics](https://github.com/RayCZ/kotlinx.coroutines/blob/ray/docs/basics.md) (基本概念)
 
-- [Cancellation and Timeouts](https://github.com/RayCZ/kotlinx.coroutines/blob/ray/docs/cancellation-and-timeouts.md) 
+- [Cancellation and Timeouts](https://github.com/RayCZ/kotlinx.coroutines/blob/ray/docs/cancellation-and-timeouts.md) (取消和超時)
 
-- [Channels](https://github.com/RayCZ/kotlinx.coroutines/blob/ray/docs/channels.md) 
+- [Channels](https://github.com/RayCZ/kotlinx.coroutines/blob/ray/docs/channels.md) (通道)
 
-- [Composing Suspending Functions](https://github.com/RayCZ/kotlinx.coroutines/blob/ray/docs/composing-suspending-functions.md) 
+- [Composing Suspending Functions](https://github.com/RayCZ/kotlinx.coroutines/blob/ray/docs/composing-suspending-functions.md) (組合懸掛函數)
 
-- [Coroutine Context and Dispatchers](https://github.com/RayCZ/kotlinx.coroutines/blob/ray/docs/coroutine-context-and-dispatchers.md) 
+- [Coroutine Context and Dispatchers](https://github.com/RayCZ/kotlinx.coroutines/blob/ray/docs/coroutine-context-and-dispatchers.md) (協程環境和分配器)
 
 - [Exception Handling](https://github.com/RayCZ/kotlinx.coroutines/blob/ray/docs/exception-handling.md) 
 
