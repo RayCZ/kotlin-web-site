@@ -1,0 +1,3 @@
+﻿Commit: d1204d7b45a15a33a7bee27209e9915c7565de80 [d1204d7]
+
+利用這個 commit 與最新的 master commit 比較出異動的部分，更改 ray branch 
