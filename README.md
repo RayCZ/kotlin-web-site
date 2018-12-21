@@ -103,9 +103,9 @@
 
 - [Coroutine Context and Dispatchers](https://github.com/RayCZ/kotlinx.coroutines/blob/ray/docs/coroutine-context-and-dispatchers.md) (協程環境和分配器)
 
-- [Exception Handling](https://github.com/RayCZ/kotlinx.coroutines/blob/ray/docs/exception-handling.md) 
+- [Exception Handling](https://github.com/RayCZ/kotlinx.coroutines/blob/ray/docs/exception-handling.md) (異常處理)
 
-- [Select Expression](https://github.com/RayCZ/kotlinx.coroutines/blob/ray/docs/select-expression.md) 
+- [Select Expression](https://github.com/RayCZ/kotlinx.coroutines/blob/ray/docs/select-expression.md) (Select 表示法)
 
-- [Shared Mutable State and Concurrency](https://github.com/RayCZ/kotlinx.coroutines/blob/ray/docs/shared-mutable-state-and-concurrency.md) 
+- [Shared Mutable State and Concurrency](https://github.com/RayCZ/kotlinx.coroutines/blob/ray/docs/shared-mutable-state-and-concurrency.md) (共享的可變狀態和並發)
 
