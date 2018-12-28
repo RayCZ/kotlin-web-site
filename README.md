@@ -111,4 +111,4 @@
 
 - [Guide to UI programming with coroutines](https://github.com/RayCZ/kotlinx.coroutines/blob/ray/ui/coroutines-guide-ui.md) (使用協程的 UI 編程指導)
 
-- [Guide to reactive streams with coroutines](https://github.com/RayCZ/kotlinx.coroutines/blob/ray/reactive/coroutines-guide-reactive.md) (使用協程的 Reactive Streams 函式庫的指導)
+- [Guide to reactive streams with coroutines](https://github.com/RayCZ/kotlinx.coroutines/blob/ray/reactive/coroutines-guide-reactive.md) (使用協程配合 Reactive Streams 函式庫的指導)
