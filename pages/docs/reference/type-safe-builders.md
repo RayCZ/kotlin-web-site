@@ -20,7 +20,7 @@ Type-safe builders allow creating Kotlin-based domain-specific languages (DSLs) 
 * Generating markup with Kotlin code, such as [HTML](https://github.com/Kotlin/kotlinx.html) or XML;
   使用 Kotlin 代碼生成標記，例如： [HTML](https://github.com/Kotlin/kotlinx.html) 或 XML ；
 * Programmatically laying out UI components: [Anko](https://github.com/Kotlin/anko/wiki/Anko-Layouts)
-  編碼做 UI 元件排版： [Anko](https://github.com/Kotlin/anko/wiki/Anko-Layouts)
+  程式設計 UI 元件排版： [Anko](https://github.com/Kotlin/anko/wiki/Anko-Layouts)
 * Configuring routes for a web server: [Ktor](http://ktor.io/features/routing.html#routing-tree).
   配置 web server 的路由：[Ktor](http://ktor.io/features/routing.html#routing-tree) 。
 

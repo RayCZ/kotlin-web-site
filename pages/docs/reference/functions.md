@@ -458,7 +458,7 @@ Tail recursive functions ：尾段遞迴函數
 
 Kotlin supports a style of functional programming known as [tail recursion](https://en.wikipedia.org/wiki/Tail_call). This allows some algorithms that would normally be written using loops to instead be written using a recursive function, but without the risk of stack overflow.  When a function is marked with the `tailrec` modifier and meets the required form, the compiler optimises out the recursion, leaving behind a fast and efficient loop based version instead:
 
-Kotlin 支援稱為[尾段遞迴](https://en.wikipedia.org/wiki/Tail_call)的函數式編碼風格。這允許一些通常使用循環編寫的演算法改為使用遞迴函數編寫，但沒有堆疊溢出的風險。當使用 `tailrec` 修飾符標記函數且滿足所需的形式，編譯器優化出遞迴，從而留下基本版本快速和有效的循環：
+Kotlin 支援稱為[尾段遞迴](https://en.wikipedia.org/wiki/Tail_call)的函數式程式設計風格。這允許一些通常使用循環編寫的演算法改為使用遞迴函數編寫，但沒有堆疊溢出的風險。當使用 `tailrec` 修飾符標記函數且滿足所需的形式，編譯器優化出遞迴，從而留下基本版本快速和有效的循環：
 
 ``` kotlin
 val eps = 1E-10 // "good enough", could be 10^-15
