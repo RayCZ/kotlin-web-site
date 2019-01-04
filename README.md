@@ -109,6 +109,6 @@
 
 - [Shared Mutable State and Concurrency](https://github.com/RayCZ/kotlinx.coroutines/blob/ray/docs/shared-mutable-state-and-concurrency.md) (共享的可變狀態和並發)
 
-- [Guide to UI programming with coroutines](https://github.com/RayCZ/kotlinx.coroutines/blob/ray/ui/coroutines-guide-ui.md) (使用協程的 UI 編程指導)
+- [Guide to UI programming with coroutines](https://github.com/RayCZ/kotlinx.coroutines/blob/ray/ui/coroutines-guide-ui.md) (使用協程配合 UI 程式設計指導)
 
 - [Guide to reactive streams with coroutines](https://github.com/RayCZ/kotlinx.coroutines/blob/ray/reactive/coroutines-guide-reactive.md) (使用協程配合 Reactive Streams 函式庫的指導)
