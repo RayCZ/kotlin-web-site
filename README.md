@@ -33,7 +33,7 @@
 
 - [Sealed Classes](pages/docs/reference/sealed-classes.md) (密封類別)
 
-- [Generics](pages/docs/reference/generics.md) (泛型) *需補充、修正
+- [Generics](pages/docs/reference/generics.md) (泛型)
 
 - [Nested Classes](pages/docs/reference/nested-classes.md) (內嵌類別)
 
@@ -41,7 +41,7 @@
 
 - [Objects](pages/docs/reference/object-declarations.md) (物件)
 
-- [Inline Classes](pages/docs/reference/inline-classes.md) (行內置入類別) *需補充、修正
+- [Inline Classes](pages/docs/reference/inline-classes.md) (行內置入類別)
 
 - [Delegation](pages/docs/reference/delegation.md) (委外使用方式)
 
