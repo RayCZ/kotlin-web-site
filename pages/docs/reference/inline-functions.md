@@ -262,7 +262,7 @@ inline var bar: Bar
 
 At the call site, inline accessors are inlined as regular inline functions.
 
-在調用場殘，行內置入存取器被置入為常規行內置入函數。
+在調用場景，行內置入存取器被置入為常規行內置入函數。
 
 ## Restrictions for public API inline functions
 
