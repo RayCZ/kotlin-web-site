@@ -52,11 +52,11 @@ In mixed-language projects, Kotlin source files should reside in the same source
 In pure Kotlin projects, the recommended directory structure is to follow the package structure with
 the common root package omitted
 
-在單一 (純) Kotlin 專案中，**推薦目錄結構是遵循 package 結構**，省略通用的起始 (根) package 
+在單一 (純) Kotlin 專案中，**推薦的目錄結構是遵循 package 結構**，省略通用的起始 (根) package 
 
 (e.g. if all the code in the project is in the "org.example.kotlin" package and its subpackages, files with the "org.example.kotlin" package should be placed directly under the source root, and files in "org.example.kotlin.foo.bar" should be in the "foo/bar" subdirectory of the source root).
 
-(例如：如果在專案中所有的代碼在 "org.example.kotlin" package 和它的子 packages，檔案內宣告 package "org.example.kotlin" 應該直接放置在起始 (根) 來源下，並在 "org.example.kotlin.foo.bar"下的檔案應該在起始來源的子目錄 "foo/bar") 。
+(例如：如果在專案中所有的代碼在 "org.example.kotlin" package 和它的子 packages， "org.example.kotlin" package 下的檔案應該直接放置在起始 (根) 來源下，並在 "org.example.kotlin.foo.bar"下的檔案應該在起始來源的子目錄 "foo/bar") 。
 
 ---
 
@@ -64,15 +64,15 @@ the common root package omitted
 
 Source file names ：來源檔案命名
 
-**top-level：代表檔案中可以直接宣告函數或屬性，不像 Java 只能在類別內才能宣告**
+**top-level：最高層級，代表檔案中可以直接宣告函數或屬性，不像 Java 只能在類別內才能宣告**
 
 If a Kotlin file contains a single class (potentially with related top-level declarations), its name should be the same as the name of the class, with the .kt extension appended.
 
-如果 Kotlin 檔案內包含單個類別 (可能使用有關 top-level 宣告)，**檔案的名稱應該與類別名稱相同，檔名附加 .kt 擴展**。
+如果 Kotlin 檔案內包含單個類別 (可能使用有關最高層級的宣告)，**檔案的名稱應該與類別名稱相同，檔名附加 .kt 擴展**。
 
  If a file contains multiple classes, or only top-level declarations, choose a name describing what the file contains, and name the file accordingly. Use camel humps with an uppercase first letter (e.g. `ProcessDeclarations.kt`).
 
-如果檔案包含多個類別，或只是 top-level 宣告，選擇名稱描述檔案內包含什麼，並相應地命名該檔案。**使用駝峰式與開頭大寫 (例如 `ProcessDeclarations.kt`)** 。
+如果檔案包含多個類別，或只是最高層級宣告，選擇名稱描述檔案內包含什麼，並相應地命名該檔案。**使用駝峰式與開頭大寫 (例如 `ProcessDeclarations.kt`)** 。
 
 The name of the file should describe what the code in the file does. Therefore, you should avoid using meaningless words such as "Util" in file names.
 
@@ -86,11 +86,11 @@ Source file organization ：來源檔案組織
 
 Placing multiple declarations (classes, top-level functions or properties) in the same Kotlin source file is encouraged as long as these declarations are closely related to each other semantically and the file size remains reasonable (not exceeding a few hundred lines).
 
-**在相同 Kotlin 來源檔案放置多個宣告 (classes, top-level functions or properties ) 是被鼓勵支持的，只要這些宣告彼此緊密相關的語義並且檔案大小保持合理 (不超過幾百行)**。
+**在相同 Kotlin 來源檔案放置多個宣告 (多個類別、最高層級的函數或屬性) 是被鼓勵支持的，只要這些宣告彼此緊密相關的語義並且檔案大小保持合理 (不超過幾百行)**。
 
 In particular, when defining extension functions for a class which are relevant for all clients of this class, put them in the same file where the class itself is defined. When defining extension functions that make sense only for a specific client, put them next to the code of that client. Do not create files just to hold "all extensions of Foo".
 
-特別地，為這個類別所有的客戶端定義相關的擴展函數，放它在相同檔案並定義類別本身。只為特殊客戶端有意義的定義擴展函數時，放它們在該客戶端的代碼旁邊。不要建立檔案只為了持有 "Foo所有擴展"。
+特別地，為類別定義擴展函時數時，與這個類別所有的客戶端相關，放它們在相同檔案並定義類別本身。只為特殊客戶端有意義的定義擴展函數時，放它們在該客戶端的代碼旁邊。不要建立檔案只為了持有 "Foo所有擴展"。
 
 ---
 
@@ -109,7 +109,7 @@ Generally, the contents of a class is sorted in the following order:
 - Method declarations
   方法宣告
 - Companion object
-  夥伴物件：類型於 Java 的靜態類
+  夥伴物件 (類型於 Java 的靜態類)
 
 Do not sort the method declarations alphabetically or by visibility, and do not separate regular methods from extension methods. Instead, put related stuff together, so that someone reading the class from top to bottom would be able to follow the logic of what's happening. Choose an order (either higher-level stuff first, or vice versa) and stick to it.
 
@@ -127,7 +127,9 @@ Interface implementation layout ：介面實作怖局、安排
 
 When implementing an interface, keep the implementing members in the same order as members of the interface (if necessary, interspersed with additional private methods used for the implementation)
 
-當在實作介面時，保持實作成員(屬性、方法)與介面成員(屬性、方法)相同的順序 (如果有必要，穿插著額外私有方法用於實作)
+**成員 = 屬性、函數**
+
+當在實作介面時，保留實作成員與介面成員相同的順序 (如果有必要，穿插著額外私有方法用於實作)
 
 ---
 
@@ -147,15 +149,15 @@ Naming rules ：命名規則
 
 Kotlin follows the Java naming conventions. In particular:
 
-Kotlin 遵循 Java 命名規則。特別地：
+Kotlin 遵循 Java 命名規則。特別是：
 
 Names of packages are always lower case and do not use underscores (`org.example.myproject`). Using multi-word names is generally discouraged, but if you do need to use multiple words, you can either simply concatenate them together or use camel humps (`org.example.myProject`).
 
-Package 命名總是小寫並且沒有使用底線 (`org.example.myproject`)，通常鼓勵使用多個單字命名，如果你需要使用多個單字，你不是用簡單串接就是使用駝峰式 (`org.example.myProject`)
+Package 的命名總是小寫並且沒有使用底線 (`org.example.myproject`)，通常鼓勵使用多個單字命名，如果你需要使用多個單字，你可以簡單的串接它們或是使用駝峰式 (`org.example.myProject`)
 
 Names of classes and objects start with an upper case letter and use camel humps:
 
-類別與物件名稱開頭為大寫字母並使用駝峰式：
+類別與物件名稱以大寫字母開頭並使用駝峰式：
 
 ``` kotlin
 open class DeclarationProcessor { ... }
@@ -170,7 +172,7 @@ Function names ：函數命名
 
 Names of functions, properties and local variables start with a lower case letter and use camel humps and no underscores:
 
-函數命名，屬性或區域變數開頭為小寫字母並使用駝峰式、無底線：
+函數的命名，屬性或區域變數以小寫字母開頭、使用駝峰式、無底線：
 
 ``` kotlin
 fun processDeclarations() { ... }
@@ -178,7 +180,7 @@ var declarationCount = ...
 ```
 Exception: factory functions used to create instances of classes can have the same name as the class being created:
 
-例外：用於創建實例的「工廠模式」函數可以與正在創建類別相同的名稱：
+例外：「工廠模式」函數用於創建類別的實例，可以與被創建類別相同的名稱：
 
 ``` kotlin
 abstract class Foo { ... }
@@ -191,12 +193,12 @@ fun Foo(): Foo { return FooImpl(...) }
 
 #### Names for test methods
 
-Names for test methods ：測式方法的命名
+Names for test methods ：單元測試方法的命名
 
 In tests (and only in tests), it's acceptable to use method names with spaces enclosed in backticks.
 (Note that such method names are currently not supported by the Android runtime.) Underscores in method names are also allowed in test code.
 
-在測試中 (並只在測試中) ，可以接受在反引號 \`\` 中使用空格的方法名稱。 (注意：這樣命名的方法名稱目前不支援Android運行時期。) 在測試代碼中允許方法名稱使用底線。
+在測試中 (並只在測試中) ，可以接受在反引號 \`\` 中使用空格的方法名稱。 (注意：這樣命名的方法名稱目前不支援 Android 運行時期。) 在測試代碼中也允許方法命名使用底線。
 
 ``` kotlin
 class MyTestCase {
@@ -213,20 +215,20 @@ Property names ：屬性命名
 
 Names of constants (properties marked with `const`, or top-level or object `val` properties with no custom `get` function that hold deeply immutable data) should use uppercase underscore-separated names:
 
-常數命名 (屬性標記為 `const` ， 最高層級或物件有 val屬性沒有自定義持有深度不可變資料的 get 函數) 應該大寫字母加底線分隔命名：
+常數的命名 (屬性標記為 `const` ，或最高層級，或物件有 val 屬性並沒有自定義持有深度不可變資料的 get 函數) 應該大寫字母加底線分隔命名：
 ``` kotlin
 const val MAX_COUNT = 8
 val USER_NAME_FIELD = "UserName"
 ```
 Names of top-level or object properties which hold objects with behavior or mutable data should use regular camel-hump names:
 
-最高層級或物件屬性命名持有物件使用行為或可變資料應該使用常規駝峰式命名：
+最高層級或物件屬性的命名持有物件的行為或可變資料應該使用常規駝峰式命名：
 ``` kotlin
 val mutableCollection: MutableSet<String> = HashSet()
 ```
 Names of properties holding references to singleton objects can use the same naming style as `object` declarations:
 
-屬性命名持有單例物件參照可以使用相同命名風格 `object` 宣告：
+屬性的命名持有單例物件參照可以使用相同命名風格 `object` 宣告：
 
 ``` kotlin
 val PersonComparator: Comparator<Person> = ...
@@ -243,7 +245,7 @@ Names for backing properties ：支援屬性命名
 
 If a class has two properties which are conceptually the same but one is part of a public API and another is an implementation detail, use an underscore as the prefix for the name of the private property:
 
-如果類別有兩個屬性在概念上相同，但一個為對外公開 API 的一部份，並且另一個為實作細節，使用底線為前綴 (開頭) 為私有屬性的命名：
+如果一個類別有兩個屬性在概念上相同，但一個為對外公開 API 的一部份，並且另一個為實作細節，使用底線為前綴 (開頭) 為私有屬性的命名：
 
 ``` kotlin
 class C {
@@ -261,22 +263,21 @@ Choosing good names ：選擇好的命名
 
 The name of a class is usually a noun or a noun phrase explaining what the class _is_: `List`, `PersonReader`.
 
-類別名稱通常為名詞或名詞短語解釋類別是：`List` , `PersonReader` 。
+類別的名稱通常為名詞或名詞短語解釋類別是什麼：`List` , `PersonReader` 。
 
 The name of a method is usually a verb or a verb phrase saying what the method _does_: `close`, `readPersons`.
 
-方法名稱通常為動詞或動詞短語說明方法做的事：`close` , `readPersons` 。
+方法的名稱通常為動詞或動詞短語說明方法做什麼事：`close` , `readPersons` 。
 
 The name should also suggest if the method is mutating the object or returning a new one. For instance `sort` is sorting a collection in place, while `sorted` is returning a sorted copy of the collection.
 
-命名也表示方法是目前正在改變的物件或回傳新的物件。比如 `sort` 是排序執行中讓集合到位，而 `sorted` 回傳已排序集合的副本。
+命名也應該表明方法是否目前正在改變的物件或回傳一個新的物件。比如 `sort` 是排序執行中讓集合到位，而 `sorted` 回傳已排序集合的副本。
 
 The names should make it clear what the purpose of the entity is, so it's best to avoid using meaningless words (`Manager`, `Wrapper` etc.) in names.
 
-命名應該清楚說明實體存在的目的是什麼，所以在命名時它最好避免無意義的單字 (`Manager`, `Wrapper` 等等。)。
+命名應該清楚說明實體存在的目的是什麼，所以在命名時它最好避免使用無意義的單字 (`Manager`, `Wrapper` 等等。)。
 
-When using an acronym as part of a declaration name, capitalize it if it consists of two letters (`IOStream`);
-capitalize only the first letter if it is longer (`XmlFormatter`, `HttpInputStream`).
+When using an acronym as part of a declaration name, capitalize it if it consists of two letters (`IOStream`); capitalize only the first letter if it is longer (`XmlFormatter`, `HttpInputStream`).
 
 當使用縮寫為宣告命名的一部份時，如果它由兩個字母組成 (`IOStream`) 將縮寫為大寫字母 (`IO`)；如果它是較長的單字 (`XmlFormatter`) 將縮寫的首字為大寫字母 (`Xml`、`Formatter`) 。
 
@@ -295,7 +296,7 @@ Use 4 spaces for indentation. Do not use tabs.
 
 For curly braces, put the opening brace in the end of the line where the construct begins, and the closing brace on a separate line aligned vertically with the opening construct.
 
-對於大括號 `{}`, 在行尾放開頭大括號 `{` 表示建構開始，並在單獨一行關閉大括號 `}` 垂直對齊開頭建構。
+對於大括號 `{}` , 在行尾放開頭大括號 `{` 表示建構開始，並在單獨一行關閉大括號 `}` 垂直對齊開頭建構。
 
 ``` kotlin
 if (elements != null) {
@@ -306,7 +307,7 @@ if (elements != null) {
 ```
 (Note: In Kotlin, semicolons are optional, and therefore line breaks are significant. The language design assumes Java-style braces, and you may encounter surprising behavior if you try to use a different formatting style.)
 
-(注意：在 Kotlin，分號 `;` 是可選的(可有可無)，因此換行是重要的。語言設計假設為 Java 風格的括號，如果你嘗試使用不同編排格式，你可能會遇到令人驚訝的問題。)
+(注意：在 Kotlin 中，分號 `;` 是可選的 (可有可無) ，因此換行是重要的。語言設計假設為 Java 風格的括號，如果你嘗試使用不同編排格式，你可能會遇到令人驚訝的問題。)
 
 ---
 
