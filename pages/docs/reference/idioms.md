@@ -297,7 +297,7 @@ fun foo(param: Int) {
 
 ### Builder-style usage of methods that return `Unit`
 
-Builder-style usage of methods that return `Unit` ：建造者風格用法的方法回傳 `Unit`
+Builder-style usage of methods that return `Unit` ：方法回傳 `Unit` 的建造者風格用法的
 
 ``` kotlin
 fun arrayOfMinusOnes(size: Int): IntArray {
@@ -324,7 +324,7 @@ fun theAnswer(): Int {
 ```
 This can be effectively combined with other idioms, leading to shorter code. E.g. with the `when`-expression:
 
-這可以有效的與其他慣語結合，從而縮短代碼。例如：使用 `when`表達式
+這可以有效的與其他慣語結合，從而縮短代碼。例如：使用 `when` 表達式
 ``` kotlin
 fun transform(color: String): Int = when (color) {
     "Red" -> 0
@@ -337,7 +337,7 @@ fun transform(color: String): Int = when (color) {
 
 ### Calling multiple methods on an object instance ('with')
 
-Calling multiple methods on an object instance ('with') ：在物件實例調用多個方法與 `with`
+Calling multiple methods on an object instance ('with') ：在物件實例中調用多個方法與 `with` 函數
 
 ``` kotlin
 class Turtle {
@@ -361,7 +361,7 @@ with(myTurtle) { //draw a 100 pix square
 
 ### Java 7's try with resources
 
-Java 7's try with resources ：嘗試使用 java 7的資源
+Java 7's try with resources ：嘗試使用 java 7 的資源
 
 ``` kotlin
 val stream = Files.newInputStream(Paths.get("/some/file.txt"))
@@ -373,7 +373,7 @@ stream.buffered().reader().use { reader ->
 
 ### Convenient form for a generic function that requires the generic type information
 
-Convenient form for a generic function that requires the generic type information ：泛型函數的方便形式需要泛型相關的資訊
+Convenient form for a generic function that requires the generic type information ：泛型函數需要泛型相關資訊的方便形式
 
 ``` kotlin
 //  public final class Gson {
