@@ -379,9 +379,9 @@ Put a space before `:` in the following cases:
 在 `:` 前放空格，在以下例子：
 
   * when it's used to separate a type and a supertype;
-    當它用於分隔一個類型與一個超 (父) 類型
+    當它用於分隔一個類型與一個超 (父) 類型時；
   * when delegating to a superclass constructor or a different constructor of the same class;
-    當調用超 (父) 類別建構元或一個相同類別不同建構元
+    當調用超 (父) 類別建構元或一個相同類別不同建構元時；
   * after the `object` keyword.
     `object` 關鍵字之後。
 
@@ -408,7 +408,7 @@ class FooImpl : Foo() {
 
 ### Class header formatting
 
-Class header formatting ：類別標頭編排格式
+Class header formatting ：類別標頭的編排格式
 
 Classes with a few primary constructor parameters can be written in a single line:
 
@@ -419,7 +419,7 @@ class Person(id: Int, name: String)
 ```
 Classes with longer headers should be formatted so that each primary constructor parameter is in a separate line with indentation.Also, the closing parenthesis should be on a new line. If we use inheritance, then the superclass constructor call or list of implemented interfaces should be located on the same line as the parenthesis:
 
-類別有較長的標頭應該被編排，以便每個主建構元參數使用縮排在單獨一行。此外，左括號 `)` 應該在新的一行。如果使用繼承，然後超 (父) 類別建構元調用或介面實作的列表(清單)應該位於括號同行：
+類別有較長的標頭應該被編排，以便每個主建構元參數使用縮排在單獨一行。此外，右括號 `)` 應該在新的一行。如果使用繼承，然後超 (父) 類別建構元調用或介面實作的列表(清單)應該位於括號同行：
 
 ```kotlin
 class Person(
@@ -430,7 +430,7 @@ class Person(
 ```
 For multiple interfaces, the superclass constructor call should be located first and then each interface should be located in a different line:
 
-對於多個介面，超 (父) 類別建構元調用應該位於第一個並且接續每個介面應該位於不同行：
+對於多個介面，超 (父) 類別建構元調用應該位於第一個並且後續每個介面應該位於不同行：
 
 ```kotlin
 class Person(
@@ -456,7 +456,7 @@ class MyFavouriteVeryLongClassHolder :
 To clearly separate the class header and body when the class header is long, either put a blank line
 following the class header (as in the example above), or put the opening curly brace on a separate line:
 
-當類別標頭太長時，清楚的分隔類別標頭與內文，在類別標頭後放置空白行 (如上所示) ，或是放左大括號 `{` 在單行：
+當類別標頭太長時，在類別標頭之後放置空白行 (如上所示) ，或是放左大括號 `{` 在單行，清楚的分隔類別標頭與內文：
 ```kotlin
 class MyFavouriteVeryLongClassHolder :
     MyLongHolder<MyFavouriteVeryLongClass>(),
@@ -470,11 +470,13 @@ class MyFavouriteVeryLongClassHolder :
 
 Use regular indent (4 spaces) for constructor parameters.
 
-使用常規縮排 (4空格) 作為建構元參數。
+建構元參數使用常規縮排 (4空格) 。
 
 > Rationale: This ensures that properties declared in the primary constructor have the same indentation as properties declared in the body of a class.
 
 > 理由：這在確保在主建構元宣告屬性與類別本文宣告屬性有相同縮排。
+
+---
 
 ### Modifiers
 
@@ -514,13 +516,15 @@ Unless you're working on a library, omit redundant modifiers (e.g. `public`).
 
 除非你從事於函式庫的應用，省略冗餘的修飾符 (例如 `public`) 。
 
+---
+
 ### Annotation formatting
 
-Annotation formatting ：註釋編排格式
+Annotation formatting ：註釋的編排格式
 
 Annotations are typically placed on separate lines, before the declaration to which they are attached, and with the same indentation:
 
-典型的註釋放置在單行，在宣告之前附加它們，並使用相同縮排：
+註釋典型的放置在單行，在宣告之前附加它們，並使用相同縮排：
 
 ``` kotlin
 @Target(AnnotationTarget.PROPERTY)
@@ -536,10 +540,12 @@ var x: String
 ```
 A single annotation without arguments may be placed on the same line as the corresponding declaration:
 
-單個註釋沒有參數可與對應的宣告同行：
+單個註釋沒有參數可與對應的宣告放置同行：
 ``` kotlin
 @Test fun foo() { ... }
 ```
+---
+
 ### File annotations
 
 File annotations ：檔案註釋
@@ -554,15 +560,18 @@ File annotations are placed after the file comment (if any), before the `package
 
 package foo.bar
 ```
+---
+
 ### Function formatting
 
-Function formatting ：函數編排格式
+Function formatting ：函數的編排格式
 
 If the function signature doesn't fit on a single line, use the following syntax:
 
-**Function signature：函數簽名，包括函數的名稱、參數順序、參數類型、泛型欄位等資訊總稱**
-
 如果函數簽名不適合單行，使用以下語法：
+
+**Function Signature：函數簽名，包括函數的名稱、參數順序、參數類型、泛型欄位等資訊總稱**
+
 ``` kotlin
 fun longMethodName(
     argument: ArgumentType = defaultValue,
@@ -573,7 +582,7 @@ fun longMethodName(
 ```
 Use regular indent (4 spaces) for function parameters.
 
-使用常規縮排 (4空格) 作為函數參數。
+函數參數使用常規縮排 (4空格) 。
 
 > Rationale: Consistency with constructor parameters
 
@@ -581,7 +590,7 @@ Use regular indent (4 spaces) for function parameters.
 
 Prefer using an expression body for functions with the body consisting of a single expression.
 
-偏好使用Lambda表達式當內文，函數的內文由單行表達式組合。
+函數的內文由單行表達式組合，函數偏好使用 Lambda 表達式當內文。
 ``` kotlin
 fun foo(): Int {     // bad
     return 1 
@@ -589,18 +598,22 @@ fun foo(): Int {     // bad
 
 fun foo() = 1        // good
 ```
+---
+
 ### Expression body formatting
 
-Expression body formatting ：表達式內文編排格式
+Expression body formatting ：表達式內文的編排格式
 
 If the function has an expression body that doesn't fit in the same line as the declaration, put the `=` sign on the first line.Indent the expression body by 4 spaces.
 
-如果函數有表達式內文不適合與宣告同行，放 `=` 符號在第一行。透過4空格縮排表達式內文。
+如果函數有表達式內文不適合與宣告同行，放 `=` 符號在第一行。透過 4 空格縮排表達式內文。
 
 ``` kotlin
 fun f(x: String) =
     x.length
 ```
+---
+
 ### Property formatting
 
 Property formatting ：屬性編排格式
@@ -613,7 +626,7 @@ val isEmpty: Boolean get() = size == 0
 ```
 For more complex properties, always put `get` and `set` keywords on separate lines:
 
-對於更多複雜屬性，總是放 `get` 和 `put` 關鍵字在單獨一行
+對於更多複雜屬性，總是放 `get` 和 `put` 關鍵字在單獨一行：
 ```kotlin
 val foo: String
     get() { ... }
@@ -621,18 +634,20 @@ val foo: String
 For properties with an initializer, if the initializer is long, add a line break after the equals sign
 and indent the initializer by four spaces:
 
-對於使用初始化屬性，如果初始化太長，等於符號 `=` 換行並且透過4空格縮排初始化：
+對於初始化的屬性，如果初始化太長，在等於符號 `=` 後換行，並且透過 4 空格縮排初始化：
 ```kotlin
 private val defaultCharset: Charset? =
     EncodingRegistry.getInstance().getDefaultCharsetForPropertiesFiles(file)
 ```
+---
+
 ### Formatting control flow statements
 
-Formatting control flow statements ：控制流程敘述編排格式
+Formatting control flow statements ：控制流程敘述的編排格式
 
 If the condition of an `if` or `when` statement is multiline, always use curly braces around the body of the statement.Indent each subsequent line of the condition by 4 spaces relative to statement begin. Put the closing parentheses of the condition together with the opening curly brace on a separate line:
 
-如果 `if` 或 `when` 敘述的條件是多行，使用括號 `()` 環繞敘述內文。透過4個空格相對放置敘述開始條件，縮排後續每行條件。放條件結尾的右括號 `)` 與開頭敘述左括號 `{` 在單獨一行：
+如果 `if` 或 `when` 敘述的條件是多行，使用括號 `{}` 環繞敘述的內文。透過 4 個空格縮排後續每行條件，相對於敘述開始條件。放條件結尾的右括號 `)` 與開頭敘述左括號 `{` 在單獨一行：
 
 ``` kotlin
 if (!component.isSyncing &&
@@ -643,34 +658,34 @@ if (!component.isSyncing &&
 ```
 > Rationale: Tidy alignment and clear separation of condition and statement body
 
-> 理由：整潔對齊並清楚分隔條件和敘述內文
+> 理由：整潔對齊並清楚的條件分隔和敘述內文
 
 Put the `else`, `catch`, `finally` keywords, as well as the `while` keyword of a do/while loop, on the same line as the preceding curly brace:
 
-放置 `else` , `catch` , `finally` 關鍵字，以及 do/while 循環的 `while` 關鍵字，與結尾大括號 `}` 同行：
+放置 `else` , `catch` , `finally` 關鍵字，以及 do/while 循環的 `while` 關鍵字，與前述的大括號 `}` 同行：
 
 ``` kotlin
 if (condition) {
     // body
-} else {
+} else { // 前述的 } 與 else 同行
     // else part
 }
 
 try {
     // body
-} catch (e: SomeException) {
+} catch (e: SomeException) { // 前述的 } 與 catch 同行
     // handle
-} finally {
+} finally { // 前述的 } 與 finally 同行
     // cleanup
 }
 
 do  {
   // body
-} while (condition)
+} while (condition) // 前述的 } 與 while 同行
 ```
 In a `when` statement, if a branch is more than a single line, consider separating it from adjacent case blocks with a blank line:
 
-在 `when` 敘述，如果分支敘述超過一行，考慮使用空白行從相鄰事件區塊分隔它：
+在 `when` 敘述中，如果分支敘述超過一行，考慮從相鄰事件區塊和空白行分隔它：
 
 ``` kotlin
 private fun parsePropertyValue(propName: String, token: Token) {
@@ -685,23 +700,25 @@ private fun parsePropertyValue(propName: String, token: Token) {
 ```
 Put short branches on the same line as the condition, without braces.
 
-與條件同行的短分支，沒有括號。
+放置短分支與條件同行，沒有括號。
 
 ``` kotlin
 when (foo) {
-    true -> bar() // good
-    false -> { baz() } // bad
+    true -> bar() // good , true 條件 + 短分支敘述
+    false -> { baz() } // bad , 有大括號
 }
 ```
 
+---
+
 ### Method call formatting
 
-Method call formatting ：方法調用編排格式
+Method call formatting ：方法調用的編排格式
 
 In long argument lists, put a line break after the opening parenthesis. Indent arguments by 4 spaces. 
 Group multiple closely related arguments on the same line.
 
-在太長參數列表，左括號 `(` 後換行。透過 4 個空格縮排參數。多個密切相關參數群組為一行。
+在太長的參數列表中，在左括號 `(` 之後換行。透過 4 個空格縮排參數。群組多個密切相關參數在一行。
 
 ``` kotlin
 drawSquare(
@@ -712,15 +729,17 @@ drawSquare(
 ```
 Put spaces around the `=` sign separating the argument name and value.
 
-在 `=` 符號後空格分隔參數名稱與值。
+在 `=` 符號分隔參數名稱與值之間放空格。
+
+---
 
 ### Chained call wrapping
 
-Chained call wrapping ：包裝鍊式調用
+Chained call wrapping ：鍊式的調用包裝
 
 When wrapping chained calls, put the `.` character or the `?.` operator on the next line, with a single indent:
 
-當包裝鍊式調用時，放 `.` 字元或 `?.` 運算符在下一行的開頭，使用單行縮排 (4空格) ：
+當包裝鍊式的調用時，放 `.` 字元或 `?.` 運算符在下一行的開頭，和單行縮排 (4空格) ：
 
 ``` kotlin
 val anchor = owner
@@ -730,50 +749,54 @@ val anchor = owner
 ```
 The first call in the chain usually should have a line break before it, but it's OK to omit it if the code makes more sense that way.
 
-在鏈式的第一個調用之前通常應該換行分隔物件，忽略它的代碼更有意義的方式是 ok 的。
+在鏈式的第一個調用之前，通常應該換行分隔物件，如果使代碼更有意義的方式忽略它是 ok 的。
+
+---
 
 ### Lambda formatting
 
-Lambda formatting ：Lambda編排格式
+Lambda formatting ：Lambda 的編排格式
 
 In lambda expressions, spaces should be used around the curly braces, as well as around the arrow which separates the parameters from the body. If a call takes a single lambda, it should be passed outside of parentheses whenever possible.
 
-在 Lambda 表達式，應該在大括號 `{}` 之間空格，以及箭頭從內文分隔參數之間空格。如果一個調用帶有單個 Lambda `it`，它盡可能在括號外傳遞。
+在 Lambda 表達式中，空格應該被用在大括號 `{}` 之間， 以及箭頭 `->` 之間，從內文中分隔參數。如果一個調用帶有單個 Lambda ，它盡可能在括號外傳遞。
 
 ``` kotlin
 list.filter { it > 10 }
 ```
 If assigning a label for a lambda, do not put a space between the label and the opening curly brace:
 
-如果為 Lambda 分配一個標籤，在標記 `@` 與左大括號 `{ ` 之間不要放置空格：
+如果為 Lambda 分配一個標籤，不要放置空格在標記 `@` 與左大括號 `{ ` 之間：
 
 ``` kotlin
 fun foo() {
-    ints.forEach lit@{
+    ints.forEach lit@{ // lite 和 @ 之間不要空格
         // ...
     }
 }
 ```
 When declaring parameter names in a multiline lambda, put the names on the first line, followed by the arrow and the newline:
 
-當在多行 Lambda宣告參數命稱時，在第一行放置名稱，箭頭之後新的一行：
+當在多行 Lambda 中宣告參數名稱時，在第一行放置名稱，然後箭頭和換行：
 ``` kotlin
-appendCommaSeparated(properties) { prop ->
+appendCommaSeparated(properties) { prop -> // 名稱 + 箭頭 + 換行
     val propertyValue = prop.get(obj)  // ...
 }
 ```
 If the parameter list is too long to fit on a line, put the arrow on a separate line:
 
-如果參數列表太長適合新的一行，在單獨一行放箭頭 `->` ：
+如果參數列表太長適合新的一行，放箭頭 `->` 在單獨一行：
 
 ``` kotlin
 foo {
    context: Context,
    environment: Env
-   ->
+   -> // 上面參數太多，箭頭單獨一行
    context.configureEnv(environment)
 }
 ```
+---
+
 ## Documentation comments
 
 Documentation comments ：文件註解
