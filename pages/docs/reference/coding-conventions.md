@@ -590,7 +590,7 @@ Use regular indent (4 spaces) for function parameters.
 
 Prefer using an expression body for functions with the body consisting of a single expression.
 
-函數的內文由單行表達式組合，函數偏好使用 Lambda 表達式當內文。
+函數的內文由單行表達式組合，函數優先使用 Lambda 表達式當內文。
 ``` kotlin
 fun foo(): Int {     // bad
     return 1 
@@ -803,7 +803,7 @@ Documentation comments ：文件註解
 
 For longer documentation comments, place the opening `/**` on a separate line and begin each subsequent line with an asterisk:
 
-對於太長文件註解，在單獨一行放開頭 `/**` 並使用星號 `*` 在後續每行的開頭：
+對於太的長文件註解，放置開頭 `/**` 在單獨一行，並使用星號 `*` 在後續每行的開頭：
 
 ``` kotlin
 /**
@@ -813,14 +813,14 @@ For longer documentation comments, place the opening `/**` on a separate line an
 ```
 Short comments can be placed on a single line:
 
-短註解可以放置單行：
+短註解可以被放置在單行：
 
 ``` kotlin
 /** This is a short documentation comment. */
 ```
 Generally, avoid using `@param` and `@return` tags. Instead, incorporate the description of parameters and return values directly into the documentation comment, and add links to parameters wherever they are mentioned. Use `@param` and `@return` only when a lengthy description is required which doesn't fit into the flow of the main text.
 
-通常，避免使用 `@param` 和 `@return` 標籤。相反，將參數描述 `＠param ....` 與回傳值 `@return ...` 直接合併到文件註解，並且新增連結到參數無論他們有沒有注意到。只在需要冗長描述且不適合主要文字流程時才使用 `@param` 和 `return` 。
+通常，避免使用 `@param` 和 `@return` 標籤。相反，直接合併參數描述 `＠param ....` 與回傳值 `@return ...` 到文件註解，並且新增連結到參數，無論他們有沒有被注意到。只當需要冗長描述且不適合主要文字流程時才使用 `@param` 和 `return` 。
 
 ``` kotlin
 // Avoid doing this:
@@ -839,19 +839,21 @@ fun abs(number: Int) = ...
  */
 fun abs(number: Int) = ...
 ```
+---
+
 ## Avoiding redundant constructs
 
 Avoiding redundant constructs ：避免冗餘的建構元
 
 In general, if a certain syntactic construction in Kotlin is optional and highlighted by the IDE as redundant, you should omit it in your code. Do not leave unnecessary syntactic elements in code just "for clarity".
 
-一般來說，如果在 Kotlin 某種語意結構由 IDE 視為冗餘是可選 (可有可無) 和突顯，你應該在你的代碼省略它。不要在代碼中留下不必要的語意元素，就是 '為了清晰' 。
+一般來說，如果在 Kotlin 中某種語意結構是由 IDE 視為冗餘是可選 (可有可無) 和突顯的，你應該在你的代碼中省略它。不要在代碼中留下不必要的語意元素，就是 "為了清晰易瞭" 。
+
+---
 
 ### Unit
 
-Unit ：單元
-
-**Unit：類似於 Java 的 null**
+Unit ： Kotlin的 Unit 類型，類似於 Java 的 null
 
 If a function returns Unit, the return type should be omitted:
 
@@ -862,13 +864,17 @@ fun foo() { // ": Unit" is omitted here
 
 }
 ```
+---
+
 ### Semicolons
 
 Semicolons ：分號
 
 Omit semicolons whenever possible.
 
-盡可能省略
+盡可能省略分號。
+
+---
 
 ### String templates
 
@@ -876,39 +882,45 @@ String templates ：字串模版
 
 Don't use curly braces when inserting a simple variable into a string template. Use curly braces only for longer expressions.
 
-當插入簡單變數到字串模版時不需要大括號。只有對於較長的表達式才使用大括號。
+當插入簡單變數到字串模版時，不需要大括號。使用大括號 `${...}` 只用於較長的表達式。
 
 ``` kotlin
 println("$name has ${children.size} children")
 ```
 
+---
+
 ## Idiomatic use of language features
 
-Idiomatic use of language features ：慣用語言特徵
+Idiomatic use of language features ：語言功能的習慣用途
 
 ### Immutability
 
-Immutability ：不可變、不變性
+Immutability ：不可變、不變性， `val` 宣告表示這個變數不能再改動
 
 Prefer using immutable data to mutable. Always declare local variables and properties as `val` rather than `var` if they are not modified after initialization.
 
-優先使用不可變的資料進行可變的。如果在初始化後不去修改區域變數和屬性，總是宣告為 `val` 而不是 `var` 。
+優先使用不可變的資料到可變的。如果在初始化後不會修改區域變數和屬性，總是宣告為 `val` 而不是 `var` 。
 
 Always use immutable collection interfaces (`Collection`, `List`, `Set`, `Map`) to declare collections which are not mutated. When using factory functions to create collection instances, always use functions that return immutable collection types when possible:
 
-總是使用不可變的集合介面 (抽象介面) (`Collection`, `List`, `Set`, `Map`) 進行宣告集合不可改變。而不是利用集合的衍生 (子) 類別為可變的集合類型，當使用工廠函數進行建立集合實例，盡可能回傳不可變集合類型 (抽象、介面) 而不是具體類型：
+總是使用不可變的集合介面 (抽象介面) (`Collection`, `List`, `Set`, `Map`) 進行宣告集合不可被改變。而不是利用集合的衍生 (子) 類別為可變的集合類型。當使用工廠函數去創建集合實例時，盡可能回傳不可變集合類型 (抽象、介面) 而不是具體類型：
 
 ``` kotlin
 // Bad: use of mutable collection type for value which will not be mutated
+// HashSet 是具體的子類型演算法改變時會變動
 fun validateValue(actualValue: String, allowedValues: HashSet<String>) { ... }
 
 // Good: immutable collection type used instead
+// Set 是抽象的類型，當有演算法改變時不會變動
 fun validateValue(actualValue: String, allowedValues: Set<String>) { ... }
 
 // Bad: arrayListOf() returns ArrayList<T>, which is a mutable collection type
+// 回傳類型是 ArrayList 具體的類型，演算法改變時會變動
 val allowedValues = arrayListOf("a", "b", "c")
 
 // Good: listOf() returns List<T>
+// 回傳類型是 List 當有演算法改變時不會變動
 val allowedValues = listOf("a", "b", "c")
 ```
 簡單說，使用抽象不使用具體
@@ -923,7 +935,7 @@ Default parameter values ：預設參數值
 
 Prefer declaring functions with default parameter values to declaring overloaded functions.
 
-優先宣告函數使用預設值去宣告多載函數。
+優先使用預設值的宣告函數去宣告多載函數。
 ``` kotlin
 // Bad
 fun foo() = foo("a")
@@ -940,7 +952,7 @@ Type aliases ：類型別名
 
 If you have a functional type or a type with type parameters which is used multiple times in a codebase, prefer defining a type alias for it:
 
-如果你有函數類型或使用類型參數的類型在代碼庫中多次使用，優先定義類型別名給它：
+如果你有函數的類型或使用類型參數的類型在代碼庫中多次使用，優先定義類型別名給它：
 ```kotlin
 typealias MouseClickHandler = (Any, MouseEvent) -> Unit
 typealias PersonIndex = Map<String, Person>
@@ -953,17 +965,17 @@ Lambda parameters ：Lambda 參數
 
 In lambdas which are short and not nested, it's recommended to use the `it` convention instead of declaring the parameter explicitly. In nested lambdas with parameters, parameters should be always declared explicitly.
 
-在 Lambda 是短而不內嵌的 (調用的callback) ，建議使用 `it` 慣語而不是明顯的宣告參數。使用參數在內嵌 Lambda，參數應該明顯已被宣告。
+在 Lambda 中是短而不內嵌的 (調用的callback) ，建議使用 `it` 慣語而不是明顯的宣告參數。在內嵌的 Lambda 和參數，應該明顯宣告參數。
 
 ---
 
 ### Returns in a lambda
 
-Returns in a lambda ：在 Lambda 回傳
+Returns in a lambda ：在 Lambda 中回傳
 
 Avoid using multiple labeled returns in a lambda. Consider restructuring the lambda so that it will have a single exit point.If that's not possible or not clear enough, consider converting the lambda into an anonymous function.
 
-在 Lambda 避免使用多個 return 標記。考慮重構 Lambda 以便它有單個出口點。如果這不可能或不夠清楚，考慮轉換 Lambda 到匿名函數。
+在 Lambda 中避免使用多個標記的 `@xxx` return 。考慮重構 Lambda 以便它有單個離開點。如果這不可能或不夠清楚，考慮轉換 Lambda 到匿名函數。
 
 Do not use a labeled return for the last statement in a lambda.
 
@@ -977,7 +989,7 @@ Named arguments ：命名參數
 
 Use the named argument syntax when a method takes multiple parameters of the same primitive type, or for parameters of `Boolean` type,unless the meaning of all parameters is absolutely clear from context.
 
-當方法帶有多個相同原生類型的參數或 `Boolean` 類型的參數使用命名參數語法，除非所有參數的意義從環境中絕對清楚的。
+當方法帶有多個相同原生類型的參數或 `Boolean` 類型的參數時，使用命名參數語法，除非所有參數的意義從環境中絕對清楚的。
 ``` kotlin
 drawSquare(x = 10, y = 10, width = 100, height = 100, fill = true)
 ```
@@ -1042,7 +1054,7 @@ Using nullable `Boolean` values in conditions ：在條件上使用可空的 `Bo
 
 If you need to use a nullable `Boolean` in a conditional statement, use `if (value == true)` or `if (value == false)` checks.
 
-如果在條件敘述上你需要使用可空的 `Boolean` ，使用`if (value == true)` 或 `if (value == false)` 檢查。
+如果在條件敘述中你需要使用可空的 `Boolean` ，使用 `if (value == true)` 或 `if (value == false)` 檢查。
 
 ---
 
@@ -1056,7 +1068,7 @@ Prefer using higher-order functions (`filter`, `map` etc.) to loops. Exception: 
 
 When making a choice between a complex expression using multiple higher-order functions and a loop, understand the cost of the operations being performed in each case and keep performance considerations in mind. 
 
-在使用多個高階函數的複雜表達式和環循之間做選擇，瞭解每個情況下正在執行操作的花費 (成本) 和留心持續考慮效能。
+在一個使用多個高階函數的複雜表達式和一個循環之間做選擇時，瞭解每個情況下正在執行操作的花費 (成本) 和留心持續考慮效能。
 
 ---
 
@@ -1088,7 +1100,7 @@ Prefer to use multiline strings instead of embedding `\n` escape sequences into 
 
 To maintain indentation in multiline strings, use `trimIndent` when the resulting string does not require any internal indentation, or `trimMargin` when internal indentation is required:
 
-為了在多行字串維護縮排，在結果字串不需要任何內部縮排使用 `trimIndent` ，或當內部縮排被需要 `trimMargin` ：
+在多行字串中維護縮排，當結果字串不需要任何內部縮排時，使用 `trimIndent` ，或當需要內部縮排時，使用 `trimMargin` ：
 
 ``` kotlin
 assertEquals(
@@ -1115,12 +1127,12 @@ In some cases functions with no arguments might be interchangeable with read-onl
 
 Prefer a property over a function when the underlying algorithm:
 
-當在底層演算法優先使用屬性勝過函數：
+當在底層演算法時，優先使用屬性勝過函數：
 
 * does not throw
   不會丟出異常
 * is cheap to calculate (or caсhed on the first run)
-  是便宜容易計算 (或 第一次運行保留快取)
+  是便宜容易計算 (或第一次運行保留快取)
 * returns the same result over invocations if the object state hasn't changed
   如果在物件的狀態沒有被改變，回傳相同的結果
 
@@ -1132,7 +1144,7 @@ Using extension functions ：使用擴展函數
 
 Use extension functions liberally. Every time you have a function that works primarily on an object, consider making it an extension function accepting that object as a receiver. To minimize API pollution, restrict the visibility of extension functions as much as it makes sense. As necessary, use local extension functions, member extension functions, or top-level extension functions with private visibility.
 
-使用豐富的擴展函數。每當你有一個在物件上主要工作的函數，考慮使它變成擴展函數接受物件為接收器。為了最小化污染 API ，限制擴展函數的可見性使它有意義的。根據需要，使用私有可見性的區域擴展函數、擴展函數成員、最高層級擴展函數。
+使用豐富的擴展函數。每當在物件上你有一個主要工作的函數，考慮使它變成擴展函數接受物件為被動物件。為了最小化污染 API ，限制擴展函數的可見性使它有意義的。根據需要，使用私有可見性的區域擴展函數、成員擴展函數 (類別內) 、私有可見性的最高層級擴展函數 (Kt 檔內)。
 
 ---
 
@@ -1146,7 +1158,7 @@ Declare a function as infix only when it works on two objects which play a simil
 
 Don't declare a method as infix if it mutates the receiver object.
 
-如果它是可變的接收器物件，則不要宣告方法為中綴。
+如果它是可變的被動物件，則不要宣告方法為中綴。
 
 ---
 
@@ -1171,7 +1183,7 @@ class Point(val x: Double, val y: Double) {
 ```
 If you have an object with multiple overloaded constructors that don't call different superclass constructors and can't be reduced to a single constructor with default argument values, prefer to replace the overloaded constructors with factory functions.
 
-如果你有一個物件有多個多載建構元，不能調用不同超 (父) 類別建構元並不可減少單個建構元的預設參數值，優先使用工廠函數代替多載建構元。
+如果你有一個有多個多載建構元的物件，不能調用不同超 (父) 類別建構元，並不可減少預設參數值的單個建構元的，優先使用工廠函數代替多載建構元。
 
 ---
 
@@ -1181,13 +1193,13 @@ Platform types ：平台類型
 
 A public function/method returning an expression of a platform type must declare its Kotlin type explicitly:
 
-一個公開函數/方法回傳平台類型表達式必須明確宣告它是 Kotlin 類型：
+一個公開函數/方法回傳平台類型表達式，必須明確宣告它是 Kotlin 類型：
 ``` kotlin
 fun apiCall(): String = MyJavaApi.getProperty("name")
 ```
 Any property (package-level or class-level) initialised with an expression of a platform type must declare its Kotlin type explicitly:
 
-任何屬性 (package-level 或 class-level) 使用平台類型表達式初始化必須明確宣告它是 Kotlin類型：
+任何屬性 (package-level 或 class-level) 使用平台類型表達式初始化，必須明確宣告它是 Kotlin類型：
 
 ``` kotlin
 class Person {
@@ -1405,11 +1417,11 @@ Coding conventions for libraries ：函式庫的編碼慣例
 
 When writing libraries, it's recommended to follow an additional set of rules to ensure API stability:
 
-當在寫函式庫代碼，推薦遵循以下額外規則組來確保 API 穩定性：
+當在寫函式庫代碼時，推薦遵循以下額外規則組合來確保 API 穩定性：
 
  * Always explicitly specify member visibility (to avoid accidentally exposing declarations as public API)
-   總是明確指定成員的可見性 (為了避免，意外揭露宣告為公開 API)
+   總是明確的指定，成員的見性 (為了避免，意外揭露宣告為公開 API)
  * Always explicitly specify function return types and property types (to avoid accidentally changing the return type when the implementation changes)
-   總是明確指定函數回傳類型和屬性回傳類型 (為了避免當實作改變時，意外改變回傳類型)
+   總是明確指定，函數回傳類型和屬性類型 (為了避免當實作改變時，意外改變回傳類型)
  * Provide KDoc comments for all public members, with the exception of overrides that do not require any new documentation (to support generating documentation for the library)
    為所有公開成員提供 KDoc 註解，除了不需要任何文件覆寫之外 (支持產生函式庫文件)
