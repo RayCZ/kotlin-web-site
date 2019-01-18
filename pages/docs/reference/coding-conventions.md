@@ -1420,8 +1420,8 @@ When writing libraries, it's recommended to follow an additional set of rules to
 當在寫函式庫代碼時，推薦遵循以下額外規則組合來確保 API 穩定性：
 
  * Always explicitly specify member visibility (to avoid accidentally exposing declarations as public API)
-   總是明確的指定，成員的見性 (為了避免，意外揭露宣告為公開 API)
+   總是明確的指定「成員的可見性」 (為了避免，意外揭露宣告為公開 API)
  * Always explicitly specify function return types and property types (to avoid accidentally changing the return type when the implementation changes)
-   總是明確指定，函數回傳類型和屬性類型 (為了避免當實作改變時，意外改變回傳類型)
+   總是明確指定「函數回傳類型」和「屬性類型」 (為了避免當實作改變時，意外改變回傳類型)
  * Provide KDoc comments for all public members, with the exception of overrides that do not require any new documentation (to support generating documentation for the library)
-   為所有公開成員提供 KDoc 註解，除了不需要任何文件覆寫之外 (支持產生函式庫文件)
+   為所有公開成員和覆寫的例外提供 KDoc 註解，不需要任何新文件 (支持產生函式庫文件)
