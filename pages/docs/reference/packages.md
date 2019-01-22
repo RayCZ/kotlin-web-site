@@ -60,7 +60,6 @@ Additional packages are imported depending on the target platform:
 - JS:    
   - [kotlin.js.*](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.js/index.html)
 
----
 
 ## Imports
 
