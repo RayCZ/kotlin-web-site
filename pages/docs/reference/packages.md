@@ -30,8 +30,6 @@ If the package is not specified, the contents of such a file belong to "default"
 
 如果 package 沒有被指定，這樣的檔案內容屬於 `default` package 沒有名稱。
 
----
-
 ## Default Imports
 
 Default Imports ：預設匯入函式庫
@@ -59,7 +57,6 @@ Additional packages are imported depending on the target platform:
 
 - JS:    
   - [kotlin.js.*](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.js/index.html)
-
 
 ## Imports
 
