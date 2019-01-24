@@ -19,14 +19,14 @@ Classes ：類別
 
 Classes in Kotlin are declared using the keyword *class*:
 
-在 Kotlin 的類別使用關鍵字 `class` 宣告：
+使用關鍵字 `class` 宣告在 Kotlin 的類別：
 
 ``` kotlin
 class Invoice { ... }
 ```
 The class declaration consists of the class name, the class header (specifying its type parameters, the primary constructor etc.) and the class body, surrounded by curly braces. Both the header and the body are optional; if the class has no body, curly braces can be omitted.
 
-類別宣告由類別名稱、類別標頭 ( 指定它的類型參數、主建構元等等。 ) 、類別內文所組成，內文由大括號圍繞。標頭和內文是可選的 (可填或不填) ；如果類別沒有內文，大括號可以被省略。
+類別宣告由類別名稱、類別標頭 ( 指定它的類型參數、主建構元等等。 ) 、類別內文所組成，由大括號圍繞。標頭和內文是可選的 (可填或不填) ；如果類別沒有內文，大括號可以被省略。
 
 ``` kotlin
 class Empty
@@ -37,17 +37,16 @@ class Empty
 
 Constructors ：建構元
 
-A class in Kotlin can have a **primary constructor** and one or more **secondary constructors**. The primary
-constructor is part of the class header: it goes after the class name (and optional type parameters).
+A class in Kotlin can have a **primary constructor** and one or more **secondary constructors**. The primary constructor is part of the class header: it goes after the class name (and optional type parameters).
 
-在 Kotlin 的類別可以有主建構元和一個或更多個次要建構元。主建構元是類別標頭的一部分：在類別名之後 (和可選的類型參數) 。
+在 Kotlin 的類別可以有「主要建構元」和一個或更多個「次要建構元」。主建構元是類別標頭的一部分：在類別名之後 (和可選的類型參數) 。
 
 ``` kotlin
 class Person constructor(firstName: String) { ... }
 ```
 If the primary constructor does not have any annotations or visibility modifiers, the *constructor* keyword can be omitted:
 
-如果主建構元不會有任何註釋 `@Nonnull` 或可見性 `public` 的修飾符，`constructor` 關建字可以被省略
+如果主建構元不會有任何註釋 `@Nonnull` 或可見性 `public` 的修飾符，`constructor` 關建字可以被省略：
 
 ``` kotlin
 class Person(firstName: String) { ... }
@@ -81,11 +80,11 @@ fun main(args: Array<String>) {
     InitOrderDemo("hello")
 }
 
-//ans:
-//First property: hello
-//First initializer block that prints hello
-//Second property: 5
-//Second initializer block that prints 5
+// ans:
+// First property: hello
+// First initializer block that prints hello
+// Second property: 5
+// Second initializer block that prints 5
 ```
 Note that parameters of the primary constructor can be used in the initializer blocks. They can also be used in property initializers declared in the class body:
 
@@ -116,7 +115,7 @@ class Customer public @Inject constructor(name: String) { ... }
 ```
 For more details, see [Visibility Modifiers](visibility-modifiers.md#constructors).
 
-更多細節，看參閱 [Visibility Modifiers](visibility-modifiers.md#constructors) 。
+更多細節，看參閱[可見性修飾符](visibility-modifiers.md#constructors)。
 
 ---
 
@@ -126,7 +125,7 @@ Secondary Constructors ：次要建構元
 
 The class can also declare **secondary constructors**, which are prefixed with *constructor*:
 
-類別也可以宣告次要建構元，使用 `constructor` 為前綴：
+類別也可以宣告「次要建構元」，使用 `constructor` 為前綴：
 ``` kotlin
 class Person {
     constructor(parent: Person) {
@@ -136,7 +135,7 @@ class Person {
 ```
 If the class has a primary constructor, each secondary constructor needs to delegate to the primary constructor, either directly or indirectly through another secondary constructor(s). Delegation to another constructor of the same class is done using the *this* keyword:
 
-如果類別已有主建構元，每個次要建構元需要調用主建構元。用直接或間接方式通過另一個次要建構元調用主建構元 `: this(name)`，使用 `this` 完成相同類別的另一個建構元調用：
+如果類別已有主建構元，每個次要建構元需要調用 (委派) 主建構元，直接或間接透過另一個次要建構元 `: this(name)` 。使用 `this` 關鍵字完成相同類別的另一個建構元調用 (委派) ：
 ``` kotlin
 class Person(val name: String) {
     constructor(name: String, parent: Person) : this(name) {
@@ -146,7 +145,7 @@ class Person(val name: String) {
 ```
 Note that code in initializer blocks effectively becomes part of the primary constructor. Delegation to the primary constructor happens as the first statement of a secondary constructor, so the code in all initializer blocks is executed before the secondary constructor body. Even if the class has no primary constructor, the delegation still happens implicitly, and the initializer blocks are still executed:
 
-注意：在初始化區塊的該代碼有效的成為主建構元的一部分。調用主建構元發生在次要建構元的一個敘述，所以在執行次要建構元內文之前先執行所有在初始化區塊的代碼。即使類別沒有主建構元，調用還是會隱性發生，並且初始化區塊仍然被執行：
+注意：在初始化區塊中代碼有效的成為主建構元的一部分。調用 (委派) 主建構元發生在次要建構元的首要敘述，所以在次要建構元內文之前，執行所有在初始化區塊的代碼。就算類別沒有主建構元，調用 (委派) 還是會隱性發生，並且初始化區塊仍然被執行：
 
 ``` kotlin
 //sampleStart
@@ -171,13 +170,13 @@ fun main(args: Array<String>) {
 ```
 If a non-abstract class does not declare any constructors (primary or secondary), it will have a generated primary constructor with no arguments. The visibility of the constructor will be public. If you do not want your class to have a public constructor, you need to declare an empty primary constructor with non-default visibility:
 
-如果一個非抽象類別沒有宣告任何建構元 (主要或次要)，它將自動生成一個沒有參數的主建構元。建構元的可見性將為公開的。如果你不想要你的類別有公開建構元，你需要宣告一個空的、非預設可見性建構元：
+如果一個非抽象類別沒有宣告任何建構元 (主要或次要)，它將自動產生一個沒有參數的主建構元。建構元的可見性將為公開的。如果你不想要你的類別有公開建構元，你需要宣告一個非預設可見性空的建構元：
 ``` kotlin
 class DontCreateMe private constructor () { ... }
 ```
 > **NOTE**: On the JVM, if all of the parameters of the primary constructor have default values, the compiler will generate an additional parameterless constructor which will use the default values. This makes it easier to use Kotlin with libraries such as Jackson or JPA that create class instances through parameterless constructors.
 >
-> **注意**：在 JVM 上，如果主建構元的所有參數有預設值，編譯器將生成額外無參數的建構元，無參數建構元將使用預設值。這使它更容易去使用 Kotlin的函式庫，例如： Jackson 、 JPA ，函式庫通過無參數建構元建立類別實例。
+> **注意**：在 JVM 上，如果主建構元的所有參數有預設值，編譯器將產生額外無參數的建構元，無參數建構元將使用預設值。這使它更容易去使用 Kotlin的函式庫，例如： Jackson 、 JPA ，函式庫通過無參數建構元建立類別實例。
 >
 > ```kotlin
 > class Customer(val customerName: String = "")
