@@ -7,7 +7,7 @@ title: "Delegated Properties"
 
 # Delegated Properties
 
-Delegated Properties ：委外屬性
+Delegated Properties ：委外的屬性
 
 There are certain common kinds of properties, that, though we can implement them manually every time we need them, 
 would be very nice to implement once and for all, and put into a library. Examples include:
