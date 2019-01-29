@@ -11,7 +11,7 @@ Interface ：介面
 
 Interfaces in Kotlin are very similar to Java 8. They can contain declarations of abstract methods, as well as method implementations. What makes them different from abstract classes is that interfaces cannot store state. They can have properties but these need to be abstract or to provide accessor implementations.
 
-在 Kotlin 的介面與 Java 8 非常類似。它們可以包含抽象方法的宣告，及方法的實作。使它們與抽象類別不一樣的是介面不可以儲存狀態。它們可以有屬性，但這些屬性需要變成抽象或提供存取器實作。
+在 Kotlin 的介面與 Java 8 非常類似。它們可以包含抽象方法的宣告，以及方法的實作。使它們與抽象類別不同的是介面不可以儲存狀態。它們可以有屬性，但這些屬性需要變成抽象或提供存取器實作。
 
 An interface is defined using the keyword *interface*
 
@@ -48,7 +48,7 @@ Properties in Interfaces ：在介面中的屬性
 
 You can declare properties in interfaces. A property declared in an interface can either be abstract, or it can provide implementations for accessors. Properties declared in interfaces can't have backing fields, and therefore accessors declared in interfaces can't reference them.
 
-你可以在介面中宣告屬性。在介面中宣告一個屬性可以是抽象的，或它可以為存取器提供實作。在介面中宣告屬性不可以有支援欄位，因此在介面中宣告存取器不可以引用到支援欄位。
+你可以在介面中宣告屬性。在介面中宣告一個屬性可以是抽象的，或可以為存取器提供它的實作。在介面中宣告屬性不可以有支援欄位，因此在介面中宣告存取器不可以引用支援欄位。
 
 ``` kotlin
 interface MyInterface {
@@ -131,8 +131,8 @@ class D : A, B {
 
 Interfaces *A* and *B* both declare functions *foo()* and *bar()*. Both of them implement *foo()*, but only *B* implements *bar()* (*bar()* is not marked abstract in *A*, because this is the default for interfaces, if the function has no body). Now, if we derive a concrete class *C* from *A*, we, obviously, have to override *bar()* and provide an implementation.
 
-介面 `A` 和 `B` 都宣告函數 `foo()` 和 `bar()`。它們兩個都實作 `foo()` ，但只有 `B` 實作 `bar()` (`bar()` 在 `A` 沒有被標記為抽象，因為這是介面的預設，如果函數沒有內容) 。現在，如果我們從 `A` 衍生具體類別 `C` ，我們顯然必須覆寫 `bar()` 並提供一個實作。
+介面 `A` 和 `B` 兩者宣告函數 `foo()` 和 `bar()`。它們兩者都實作 `foo()` ，但只有 `B` 實作 `bar()` (`bar()` 在 `A` 沒有被標記為抽象，因為這是介面的預設，如果函數沒有內文) 。現在，如果我們從 `A` 衍生具體類別 `C` ，我們顯然必須覆寫 `bar()` 並提供一個實作。
 
 However, if we derive *D* from *A* and *B*, we need to implement all the methods which we have inherited from multiple interfaces, and to specify how exactly *D* should implement them. This rule applies both to methods for which we've inherited a single implementation (*bar()*) and multiple implementations (*foo()*).
 
-可是，如果我們從 `A` 和 `B` 衍生 `D`，我們需要實作從多個介面繼承的所有方法，並指定 `D` 應該如何實作。這個規則適用我們繼承單個實作 (`bar()`) 和多個實作 (`foo()`) 的方法。
+可是，如果我們從 `A` 和 `B` 衍生 `D`，我們需要實作從多個介面繼承的所有方法，並指定 `D` 應該如何實作。這個規則適用，我們已繼承單個實作 (`bar()`) 和多個實作 (`foo()`) 的方法。
