@@ -11,7 +11,7 @@ Visibility Modifiers ：可見性修飾符
 
 Classes, objects, interfaces, constructors, functions, properties and their setters can have _visibility modifiers_. (Getters always have the same visibility as the property.) There are four visibility modifiers in Kotlin: `private`, `protected`, `internal` and `public`. The default visibility, used if there is no explicit modifier, is `public`.
 
-類別、物件、介面、建構元、函數、屬性和它們的設置屬性可以有可見性修飾符。 ( 獲取屬性總有與屬性相同的可見性。 ) 在 Kotlin 中有四種可見性修飾符： `private` 、 `protected` 、 `internal` 、 `public` 。如果沒有明顯的修飾符，預設可見性是 `public` 。
+類別、物件、介面、建構元、函數、屬性和它們的設置屬性可以有**可見性修飾符**。 ( 獲取屬性總有與屬性相同的可見性。 ) 在 Kotlin 中有四種可見性修飾符： `private` 、 `protected` 、 `internal` 、 `public` 。如果沒有明顯的修飾符，預設可見性是 `public` 。
 
 Below please find explanations of how the modifiers apply to different types of declaring scopes.
 
@@ -22,7 +22,7 @@ Below please find explanations of how the modifiers apply to different types of 
 
 Functions, properties and classes, objects and interfaces can be declared on the "top-level", i.e. directly inside a package:
 
-函數、屬性、類別、物件、介面可以被宣告在 "最高層級" ，即是直接在 package 內宣告：
+函數、屬性、類別、物件、介面可以被宣告在 "最高層級" ，即是，直接在 package (.kt 檔案) 內宣告：
 
 ``` kotlin
 // file name: example.kt
@@ -31,19 +31,18 @@ fun baz() { ... }
 class Bar { ... }
 ```
 
-* If you do not specify any visibility modifier, `public` is used by default, which means that your declarations will be
-  visible everywhere;
+* If you do not specify any visibility modifier, `public` is used by default, which means that your declarations will be visible everywhere;
   如果你沒有指定任何可見性修飾符， 預設使用 `public` ， `public` 意味著你的宣告將隨處可見可用； 
 * If you mark a declaration `private`, it will only be visible inside the file containing the declaration;
-  如果你標記宣告 `private` ， `private` 將只能在檔案包含的宣告可見；
+  如果你標記宣告 `private` ， `private` 將只能在檔案包含的宣告內可見；
 * If you mark it `internal`, it is visible everywhere in the same [module](#modules);
-  如果標記它為 `internal` ，它在相同模組隨處可見；
+  如果標記它為 `internal` ，它在相同[模組](#modules)隨處可見；
 * `protected` is not available for top-level declarations.
-  `protected` 不可用於最高層級宣告。
+  `protected` 不可適用於最高層級宣告。
 
 Note: to use a visible top-level declaration from another package, you should still [import](packages.md#imports) it.
 
-注意：從其他 package 使用可見的最高層級宣告，你還是應該[匯入](packages.md#imports)它
+注意：從其他 package 使用可見的最高層級宣告，你還是應該[匯入](packages.md#imports)它。
 
 Examples:
 
@@ -122,18 +121,15 @@ class Unrelated(o: Outer) {
 
 Constructors ：建構元
 
-To specify a visibility of the primary constructor of a class, use the following syntax (note that you need to add an
-explicit *constructor* keyword):
+To specify a visibility of the primary constructor of a class, use the following syntax (note that you need to add an explicit *constructor* keyword):
 
-指定類別的主建構元可見性，使用以下句法 (注意：你需要添加一個明確的 *constructor* 關鍵字) ：
+指定類別的主建構元可見性，使用以下語法 (注意：你需要添加一個明確的 **constructor** 關鍵字) ：
 
 ``` kotlin
 class C private constructor(a: Int) { ... }
 ```
 
-Here the constructor is private. By default, all constructors are `public`, which effectively
-amounts to them being visible everywhere where the class is visible (i.e. a constructor of an `internal` class is only 
-visible within the same module).
+Here the constructor is private. By default, all constructors are `public`, which effectively amounts to them being visible everywhere where the class is visible (i.e. a constructor of an `internal` class is only visible within the same module).
 
 這裡的建構元是 `private`。預設上，所有建構元是 `public` ， `public` 實際上相當於他們類別可見的每個地方都可見 (即是 `internal` 類別的建構元只能在相同模組內可見) 。
 
@@ -159,6 +155,6 @@ The `internal` visibility modifier means that the member is visible within the s
   * a Maven project;
     一個 Maven 專案；
   * a Gradle source set (with the exception that the `test` source set can access the internal declarations of `main`);
-    一個 Gradle來源集合 (除了 `test` 來源集合可以存取 `main` 的內部宣告)；
+    一個 Gradle 來源集合 (除了 `test` 來源集合可以存取 `main` 的內部宣告)；
   * a set of files compiled with one invocation of the `<kotlinc>` Ant task.
     一次性調用的 Ant 任務編譯成一組檔案。
