@@ -81,7 +81,7 @@ val inferredType = 1 // has type Int and a default getter
 
 We can define custom accessors for a property. If we define a custom getter, it will be called every time we access the property (this allows us to implement a computed property). Here's an example of a custom getter:
 
-我們為屬性定義自定義的存取器。如果我們定義自定義獲取置屬性，每次調用時，我們存取屬性 (這允許我們去實作計算屬性) 。以下是自定義獲取屬性的範例：
+我們可以為屬性定義客製的存取器。如果我們定義客製的獲取屬性，每次調用時，我們存取屬性 (這允許我們去實作計算屬性) 。以下是客製獲取屬性的範例：
 
 ``` kotlin
 val isEmpty: Boolean
@@ -90,7 +90,7 @@ val isEmpty: Boolean
 
 If we define a custom setter, it will be called every time we assign a value to the property. A custom setter looks like this:
 
-如果我們定義一個自定義設置屬性，每次調用時，我們分配一個值給屬性。一個自定義設置屬性看起來像：
+如果我們定義一個客製的設置屬性，每次調用時，我們分配一個值給屬性。一個客製的設置屬性看起來像：
 
 ``` kotlin
 var stringRepresentation: String
@@ -196,8 +196,8 @@ Properties the value of which is known at compile time can be marked as _compile
 
 編譯時期的常數使用 ` const` 修飾符標記為在編譯時期已知屬性的值。這樣屬性需要滿足以下需求：
 
-  * Top-level or member of an `object`
-    最高層級或物件成員
+  * Top-level, or member of an [*object* declaration](object-declarations.md#object-declarations) or [a *companion object*](object-declarations.md#companion-objects)
+    最高層級、**物件宣告**或**夥伴物件**的成員
   * Initialized with a value of type `String` or a primitive type
     `String` 類型或原生類型初始化的值
   * No custom getter

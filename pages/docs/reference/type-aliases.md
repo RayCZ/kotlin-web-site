@@ -49,7 +49,7 @@ typealias AInner = A.Inner
 typealias BInner = B.Inner
 ```
 
-Type aliases do not introduce new types. They are equivalent to the corresponding underlying types. When you add `typealias Predicate<T>` and use `Predicate<Int>` in your code, the Kotlin compiler always expand it to `(Int) -> Boolean`. Thus you can pass a variable of your type whenever a general function type is required and vice versa:
+Type aliases do not introduce new types. They are equivalent to the corresponding underlying types. When you add `typealias Predicate<T>` and use `Predicate<Int>` in your code, the Kotlin compiler always expands it to `(Int) -> Boolean`. Thus you can pass a variable of your type whenever a general function type is required and vice versa:
 
 類型別名不會引入新的類型。他們相當於對應的底層類型。當你添加 `typealias Predicate<T>` 並在你的代碼中使用 `Predicate<Int>` ， Kotlin 編譯器總是擴展它是 `(Int) -> Boolean` 。因此每當需要泛型函數時，你可以傳遞你類型的變數，反過來也是如此。
 

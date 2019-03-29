@@ -242,7 +242,7 @@ Equality and inequality operators ：相等和不相等運算符
 
 These operators only work with the function [`equals(other: Any?): Boolean`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/equals.html), which can be overridden to provide custom equality check implementation. Any other function with the same name (like `equals(other: Foo)`) will not be called.
 
-這些運算符只能使用函數 [`equals(other: Any?): Boolean`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/equals.html) ，可以覆寫它，去提供自定相等檢查實作。任何其他使用相同名稱的函數 (像 `equals(other: Foo)`) 將不會被調用。
+這些運算符只能使用函數 [`equals(other: Any?): Boolean`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/equals.html) ，可以覆寫它，去提供自定義的相等檢查實作。任何其他使用相同名稱的函數 (像 `equals(other: Foo)`) 將不會被調用。
 
 *Note*: `===` and `!==` (identity checks) are not overloadable, so no conventions exist for them.
 

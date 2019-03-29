@@ -53,7 +53,7 @@ Additionally, the members generation follows these rules with regard to the memb
 * If a supertype has the `componentN()` functions that are *open* and return compatible types, the corresponding functions are generated for the data class and override those of the supertype. If the functions of the supertype cannot be overridden due to incompatible signatures or being final, an error is reported; 
   如果一個超 (父) 類型有 `componentN()`函數是 `open` 且回傳兼容類型，資料類別生成對應函數並覆寫超 (父) 類型函數。如果超 (父) 類型函數不可以覆寫因為不兼容的簽名或使用 `final` ，則會報告錯誤；
 
-* Deriving a data class from a type that already has a `copy(...)` function with a matching signature is deprecated in Kotlin 1.2 and will be prohibited in Kotlin 1.3.
+* Deriving a data class from a type that already has a `copy(...)` function with a matching signature is deprecated in Kotlin 1.2 and is prohibited in Kotlin 1.3.
   一個類型已有一個 `copy(...)` 函數具有匹配簽名的衍生類別在 Kotlin 1.2 版棄用並且將在 Kotlin 1.3 版禁用。
 
 * Providing explicit implementations for the `componentN()` and `copy()` functions is not allowed.

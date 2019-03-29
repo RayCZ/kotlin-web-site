@@ -294,9 +294,9 @@ Use 4 spaces for indentation. Do not use tabs.
 
 使用四個空格為縮排。不使用 tabs。
 
-For curly braces, put the opening brace in the end of the line where the construct begins, and the closing brace on a separate line aligned vertically with the opening construct.
+For curly braces, put the opening brace in the end of the line where the construct begins, and the closing brace on a separate line aligned horizontally with the opening construct.
 
-對於大括號 `{}` , 在行尾放開頭大括號 `{` 表示建構開始，並在單獨一行關閉大括號 `}` 垂直對齊開頭建構。
+對於大括號 `{}` , 在行尾放開頭大括號 `{` 表示建構開始，並在單獨一行關閉大括號 `}` 水平對齊開頭建構。
 
 ``` kotlin
 if (elements != null) {
@@ -444,9 +444,9 @@ class Person(
     KotlinMaker { ... }
 ```
 
-For classes with a long supertype list, put a line break after the colon and align all supertype names vertically:
+For classes with a long supertype list, put a line break after the colon and align all supertype names horizontally:
 
-對於類別有較長的超 (父) 類清單，在冒號後斷行並垂直對齊所有超 (父) 類型名稱：
+對於類別有較長的超 (父) 類清單，在冒號後斷行並水平對齊所有超 (父) 類型名稱：
 
 
 ```kotlin

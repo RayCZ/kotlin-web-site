@@ -79,7 +79,7 @@ expect annotation class Test
 
 // JVM , 多平台之一實作函數
 actual fun formatString(source: String, vararg args: Any) =
-    String.format(source, args) // 實作
+    String.format(source, *args) // 實作
     
 actual typealias Test = org.junit.Test // 實作
 ```

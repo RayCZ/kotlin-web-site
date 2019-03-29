@@ -193,7 +193,7 @@ val x = MyClass.Companion
 
 The name of a class used by itself (not as a qualifier to another name) acts as a reference to the companion object of the class (whether named or not):
 
-透過類別本身使用類別名稱 (不作為另一個名稱的修飾符) 充當類別的夥伴物件引用 (無論是否有命名) ：
+透過類別本身使用類別的名稱 (不作為另一個名稱的修飾符) 充當類別的夥伴物件引用 (無論是否有命名) ：
 
 ```kotlin
 class MyClass1 {

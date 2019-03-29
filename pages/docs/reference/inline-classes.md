@@ -17,9 +17,9 @@ Sometimes it is necessary for business logic to create a wrapper around some typ
 
 有時候，商業邏輯需要創建裝箱類型環繞某些類型。然而，由於額外的 heap 分配，它會引入運行時開銷，如果裝箱的類型是原生的，性能損失是可怕的，因為原生類型通常由運行時沉重的優化，同時它們的裝箱類型不會得到任何特殊處理。
 
-To solve such kind of issues, Kotlin introduces special kind of classes called `inline classes`, which are introduced by placing modifier `inline` before the name of the class:
+To solve such issues, Kotlin introduces a special kind of class called an `inline class`, which is declared by placing an `inline` modifier before the name of the class:
 
-為了解決這種類型的問題， Kotlin 引入特別種類的類別稱為 `inline classes` ，透過在類別的名稱前面放置修飾符 `inline` 引入。
+為了解決這樣的問題， Kotlin 引入特別種類的類別稱為 `inline classes` ，透過在類別的名稱前面放置修飾符 `inline` 宣告。
 
 
 ```kotlin
@@ -37,17 +37,17 @@ An inline class must have a single property initialized in the primary construct
 val securePassword = Password("Don't try this in production") 
 ```
 
-This is the primary property of inline classes, which inspired name "inline": data of the class is "inlined" into its usages (similar to how content of [inline functions](inline-functions.md) is inlined to call sites)
+This is the main feature of inline classes, which inspired the name "inline": data of the class is "inlined" into its usages (similar to how content of [inline functions](inline-functions.md) is inlined to call sites).
 
-這是行內置入類別的主要屬性，啟發的名稱 "inline" (置入) ：類別的資料是 "置入的" 到它的用法 (與[行內置入函數](inline-functions.md)被置入到調用場景類似)
+這是行內置入類別的主要功能，啟發的名稱 "inline" (置入) ：類別的資料是 "置入的" 到它的用法 (與[行內置入函數](inline-functions.md)被置入到調用場景類似)
 
 ## Members
 
 Members ：成員
 
-Inline classes support some functionality of usual classes. In particular, they are allowed to declare properties and functions:
+Inline classes support some functionality of regular classes. In particular, they are allowed to declare properties and functions:
 
-行內置入類別支援常用類別的一些功能。特別是，它們允許去宣告屬性和函數：
+行內置入類別支援常規類別的一些功能。特別是，它們允許去宣告屬性和函數：
 
 ```kotlin
 inline class Name(val s: String) {
@@ -83,7 +83,7 @@ However, there are some restrictions for inline classes members:
 
 Inheritance ：繼承
 
-Inline classes are allowed to inherit interfaces:
+Inline classes are allowed to inherit from  interfaces:
 
 行內置入類別允許繼承介面：
 
@@ -102,7 +102,7 @@ fun main() {
 }
 ```
 
-It is forbidden for inline classes to participate in classes hierarchy. This means inline classes cannot extend other classes and must be *final*.
+It is forbidden for inline classes to participate in classes hierarchy. This means that inline classes cannot extend other classes and must be *final*.
 
 禁止行內置入類別參與類別層級。這意味著行內置入類別不可以擴展其他的類別並且必須是 **finall** 。
 
@@ -110,9 +110,9 @@ It is forbidden for inline classes to participate in classes hierarchy. This mea
 
 Representation ：表示，解譯行內置入類別的裝箱的數值
 
-In generated code, the Kotlin compiler keeps a *wrapper* for each inline class. Inline classes instances can be represented at runtime either as wrappers or the underlying type. This is similar to how `Int` can be [represented](basic-types.md#representation) either as a primitive `int` or the wrapper `Integer`.
+In generated code, the Kotlin compiler keeps a *wrapper* for each inline class. Inline class instances can be represented at runtime either as wrappers or as the underlying type. This is similar to how `Int` can be [represented](basic-types.md#representation) either as a primitive `int` or the wrapper `Integer`.
 
-在產生的代碼中， Kotlin 編譯器保留一個裝箱器用於每個行內置入類別。在運行時期，行內置入類別實例被[表示](basic-types.md#representation)為裝箱類型或底層類型。這類似於 `Int` 被表示為原生類型 `int` 或裝箱類型 `Integer` 。
+在產生的代碼中， Kotlin 編譯器保留一個裝箱器用於每個行內置入類別。在運行時期，行內置入類別實例被[表示](basic-types.md#representation)為裝箱類型或為底層類型。這類似於 `Int` 被表示為原生類型 `int` 或裝箱類型 `Integer` 。
 >>>>>>> ray
 
 The Kotlin compiler will prefer using underlying types instead of wrappers to produce the most performant and optimized code. However, sometimes it is necessary to keep wrappers around. As a rule of thumb, inline classes are boxed whenever they are used as another type.
@@ -166,11 +166,11 @@ fun compute(x: Int) { }
 fun compute(x: UInt) { }
 ```
 
-To mitigate such issues, functions which use inline classes are *mangled* by adding some stable hashcode to the function name. Therefore, `fun compute(x: UInt)` will be in fact represented as `public final void compute-<hashcode>(int x)`, which therefore solves the clash problem.
+To mitigate such issues, functions using inline classes are *mangled* by adding some stable hashcode to the function name. Therefore, `fun compute(x: UInt)` will be in represented as `public final void compute-<hashcode>(int x)`, which therefore solves the clash problem.
 
 為了減輕這些問題，透過添加一些穩定的 hashcode 給函數名稱粉碎使用函數的行內置入類別。因此， `fun compute(x: UInt)` 將表示為 `public final void compute-<hashcode>(int x)` ，因此解決衝突問題。
 
-> Note that `-` is a *invalid* symbol in Java, meaning that it is impossible to call functions which accept inline classes from Java.
+> Note that `-` is an *invalid* symbol in Java, meaning that it's impossible to call functions which accept inline classes from Java.
 >
 > 注意： `-` 在 Java 中是無效的記號，意味著無法調用從 Java 接受行內置入類別的函數。
 
@@ -178,7 +178,7 @@ To mitigate such issues, functions which use inline classes are *mangled* by add
 
 Inline classes vs type aliases ：行內置入類別 vs 類型別名
 
-At first sight, inline classes may appear to be very similar to [type aliases](type-aliases.md). Indeed, both appear to introduce a new type and both will be represented as the underlying type at runtime.
+At first sight, inline classes may appear to be very similar to [type aliases](type-aliases.md). Indeed, both seem to introduce a new type and both will be represented as the underlying type at runtime.
 
 乍看之下，行內置入類別似乎與[類型別名](type-aliases.md)非常相似。實際上，兩者似乎引入一個新類型，並且兩者將在運行時期表示為底層類型。
 
@@ -211,10 +211,10 @@ fun main() {
 
     // And vice versa:
     // 參數是別名 (字串類型)，丟字串類型可以
-    acceptNameTypeAlias("") // OK: pass underlying type instead of alias
+    acceptNameTypeAlias(string) // OK: pass underlying type instead of alias
     
     // 參數是 NameInlineClass 類型，不可以丟字串
-    acceptNameInlineClass("") // Not OK: can't pass underlying type instead of inline class
+    acceptNameInlineClass(string) // Not OK: can't pass underlying type instead of inline class
 }
 ```
 
@@ -226,7 +226,7 @@ The design of inline classes is experimental, meaning that this feature is *movi
 
 行內置入類別的設計是實驗性的，意味著這個功能正在快速的移動搬移並沒有給出兼容性保證，當在 Kotlin 1.3+ 中使用行內置入類型時，將報出一個警告，表明這個功能是實驗性的。
 
-To remove the warning, you have to opt into the usage of experimental features by passing the argument `-XXLanguage:+InlineClasses` to the `kotlinc`.
+To remove the warning you have to opt in to the usage of experimental features by passing the argument `-XXLanguage:+InlineClasses` to `kotlinc`.
 
 要刪除警告，你必須透過傳遞參數 `-XXLanguage:+InlineClasses` 給 `kotlinc` 選擇使用實驗性功能。
 

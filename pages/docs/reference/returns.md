@@ -35,9 +35,9 @@ The type of these expressions is the [Nothing type](exceptions.md#the-nothing-ty
 
 Break and Continue Labels ：返回和繼續標籤
 
-Any expression in Kotlin may be marked with a *label*. Labels have the form of an identifier followed by the `@` sign, for example: `abc@`, `fooBar@` are valid labels (see the [grammar](https://kotlinlang.org/docs/reference/grammar.html#labelReference)). To label an expression, we just put a label in front of it
+Any expression in Kotlin may be marked with a *label*. Labels have the form of an identifier followed by the `@` sign, for example: `abc@`, `fooBar@` are valid labels (see the [grammar](https://kotlinlang.org/docs/reference/grammar.html#label)). To label an expression, we just put a label in front of it
 
-使用 `label` 可以標記在 Kotlin 中任何表達式。標籤有識別的形式後放 `@` 符號，例如： `abc@` 、 `fooBar@` 是有效的標籤 (請參閱 [grammar](https://kotlinlang.org/docs/reference/grammar.html#labelReference)) 。要標記表達式，我們只放一個標籤在它前面 `loop@ for (....)`
+使用 `label` 可以標記在 Kotlin 中任何表達式。標籤有識別的形式後放 `@` 符號，例如： `abc@` 、 `fooBar@` 是有效的標籤 (請參閱 [grammar](https://kotlinlang.org/docs/reference/grammar.html#label)) 。要標記表達式，我們只放一個標籤在它前面 `loop@ for (....)`
 
 ``` kotlin
 loop@ for (i in 1..100) {

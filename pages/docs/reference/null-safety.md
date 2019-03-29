@@ -71,7 +71,6 @@ To allow nulls, we can declare a variable as nullable string, written `String?`:
 
 ``` kotlin
 fun main() {
->>>>>>> ray
 //sampleStart
     var b: String? = "abc"
     b = null // ok

@@ -69,7 +69,7 @@ Default values are defined using the **=** after type along with the value.
 
 在類型之後使用 **=** 與值一起定義預設值。
 
-Overriding methods always use the same default parameter values as the base method. When overriding a method with default parameters values, the default parameter values must be omitted from the signature:
+Overriding methods always use the same default parameter values as the base method. When overriding a method with default parameter values, the default parameter values must be omitted from the signature:
 
 覆寫方法總是使用與基礎方法相同的預設參數值。當使用預設參數值覆寫方法時，必須從簽名省略預設參數值：
 

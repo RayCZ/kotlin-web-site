@@ -104,7 +104,7 @@ Note that boxing of numbers does not necessarily preserve identity:
 **===：使用這種表示法判斷是不是同一種參照、引用**
 
 ``` kotlin
-fun main(args: Array<String>) {
+fun main() {
 //sampleStart
     val a: Int = 10000
     println(a === a) // Prints 'true'
@@ -121,7 +121,7 @@ On the other hand, it preserves equality:
 **==：使用這種表示法判斷是不是相同結構內容**
 
 ``` kotlin
-fun main(args: Array<String>) {
+fun main() {
 //sampleStart
     val a: Int = 10000
     println(a == a) // Prints 'true'
@@ -156,7 +156,7 @@ As a consequence, smaller types are NOT implicitly converted to bigger types. Th
 
 結果，較小的類型不會隱式轉換到大類型。這意味著我們不會在沒有明顯的轉換情況下，將 `Byte` 類型值分配給 `Int` 變數
 ``` kotlin
-fun main(args: Array<String>) {
+fun main() {
 //sampleStart
     val b: Byte = 1 // OK, literals are checked statically
     val i: Int = b // ERROR
@@ -167,7 +167,7 @@ We can use explicit conversions to widen numbers
 
 我們可以使用明顯的轉換來擴大數值
 ``` kotlin
-fun main(args: Array<String>) {
+fun main() {
     val b: Byte = 1
 //sampleStart
     val i: Int = b.toInt() // OK: explicitly widened
