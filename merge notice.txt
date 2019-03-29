@@ -1,3 +1,7 @@
-﻿Commit: d1204d7b45a15a33a7bee27209e9915c7565de80 [d1204d7]
+﻿
+1.利用上次合併 commit 的前一個最新官方的 commit 與現在將要合併的官方 commit 做比對查看修改那些
+上次 commit ： fc3ddf092a9535537ba0bcad4e6ba65dbde604eb [fc3ddf0]
+這次 commit ： 7343a4fccd5538809e563b75225bc9f29905912b [7343a4f]
+利用這兩個查看新增多少內容
 
-利用這個 commit 與最新的 master commit 比較出異動的部分，更改 ray branch 
+2. 利用新增的內容比對這些合併是否有漏掉內容
