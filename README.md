@@ -14,18 +14,7 @@
 
 - [Control Flow](pages/docs/reference/control-flow.md) (控制流程)
 
-<<<<<<< HEAD
-All data is stored in the \*.yml files in folder `data`:
-
-- [_nav.yml](data/_nav.yml) site navigation and PDF building.
-- [releases.yml](data/releases.yml) info about releases.
-- [videos.yml](data/videos.yml) data for the Videos page. The `content` property is used to create categories.
-  It contains a list of videos or other categories. Maximum tree depth level is 3.
-- [events.xml](data/events.xml) event data.
-=======
 - [Returns and Jumps](pages/docs/reference/returns.md) (回傳和區段跳轉)
-
->>>>>>> ray
 
 ## Classes and Objects (類別與物件)
 
